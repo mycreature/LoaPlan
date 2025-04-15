@@ -1,11 +1,46 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: 'SUIT';
+  src: url('/fonts/SUIT-Regular.ttf') format('truetype');
+  font-weight: 400;
+}
+@font-face {
+  font-family: 'SUIT';
+  src: url('/fonts/SUIT-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+}
+@font-face {
+  font-family: 'SUIT';
+  src: url('/fonts/SUIT-Bold.ttf') format('truetype');
+  font-weight: 700;
+}
+@font-face {
+  font-family: 'SUIT';
+  src: url('/fonts/SUIT-ExtraBold.ttf') format('truetype');
+  font-weight: 800;
+}
+
 @layer base {
-    h1 {
-      font-size: var(--text-4xl);
-    
-    }
-    h2 {
-      font-size: var(--text-xl);
-    }
+  h1 {
+    font-size: 40px;
+    font-family: 'SUIT';
+    font-weight: 800;
   }
+  h2 {
+    font-size: 26px;
+    font-family: 'SUIT';
+    font-weight: 700;
+  }
+  h3 {
+    font-size: 22px;
+    font-family: 'SUIT';
+    font-weight: 800;
+  }
+  h4 {
+    font-size: var(--text-base);
+    font-family: 'SUIT';
+    font-weight: 600;
+    color: #BEBEBE;
+  }
+}
