@@ -1,26 +1,26 @@
-import { useState } from 'react'; // React의 useState 훅을 가져옵니다. 컴포넌트 내에서 상태를 관리하기 위해 사용됩니다.
-import { Link } from 'react-router-dom'; // React Router의 Link 컴포넌트를 가져옵니다. 페이지 간 네비게이션을 위해 사용됩니다.
-import useStore from '../store/store'; // Zustand 스토어를 가져옵니다. 전역 상태 관리를 위해 사용됩니다.
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import useStore from '../store/store';
 
 const Header = () => {
-  // 모바일 메뉴의 열림/닫힘 상태를 관리하는 로컬 상태입니다. 초기값은 false(닫힘)입니다.
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  
-  // Zustand 스토어에서 필요한 상태와 함수들을 가져옵니다.
-  // user: 현재 로그인한 사용자 정보
+
+  // user: 로그인 된 사용자 정보
   // darkMode: 다크모드 활성화 여부
-  // toggleDarkMode: 다크모드를 켜고 끄는 함수
+  // toggleDarkMode: 다크모드를 온오프 함수
   const { user, darkMode, toggleDarkMode } = useStore();
 
-  // 모바일 메뉴 토글 함수 - 메뉴의 열림/닫힘 상태를 반전시킵니다.
+  // isMobileMenuOpen: 모바일 메뉴의 열림/닫힘 상태를 관리하는 상태 변수입니다.
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  
+
+
+  // toggleMobileMenu: 모바일 크기 열림/닫힘 함수 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
   return (
-    // 헤더 컨테이너 요소입니다. 다크모드에 따라 배경색이 변경됩니다.
-    // className에서 ${} 문법은 템플릿 리터럴로, 조건부 스타일링을 가능하게 합니다.
-    <header className={`${darkMode ? 'bg-gray-900' : 'bg-gray-800'} text-white shadow-md transition-colors duration-300`}>
+    <header className={`${darkMode ? 'bg-black' : 'bg-green-500'} text-white shadow-md transition-colors duration-300`}>
       {/* 컨텐츠를 가운데 정렬하고 적절한 패딩을 주는 컨테이너입니다. */}
       <div className="container mx-auto px-4 py-3">
         {/* 로고와 네비게이션 요소들을 가로로 배치하는 Flex 컨테이너입니다. */}

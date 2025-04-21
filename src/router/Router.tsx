@@ -1,8 +1,8 @@
 import { ReactNode } from 'react';
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
-import Header from './layouts/Header';
-import Footer from './layouts/Header';
-import Home from './pages/Home';
+import Header from '../layouts/Header';
+import Footer from '../layouts/Header';
+import Home from '../pages/Home';
 
 interface LayoutProps {
   children: ReactNode;

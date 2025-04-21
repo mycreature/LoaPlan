@@ -1,44 +1,47 @@
-import { create } from 'zustand'; // Zustand 라이브러리의 create 함수를 가져옵니다. 상태 관리 스토어를 생성하는 데 사용됩니다.
-import { persist } from 'zustand/middleware'; // Zustand의 persist 미들웨어를 가져옵니다. 상태를 로컬 스토리지에 저장하는 데 사용됩니다.
+import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 
-// 유저 타입 정의 - 사용자 정보의 구조를 TypeScript 타입으로 정의합니다.
 type User = {
   id: string;      // 사용자 고유 식별자
   name: string;    // 사용자 이름
   email: string;   // 사용자 이메일
+  apikey: string;  // 로스트아크 API 키
 };
 
 // 스토어 상태 타입 정의 - 전체 스토어의 상태 구조와 액션(함수)들을 인터페이스로 정의합니다.
 interface StoreState {
-  // 다크모드 관련 상태 및 액션
-  darkMode: boolean;                // 다크모드 활성화 여부 (true/false)
-  toggleDarkMode: () => void;       // 다크모드 상태를 전환하는 함수
-  
-  // 사용자 관련 상태 및 액션
-  user: User | null;                // 현재 로그인한 사용자 정보 (없으면 null)
-  setUser: (user: User | null) => void; // 사용자 정보를 설정하는 함수
-  
-  // 로스트아크 캐릭터 관련 상태 및 액션
-  characters: Character[];          // 사용자의 모든 캐릭터 목록
-  addCharacter: (character: Character) => void;     // 새 캐릭터를 추가하는 함수
-  updateCharacter: (id: string, characterData: Partial<Character>) => void; // 기존 캐릭터 정보를 업데이트하는 함수
-  removeCharacter: (id: string) => void;           // 캐릭터를 삭제하는 함수
-  
-  // 기타 필요한 상태 및 액션들
+  darkMode: boolean;
+  toggleDarkMode: () => void;
+
+  user: User | null;
+  setUser: (user: User | null) => void;
+
+  characters: Character[];
+  addCharacter: (character: Character) => void;
+  updateCharacter: (id: string, characterData: Partial<Character>) => void;
+  removeCharacter: (id: string) => void;
 }
 
-// 캐릭터 타입 정의 - 캐릭터 정보의 구조를 TypeScript 타입으로 정의합니다.
+
 interface Character {
   id: string;              // 캐릭터 고유 식별자
   name: string;            // 캐릭터 이름
-  class: string;           // 캐릭터 직업 (ex: 버서커, 디스트로이어 등)
+  class: string;           // 캐릭터 직업
   level: number;           // 캐릭터 레벨
   itemLevel: number;       // 아이템 레벨
   server: string;          // 서버 이름
-  isMain: boolean;         // 대표 캐릭터 여부
-  dailyCompleted: boolean; // 일일 컨텐츠 완료 여부
-  weeklyCompleted: boolean; // 주간 컨텐츠 완료 여부
-  // 기타 캐릭터 관련 속성
+  expedition: string;      // 원정대 이름
+  isMain: boolean;       // 대표 캐릭터 여부
+  mainCharacter: string;   // 대표 캐릭터 이름
+  equipment: Equipment[]; // 장비 목록
+
+}
+
+interface Equipment {
+  id: string;          // 장비 고유 식별자
+  name: string;        // 장비 이름
+  type: string;        // 장비 종류 (예: 무기, 방어구 등)
+  itemLevel: number;   // 장비 아이템 레벨
 }
 
 // Zustand 스토어 생성
