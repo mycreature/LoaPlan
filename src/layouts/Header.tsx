@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import useStore from '../store/store'
 
@@ -7,14 +6,6 @@ const Header = () => {
   // darkMode: 다크모드 활성화 여부
   // toggleDarkMode: 다크모드를 온오프 함수
   const { user, darkMode, toggleDarkMode } = useStore()
-
-  // isMobileMenuOpen: 모바일 메뉴의 열림/닫힘 상태를 관리하는 상태 변수입니다.
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-
-  // toggleMobileMenu: 모바일 크기 열림/닫힘 함수
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen)
-  }
 
   const navLinks = [
     { to: '/charts', label: '시세차트' },
