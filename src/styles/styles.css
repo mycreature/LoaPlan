@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss' important;
 
 @font-face {
   font-family: 'SUIT';
@@ -23,24 +23,36 @@
 
 @layer base {
   h1 {
-    font-size: 40px;
+    font-size: 40px !important;
     font-family: 'SUIT';
     font-weight: 800;
   }
   h2 {
-    font-size: 26px;
+    font-size: 26px !important;
     font-family: 'SUIT';
     font-weight: 700;
   }
   h3 {
-    font-size: 22px;
+    font-size: 22px !important;
     font-family: 'SUIT';
     font-weight: 800;
   }
   h4 {
-    font-size: var(--text-base);
+    font-size: var(--text-base) !important;
     font-family: 'SUIT';
     font-weight: 600;
-    color: #BEBEBE;
+    color: #bebebe;
+  }
+
+  @theme {
+    --color-green: #4bd66e;
+    --color-black: #000000;
+    --color-gray: #bebebe;
+    --color-white: #ffffff;
+    --color-red: #ff3737;
+
+    --breakpoint-sm: 390px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 1024px;
   }
 }
