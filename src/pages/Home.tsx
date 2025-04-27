@@ -1,17 +1,14 @@
-import DefalutBlock from '../components/block/defalutBlock'
-import Button from '../components/ui/Button'
+import Block from '../components/Block'
 
 const Home = () => {
   return (
     <div className='min-h-screen bg-gray-600'>
-      <main className='mx-auto max-w-3xl p-8 text-center'>
-        <h1 className='mb-6 text-4xl font-bold'>Welcome to My App</h1>
-        <p className='mb-4 text-gray-700'>
-          React + TypeScript + Tailwind 기반 기본 메인 페이지입니다.
-        </p>
-        <Button text='시작하기' />
-        <DefalutBlock />
-      </main>
+      <main className='mx-auto max-w-3xl p-[10px] text-center'></main>
+      <div className='flex items-center justify-center space-x-[10px] text-center'>
+        <Block width={250} height={300} />
+        <Block width={276} height={300} />
+        <Block width={458} height={300} />
+      </div>
     </div>
   )
 }

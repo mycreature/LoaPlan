@@ -5,7 +5,7 @@ const Header = () => {
   // user: 로그인 된 사용자 정보
   // darkMode: 다크모드 활성화 여부
   // toggleDarkMode: 다크모드를 온오프 함수
-  const { user, darkMode, toggleDarkMode } = useStore()
+  const { darkMode, toggleDarkMode } = useStore()
 
   const navLinks = [
     { to: '/charts', label: '시세차트' },
@@ -24,7 +24,7 @@ const Header = () => {
           </Link>
 
           {/* 해더바 메뉴들 */}
-          <nav className='hidden space-x-11 pr-6 md:flex'>
+          <nav className='hidden space-x-11 pr-6 lg:flex'>
             {navLinks.map(({ to, label }) => (
               <Link key={to} to={to} className='flex h-full items-center whitespace-nowrap'>
                 <h2 className='pl-2 text-white'>{label}</h2>
@@ -63,7 +63,7 @@ const Header = () => {
             </div>
 
             {/* 메뉴 버튼 */}
-            <div className='flex items-center justify-center md:hidden'>
+            <div className='flex items-center justify-center lg:hidden'>
               <button className='h-7 w-7 border-none bg-transparent p-0'>
                 <img src='/icons/hambugerMenu.svg' alt='menu' className='h-full w-full' />
               </button>
