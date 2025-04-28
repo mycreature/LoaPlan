@@ -9,6 +9,18 @@ const Home = () => {
         <Block width={276} height={300} />
         <Block width={458} height={300} />
       </div>
+      <div className='flex items-center justify-center space-x-[10px] pt-4 text-center'>
+        <div className='grid min-w-[735px] grid-cols-2 gap-[10px]'>
+          <div className='col-span-2'>
+            <Block width={735} height={70} />
+          </div>
+          <Block width={362.5} height={500} />
+          <Block width={362.5} height={500} />
+        </div>
+        <div className='w-[259px]'>
+          <Block width={259} height={580} />
+        </div>
+      </div>
     </div>
   )
 }
