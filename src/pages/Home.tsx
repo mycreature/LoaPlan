@@ -3,8 +3,8 @@ import Block from '../components/Block'
 const Home = () => {
   return (
     <div className='min-h-screen bg-gray-600'>
-      <main className='px-[10px] pt-[10px] pb-5'>
-        <div className='grid grid-cols-1 place-items-center items-center justify-center space-y-[10px] pb-[10px] md:flex md:justify-center md:space-x-[10px] md:pb-0 md:text-center'>
+      <main className='space-y-[10px] p-[10px]'>
+        <div className='grid grid-cols-1 place-items-center gap-y-[10px] md:flex md:justify-center md:gap-x-[14px] lg:gap-x-[10px]'>
           {/* 캐릭터 이미지 */}
           <div className='hidden lg:block'>
             <Block width={250} height={300} />
@@ -26,11 +26,15 @@ const Home = () => {
             <Block width={370} height={300} />
           </div>
         </div>
-        <div className='flex items-center justify-center space-x-[10px] text-center'>
-          <div className='grid min-w-[735px] grid-cols-2 gap-[10px]'>
+        <div className='hidden items-center justify-center gap-x-[10px] text-center md:flex'>
+          <div className='grid grid-cols-2 gap-x-[23px] gap-y-[10px] lg:gap-x-[10px]'>
             {/* 보석 리스트 */}
-            <div className='col-span-2'>
+            <div className='col-span-2 hidden lg:block'>
               <Block width={735} height={70} />
+            </div>
+            {/* 보석 리스트 (태블릿) */}
+            <div className='col-span-2 hidden md:block lg:hidden'>
+              <Block width={748} height={70} />
             </div>
             {/* 장비 리스트 */}
             <Block width={362.5} height={500} />
@@ -38,9 +42,13 @@ const Home = () => {
             <Block width={362.5} height={500} />
           </div>
           {/* 아크패시브 */}
-          <div className='w-[259px]'>
+          <div className='hidden w-[259px] lg:block'>
             <Block width={259} height={580} />
           </div>
+        </div>
+        {/* 아크패시브 (태블릿) */}
+        <div className='hidden w-full md:flex md:justify-center lg:hidden'>
+          <Block width={748} height={240} />
         </div>
       </main>
     </div>
