@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import useStore from '../store/store'
+import useStore from '../stores/store'
 
 const Header = () => {
   // user: 로그인 된 사용자 정보

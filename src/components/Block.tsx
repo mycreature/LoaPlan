@@ -1,4 +1,4 @@
-import useStore from '../store/store'
+import useStore from '../stores/store'
 
 interface BlockProps {
   width: number
