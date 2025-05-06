@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom'
-import useStore from '../stores/store'
+import useThemeStore from '../stores/ThemeStore'
 
 const Header = () => {
   // user: 로그인 된 사용자 정보
   // darkMode: 다크모드 활성화 여부
   // toggleDarkMode: 다크모드를 온오프 함수
-  const { darkMode, toggleDarkMode } = useStore()
+  const { darkMode, toggleDarkMode } = useThemeStore()
 
   const navLinks = [
     { to: '/charts', label: '시세차트' },

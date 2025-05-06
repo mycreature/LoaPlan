@@ -1,4 +1,4 @@
-import instance from './instance'
+import instance from '../services/instance'
 
 export const getMarketData = async (itemName: string, itemCode: number) => {
   try {

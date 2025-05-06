@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom' // React Router의 Link 컴포넌트를 가져옵니다. 앱 내 페이지 이동을 위해 사용됩니다.
-import useStore from '../stores/store' // Zustand 스토어를 가져옵니다. 전역 상태에 접근하기 위해 사용됩니다.
+import useThemeStore from '../stores/ThemeStore' // Zustand 스토어를 가져옵니다. 전역 상태에 접근하기 위해 사용됩니다.
 
 const Footer = () => {
   // Zustand 스토어에서 다크모드 상태를 가져옵니다.
-  const { darkMode } = useStore()
+  const { darkMode } = useThemeStore()
 
   // 현재 연도를 계산합니다. 저작권 표시에 사용됩니다.
   const currentYear = new Date().getFullYear()

@@ -1,4 +1,4 @@
-import useStore from '../stores/store'
+import useThemeStore from '../stores/ThemeStore'
 
 interface BlockProps {
   width: number
@@ -7,7 +7,7 @@ interface BlockProps {
 }
 
 const Block = ({ width, height, children }: BlockProps) => {
-  const { darkMode } = useStore()
+  const { darkMode } = useThemeStore()
 
   return (
     <div
