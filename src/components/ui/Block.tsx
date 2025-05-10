@@ -1,4 +1,4 @@
-import useThemeStore from '../stores/ThemeStore'
+import useThemeStore from '../../stores/ThemeStore'
 
 interface BlockProps {
   width: number
