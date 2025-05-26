@@ -1,8 +1,8 @@
-import { use, useEffect } from 'react'
+import { useEffect } from 'react'
 import { useCharacterStore } from '../stores/CharacterStore'
 
 const CharTest = () => {
-  const { fetchProfileData, fetchExpeditionData, profileLoading } = useCharacterStore()
+  const { fetchProfileData, profileLoading } = useCharacterStore()
 
   useEffect(() => {
     fetchProfileData('이크리처') // 여기에 테스트할 캐릭터 이름 넣기
