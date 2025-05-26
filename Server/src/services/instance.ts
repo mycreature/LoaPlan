@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const accessToken = import.meta.env.VITE_LOSTARK_API_KEY
+const accessToken = process.env.LOSTARK_API_KEY
 console.log('✅ accessToken:', accessToken)
 
 const instance = axios.create({
