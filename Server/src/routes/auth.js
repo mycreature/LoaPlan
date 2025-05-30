@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const bcrypt = require('bcrypt')
-const User = require('../models/User') // 사용자 모델
+const { User } = require('../models')
 
 // 회원가입 엔드포인트
 router.post('/register', async (req, res) => {
@@ -9,7 +9,7 @@ router.post('/register', async (req, res) => {
 
   try {
     // 이미 존재하는 사용자 확인
-    const existingUser = await User.findOne({ email })
+    const existingUser = await User.findOne({ where: { email } })
     if (existingUser) {
       return res.status(400).json({ message: '이미 등록된 이메일입니다.' })
     }
@@ -18,8 +18,7 @@ router.post('/register', async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10)
 
     // 새로운 사용자 생성
-    const newUser = new User({ username, email, password: hashedPassword })
-    await newUser.save()
+    await User.create({ username, email, password: hashedPassword })
 
     res.status(201).json({ message: '회원가입이 완료되었습니다.' })
   } catch (error) {
