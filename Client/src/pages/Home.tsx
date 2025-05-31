@@ -1,5 +1,5 @@
 import Block from '../components/ui/Block'
-import CharTest from '../components/CharTest'
+import CharTest from '../features/CharTest'
 
 const Home = () => {
   return (
