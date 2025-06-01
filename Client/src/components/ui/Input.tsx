@@ -1,30 +1,23 @@
-import React from 'react'
+import useThemeStore from '../../stores/ThemeStore'
 
 interface InputProps {
-  type?: string
-  placeholder?: string
   value?: string
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
+  onBlur?: (e: React.ChangeEvent<HTMLInputElement>) => void
+  placeholder?: string
+  type?: string
   className?: string
-  disabled?: boolean
 }
 
-export const Input: React.FC<InputProps> = ({
-  type = 'text',
-  placeholder = '',
-  value = '',
-  onChange,
-  className = '',
-  disabled = false,
-}) => {
+const Input = ({ value, onBlur, placeholder = '', type = 'text', className = '' }: InputProps) => {
+  const { darkMode } = useThemeStore()
+
   return (
     <input
       type={type}
-      placeholder={placeholder}
       value={value}
-      onChange={onChange}
-      className={`${className} focus:ring-green rounded-lg border p-2 focus:ring-2 focus:outline-none`}
-      disabled={disabled}
+      onBlur={onBlur}
+      placeholder={placeholder}
+      className={`rounded-lg border-1 bg-none px-3 py-2 ${darkMode ? 'border-black' : 'border-gray'} ${className}`}
     />
   )
 }
