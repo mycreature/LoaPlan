@@ -17,7 +17,7 @@ const Input = ({ value, onBlur, placeholder = '', type = 'text', className = '' 
       value={value}
       onBlur={onBlur}
       placeholder={placeholder}
-      className={`rounded-lg border-1 bg-none px-3 py-2 ${darkMode ? 'border-black' : 'border-gray'} ${className}`}
+      className={`rounded-lg border-1 bg-none px-3 py-2 text-black ${darkMode ? 'border-black' : 'border-gray'} ${className}`}
     />
   )
 }
