@@ -3,18 +3,20 @@ import useThemeStore from '../../stores/ThemeStore'
 
 interface ButtonProps {
   text?: string
+  textStyle?: string
   onClick?: () => void
   type?: 'button' | 'submit' | 'reset'
   className?: string
-  disabled?: boolean
+  mode?: boolean
 }
 
 const Button: React.FC<ButtonProps> = ({
   text = '',
   onClick,
+  textStyle = '',
   type = 'button',
   className = '',
-  disabled = false,
+  mode = true,
 }) => {
   const { darkMode } = useThemeStore()
 
@@ -22,10 +24,9 @@ const Button: React.FC<ButtonProps> = ({
     <button
       type={type}
       onClick={onClick}
-      disabled={disabled}
-      className={`bg- rounded-lg px-6 py-2 text-white ${darkMode ? `bg-black` : `bg-green`} ${className} `}
+      className={`rounded-lg px-6 py-2 ${mode ? (darkMode ? `bg-black` : `bg-green`) : ''} ${className} `}
     >
-      <h3>{text}</h3>
+      {textStyle ? <div className={textStyle}>{text}</div> : <h3>{text}</h3>}
     </button>
   )
 }
