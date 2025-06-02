@@ -2,7 +2,7 @@ import { ReactNode } from 'react'
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom'
 import Header from '../layouts/Header'
 import Home from '../pages/Home'
-import Auth from '../pages/Auth'
+import Register from '../pages/Register'
 
 interface LayoutProps {
   children: ReactNode
@@ -37,10 +37,10 @@ const Router = () => {
       </Routes>
       <Routes>
         <Route
-          path='/auth'
+          path='/register'
           element={
             <Layout>
-              <Auth />
+              <Register />
             </Layout>
           }
         />
