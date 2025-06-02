@@ -8,6 +8,8 @@ interface ButtonProps {
   type?: 'button' | 'submit' | 'reset'
   className?: string
   mode?: boolean
+  darkColor?: string
+  lightColor?: string
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -17,6 +19,8 @@ const Button: React.FC<ButtonProps> = ({
   type = 'button',
   className = '',
   mode = true,
+  darkColor = 'bg-black',
+  lightColor = 'bg-green',
 }) => {
   const { darkMode } = useThemeStore()
 
@@ -24,7 +28,7 @@ const Button: React.FC<ButtonProps> = ({
     <button
       type={type}
       onClick={onClick}
-      className={`rounded-lg px-6 py-2 ${mode ? (darkMode ? `bg-black` : `bg-green`) : ''} ${className} `}
+      className={`${className} rounded-lg px-6 py-2 ${mode ? (darkMode ? `${darkColor}` : `${lightColor}`) : ''} `}
     >
       {textStyle ? <div className={textStyle}>{text}</div> : <h3>{text}</h3>}
     </button>
