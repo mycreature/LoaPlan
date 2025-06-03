@@ -4,6 +4,7 @@ import Header from '../layouts/Header'
 import Home from '../pages/Home'
 import Register from '../pages/Register'
 import Login from '../pages/Login'
+import Account from '../pages/Account'
 
 interface LayoutProps {
   children: ReactNode
@@ -48,6 +49,14 @@ const Router = () => {
           element={
             <Layout>
               <Login />
+            </Layout>
+          }
+        />
+        <Route
+          path='/account'
+          element={
+            <Layout>
+              <Account />
             </Layout>
           }
         />
