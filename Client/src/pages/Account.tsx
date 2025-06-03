@@ -7,8 +7,8 @@ const account = () => {
     <div className='min-h-screen bg-gray-600'>
       <main className='space-y-[10px] p-[10px]'>
         <div className='flex items-center justify-center gap-x-[10px]'>
-          <Block width={390} height={430}>
-            <div className='flex w-[90%] flex-col items-center justify-start space-y-[20px] pb-10'>
+          <Block width={390} height={420}>
+            <div className='flex w-[90%] flex-col items-center justify-start space-y-[20px] pb-5'>
               <h2 className='text-black'>계정 정보</h2>
               <div className='flex w-full items-center justify-between space-x-[20px]'>
                 <h4 className='w-16 text-center font-bold text-black'>이메일</h4>
