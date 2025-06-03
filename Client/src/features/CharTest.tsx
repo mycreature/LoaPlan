@@ -14,11 +14,7 @@ const CharTest = () => {
     }
   }, [profileLoading])
 
-  return (
-    <div>
-      <h2>프로필 테스트</h2>
-    </div>
-  )
+  return <div></div>
 }
 
 export default CharTest
