@@ -10,6 +10,7 @@ import {
   validateConfirmPassword,
   validateApiKey,
 } from '../utils/validation'
+import { requestRegisterUser } from '../api/userApi'
 
 const register = () => {
   // 전역 상태관리
@@ -174,7 +175,7 @@ const register = () => {
                       setApiKey(apiKey)
                       setCharacter(character)
                       console.log('회원가입 정보:', { email, password, apiKey, character })
-                      // 회원가입 로직 추가 필요
+                      requestRegisterUser(useAccountStore.getState())
                     } else {
                       console.log('유효성 검사 실패:', {
                         emailError: emailError,
