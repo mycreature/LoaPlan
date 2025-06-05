@@ -32,7 +32,7 @@ const Input = ({
       onChange={onChange}
       placeholder={placeholder}
       disabled={disabled}
-      className={`rounded-lg border-[1px] bg-none px-3 py-2 text-black ${!error ? (darkMode ? 'border-black' : 'border-gray') : 'border-red'} ${className}`}
+      className={`rounded-lg border-[1px] bg-none px-3 py-2 text-black ${!error ? (darkMode ? 'border-black' : 'border-gray') : 'border-red'} ${className} ${disabled ? `${darkMode ? 'opacity-25' : 'bg-gray'} cursor-not-allowed` : ''}`}
     />
   )
 }
