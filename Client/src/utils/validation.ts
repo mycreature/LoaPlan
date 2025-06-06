@@ -64,7 +64,7 @@ export const validateCharacterName = async (character: string, apiKey: string) =
       },
     )
     // 200 OK면 정상
-    if (res.status === 200) return ''
+    if (res.status === 200 && res.data.length !== 0) return ''
     return '캐릭터명이 유효하지 않습니다.'
   } catch (e: any) {
     if (e.response && e.response.status === 404) {
