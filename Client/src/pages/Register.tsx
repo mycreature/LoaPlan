@@ -101,7 +101,7 @@ const register = () => {
                     placeholder='API KEY'
                     error={apiKeyError}
                     value={apiKey}
-                    disabled={apiKeyChecked}
+                    disabled={!apiKeyError && apiKeyChecked}
                     type='api'
                     onChange={(e) => {
                       setApiKeyState(e.target.value)
