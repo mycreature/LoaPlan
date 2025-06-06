@@ -13,5 +13,7 @@ export const requestRegisterUser = async (accountStore: any) => {
     return response.data
   } catch (error) {
     console.error('❌ 회원가입 실패:', error)
+
+    throw error
   }
 }

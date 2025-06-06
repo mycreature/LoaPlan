@@ -182,7 +182,12 @@ const register = () => {
                       setCharacter(character)
                       console.log('회원가입 정보:', { email, password, apiKey, character })
                       requestRegisterUser(useAccountStore.getState())
-                      navigate('/login')
+                        .then(() => {
+                          navigate('/login')
+                        })
+                        .catch((error) => {
+                          alert(error.response.data.message)
+                        })
                     } else {
                       console.log('유효성 검사 실패:', {
                         emailError: emailError,
