@@ -2,7 +2,7 @@ import axios from 'axios'
 
 export const requestRegisterUser = async (accountStore: any) => {
   try {
-    const response = await axios.post('/api/user/register', {
+    const response = await axios.post('/api/users/register', {
       email: accountStore.email,
       password: accountStore.password,
       apiKey: accountStore.apiKey,
@@ -12,6 +12,5 @@ export const requestRegisterUser = async (accountStore: any) => {
     return response.data
   } catch (error) {
     console.error('❌ 회원가입 실패:', error)
-    throw error
   }
 }
