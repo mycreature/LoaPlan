@@ -34,6 +34,7 @@ const register = () => {
   const [apiKeyError, setApiKeyError] = useState('')
   const [apiKeyChecked, setApiKeyChecked] = useState(false)
   const [characterError, setCharacterError] = useState('')
+  const [characterChecked, setCharacterChecked] = useState(false)
 
   return (
     <div className='min-h-screen bg-gray-600'>
@@ -97,6 +98,7 @@ const register = () => {
                     placeholder='API KEY'
                     error={apiKeyError}
                     value={apiKey}
+                    disabled={apiKeyChecked}
                     type='api'
                     onChange={(e) => {
                       setApiKeyState(e.target.value)
@@ -126,7 +128,7 @@ const register = () => {
                 >
                   <Input
                     placeholder='대표 캐릭터명'
-                    disabled={!apiKeyChecked || !!apiKeyError || !apiKey}
+                    disabled={!apiKeyChecked || !!apiKeyError || !apiKey || characterChecked}
                     error={characterError}
                     value={character}
                     type='character'
@@ -141,6 +143,7 @@ const register = () => {
                     onClick={async () => {
                       const error = await validateCharacterName(character, apiKey)
                       setCharacterError(error)
+                      setCharacterChecked(true)
                     }}
                   />
                 </div>
