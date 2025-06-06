@@ -11,6 +11,7 @@ import {
   validateApiKey,
 } from '../utils/validation'
 import { requestRegisterUser } from '../api/userApi'
+import { useNavigate } from 'react-router-dom'
 
 const register = () => {
   // 전역 상태관리
@@ -35,6 +36,8 @@ const register = () => {
   const [apiKeyChecked, setApiKeyChecked] = useState(false)
   const [characterError, setCharacterError] = useState('')
   const [characterChecked, setCharacterChecked] = useState(false)
+
+  const navigate = useNavigate()
 
   return (
     <div className='min-h-screen bg-gray-600'>
@@ -179,6 +182,7 @@ const register = () => {
                       setCharacter(character)
                       console.log('회원가입 정보:', { email, password, apiKey, character })
                       requestRegisterUser(useAccountStore.getState())
+                      navigate('/login')
                     } else {
                       console.log('유효성 검사 실패:', {
                         emailError: emailError,
