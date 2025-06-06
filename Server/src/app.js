@@ -48,5 +48,5 @@ server.on('error', (err) => {
 const userRouter = require('./routes/userRouter')
 app.use('/api/users', userRouter)
 
-const authRouter = require('./routes/auth')
-app.use('/api/auth', authRouter)
+const registerRouter = require('./routes/register')
+app.use('/api/register', registerRouter)

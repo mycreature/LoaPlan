@@ -10,5 +10,13 @@ const pool = mariadb.createPool({
   database: process.env.DB_NAME || 'your_db',
   connectionLimit: 5,
 })
-
+pool
+  .getConnection()
+  .then((conn) => {
+    console.log('✅ MariaDB 연결 성공')
+    conn.release()
+  })
+  .catch((err) => {
+    console.error('❌ MariaDB 연결 실패:', err)
+  })
 module.exports = pool

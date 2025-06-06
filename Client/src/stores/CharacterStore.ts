@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { getCharProfile, getCharInfoData, getExpeditionData } from '../services/apiService'
+import { getCharProfile, getCharInfoData, getExpeditionData } from '../api/loaApi'
 
 interface CharacterState {
   [key: string]: any

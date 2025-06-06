@@ -5,7 +5,7 @@ const { User } = require('../models')
 
 // 회원가입 엔드포인트
 router.post('/register', async (req, res) => {
-  const { username, email, password } = req.body
+  const { email, password, apiKey, character } = req.body
 
   try {
     // 이미 존재하는 사용자 확인
@@ -18,7 +18,7 @@ router.post('/register', async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10)
 
     // 새로운 사용자 생성
-    await User.create({ username, email, password: hashedPassword })
+    await User.create({ email, password: hashedPassword, apiKey, character })
 
     res.status(201).json({ message: '회원가입이 완료되었습니다.' })
   } catch (error) {

@@ -5,9 +5,9 @@ const router = express.Router()
 
 // 회원가입 라우터
 router.post('/register', async (req, res) => {
-  const { username, email, password } = req.body
+  const { email, password, apiKey, character } = req.body
 
-  if (!username || !email || !password) {
+  if (!apiKey || !email || !password || !character) {
     return res.status(400).json({ message: '모든 항목을 입력해주세요.' })
   }
 
@@ -18,12 +18,12 @@ router.post('/register', async (req, res) => {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10)
-    await User.create({ username, email, password: hashedPassword })
+    await User.create({ email, password: hashedPassword, apiKey, character })
 
     res.status(201).json({ message: '회원가입 성공' })
   } catch (err) {
-    console.error(err)
-    res.status(500).json({ message: '서버 오류' })
+    console.error('회원가입 중 서버 에러:', err)
+    res.status(500).json({ message: '서버 오류', error: err })
   }
 })
 
