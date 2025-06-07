@@ -63,8 +63,10 @@ export const validateCharacterName = async (character: string, apiKey: string) =
         timeout: 3000, // 3초 제한
       },
     )
-    // 200 OK면 정상
-    if (res.status === 200 && res.data.length !== 0) alert('캐릭터 검증 성공.')
+    if (res.data.length == 0) {
+      return '캐릭터명이 유효하지 않습니다.'
+    }
+    if (res.status === 200) alert('캐릭터 검증 성공.')
     return ''
   } catch (e: any) {
     if (e.response && e.response.status === 404) {
