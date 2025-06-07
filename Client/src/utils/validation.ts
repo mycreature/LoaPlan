@@ -99,7 +99,7 @@ export const disabledCharacterInput = (
   apiKeyError: string,
 ) => {
   if (!disabledApiKeyInput(apiKey, apiKeyChecked, apiKeyError)) {
-    return false
+    return true
   }
   if (characterError) {
     return false
