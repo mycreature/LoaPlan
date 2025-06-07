@@ -9,6 +9,8 @@ import {
   validateCharacterName,
   validateConfirmPassword,
   validateApiKey,
+  disabledCharacterInput,
+  disabledApiKeyInput,
 } from '../utils/validation'
 import { requestRegisterUser } from '../api/userApi'
 import { useNavigate } from 'react-router-dom'
@@ -36,7 +38,6 @@ const register = () => {
   const [apiKeyChecked, setApiKeyChecked] = useState(false)
   const [characterError, setCharacterError] = useState('')
   const [characterChecked, setCharacterChecked] = useState(false)
-
   const navigate = useNavigate()
 
   return (
@@ -101,7 +102,7 @@ const register = () => {
                     placeholder='API KEY'
                     error={apiKeyError}
                     value={apiKey}
-                    disabled={!apiKeyError && apiKeyChecked}
+                    disabled={disabledApiKeyInput(apiKey, apiKeyChecked, apiKeyError)}
                     type='api'
                     onChange={(e) => {
                       setApiKeyState(e.target.value)
@@ -131,7 +132,14 @@ const register = () => {
                 >
                   <Input
                     placeholder='대표 캐릭터명'
-                    disabled={!apiKeyChecked || !!apiKeyError || !apiKey || characterChecked}
+                    disabled={disabledCharacterInput(
+                      character,
+                      characterChecked,
+                      characterError,
+                      apiKey,
+                      apiKeyChecked,
+                      apiKeyError,
+                    )}
                     error={characterError}
                     value={character}
                     type='character'
