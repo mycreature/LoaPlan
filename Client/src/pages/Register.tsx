@@ -115,6 +115,7 @@ const register = () => {
                     text='인증'
                     textStyle='text-2xl font-extrabold h-full '
                     className='h-full rounded-lg px-6 py-1'
+                    disabled={disabledApiKeyInput(apiKey, apiKeyChecked, apiKeyError)}
                     onClick={async () => {
                       const error = await validateApiKey(apiKey)
                       setApiKeyError(error)
@@ -150,6 +151,14 @@ const register = () => {
                   <Button
                     text='인증'
                     textStyle='text-2xl font-extrabold h-full '
+                    disabled={disabledCharacterInput(
+                      character,
+                      characterChecked,
+                      characterError,
+                      apiKey,
+                      apiKeyChecked,
+                      apiKeyError,
+                    )}
                     className='h-full rounded-lg px-6 py-1'
                     onClick={async () => {
                       const error = await validateCharacterName(character, apiKey)
