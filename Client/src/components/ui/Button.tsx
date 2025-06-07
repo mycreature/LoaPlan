@@ -30,7 +30,7 @@ const Button: React.FC<ButtonProps> = ({
     <button
       type={type}
       onClick={onClick}
-      className={` ${mode ? (darkMode ? `${darkColor}` : `${lightColor}`) : ''} ${className ? className : 'rounded-lg px-6 py-2'}`}
+      className={` ${mode ? (darkMode ? `${darkColor}` : `${lightColor}`) : ''} ${className ? className : 'rounded-lg px-6 py-2'} ${disabled ? 'cursor-not-allowed opacity-70' : ''}`}
       disabled={disabled}
     >
       {textStyle ? <div className={textStyle}>{text}</div> : <h3>{text}</h3>}

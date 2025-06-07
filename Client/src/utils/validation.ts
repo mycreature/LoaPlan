@@ -37,8 +37,8 @@ export const validateApiKey = async (apiKey: string) => {
       },
     )
     // 200 OK면 정상
-    if (res.status === 200) return ''
-    return 'API 키가 유효하지 않습니다.'
+    if (res.status === 200) alert('API 키 검증 성공.')
+    return ''
   } catch (e: any) {
     if (e.response && e.response.status === 401) {
       return 'API 키가 유효하지 않습니다.'
@@ -63,13 +63,50 @@ export const validateCharacterName = async (character: string, apiKey: string) =
         timeout: 3000, // 3초 제한
       },
     )
-    // 200 OK면 정상
-    if (res.status === 200) return ''
-    return '캐릭터명이 유효하지 않습니다.'
+    if (res.data.length == 0) {
+      return '캐릭터명이 유효하지 않습니다.'
+    }
+    if (res.status === 200) alert('캐릭터 검증 성공.')
+    return ''
   } catch (e: any) {
     if (e.response && e.response.status === 404) {
       return '캐릭터명이 유효하지 않습니다.'
     }
     return '캐릭터명 검증 중 오류가 발생했습니다.'
+  }
+}
+
+export const disabledApiKeyInput = (
+  apiKey: string,
+  apiKeyChecked: boolean,
+  apikeyError: string,
+) => {
+  if (apikeyError) return false
+
+  if (apiKeyChecked && apiKey) {
+    return true
+  } else {
+    return false
+  }
+}
+
+export const disabledCharacterInput = (
+  character: string,
+  characterChecked: boolean,
+  characterError: string,
+  apiKey: string,
+  apiKeyChecked: boolean,
+  apiKeyError: string,
+) => {
+  if (!disabledApiKeyInput(apiKey, apiKeyChecked, apiKeyError)) {
+    return true
+  }
+  if (characterError) {
+    return false
+  }
+  if (characterChecked && character) {
+    return true
+  } else {
+    return false
   }
 }

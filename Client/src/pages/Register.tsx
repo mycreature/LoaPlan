@@ -9,8 +9,11 @@ import {
   validateCharacterName,
   validateConfirmPassword,
   validateApiKey,
+  disabledCharacterInput,
+  disabledApiKeyInput,
 } from '../utils/validation'
 import { requestRegisterUser } from '../api/userApi'
+import { useNavigate } from 'react-router-dom'
 
 const register = () => {
   // 전역 상태관리
@@ -34,6 +37,8 @@ const register = () => {
   const [apiKeyError, setApiKeyError] = useState('')
   const [apiKeyChecked, setApiKeyChecked] = useState(false)
   const [characterError, setCharacterError] = useState('')
+  const [characterChecked, setCharacterChecked] = useState(false)
+  const navigate = useNavigate()
 
   return (
     <div className='min-h-screen bg-gray-600'>
@@ -97,6 +102,7 @@ const register = () => {
                     placeholder='API KEY'
                     error={apiKeyError}
                     value={apiKey}
+                    disabled={disabledApiKeyInput(apiKey, apiKeyChecked, apiKeyError)}
                     type='api'
                     onChange={(e) => {
                       setApiKeyState(e.target.value)
@@ -109,6 +115,7 @@ const register = () => {
                     text='인증'
                     textStyle='text-2xl font-extrabold h-full '
                     className='h-full rounded-lg px-6 py-1'
+                    disabled={disabledApiKeyInput(apiKey, apiKeyChecked, apiKeyError)}
                     onClick={async () => {
                       const error = await validateApiKey(apiKey)
                       setApiKeyError(error)
@@ -126,7 +133,14 @@ const register = () => {
                 >
                   <Input
                     placeholder='대표 캐릭터명'
-                    disabled={!apiKeyChecked || !!apiKeyError || !apiKey}
+                    disabled={disabledCharacterInput(
+                      character,
+                      characterChecked,
+                      characterError,
+                      apiKey,
+                      apiKeyChecked,
+                      apiKeyError,
+                    )}
                     error={characterError}
                     value={character}
                     type='character'
@@ -137,10 +151,19 @@ const register = () => {
                   <Button
                     text='인증'
                     textStyle='text-2xl font-extrabold h-full '
+                    disabled={disabledCharacterInput(
+                      character,
+                      characterChecked,
+                      characterError,
+                      apiKey,
+                      apiKeyChecked,
+                      apiKeyError,
+                    )}
                     className='h-full rounded-lg px-6 py-1'
                     onClick={async () => {
                       const error = await validateCharacterName(character, apiKey)
                       setCharacterError(error)
+                      setCharacterChecked(true)
                     }}
                   />
                 </div>
@@ -176,6 +199,12 @@ const register = () => {
                       setCharacter(character)
                       console.log('회원가입 정보:', { email, password, apiKey, character })
                       requestRegisterUser(useAccountStore.getState())
+                        .then(() => {
+                          navigate('/login')
+                        })
+                        .catch((error) => {
+                          alert(error.response.data.message)
+                        })
                     } else {
                       console.log('유효성 검사 실패:', {
                         emailError: emailError,
