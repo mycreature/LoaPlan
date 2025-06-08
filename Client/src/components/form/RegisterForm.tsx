@@ -2,6 +2,7 @@ import { useForm, Controller } from 'react-hook-form'
 import { useState } from 'react'
 import Button from '../ui/Button'
 import Input from '../ui/Input'
+import ErrorText from '../ui/ErrorText'
 
 import { RegisterFormData } from '../../types/authTypes'
 
@@ -95,11 +96,7 @@ const RegisterForm = ({ onSubmit, isLoading = false }: RegisterFormProps) => {
               type='email'
               error={errors.email?.message || ''}
             />
-            {errors.email && (
-              <span style={{ color: 'red', fontSize: '0.9rem' }} className='mb-3'>
-                {errors.email.message}
-              </span>
-            )}
+            <ErrorText message={errors.email?.message} />
           </>
         )}
       />
@@ -119,11 +116,7 @@ const RegisterForm = ({ onSubmit, isLoading = false }: RegisterFormProps) => {
               className={`w-full ${errors.password ? 'mb-1' : ''}`}
               type='password'
             />
-            {errors.password && (
-              <span style={{ color: 'red', fontSize: '0.9rem' }} className='mb-3'>
-                {errors.password.message}
-              </span>
-            )}
+            <ErrorText message={errors.password?.message} />
           </>
         )}
       />
@@ -143,11 +136,7 @@ const RegisterForm = ({ onSubmit, isLoading = false }: RegisterFormProps) => {
               className={`w-full ${errors.confirmPassword ? 'mb-1' : ''}`}
               type='password'
             />
-            {errors.confirmPassword && (
-              <span style={{ color: 'red', fontSize: '0.9rem' }} className='mb-3'>
-                {errors.confirmPassword.message}
-              </span>
-            )}
+            <ErrorText message={errors.confirmPassword?.message} />
           </>
         )}
       />
@@ -190,11 +179,7 @@ const RegisterForm = ({ onSubmit, isLoading = false }: RegisterFormProps) => {
           }}
         />
       </div>
-      {errors.apiKey && (
-        <span style={{ color: 'red', fontSize: '0.9rem' }} className='mb-3'>
-          {errors.apiKey.message}
-        </span>
-      )}
+      <ErrorText message={errors.apiKey?.message} />
 
       {/* 캐릭터명 필드와 인증 버튼 */}
       <div className={`${errors.character ? 'mb-1' : ''} flex w-full items-center justify-between`}>
@@ -242,11 +227,7 @@ const RegisterForm = ({ onSubmit, isLoading = false }: RegisterFormProps) => {
           }}
         />
       </div>
-      {errors.character && (
-        <span style={{ color: 'red', fontSize: '0.9rem' }} className='mb-3'>
-          {errors.character.message}
-        </span>
-      )}
+      <ErrorText message={errors.character?.message} />
 
       {/* 최종 제출 버튼 */}
       <div className='mt-8 space-y-[10px]'>
