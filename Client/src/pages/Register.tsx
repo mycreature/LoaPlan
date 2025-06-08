@@ -2,26 +2,31 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Block from '../components/ui/Block'
-import RegisterForm, { FormData } from '../components/form/RegisterForm'
+import RegisterForm from '../components/form/RegisterForm'
 import useAccountStore from '../stores/AccountStore'
 import { requestRegisterUser } from '../api/userApi'
+import { RegisterFormData } from '../types/authTypes'
 
 const Register = () => {
   const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
 
-  // Zustand store actions
+  // 전역 상태관리
   const setEmail = useAccountStore((state) => state.setEmail)
   const setPassword = useAccountStore((state) => state.setPassword)
   const setConfirmPassword = useAccountStore((state) => state.setConfirmPassword)
   const setApiKey = useAccountStore((state) => state.setApiKey)
   const setCharacter = useAccountStore((state) => state.setCharacter)
 
-  const handleRegisterSubmit = async (data: FormData) => {
+  /**
+   * 회원가입 폼 제출 핸들러
+   * @param data {RegisterFormData} 회원가입 폼 데이터
+   */
+  const handleRegisterSubmit = async (data: RegisterFormData) => {
     setIsLoading(true)
 
     try {
-      // Store에 데이터 저장
+      // 1. Store에 데이터 저장
       setEmail(data.email)
       setPassword(data.password)
       setConfirmPassword(data.confirmPassword)
@@ -30,14 +35,16 @@ const Register = () => {
 
       console.log('회원가입 정보:', data)
 
-      // API 호출
+      // 2. API 호출
       await requestRegisterUser(useAccountStore.getState())
 
-      // 성공 시 로그인 페이지로 이동
+      // 3. 성공 시 로그인 페이지로 이동
       navigate('/login')
     } catch (error: any) {
+      // 4. 에러 발생 경우
       alert(error.response?.data?.message || '회원가입 중 오류가 발생했습니다.')
     } finally {
+      // 5. 로딩 상태 초기화
       setIsLoading(false)
     }
   }

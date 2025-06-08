@@ -2,6 +2,9 @@ import { useForm, Controller } from 'react-hook-form'
 import { useState } from 'react'
 import Button from '../ui/Button'
 import Input from '../ui/Input'
+
+import { RegisterFormData } from '../../types/authTypes'
+
 import {
   validateEmail,
   validatePassword,
@@ -12,23 +15,17 @@ import {
   disabledApiKeyInput,
 } from '../../utils/validation'
 
-export interface FormData {
-  email: string
-  password: string
-  confirmPassword: string
-  apiKey: string
-  character: string
-}
-
 interface RegisterFormProps {
-  onSubmit: (data: FormData) => void
-  isLoading?: boolean
+  onSubmit: (data: RegisterFormData) => void // 폼 제출 시 실행할 함수
+  isLoading?: boolean // 로딩 상태
 }
 
 const RegisterForm = ({ onSubmit, isLoading = false }: RegisterFormProps) => {
+  // API Key, 캐릭터 인증 여부를 상태로 관리
   const [apiKeyChecked, setApiKeyChecked] = useState(false)
   const [characterChecked, setCharacterChecked] = useState(false)
 
+  // useForm 훅으로 폼을 제어
   const {
     control,
     handleSubmit,
@@ -36,9 +33,9 @@ const RegisterForm = ({ onSubmit, isLoading = false }: RegisterFormProps) => {
     setError,
     clearErrors,
     setValue,
-    formState: { errors },
-  } = useForm<FormData>({
-    mode: 'onChange',
+    formState: { errors }, // 에러 정보
+  } = useForm<RegisterFormData>({
+    mode: 'onTouched', // onBlur 시 값 검사
     defaultValues: {
       email: '',
       password: '',
@@ -48,10 +45,11 @@ const RegisterForm = ({ onSubmit, isLoading = false }: RegisterFormProps) => {
     },
   })
 
-  const watchedValues = watch()
-  const { password, apiKey, character } = watchedValues
+  const { password, apiKey, character } = watch() // 필요한 값 구조분해
 
-  const handleFormSubmit = (data: FormData) => {
+  // 실제 폼 제출 함수 (유효성 검사를 통과한 경우만 실행)
+  const handleFormSubmit = (data: RegisterFormData) => {
+    // 모든 값이 유효하고, 인증도 완료된 경우에만 onSubmit 호출
     if (
       !errors.email &&
       !errors.password &&
@@ -67,6 +65,7 @@ const RegisterForm = ({ onSubmit, isLoading = false }: RegisterFormProps) => {
     ) {
       onSubmit(data)
     } else {
+      // 실패 시 로그 출력 및 알림
       console.log('유효성 검사 실패:', {
         emailError: errors.email?.message,
         passwordError: errors.password?.message,
@@ -80,11 +79,12 @@ const RegisterForm = ({ onSubmit, isLoading = false }: RegisterFormProps) => {
 
   return (
     <form className='mt-4 w-[90%] space-y-[20px]' onSubmit={handleSubmit(handleFormSubmit)}>
+      {/* 이메일 필드 */}
       <Controller
         name='email'
         control={control}
         rules={{
-          validate: (value) => validateEmail(value) || true,
+          validate: (value) => validateEmail(value) || true, // 유효하지 않으면 에러 메시지, 유효하면 true
         }}
         render={({ field }) => (
           <>
@@ -104,6 +104,7 @@ const RegisterForm = ({ onSubmit, isLoading = false }: RegisterFormProps) => {
         )}
       />
 
+      {/* 비밀번호 필드 */}
       <Controller
         name='password'
         control={control}
@@ -127,6 +128,7 @@ const RegisterForm = ({ onSubmit, isLoading = false }: RegisterFormProps) => {
         )}
       />
 
+      {/* 비밀번호 재입력 필드 */}
       <Controller
         name='confirmPassword'
         control={control}
@@ -150,6 +152,7 @@ const RegisterForm = ({ onSubmit, isLoading = false }: RegisterFormProps) => {
         )}
       />
 
+      {/* API Key 필드와 인증 버튼 */}
       <div className={`${errors.apiKey ? 'mb-1' : ''} flex w-full items-center justify-between`}>
         <Controller
           name='apiKey'
@@ -160,12 +163,12 @@ const RegisterForm = ({ onSubmit, isLoading = false }: RegisterFormProps) => {
               placeholder='API KEY'
               error={errors.apiKey?.message || ''}
               disabled={disabledApiKeyInput(apiKey, apiKeyChecked, errors.apiKey?.message || '')}
-              type='api'
+              type='api' // 커스텀 Input이므로 커스텀 type 허용
               onChange={(e) => {
-                field.onChange(e.target.value)
-                setApiKeyChecked(false)
-                clearErrors('apiKey')
-                setValue('character', '')
+                field.onChange(e.target.value) // 입력값 변경
+                setApiKeyChecked(false) // 인증 초기화
+                clearErrors('apiKey') // 에러 초기화
+                setValue('character', '') // 캐릭터 초기화
               }}
             />
           )}
@@ -177,13 +180,13 @@ const RegisterForm = ({ onSubmit, isLoading = false }: RegisterFormProps) => {
           type='button'
           disabled={disabledApiKeyInput(apiKey, apiKeyChecked, errors.apiKey?.message || '')}
           onClick={async () => {
-            const error = await validateApiKey(apiKey)
+            const error = await validateApiKey(apiKey) // API 키 유효성 검사
             if (error) {
               setError('apiKey', { message: error })
             } else {
               clearErrors('apiKey')
             }
-            setApiKeyChecked(true)
+            setApiKeyChecked(true) // 인증 상태 true
           }}
         />
       </div>
@@ -193,6 +196,7 @@ const RegisterForm = ({ onSubmit, isLoading = false }: RegisterFormProps) => {
         </span>
       )}
 
+      {/* 캐릭터명 필드와 인증 버튼 */}
       <div className={`${errors.character ? 'mb-1' : ''} flex w-full items-center justify-between`}>
         <Controller
           name='character'
@@ -244,6 +248,7 @@ const RegisterForm = ({ onSubmit, isLoading = false }: RegisterFormProps) => {
         </span>
       )}
 
+      {/* 최종 제출 버튼 */}
       <div className='mt-8 space-y-[10px]'>
         <Button
           type='submit'
