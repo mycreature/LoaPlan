@@ -16,21 +16,18 @@ import { requestRegisterUser } from '../api/userApi'
 import { useNavigate } from 'react-router-dom'
 
 const register = () => {
-  // 전역 상태관리
   const setEmail = useAccountStore((state) => state.setEmail)
   const setPassword = useAccountStore((state) => state.setPassword)
   const setConfirmPassword = useAccountStore((state) => state.setConfirmPassword)
   const setApiKey = useAccountStore((state) => state.setApiKey)
   const setCharacter = useAccountStore((state) => state.setCharacter)
 
-  // 로컬 상태관리
   const [email, setEmailState] = useState('')
   const [password, setPasswordState] = useState('')
   const [confirmPassword, setConfirmPasswordState] = useState('')
   const [apiKey, setApiKeyState] = useState('')
   const [character, setCharacterState] = useState('')
 
-  // 유효성 검사 상태관리
   const [emailError, setEmailError] = useState('')
   const [passwordError, setPasswordError] = useState('')
   const [confirmPasswordError, setConfirmPasswordError] = useState('')
@@ -40,14 +37,56 @@ const register = () => {
   const [characterChecked, setCharacterChecked] = useState(false)
   const navigate = useNavigate()
 
+  // ✅ form 제출 핸들러
+  const handleSubmit = (e: { preventDefault: () => void }) => {
+    e.preventDefault()
+    if (
+      !emailError &&
+      !passwordError &&
+      !confirmPasswordError &&
+      !apiKeyError &&
+      !characterError &&
+      email &&
+      password &&
+      confirmPassword &&
+      apiKey &&
+      character &&
+      apiKeyChecked
+    ) {
+      setEmail(email)
+      setPassword(password)
+      setConfirmPassword(confirmPassword)
+      setApiKey(apiKey)
+      setCharacter(character)
+      console.log('회원가입 정보:', { email, password, apiKey, character })
+      requestRegisterUser(useAccountStore.getState())
+        .then(() => {
+          navigate('/login')
+        })
+        .catch((error) => {
+          alert(error.response.data.message)
+        })
+    } else {
+      console.log('유효성 검사 실패:', {
+        emailError: emailError,
+        passwordError: passwordError,
+        confirmPasswordError: confirmPasswordError,
+        apiKeyError: apiKeyError,
+        characterError: characterError,
+      })
+      alert('입력한 정보를 확인해주세요.')
+    }
+  }
+
   return (
     <div className='min-h-screen bg-gray-600'>
       <main className='space-y-[10px] p-[10px]'>
         <div className='flex justify-center gap-x-[10px]'>
-          <Block width={390} height={600}>
+          <Block width={390} height={500}>
             <div className='flex h-full flex-col items-center justify-start'>
               <h2 className='pt-3 text-black'>회원가입</h2>
-              <div className='mt-4 w-[90%] space-y-[20px]'>
+              {/* ✅ form 태그로 감싸기 */}
+              <form className='mt-4 w-[90%] space-y-[20px]' onSubmit={handleSubmit}>
                 <Input
                   value={email}
                   placeholder='이메일'
@@ -115,6 +154,7 @@ const register = () => {
                     text='인증'
                     textStyle='text-2xl font-extrabold h-full '
                     className='h-full rounded-lg px-6 py-1'
+                    type='button'
                     disabled={disabledApiKeyInput(apiKey, apiKeyChecked, apiKeyError)}
                     onClick={async () => {
                       const error = await validateApiKey(apiKey)
@@ -151,6 +191,7 @@ const register = () => {
                   <Button
                     text='인증'
                     textStyle='text-2xl font-extrabold h-full '
+                    type='button'
                     disabled={disabledCharacterInput(
                       character,
                       characterChecked,
@@ -172,59 +213,17 @@ const register = () => {
                     {characterError}
                   </span>
                 )}
-              </div>
-              <div className='mt-8 w-[90%] space-y-[10px]'>
-                <Button
-                  text='회원가입'
-                  className='w-full'
-                  textStyle='text-xl font-extrabold'
-                  onClick={() => {
-                    if (
-                      !emailError &&
-                      !passwordError &&
-                      !confirmPasswordError &&
-                      !apiKeyError &&
-                      !characterError &&
-                      email &&
-                      password &&
-                      confirmPassword &&
-                      apiKey &&
-                      character &&
-                      apiKeyChecked
-                    ) {
-                      setEmail(email)
-                      setPassword(password)
-                      setConfirmPassword(confirmPassword)
-                      setApiKey(apiKey)
-                      setCharacter(character)
-                      console.log('회원가입 정보:', { email, password, apiKey, character })
-                      requestRegisterUser(useAccountStore.getState())
-                        .then(() => {
-                          navigate('/login')
-                        })
-                        .catch((error) => {
-                          alert(error.response.data.message)
-                        })
-                    } else {
-                      console.log('유효성 검사 실패:', {
-                        emailError: emailError,
-                        passwordError: passwordError,
-                        confirmPasswordError: confirmPasswordError,
-                        apiKeyError: apiKeyError,
-                        characterError: characterError,
-                      })
-                      alert('입력한 정보를 확인해주세요.')
-                    }
-                  }}
-                />
-                <Button
-                  text='Google 로그인'
-                  className='w-full text-black'
-                  darkColor='bg-white'
-                  lightColor='bg-gray'
-                  textStyle='text-xl font-extrabold'
-                />
-              </div>
+
+                {/* ✅ submit 버튼 */}
+                <div className='mt-8 space-y-[10px]'>
+                  <Button
+                    type='submit'
+                    text='회원가입'
+                    className='w-full'
+                    textStyle='text-xl font-extrabold'
+                  />
+                </div>
+              </form>
             </div>
           </Block>
         </div>
