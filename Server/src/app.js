@@ -50,4 +50,4 @@ const registerRouter = require('./routes/register')
 app.use('/api/users/register', registerRouter)
 
 const loginRouter = require('./routes/login')
-app.use('/api/users/register', loginRouter)
+app.use('/api/users/login', loginRouter)
