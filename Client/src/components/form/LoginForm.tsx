@@ -86,7 +86,7 @@ const LoginForm = ({ onSubmit, isLoading = false }: LoginFormProps) => {
           <span className='text-sm text-black underline'>비밀번호 찾기</span>
         </Link>
       </div>
-      <div className='space-y-[10px]'>
+      <div className='space-y-[10px] pt-3'>
         <Button
           text={isLoading ? '로그인 중...' : '로그인'}
           type='submit'
