@@ -5,7 +5,7 @@ import Block from '../components/ui/Block'
 import RegisterForm from '../components/form/RegisterForm'
 import useAccountStore from '../stores/AccountStore'
 import { requestRegisterUser } from '../api/userApi'
-import { RegisterFormData } from '../types/authTypes'
+import { AuthFormData } from '../types/authTypes'
 
 const Register = () => {
   const [isLoading, setIsLoading] = useState(false)
@@ -20,9 +20,9 @@ const Register = () => {
 
   /**
    * 회원가입 폼 제출 핸들러
-   * @param data {RegisterFormData} 회원가입 폼 데이터
+   * @param data {AuthFormData} 회원가입 폼 데이터
    */
-  const handleRegisterSubmit = async (data: RegisterFormData) => {
+  const handleRegisterSubmit = async (data: AuthFormData) => {
     setIsLoading(true)
 
     try {

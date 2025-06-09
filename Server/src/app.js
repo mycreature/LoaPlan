@@ -45,8 +45,9 @@ const server = app.listen(PORT, () => {
 server.on('error', (err) => {
   console.error('❌ 서버 실행 중 오류 발생:', err.message)
 })
-const userRouter = require('./routes/userRouter')
-app.use('/api/users', userRouter)
 
 const registerRouter = require('./routes/register')
-app.use('/api/register', registerRouter)
+app.use('/api/users/register', registerRouter)
+
+const loginRouter = require('./routes/login')
+app.use('/api/users/login', loginRouter)
