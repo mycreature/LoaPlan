@@ -13,7 +13,20 @@ export const requestRegisterUser = async (accountStore: any) => {
     return response.data
   } catch (error) {
     console.error('❌ 회원가입 실패:', error)
+    throw error
+  }
+}
 
+export const requestLoginUser = async (accountStore: any) => {
+  try {
+    const response = await axios.post('/api/users/login', {
+      email: accountStore.email,
+      password: accountStore.password,
+    })
+    console.log('✅ 로그인 성공:', response.data)
+    return response.data
+  } catch (error) {
+    console.error('❌ 로그인 실패:', error)
     throw error
   }
 }
