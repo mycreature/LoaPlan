@@ -31,7 +31,6 @@ const useAccountStore = create<accountStoreState>()(
     {
       name: 'account-storage', // 로컬 스토리지 이름
       partialize: (state) => ({
-        email: state.email,
         apiKey: state.apiKey,
         character: state.character,
       }), // 패스워드는 localStorage에 저장하지 않도록 설정

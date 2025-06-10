@@ -33,8 +33,6 @@ const Register = () => {
       setApiKey(data.apiKey)
       setCharacter(data.character)
 
-      console.log('회원가입 정보:', data)
-
       // 2. API 호출
       await requestRegisterUser(useAccountStore.getState())
 

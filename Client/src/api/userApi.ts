@@ -9,6 +9,7 @@ export const requestRegisterUser = async (accountStore: any) => {
       character: accountStore.character,
     })
     console.log('✅ 회원가입 성공:', response.data)
+
     alert('회원가입이 완료되었습니다. 로그인해주세요.')
     return response.data
   } catch (error) {
@@ -24,6 +25,7 @@ export const requestLoginUser = async (accountStore: any) => {
       password: accountStore.password,
     })
     console.log('✅ 로그인 성공:', response.data)
+    localStorage.setItem('token', response.data.token)
     return response.data
   } catch (error) {
     console.error('❌ 로그인 실패:', error)
