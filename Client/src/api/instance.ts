@@ -1,8 +1,8 @@
 import axios from 'axios'
 
 export const createLostarkInstance = (apikey: string) => {
-  const accessToken = 'bearer ' + apikey
-  console.log('✅ :', accessToken)
+  const apiKey = 'bearer ' + apikey
+  console.log('✅ apiKey:', apiKey)
 
   const instance = axios.create({
     baseURL: 'https://developer-lostark.game.onstove.com',
@@ -15,7 +15,7 @@ export const createLostarkInstance = (apikey: string) => {
   instance.interceptors.request.use(
     function (config: any) {
       console.log('✅ Lostark API 응답')
-      config.headers!.authorization = accessToken
+      config.headers!.authorization = apiKey
       return config
     },
     function (error) {

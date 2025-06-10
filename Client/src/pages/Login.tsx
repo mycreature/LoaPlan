@@ -27,7 +27,6 @@ const login = () => {
       setApiKey(data.apiKey)
       setCharacter(data.character)
 
-      console.log('로그인 정보:', data)
       // 2. API 호출
       await requestLoginUser(useAccountStore.getState())
       // 3. 성공 시 메인 페이지 이동

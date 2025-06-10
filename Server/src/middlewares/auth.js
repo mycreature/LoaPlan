@@ -2,10 +2,8 @@ const jwt = require('jsonwebtoken')
 
 const authenticateToken = (req, res, next) => {
   const authHeader = req.headers['authorization']
-  console.log('🟡 요청 헤더 Authorization:', authHeader)
 
   const token = authHeader && authHeader.split(' ')[1]
-  console.log('🟡 추출된 토큰:', token)
 
   // 응답 처리 헬퍼 함수
   const handleAuthError = (message) => {
