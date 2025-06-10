@@ -32,3 +32,19 @@ export const requestLoginUser = async (accountStore: any) => {
     throw error
   }
 }
+
+export const requestGuestUser = async () => {
+  const guestApiKey = import.meta.env.VITE_GUEST_API_KEY || ''
+  const guestCharacter = import.meta.env.VITE_GUEST_CHARACTER || ''
+
+  try {
+    const guestData = { apiKey: guestApiKey, character: guestCharacter }
+    localStorage.removeItem('token')
+    localStorage.removeItem('account-storage')
+    sessionStorage.setItem('guest-storage', JSON.stringify(guestData))
+    console.log('✅ 게스트 로그인 성공:')
+  } catch (error) {
+    console.error('❌ 게스트 로그인 실패:', error)
+    throw error
+  }
+}

@@ -42,7 +42,7 @@ const login = () => {
     <div className='min-h-screen bg-gray-600'>
       <main className='space-y-[10px] p-[10px]'>
         <div className='flex justify-center gap-x-[10px]'>
-          <Block width={390} height={300}>
+          <Block width={390} height={350}>
             <div className='flex h-full flex-col items-center justify-start'>
               <h2 className='pt-3 text-black'>로그인</h2>
               <LoginForm onSubmit={handleLoginSubmit} isLoading={isLoading} />
