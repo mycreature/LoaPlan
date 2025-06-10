@@ -2,7 +2,7 @@ import axios from 'axios'
 
 export const createLostarkInstance = (apikey: string) => {
   const accessToken = 'bearer ' + apikey
-  console.log('✅ accessToken:', accessToken)
+  console.log('✅ :', accessToken)
 
   const instance = axios.create({
     baseURL: 'https://developer-lostark.game.onstove.com',
