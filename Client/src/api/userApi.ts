@@ -48,3 +48,14 @@ export const requestGuestUser = async () => {
     throw error
   }
 }
+
+export const requestLogOut = async () => {
+  try {
+    localStorage.clear()
+    sessionStorage.clear()
+    console.log('✅ 로그아웃 성공')
+  } catch (error) {
+    console.error('❌ 로그아 실패:', error)
+    throw error
+  }
+}

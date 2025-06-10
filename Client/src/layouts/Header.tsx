@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import useThemeStore from '../stores/ThemeStore'
+import { requestLogOut } from '../api/userApi'
 
 const Header = () => {
   // user: 로그인 된 사용자 정보
@@ -13,6 +14,18 @@ const Header = () => {
     { to: '/Investment', label: '투자효율' },
     { to: '/Weekly', label: '주간골드' },
   ]
+
+  const handleLogout = () => {
+    try {
+      requestLogOut()
+      window.location
+    } catch (error) {
+      console.error('로그아웃 실패:', error)
+      throw error
+    } finally {
+      window.location.replace('/login')
+    }
+  }
 
   return (
     <header className={`${darkMode ? 'bg-black' : 'bg-green'} h-[50px] w-full transition-colors`}>
@@ -58,7 +71,12 @@ const Header = () => {
             {/* 로그아웃 버튼 */}
             <div className='hidden items-center justify-center md:flex'>
               <button className='h-7 w-7 border-none bg-transparent p-0'>
-                <img src='/icons/logout.svg' alt='logout' className='h-full w-full' />
+                <img
+                  src='/icons/logout.svg'
+                  alt='logout'
+                  className='h-full w-full'
+                  onClick={handleLogout}
+                />
               </button>
             </div>
 
