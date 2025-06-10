@@ -20,6 +20,8 @@ router.post('/', async (req, res) => {
     // 새로운 사용자 생성
     await User.create({ email, password: hashedPassword, apiKey, character })
 
+    sessionStorage.clear()
+
     res.status(201).json({ message: '회원가입이 완료되었습니다.' })
   } catch (error) {
     res.status(500).json({ message: '서버 오류가 발생했습니다.' })
