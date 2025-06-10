@@ -7,6 +7,7 @@ import { AuthFormData } from '../../types/authTypes'
 
 import { validateEmail } from '../../utils/validation'
 import { Link } from 'react-router-dom'
+import { requestGuestUser } from '../../api/userApi'
 
 interface LoginFormProps {
   onSubmit: (data: AuthFormData) => void
@@ -39,6 +40,10 @@ const LoginForm = ({ onSubmit, isLoading = false }: LoginFormProps) => {
       })
       alert('입력한 정보를 확인해주세요.')
     }
+  }
+
+  const handleGusetLogin = () => {
+    requestGuestUser()
   }
 
   return (
@@ -95,13 +100,15 @@ const LoginForm = ({ onSubmit, isLoading = false }: LoginFormProps) => {
           disabled={isLoading}
         />
 
-        {/* <Button
-          text='Google 로그인'
+        <Button
+          text='게스트 로그인'
           className='w-full text-black'
           darkColor='bg-white'
           lightColor='bg-gray'
           textStyle='text-xl font-extrabold'
-        /> */}
+          onClick={handleGusetLogin}
+          disabled={isLoading}
+        />
       </div>
     </form>
   )
