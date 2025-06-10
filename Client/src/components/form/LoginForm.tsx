@@ -6,7 +6,7 @@ import ErrorText from '../ui/ErrorText'
 import { AuthFormData } from '../../types/authTypes'
 
 import { validateEmail } from '../../utils/validation'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { requestGuestUser } from '../../api/userApi'
 
 interface LoginFormProps {
@@ -15,6 +15,7 @@ interface LoginFormProps {
 }
 
 const LoginForm = ({ onSubmit, isLoading = false }: LoginFormProps) => {
+  const navigate = useNavigate()
   const {
     control,
     handleSubmit,
@@ -44,6 +45,8 @@ const LoginForm = ({ onSubmit, isLoading = false }: LoginFormProps) => {
 
   const handleGusetLogin = () => {
     requestGuestUser()
+    alert('게스트 로그인이 완료되었습니다.')
+    navigate('/')
   }
 
   return (
