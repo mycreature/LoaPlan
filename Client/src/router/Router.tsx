@@ -4,7 +4,7 @@ import Header from '../layouts/Header'
 import Home from '../pages/Home'
 import Register from '../pages/Register'
 import Login from '../pages/Login'
-import Account from '../pages/Account'
+import Userinfo from '../pages/Userinfo'
 
 interface LayoutProps {
   children: ReactNode
@@ -53,10 +53,10 @@ const Router = () => {
           }
         />
         <Route
-          path='/account'
+          path='/Userinfo'
           element={
             <Layout>
-              <Account />
+              <Userinfo />
             </Layout>
           }
         />

@@ -69,7 +69,7 @@ const Header = () => {
 
             {/* 계정 링크 */}
             <div className='hidden items-center justify-center lg:flex'>
-              <Link to='/account' className='flex h-7 w-7 items-center'>
+              <Link to='/Userinfo' className='flex h-7 w-7 items-center'>
                 <img src='/icons/avatar.svg' alt='avatar' className='h-full w-full rounded-full' />
               </Link>
             </div>

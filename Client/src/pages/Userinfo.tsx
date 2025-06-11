@@ -2,7 +2,7 @@ import Block from '../components/ui/Block'
 import Button from '../components/ui/Button'
 import Input from '../components/ui/Input'
 
-const account = () => {
+const Userinfo = () => {
   return (
     <div className='min-h-screen bg-gray-600'>
       <main className='space-y-[10px] p-[10px]'>
@@ -39,4 +39,4 @@ const account = () => {
   )
 }
 
-export default account
+export default Userinfo
