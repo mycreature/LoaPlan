@@ -3,9 +3,10 @@ import useThemeStore from '../../stores/ThemeStore'
 interface SidebarProps {
   isOpen: boolean
   onClose: () => void
+  children?: React.ReactNode
 }
 
-const Sidebar = ({ isOpen = false, onClose }: SidebarProps) => {
+const Sidebar = ({ isOpen = false, onClose, children }: SidebarProps) => {
   const { darkMode } = useThemeStore()
 
   // 사이드바가 열렸을 때만 오버레이를 보이게
@@ -28,10 +29,7 @@ const Sidebar = ({ isOpen = false, onClose }: SidebarProps) => {
         }`}
       >
         {/* 사이드 메뉴 내용 */}
-        <ul className='p-4 text-white'>
-          <li>메뉴 1</li>
-          <li>메뉴 2</li>
-        </ul>
+        <ul className='p-4'>{children}</ul>
       </div>
     </>
   )
