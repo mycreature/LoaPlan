@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom'
 import useThemeStore from '../stores/ThemeStore'
 import { requestLogOut } from '../api/userApi'
+import Sidebar from '../components/ui/Sidebar'
+import { useState } from 'react'
 
 const Header = () => {
   // user: 로그인 된 사용자 정보
@@ -14,6 +16,10 @@ const Header = () => {
     { to: '/Investment', label: '투자효율' },
     { to: '/Weekly', label: '주간골드' },
   ]
+
+  const [isOpen, setIsOpen] = useState(false)
+  const toggleSideOpen = () => setIsOpen((isOpen) => !isOpen)
+  const closeSidebar = () => setIsOpen(false)
 
   const handleLogout = () => {
     try {
@@ -79,13 +85,15 @@ const Header = () => {
                 />
               </button>
             </div>
+            <button
+              className='m-0 border-none bg-transparent p-0 lg:hidden'
+              onClick={toggleSideOpen}
+              style={{ display: 'inline-flex' }}
+            >
+              <img src='/icons/hamburgerMenu.svg' className='h-7 w-7' alt='menu' />
+            </button>
 
-            {/* 메뉴 버튼 */}
-            <div className='flex items-center justify-center lg:hidden'>
-              <button className='h-7 w-7 border-none bg-transparent p-0'>
-                <img src='/icons/hambugerMenu.svg' alt='menu' className='h-full w-full' />
-              </button>
-            </div>
+            <Sidebar isOpen={isOpen} onClose={closeSidebar} />
           </div>
         </div>
       </div>
