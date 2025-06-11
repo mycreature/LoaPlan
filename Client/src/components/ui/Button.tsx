@@ -3,7 +3,7 @@ import useThemeStore from '../../stores/ThemeStore'
 
 interface ButtonProps {
   text?: string
-  textStyle?: string
+  textClass?: string
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void
   type?: 'button' | 'submit' | 'reset'
   className?: string
@@ -16,7 +16,7 @@ interface ButtonProps {
 const Button: React.FC<ButtonProps> = ({
   text = '',
   onClick,
-  textStyle = '',
+  textClass: textStyle = '',
   type = 'button',
   className = '',
   mode = true,

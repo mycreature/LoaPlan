@@ -164,7 +164,7 @@ const RegisterForm = ({ onSubmit, isLoading = false }: RegisterFormProps) => {
         />
         <Button
           text='인증'
-          textStyle='text-2xl font-extrabold h-full '
+          textClass='text-2xl font-extrabold h-full '
           className='h-full rounded-lg px-6 py-1'
           type='button'
           disabled={disabledApiKeyInput(apiKey, apiKeyChecked, errors.apiKey?.message || '')}
@@ -205,7 +205,7 @@ const RegisterForm = ({ onSubmit, isLoading = false }: RegisterFormProps) => {
         />
         <Button
           text='인증'
-          textStyle='text-2xl font-extrabold h-full '
+          textClass='text-2xl font-extrabold h-full '
           type='button'
           disabled={disabledCharacterInput(
             character,
@@ -235,7 +235,7 @@ const RegisterForm = ({ onSubmit, isLoading = false }: RegisterFormProps) => {
           type='submit'
           text={isLoading ? '처리중...' : '회원가입'}
           className='w-full'
-          textStyle='text-xl font-extrabold'
+          textClass='text-xl font-extrabold'
           disabled={isLoading}
         />
       </div>

@@ -99,7 +99,7 @@ const LoginForm = ({ onSubmit, isLoading = false }: LoginFormProps) => {
           text={isLoading ? '로그인 중...' : '로그인'}
           type='submit'
           className='w-full'
-          textStyle='text-xl font-extrabold'
+          textClass='text-xl font-extrabold'
           disabled={isLoading}
         />
 
@@ -108,7 +108,7 @@ const LoginForm = ({ onSubmit, isLoading = false }: LoginFormProps) => {
           className='w-full text-black'
           darkColor='bg-white'
           lightColor='bg-gray'
-          textStyle='text-xl font-extrabold'
+          textClass='text-xl font-extrabold'
           onClick={handleGusetLogin}
           disabled={isLoading}
         />
