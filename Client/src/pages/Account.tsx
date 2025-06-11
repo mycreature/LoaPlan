@@ -23,11 +23,11 @@ const account = () => {
                 <Input placeholder='대표 캐릭터명' className='w-full' />
               </div>
               <div className='mt-2 w-full space-y-[10px]'>
-                <Button text='변경 적용' className='w-full' textStyle='text-xl font-extrabold' />
+                <Button text='변경 적용' className='w-full' textClass='text-xl font-extrabold' />
                 <Button
                   text='계정 삭제'
                   className='bg-red w-full'
-                  textStyle='text-xl font-extrabold'
+                  textClass='text-xl font-extrabold'
                   mode={false}
                 />
               </div>
