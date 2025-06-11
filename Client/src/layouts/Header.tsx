@@ -48,7 +48,7 @@ const Header = () => {
             {/* 다크 모드 토글 버튼 */}
             <button
               onClick={toggleDarkMode}
-              className={`hidden rounded-full border-2 border-white p-2 md:flex ${darkMode ? 'bg-black' : 'bg-green'}`}
+              className={`hidden rounded-full border-2 border-white p-2 lg:flex ${darkMode ? 'bg-black' : 'bg-green'}`}
             >
               {darkMode ? (
                 <svg className='h-5 w-5' fill='currentColor' viewBox='0 0 20 20'>
@@ -62,14 +62,14 @@ const Header = () => {
             </button>
 
             {/* 계정 링크 */}
-            <div className='hidden items-center justify-center md:flex'>
+            <div className='hidden items-center justify-center lg:flex'>
               <Link to='/account' className='flex h-7 w-7 items-center'>
                 <img src='/icons/avatar.svg' alt='avatar' className='h-full w-full rounded-full' />
               </Link>
             </div>
 
             {/* 로그아웃 버튼 */}
-            <div className='hidden items-center justify-center md:flex'>
+            <div className='hidden items-center justify-center lg:flex'>
               <button className='h-7 w-7 border-none bg-transparent p-0'>
                 <img
                   src='/icons/logout.svg'
