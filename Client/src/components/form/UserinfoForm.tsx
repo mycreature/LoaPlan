@@ -7,21 +7,18 @@ import ErrorText from '../ui/ErrorText'
 import { AuthFormData } from '../../types/authTypes'
 
 import {
-  validateEmail,
-  validatePassword,
   validateCharacterName,
-  validateConfirmPassword,
   validateApiKey,
   disabledCharacterInput,
   disabledApiKeyInput,
 } from '../../utils/validation'
 
-interface RegisterFormProps {
+interface UserinfoFormProps {
   onSubmit: (data: AuthFormData) => void // 폼 제출 시 실행할 함수
   isLoading?: boolean // 로딩 상태
 }
 
-const RegisterForm = ({ onSubmit, isLoading = false }: RegisterFormProps) => {
+const UserinfoForm = ({ onSubmit, isLoading = false }: UserinfoFormProps) => {
   // API Key, 캐릭터 인증 여부를 상태로 관리
   const [apiKeyChecked, setApiKeyChecked] = useState(false)
   const [characterChecked, setCharacterChecked] = useState(false)
@@ -38,39 +35,21 @@ const RegisterForm = ({ onSubmit, isLoading = false }: RegisterFormProps) => {
   } = useForm<AuthFormData>({
     mode: 'onTouched', // onBlur 시 값 검사
     defaultValues: {
-      email: '',
-      password: '',
-      confirmPassword: '',
       apiKey: '',
       character: '',
     },
   })
 
-  const { password, apiKey, character } = watch() // 필요한 값 구조분해
+  const { apiKey, character } = watch() // 필요한 값 구조분해
 
   // 실제 폼 제출 함수 (유효성 검사를 통과한 경우만 실행)
   const handleFormSubmit = (data: AuthFormData) => {
     // 모든 값이 유효하고, 인증도 완료된 경우에만 onSubmit 호출
-    if (
-      !errors.email &&
-      !errors.password &&
-      !errors.confirmPassword &&
-      !errors.apiKey &&
-      !errors.character &&
-      data.email &&
-      data.password &&
-      data.confirmPassword &&
-      data.apiKey &&
-      data.character &&
-      apiKeyChecked
-    ) {
+    if (!errors.apiKey && !errors.character && data.apiKey && data.character && apiKeyChecked) {
       onSubmit(data)
     } else {
       // 실패 시 로그 출력 및 알림
       console.log('유효성 검사 실패:', {
-        emailError: errors.email?.message,
-        passwordError: errors.password?.message,
-        confirmPasswordError: errors.confirmPassword?.message,
         apiKeyError: errors.apiKey?.message,
         characterError: errors.character?.message,
       })
@@ -191,4 +170,4 @@ const RegisterForm = ({ onSubmit, isLoading = false }: RegisterFormProps) => {
   )
 }
 
-export default RegisterForm
+export default UserinfoForm
