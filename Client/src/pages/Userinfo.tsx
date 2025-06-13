@@ -16,15 +16,22 @@ const Userinfo = () => {
   const handleProfileSubmit = async (data: AuthFormData) => {
     setIsLoading(true)
 
+    const prevState = useAccountStore.getState()
+    const prevApiKey = prevState.apiKey
+    const prevCharacter = prevState.character
+
     try {
       setApiKey(data.apiKey)
       setCharacter(data.character)
 
-      // 2. API 호출
       await requestProfileUpdate(useAccountStore.getState())
-      // 3. 성공 시 메인 페이지 이동
+
       navigate('/')
     } catch (error: any) {
+      // 실패 시 이전 값으로 복원
+      setApiKey(prevApiKey)
+      setCharacter(prevCharacter)
+
       alert(error.response?.data?.message || '변경중 오류가 발생했습니다.')
     } finally {
       setIsLoading(false)
