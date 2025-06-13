@@ -59,3 +59,17 @@ export const requestLogOut = async () => {
     throw error
   }
 }
+
+export const requestProfileUpdate = async (accountStore: any) => {
+  try {
+    const response = await axios.put('/api/users/profile', {
+      apiKey: accountStore.apiKey,
+      character: accountStore.character,
+    })
+    console.log('✅ 프로필 수정 성공:', response.data)
+    return response.data
+  } catch (error) {
+    console.error('❌ 프로필 수정 실패:', error)
+    throw error
+  }
+}
