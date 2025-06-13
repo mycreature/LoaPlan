@@ -17,6 +17,9 @@ app.use('/api/users/register', registerRouter)
 const loginRouter = require('./routes/login.js')
 app.use('/api/users/login', loginRouter)
 
+const userinfoRouter = require('./routes/userinfo.js')
+app.use('/api/users/userinfo', userinfoRouter)
+
 // 메인 페이지(루트 경로)
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../../Client/dist/index.html'))
@@ -27,6 +30,10 @@ app.get('/register', (req, res) => {
 })
 
 app.get('/login', (req, res) => {
+  res.sendFile(path.join(__dirname, '../../Client/dist/index.html'))
+})
+
+app.get('/userinfo', (req, res) => {
   res.sendFile(path.join(__dirname, '../../Client/dist/index.html'))
 })
 
