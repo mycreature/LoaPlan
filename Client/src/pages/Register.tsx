@@ -35,6 +35,7 @@ const Register = () => {
 
       // 2. API 호출
       await requestRegisterUser(useAccountStore.getState())
+      sessionStorage.clear()
 
       // 3. 성공 시 로그인 페이지로 이동
       navigate('/login')

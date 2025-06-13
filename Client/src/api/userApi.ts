@@ -62,7 +62,8 @@ export const requestLogOut = async () => {
 
 export const requestProfileUpdate = async (accountStore: any) => {
   try {
-    const response = await axios.put('/api/users/profile', {
+    const response = await axios.put('/api/users/userinfo', {
+      email: accountStore.email,
       apiKey: accountStore.apiKey,
       character: accountStore.character,
     })

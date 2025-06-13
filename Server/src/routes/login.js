@@ -32,8 +32,6 @@ router.post('/', async (req, res) => {
       { expiresIn: '1d' },
     )
 
-    sessionStorage.clear()
-
     // 로그인 성공
     res.status(200).json({
       message: '로그인 성공',
