@@ -7,6 +7,7 @@ interface accountStoreState {
   confirmPassword: string
   apiKey: string
   character: string
+  isLogin: boolean
   setEmail: (email: string) => void
   setPassword: (password: string) => void
   setConfirmPassword: (confirmPassword: string) => void
@@ -22,7 +23,8 @@ const useAccountStore = create<accountStoreState>()(
       confirmPassword: '',
       apiKey: '',
       character: '',
-      setEmail: (email) => set({ email }),
+      isLogin: false,
+      setEmail: (email) => set({ email, isLogin: email !== '' }),
       setPassword: (password) => set({ password }),
       setConfirmPassword: (confirmPassword) => set({ confirmPassword }),
       setApiKey: (apiKey) => set({ apiKey }),
@@ -34,6 +36,7 @@ const useAccountStore = create<accountStoreState>()(
         email: state.email,
         apiKey: state.apiKey,
         character: state.character,
+        isLogin: state.isLogin,
       }), // 패스워드는 localStorage에 저장하지 않도록 설정
     },
   ),
