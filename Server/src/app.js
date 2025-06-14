@@ -10,35 +10,21 @@ const PORT = process.env.PORT || 5000
 app.use(cors())
 app.use(express.json())
 
-// API 라우터
-const registerRouter = require('./routes/register.js')
-app.use('/api/users/register', registerRouter)
+// 사용자 관련 라우터
+const usersRouter = express.Router()
+usersRouter.use('/register', require('./routes/register'))
+usersRouter.use('/login', require('./routes/login'))
+usersRouter.use('/userinfo', require('./routes/userinfo'))
+app.use('/api/users', usersRouter)
 
-const loginRouter = require('./routes/login.js')
-app.use('/api/users/login', loginRouter)
+// 정적 파일
+const clientDistPath = path.join(__dirname, '../../Client/dist')
+app.use(express.static(clientDistPath))
 
-const userinfoRouter = require('./routes/userinfo.js')
-app.use('/api/users/userinfo', userinfoRouter)
-
-// 메인 페이지(루트 경로)
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '../../Client/dist/index.html'))
+// 프론트엔드 진입점
+app.get(/^\/(register|login|userinfo)?$/, (req, res) => {
+  res.sendFile(path.join(clientDistPath, 'index.html'))
 })
-
-app.get('/register', (req, res) => {
-  res.sendFile(path.join(__dirname, '../../Client/dist/index.html'))
-})
-
-app.get('/login', (req, res) => {
-  res.sendFile(path.join(__dirname, '../../Client/dist/index.html'))
-})
-
-app.get('/userinfo', (req, res) => {
-  res.sendFile(path.join(__dirname, '../../Client/dist/index.html'))
-})
-
-// 정적 파일 서빙
-app.use(express.static(path.join(__dirname, '../../Client/dist')))
 
 // 서버 실행
 const server = app.listen(PORT, () => {

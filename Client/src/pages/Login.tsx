@@ -7,6 +7,7 @@ import { AuthFormData } from '../types/authTypes'
 import useAccountStore from '../stores/AccountStore'
 import { requestLoginUser } from '../api/userApi'
 import LoginForm from '../components/form/LoginForm'
+import { useRequireNoAuth } from '../hook/useAuthRedirect'
 
 const login = () => {
   const [isLoading, setIsLoading] = useState(false)
@@ -16,6 +17,9 @@ const login = () => {
   const setPassword = useAccountStore((state) => state.setPassword)
   const setApiKey = useAccountStore((state) => state.setApiKey)
   const setCharacter = useAccountStore((state) => state.setCharacter)
+
+  // 비로그인시만 접근가능 (로그인, 게스트시 메인페이지 리다이렉트)
+  useRequireNoAuth()
 
   const handleLoginSubmit = async (data: AuthFormData) => {
     setIsLoading(true)

@@ -5,6 +5,7 @@ import { AuthFormData } from '../types/authTypes'
 import useAccountStore from '../stores/AccountStore'
 import { requestProfileUpdate } from '../api/userApi'
 import UserinfoForm from '../components/form/UserinfoForm'
+import { useRequireUser } from '../hook/useAuthRedirect'
 
 const Userinfo = () => {
   const [isLoading, setIsLoading] = useState(false)
@@ -12,6 +13,9 @@ const Userinfo = () => {
 
   const setApiKey = useAccountStore((state) => state.setApiKey)
   const setCharacter = useAccountStore((state) => state.setCharacter)
+
+  // 로그인시 접근가능 (게스트, 비로그인 접근 x)
+  useRequireUser('/login')
 
   const handleProfileSubmit = async (data: AuthFormData) => {
     setIsLoading(true)
