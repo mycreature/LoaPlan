@@ -14,8 +14,7 @@ const Register = () => {
 
   // 전역 상태관리
   const setEmail = useAccountStore((state) => state.setEmail)
-  const setPassword = useAccountStore((state) => state.setPassword)
-  const setConfirmPassword = useAccountStore((state) => state.setConfirmPassword)
+
   const setApiKey = useAccountStore((state) => state.setApiKey)
   const setCharacter = useAccountStore((state) => state.setCharacter)
 
@@ -32,13 +31,11 @@ const Register = () => {
     try {
       // 1. Store에 데이터 저장
       setEmail(data.email)
-      setPassword(data.password)
-      setConfirmPassword(data.confirmPassword)
       setApiKey(data.apiKey)
       setCharacter(data.character)
 
       // 2. API 호출
-      await requestRegisterUser(useAccountStore.getState())
+      await requestRegisterUser(data)
       sessionStorage.clear()
 
       // 3. 성공 시 로그인 페이지로 이동
