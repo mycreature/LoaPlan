@@ -28,7 +28,7 @@ const Userinfo = () => {
       setApiKey(data.apiKey)
       setCharacter(data.character)
 
-      await requestProfileUpdate(useAccountStore.getState())
+      await requestProfileUpdate(data)
 
       navigate('/')
     } catch (error: any) {

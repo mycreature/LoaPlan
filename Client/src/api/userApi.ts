@@ -1,12 +1,13 @@
 import axios from 'axios'
+import { AuthFormData } from '../types/authTypes'
 
-export const requestRegisterUser = async (accountStore: any) => {
+export const requestRegisterUser = async (data: AuthFormData) => {
   try {
     const response = await axios.post('/api/users/register', {
-      email: accountStore.email,
-      password: accountStore.password,
-      apiKey: accountStore.apiKey,
-      character: accountStore.character,
+      email: data.email,
+      password: data.password,
+      apiKey: data.apiKey,
+      character: data.character,
     })
     console.log('✅ 회원가입 성공:', response.data)
 
@@ -18,11 +19,11 @@ export const requestRegisterUser = async (accountStore: any) => {
   }
 }
 
-export const requestLoginUser = async (accountStore: any) => {
+export const requestLoginUser = async (data: AuthFormData) => {
   try {
     const response = await axios.post('/api/users/login', {
-      email: accountStore.email,
-      password: accountStore.password,
+      email: data.email,
+      password: data.password,
     })
     console.log('✅ 로그인 성공:', response.data)
     localStorage.setItem('token', response.data.token)
@@ -61,17 +62,32 @@ export const requestLogOut = async () => {
   }
 }
 
-export const requestProfileUpdate = async (accountStore: any) => {
+export const requestProfileUpdate = async (data: AuthFormData) => {
   try {
     const response = await axios.put('/api/users/userinfo', {
-      email: accountStore.email,
-      apiKey: accountStore.apiKey,
-      character: accountStore.character,
+      email: data.email,
+      apiKey: data.apiKey,
+      character: data.character,
     })
     console.log('✅ 프로필 수정 성공:', response.data)
     return response.data
   } catch (error) {
     console.error('❌ 프로필 수정 실패:', error)
+    throw error
+  }
+}
+
+export const requestPasswordUpdate = async (data: AuthFormData) => {
+  try {
+    const response = await axios.put('/api/users/find-password', {
+      email: data.email,
+      password: data.password,
+    })
+    console.log('✅ 비밀번호 수정 성공:', response.data)
+    alert('비밀번호가 변경되었습니다. 로그인 해주세요.')
+    return response.data
+  } catch (error) {
+    console.error('❌ 비밀번호 수정 실패:', error)
     throw error
   }
 }

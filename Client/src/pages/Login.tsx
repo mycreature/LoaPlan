@@ -14,7 +14,6 @@ const login = () => {
   const navigate = useNavigate()
 
   const setEmail = useAccountStore((state) => state.setEmail)
-  const setPassword = useAccountStore((state) => state.setPassword)
   const setApiKey = useAccountStore((state) => state.setApiKey)
   const setCharacter = useAccountStore((state) => state.setCharacter)
 
@@ -27,12 +26,11 @@ const login = () => {
     try {
       // 1. Store에 데이터 저장
       setEmail(data.email)
-      setPassword(data.password)
       setApiKey(data.apiKey)
       setCharacter(data.character)
 
       // 2. API 호출
-      await requestLoginUser(useAccountStore.getState())
+      await requestLoginUser(data)
       sessionStorage.clear()
       // 3. 성공 시 메인 페이지 이동
       navigate('/')

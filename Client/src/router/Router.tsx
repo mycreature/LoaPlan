@@ -5,6 +5,7 @@ import Home from '../pages/Home'
 import Register from '../pages/Register'
 import Login from '../pages/Login'
 import Userinfo from '../pages/Userinfo'
+import FindPassword from '../pages/FindPassword'
 
 interface LayoutProps {
   children: ReactNode
@@ -57,6 +58,14 @@ const Router = () => {
           element={
             <Layout>
               <Userinfo />
+            </Layout>
+          }
+        />
+        <Route
+          path='/find-password'
+          element={
+            <Layout>
+              <FindPassword />
             </Layout>
           }
         />
