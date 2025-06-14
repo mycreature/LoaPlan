@@ -51,7 +51,8 @@ export const requestGuestUser = async () => {
 
 export const requestLogOut = async () => {
   try {
-    localStorage.clear()
+    localStorage.removeItem('token')
+    localStorage.removeItem('account-storage')
     sessionStorage.clear()
     console.log('✅ 로그아웃 성공')
   } catch (error) {
