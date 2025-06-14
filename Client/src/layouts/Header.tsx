@@ -9,6 +9,8 @@ const Header = () => {
   // darkMode: 다크모드 활성화 여부
   // toggleDarkMode: 다크모드를 온오프 함수
   const { darkMode, toggleDarkMode } = useThemeStore()
+  const isLogin = !!localStorage.getItem('token')
+  const isGuest = !!sessionStorage.getItem('guest-storage')
 
   const navLinks = [
     { to: '/charts', label: '시세차트' },
@@ -107,14 +109,24 @@ const Header = () => {
                 ))}
                 {/* 사이드바 프로필 이동 링크*/}
                 <Link
-                  to='/account'
+                  to='/userinfo'
                   className='flex h-full items-center border-b border-white/30 whitespace-nowrap'
                 >
                   <h3 className='pl-2 text-white'>프로필</h3>
                 </Link>
-                <button className='m-0 border-none bg-transparent p-0' onClick={handleLogout}>
-                  <h3 className='pl-2 text-white'>로그아웃</h3>
-                </button>
+                {/* 로그인 / 로그아웃 버튼 */}
+                {isLogin == true || isGuest == true ? (
+                  <button className='m-0 border-none bg-transparent p-0' onClick={handleLogout}>
+                    <h3 className='pl-2 text-white'>로그아웃</h3>
+                  </button>
+                ) : (
+                  <Link
+                    to='/login'
+                    className='flex h-full items-center border-b border-white/30 whitespace-nowrap'
+                  >
+                    <h3 className='pl-2 text-white'>로그인</h3>
+                  </Link>
+                )}
 
                 <div className='mt-7 flex items-center justify-center space-x-5 rounded-3xl border py-1.5'>
                   <label className=''>
