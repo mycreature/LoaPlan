@@ -29,6 +29,7 @@ const login = () => {
 
       // 2. API 호출
       await requestLoginUser(useAccountStore.getState())
+      sessionStorage.clear()
       // 3. 성공 시 메인 페이지 이동
       navigate('/')
     } catch (error: any) {
