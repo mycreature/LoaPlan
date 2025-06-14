@@ -6,7 +6,6 @@ const Home = () => {
     <div className='min-h-screen bg-gray-600'>
       <main className='space-y-[10px] p-[10px]'>
         <div className='grid grid-cols-1 place-items-center gap-y-[10px] md:flex md:justify-center md:gap-x-[14px] lg:gap-x-[10px]'>
-          <CharTest />
           {/* 캐릭터 이미지 */}
           <div className='hidden lg:block'>
             <Block width={250} height={300} />
