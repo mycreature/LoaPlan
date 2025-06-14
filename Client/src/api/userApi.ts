@@ -84,6 +84,7 @@ export const requestPasswordUpdate = async (data: AuthFormData) => {
       password: data.password,
     })
     console.log('✅ 비밀번호 수정 성공:', response.data)
+    alert('비밀번호가 변경되었습니다. 로그인 해주세요.')
     return response.data
   } catch (error) {
     console.error('❌ 비밀번호 수정 실패:', error)
