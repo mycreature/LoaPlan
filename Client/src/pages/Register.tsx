@@ -6,6 +6,7 @@ import RegisterForm from '../components/form/RegisterForm'
 import useAccountStore from '../stores/AccountStore'
 import { requestRegisterUser } from '../api/userApi'
 import { AuthFormData } from '../types/authTypes'
+import { useRequireNoAuth } from '../hook/useAuthRedirect'
 
 const Register = () => {
   const [isLoading, setIsLoading] = useState(false)
@@ -17,6 +18,9 @@ const Register = () => {
   const setConfirmPassword = useAccountStore((state) => state.setConfirmPassword)
   const setApiKey = useAccountStore((state) => state.setApiKey)
   const setCharacter = useAccountStore((state) => state.setCharacter)
+
+  // 비로그인시 접근가능 (로그인, 게스트 접근 x)
+  useRequireNoAuth()
 
   /**
    * 회원가입 폼 제출 핸들러
