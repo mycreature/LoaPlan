@@ -23,8 +23,6 @@ export const validateApiKey = async (apiKey: string) => {
 
   apiKey = 'bearer ' + apiKey.trim()
 
-  console.log('✅ API Key Test:', apiKey)
-
   try {
     const res = await axios.get(
       'https://developer-lostark.game.onstove.com/characters/마이크리처/siblings',
@@ -36,6 +34,7 @@ export const validateApiKey = async (apiKey: string) => {
         timeout: 3000, // 3초 제한
       },
     )
+
     // 200 OK면 정상
     if (res.status === 200) alert('API 키 검증 성공.')
     return ''
@@ -54,7 +53,7 @@ export const validateCharacterName = async (character: string, apiKey: string) =
 
   try {
     const res = await axios.get(
-      `https://developer-lostark.game.onstove.com/characters/${character}/siblings`,
+      `https://developer-lostark.game.onstove.com/armories/characters/${character}/profiles`,
       {
         headers: {
           authorization: 'bearer ' + apiKey,
@@ -63,7 +62,10 @@ export const validateCharacterName = async (character: string, apiKey: string) =
         timeout: 3000, // 3초 제한
       },
     )
-    if (res.data.length == 0) {
+    if (res.data == null) {
+      return '캐릭터명이 유효하지 않습니다.'
+    }
+    if (res.data.length == 0 || res.data.CharacterImage == null) {
       return '캐릭터명이 유효하지 않습니다.'
     }
     if (res.status === 200) alert('캐릭터 검증 성공.')
