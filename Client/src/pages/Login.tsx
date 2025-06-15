@@ -1,7 +1,5 @@
 import { useNavigate } from 'react-router-dom'
 import Block from '../components/ui/Block'
-// import Button from '../components/ui/Button'
-// import Input from '../components/ui/Input'
 import { useState } from 'react'
 import { AuthFormData } from '../types/authTypes'
 import useAccountStore from '../stores/AccountStore'
@@ -9,12 +7,10 @@ import { requestLoginUser } from '../api/userApi'
 import LoginForm from '../components/form/LoginForm'
 import { useRequireNoAuth } from '../hook/useAuthRedirect'
 
-const login = () => {
+const Login = () => {
   const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
 
-  const setEmail = useAccountStore((state) => state.setEmail)
-  const setApiKey = useAccountStore((state) => state.setApiKey)
   const setCharacter = useAccountStore((state) => state.setCharacter)
 
   // 비로그인시만 접근가능 (로그인, 게스트시 메인페이지 리다이렉트)
@@ -24,13 +20,12 @@ const login = () => {
     setIsLoading(true)
 
     try {
-      // 1. Store에 데이터 저장
-      setEmail(data.email)
-      setApiKey(data.apiKey)
-      setCharacter(data.character)
+      // 1. API 호출
+      const respone = await requestLoginUser(data)
 
-      // 2. API 호출
-      await requestLoginUser(data)
+      // 2. 성공 시 로그인 상태 변경
+      setCharacter(respone.user?.character)
+
       sessionStorage.clear()
       // 3. 성공 시 메인 페이지 이동
       navigate('/')
@@ -57,4 +52,4 @@ const login = () => {
   )
 }
 
-export default login
+export default Login

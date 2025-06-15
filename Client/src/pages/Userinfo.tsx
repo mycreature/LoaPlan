@@ -11,7 +11,6 @@ const Userinfo = () => {
   const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
 
-  const setApiKey = useAccountStore((state) => state.setApiKey)
   const setCharacter = useAccountStore((state) => state.setCharacter)
 
   // 로그인시 접근가능 (게스트, 비로그인 접근 x)
@@ -21,19 +20,18 @@ const Userinfo = () => {
     setIsLoading(true)
 
     const prevState = useAccountStore.getState()
-    const prevApiKey = prevState.apiKey
+
     const prevCharacter = prevState.character
 
     try {
-      setApiKey(data.apiKey)
-      setCharacter(data.character)
+      const respone = await requestProfileUpdate(data)
 
-      await requestProfileUpdate(data)
+      setCharacter(respone.user?.character)
 
       navigate('/')
     } catch (error: any) {
       // 실패 시 이전 값으로 복원
-      setApiKey(prevApiKey)
+
       setCharacter(prevCharacter)
 
       alert(error.response?.data?.message || '변경중 오류가 발생했습니다.')

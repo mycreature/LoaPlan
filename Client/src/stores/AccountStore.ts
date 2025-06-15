@@ -1,32 +1,19 @@
 import { persist } from 'zustand/middleware'
 import { create } from 'zustand'
 
-interface accountStoreState {
-  email: string
-  apiKey: string
+interface characterStoreState {
   character: string
-  setEmail: (email: string) => void
-  setApiKey: (apiKey: string) => void
   setCharacter: (character: string) => void
 }
 
-const useAccountStore = create<accountStoreState>()(
+const useAccountStore = create<characterStoreState>()(
   persist(
     (set) => ({
-      email: '',
-      apiKey: '',
       character: '',
-      setEmail: (email) => set({ email }),
-      setApiKey: (apiKey) => set({ apiKey }),
       setCharacter: (character) => set({ character }),
     }),
     {
-      name: 'account-storage', // 로컬 스토리지 이름
-      partialize: (state) => ({
-        email: state.email,
-        apiKey: state.apiKey,
-        character: state.character,
-      }), // 패스워드는 localStorage에 저장하지 않도록 설정
+      name: 'character-storage',
     },
   ),
 )

@@ -41,7 +41,7 @@ export const requestGuestUser = async () => {
   try {
     const guestData = { apiKey: guestApiKey, character: guestCharacter }
     localStorage.removeItem('token')
-    localStorage.removeItem('account-storage')
+    localStorage.removeItem('character-storage')
     sessionStorage.setItem('guest-storage', JSON.stringify(guestData))
     console.log('✅ 게스트 로그인 성공:')
   } catch (error) {
@@ -53,7 +53,7 @@ export const requestGuestUser = async () => {
 export const requestLogOut = async () => {
   try {
     localStorage.removeItem('token')
-    localStorage.removeItem('account-storage')
+    localStorage.removeItem('character-storage')
     sessionStorage.clear()
     console.log('✅ 로그아웃 성공')
   } catch (error) {

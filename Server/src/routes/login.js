@@ -38,7 +38,6 @@ router.post('/', async (req, res) => {
       token: token,
       user: {
         character: user.character,
-        apiKey: user.apiKey,
       },
     })
   } catch (error) {
