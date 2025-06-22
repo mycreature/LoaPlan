@@ -1,7 +1,5 @@
 import { useNavigate } from 'react-router-dom'
 import Block from '../components/ui/Block'
-// import Button from '../components/ui/Button'
-// import Input from '../components/ui/Input'
 import { useState } from 'react'
 import { AuthFormData } from '../types/authTypes'
 import useAccountStore from '../stores/AccountStore'
@@ -9,11 +7,10 @@ import { requestLoginUser } from '../api/userApi'
 import LoginForm from '../components/form/LoginForm'
 import { useRequireNoAuth } from '../hook/useAuthRedirect'
 
-const login = () => {
+const Login = () => {
   const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
 
-  const setEmail = useAccountStore((state) => state.setEmail)
   const setApiKey = useAccountStore((state) => state.setApiKey)
   const setCharacter = useAccountStore((state) => state.setCharacter)
 
@@ -22,20 +19,17 @@ const login = () => {
 
   const handleLoginSubmit = async (data: AuthFormData) => {
     setIsLoading(true)
-
     try {
-      // 1. Store에 데이터 저장
-      setEmail(data.email)
-      setApiKey(data.apiKey)
-      setCharacter(data.character)
+      const respone = await requestLoginUser(data)
 
-      // 2. API 호출
-      await requestLoginUser(data)
+      setApiKey(respone.user.apiKey)
+      setCharacter(respone.user.character)
+
       sessionStorage.clear()
-      // 3. 성공 시 메인 페이지 이동
+
       navigate('/')
     } catch (error: any) {
-      alert(error.response?.data?.message || '로그인 중 오류가 발생했습니다.')
+      alert(error.response?.data?.message || '로그인 중 오류 발생')
     } finally {
       setIsLoading(false)
     }
@@ -57,4 +51,4 @@ const login = () => {
   )
 }
 
-export default login
+export default Login

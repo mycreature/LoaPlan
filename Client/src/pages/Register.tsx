@@ -3,7 +3,6 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Block from '../components/ui/Block'
 import RegisterForm from '../components/form/RegisterForm'
-import useAccountStore from '../stores/AccountStore'
 import { requestRegisterUser } from '../api/userApi'
 import { AuthFormData } from '../types/authTypes'
 import { useRequireNoAuth } from '../hook/useAuthRedirect'
@@ -11,12 +10,6 @@ import { useRequireNoAuth } from '../hook/useAuthRedirect'
 const Register = () => {
   const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
-
-  // 전역 상태관리
-  const setEmail = useAccountStore((state) => state.setEmail)
-
-  const setApiKey = useAccountStore((state) => state.setApiKey)
-  const setCharacter = useAccountStore((state) => state.setCharacter)
 
   // 비로그인시 접근가능 (로그인, 게스트 접근 x)
   useRequireNoAuth()
@@ -29,12 +22,7 @@ const Register = () => {
     setIsLoading(true)
 
     try {
-      // 1. Store에 데이터 저장
-      setEmail(data.email)
-      setApiKey(data.apiKey)
-      setCharacter(data.character)
-
-      // 2. API 호출
+      // 1. API 호출
       await requestRegisterUser(data)
       sessionStorage.clear()
 

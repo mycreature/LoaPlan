@@ -200,6 +200,11 @@ const RegisterForm = ({ onSubmit, isLoading = false }: RegisterFormProps) => {
               )}
               error={errors.character?.message || ''}
               type='character'
+              onChange={(e) => {
+                field.onChange(e.target.value) // 값 업데이트
+                setCharacterChecked(false) // 인증 초기화
+                clearErrors('character') // 에러 초기화
+              }}
             />
           )}
         />

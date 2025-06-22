@@ -54,6 +54,7 @@ export const requestLogOut = async () => {
   try {
     localStorage.removeItem('token')
     localStorage.removeItem('account-storage')
+    localStorage.removeItem('character-storage')
     sessionStorage.clear()
     console.log('✅ 로그아웃 성공')
   } catch (error) {
