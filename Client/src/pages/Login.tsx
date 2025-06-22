@@ -11,6 +11,7 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
 
+  const setApiKey = useAccountStore((state) => state.setApiKey)
   const setCharacter = useAccountStore((state) => state.setCharacter)
 
   // 비로그인시만 접근가능 (로그인, 게스트시 메인페이지 리다이렉트)
@@ -18,19 +19,17 @@ const Login = () => {
 
   const handleLoginSubmit = async (data: AuthFormData) => {
     setIsLoading(true)
-
     try {
-      // 1. API 호출
       const respone = await requestLoginUser(data)
 
-      // 2. 성공 시 로그인 상태 변경
-      setCharacter(respone.user?.character)
+      setApiKey(respone.user.apiKey)
+      setCharacter(respone.user.character)
 
       sessionStorage.clear()
-      // 3. 성공 시 메인 페이지 이동
+
       navigate('/')
     } catch (error: any) {
-      alert(error.response?.data?.message || '로그인 중 오류가 발생했습니다.')
+      alert(error.response?.data?.message || '로그인 중 오류 발생')
     } finally {
       setIsLoading(false)
     }

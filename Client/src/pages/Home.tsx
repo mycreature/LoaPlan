@@ -1,6 +1,4 @@
 import Block from '../components/ui/Block'
-import CharTest from '../features/CharTest'
-
 const Home = () => {
   return (
     <div className='min-h-screen bg-gray-600'>

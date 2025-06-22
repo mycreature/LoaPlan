@@ -5,8 +5,7 @@ interface CharacterState {
   [key: string]: any
 }
 export const useCharacterStore = create<CharacterState>((set) => ({
-  // 메인 캐릭터 프로필
-  loadMainCharacter: async (characterName: string) => {
+  fetchProfileData: async (characterName: string) => {
     try {
       set({ profileLoading: true, profileError: null })
 
@@ -31,7 +30,7 @@ export const useCharacterStore = create<CharacterState>((set) => ({
   },
 
   // 캐릭터 정보 데이터 가져오기
-  loadCharacterData: async (characterName: string, filter?: string) => {
+  fetchCharInfoData: async (characterName: string, filter?: string) => {
     try {
       set({ charInfoLoading: true, charInfoError: null })
 
@@ -47,7 +46,7 @@ export const useCharacterStore = create<CharacterState>((set) => ({
   },
 
   // 원정대 데이터 가져오기
-  loadExpeditionData: async (characterName: string) => {
+  fetchExpeditionData: async (characterName: string) => {
     try {
       set({ expeditionLoading: true, expeditionError: null })
 

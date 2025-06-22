@@ -3,7 +3,6 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Block from '../components/ui/Block'
 import RegisterForm from '../components/form/RegisterForm'
-
 import { requestRegisterUser } from '../api/userApi'
 import { AuthFormData } from '../types/authTypes'
 import { useRequireNoAuth } from '../hook/useAuthRedirect'

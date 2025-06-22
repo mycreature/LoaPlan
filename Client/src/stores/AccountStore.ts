@@ -1,19 +1,23 @@
 import { persist } from 'zustand/middleware'
 import { create } from 'zustand'
 
-interface characterStoreState {
+interface accountStoreState {
+  apiKey: string
   character: string
+  setApiKey: (apiKey: string) => void
   setCharacter: (character: string) => void
 }
 
-const useAccountStore = create<characterStoreState>()(
+const useAccountStore = create<accountStoreState>()(
   persist(
     (set) => ({
+      apiKey: '',
       character: '',
+      setApiKey: (apiKey) => set({ apiKey }),
       setCharacter: (character) => set({ character }),
     }),
     {
-      name: 'character-storage',
+      name: 'account-storage', // 로컬 스토리지 이름
     },
   ),
 )
