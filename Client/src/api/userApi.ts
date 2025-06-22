@@ -92,3 +92,13 @@ export const requestPasswordUpdate = async (data: AuthFormData) => {
     throw error
   }
 }
+
+export const getApiKey = () => {
+  const apiKey = JSON.parse(localStorage.getItem('account-storage') || '{}')?.state?.apiKey
+
+  if (!apiKey) {
+    throw new Error('API 키가 설정되지 않았습니다. 먼저 로그인해주세요.')
+  }
+
+  return apiKey
+}

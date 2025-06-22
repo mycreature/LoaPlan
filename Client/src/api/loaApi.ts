@@ -1,9 +1,11 @@
 import { createLostarkInstance } from './instance'
 
-const instance = createLostarkInstance(import.meta.env.VITE_LOSTARK_API_KEY)
+// const instance = createLostarkInstance(import.meta.env.VITE_LOSTARK_API_KEY)
 
-export const getMarketData = async (itemName: string, itemCode: number) => {
+export const getMarketData = async (apikey: string, itemName: string, itemCode: number) => {
   try {
+    const instance = createLostarkInstance(apikey)
+
     const res = await instance.post('markets/items', {
       Sort: 'GRADE',
       CategoryCode: itemCode,
@@ -17,8 +19,9 @@ export const getMarketData = async (itemName: string, itemCode: number) => {
   }
 }
 
-export const getExpeditionData = async (Name: string) => {
+export const getExpeditionData = async (apikey: string, Name: string) => {
   try {
+    const instance = createLostarkInstance(apikey)
     const res = await instance.get(`characters/${Name}/siblings`)
     console.log(`✅ ${Name} 정보 호출`)
     return res.data
@@ -27,8 +30,9 @@ export const getExpeditionData = async (Name: string) => {
   }
 }
 
-export const getCharInfoData = async (Name: string, Filter?: string) => {
+export const getCharInfoData = async (apikey: string, Name: string, Filter?: string) => {
   try {
+    const instance = createLostarkInstance(apikey)
     const res = await instance.get(`armories/characters/${Name}${Filter ? `/${Filter}` : ''}`)
     console.log(`✅ ${Name} 정보 호출`)
     return res.data
@@ -37,8 +41,10 @@ export const getCharInfoData = async (Name: string, Filter?: string) => {
   }
 }
 
-export const getCharProfile = async (Name: string) => {
+export const getCharProfile = async (apikey: string, Name: string) => {
   try {
+    const instance = createLostarkInstance(apikey)
+
     const res = await instance.get(`armories/characters/${Name}/profiles`)
     console.log(`✅ ${Name} 프로필 호출`)
     return res.data

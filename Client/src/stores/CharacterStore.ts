@@ -1,15 +1,19 @@
 import { create } from 'zustand'
 import { getCharProfile, getCharInfoData, getExpeditionData } from '../api/loaApi'
+import { getApiKey } from '../api/userApi'
 
 interface CharacterState {
   [key: string]: any
 }
+
 export const useCharacterStore = create<CharacterState>((set) => ({
-  fetchProfileData: async (characterName: string) => {
+  loadProfileData: async (characterName: string) => {
     try {
       set({ profileLoading: true, profileError: null })
 
-      const res = await getCharProfile(characterName)
+      const apiKey = getApiKey()
+
+      const res = await getCharProfile(apiKey, characterName)
       if (res) {
         set({
           MainCharacter: {
@@ -30,11 +34,13 @@ export const useCharacterStore = create<CharacterState>((set) => ({
   },
 
   // 캐릭터 정보 데이터 가져오기
-  fetchCharInfoData: async (characterName: string, filter?: string) => {
+  loadCharInfoData: async (characterName: string, filter?: string) => {
     try {
       set({ charInfoLoading: true, charInfoError: null })
 
-      const res = await getCharInfoData(characterName, filter)
+      const apiKey = getApiKey()
+
+      const res = await getCharInfoData(apiKey, characterName, filter)
       if (res) {
         set({ charInfoData: res })
       }
@@ -46,11 +52,13 @@ export const useCharacterStore = create<CharacterState>((set) => ({
   },
 
   // 원정대 데이터 가져오기
-  fetchExpeditionData: async (characterName: string) => {
+  loadExpeditionData: async (characterName: string) => {
     try {
       set({ expeditionLoading: true, expeditionError: null })
 
-      const res = await getExpeditionData(characterName)
+      const apiKey = getApiKey()
+
+      const res = await getExpeditionData(apiKey, characterName)
       if (res) {
         if (Array.isArray(res)) {
           // 배열이면 아이템 레벨 기준 정렬
