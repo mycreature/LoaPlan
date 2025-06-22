@@ -1,12 +1,18 @@
+import MainCard from '../components/character/MainCard'
 import Block from '../components/ui/Block'
+
 const Home = () => {
+  // const [isLoading, setIsLoading] = useState(false)
+
   return (
     <div className='min-h-screen bg-gray-600'>
       <main className='space-y-[10px] p-[10px]'>
         <div className='grid grid-cols-1 place-items-center gap-y-[10px] md:flex md:justify-center md:gap-x-[14px] lg:gap-x-[10px]'>
           {/* 캐릭터 이미지 */}
           <div className='hidden lg:block'>
-            <Block width={250} height={300} />
+            <Block width={250} height={300} darkColor='bg-[#15181D]' lightColor='bg-[#15181D]'>
+              <MainCard />
+            </Block>
           </div>
           {/* 캐릭터 정보 */}
           <div className='hidden md:block'>
