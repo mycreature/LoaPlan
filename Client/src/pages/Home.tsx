@@ -1,8 +1,25 @@
+import { useEffect } from 'react'
 import MainCard from '../components/character/MainCard'
 import Block from '../components/ui/Block'
+import useAccountStore from '../stores/AccountStore'
+import { useCharacterStore } from '../stores/CharacterStore'
 
 const Home = () => {
-  // const [isLoading, setIsLoading] = useState(false)
+  // localStorage의 apikey, character 값을 가져와 정보 호출 (캐릭터 정보, 배럭 정보, 원정대 정보)
+  const loadProfileData = useCharacterStore((state) => state.loadProfileData)
+  const loadCharInfoData = useCharacterStore((state) => state.loadCharInfoData)
+  const loadExpeditionData = useCharacterStore((state) => state.loadExpeditionData)
+
+  // 현재 localStorage에 저장된 캐릭터 이름을 가져옴 (사용자가 선택한 대표 캐릭터)
+  const characterName = useAccountStore((state) => state.character)
+
+  useEffect(() => {
+    if (characterName) {
+      loadProfileData(characterName)
+      loadCharInfoData(characterName)
+      loadExpeditionData(characterName)
+    }
+  }, [characterName, loadProfileData, loadCharInfoData, loadExpeditionData])
 
   return (
     <div className='min-h-screen bg-gray-600'>
