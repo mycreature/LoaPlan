@@ -3,6 +3,7 @@ import MainCard from '../components/character/MainCard'
 import Block from '../components/ui/Block'
 import useAccountStore from '../stores/AccountStore'
 import { useCharacterStore } from '../stores/CharacterStore'
+import MainInfo from '../components/character/MainInfo'
 
 const Home = () => {
   // localStorage의 apikey, character 값을 가져와 정보 호출 (캐릭터 정보, 배럭 정보, 원정대 정보)
@@ -33,7 +34,9 @@ const Home = () => {
           </div>
           {/* 캐릭터 정보 */}
           <div className='hidden md:block'>
-            <Block width={276} height={300} />
+            <Block width={276} height={300}>
+              <MainInfo />
+            </Block>
           </div>
           {/* 캐릭터 정보 (모바일) */}
           <div className='block md:hidden'>

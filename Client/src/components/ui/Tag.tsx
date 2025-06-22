@@ -9,7 +9,9 @@ const Tag = ({ text, className = '' }: TagProps) => {
   const { darkMode } = useThemeStore()
 
   return (
-    <h3 className={`flex rounded-lg px-3 ${darkMode ? 'bg-black' : 'bg-green'} ${className}`}>
+    <h3
+      className={`flex justify-center rounded-lg ${darkMode ? 'bg-black' : 'bg-green'} ${className}`}
+    >
       {text}
     </h3>
   )
