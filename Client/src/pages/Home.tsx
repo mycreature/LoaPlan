@@ -61,6 +61,9 @@ const Home = () => {
           <div className='hidden lg:block'>
             <Block width={1004} height={300}></Block>
           </div>
+          <div className='hidden md:block lg:hidden'>
+            <Block width={748} height={300}></Block>
+          </div>
         </div>
       </main>
     </div>
