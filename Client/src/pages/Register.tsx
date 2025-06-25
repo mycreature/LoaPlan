@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import Block from '../components/ui/Block'
 import RegisterForm from '../components/form/RegisterForm'
 import { requestRegisterUser } from '../api/userApi'
-import { AuthFormData } from '../types/authTypes'
+import { AuthFormData } from '../types/Types'
 import { useRequireNoAuth } from '../hook/useAuthRedirect'
 
 const Register = () => {

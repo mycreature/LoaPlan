@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { AuthFormData } from '../types/authTypes'
+import { AuthFormData } from '../types/Types'
 
 export const requestRegisterUser = async (data: AuthFormData) => {
   try {

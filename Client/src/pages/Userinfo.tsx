@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import Block from '../components/ui/Block'
 import { useState } from 'react'
-import { AuthFormData } from '../types/authTypes'
+import { AuthFormData } from '../types/Types'
 import useAccountStore from '../stores/AccountStore'
 import { requestProfileUpdate } from '../api/userApi'
 import UserinfoForm from '../components/form/UserinfoForm'
