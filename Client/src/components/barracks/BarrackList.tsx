@@ -20,7 +20,7 @@ const BarrackList = () => {
             <div
               key={index}
               className={`flex min-h-[52px] items-center rounded-lg border pr-[27px] pl-[25px] ${
-                darkMode ? 'border-white/30' : 'border-gray'
+                darkMode ? 'border-black/30' : 'border-gray'
               }`}
             >
               <img
