@@ -12,10 +12,10 @@ const MainCard = () => {
         <Loading />
       ) : MainCharacter?.image ? (
         // ✅ 이미지 로드 완료 시
-        <img src={MainCharacter.image} alt={MainCharacter.name} />
+        <img src={MainCharacter?.image} alt={MainCharacter?.name} />
       ) : (
         // ✅ 에러시
-        <span></span>
+        <span>로딩중...</span>
       )}
     </div>
   )
