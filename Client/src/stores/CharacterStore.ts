@@ -22,7 +22,7 @@ export const useCharacterStore = create<CharacterState>((set) => ({
             class: res.CharacterClassName,
             level: res.ItemAvgLevel,
             image: res.CharacterImage,
-            expeditionLevel: res.ExpeditionLevel,
+            combatPower: res.CombatPower,
           },
         })
       }

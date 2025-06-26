@@ -33,8 +33,8 @@ const MainInfo = () => {
             <h3 className='text-black'>{Number(MainCharacter.level?.replace(/,/g, ''))}</h3>
           </div>
           <div className='flex w-full items-center space-x-6'>
-            <Tag text='원정대' className='w-[100px]'></Tag>
-            <h3 className='text-black'>{MainCharacter.expeditionLevel}</h3>
+            <Tag text='전투력' className='w-[100px]'></Tag>
+            <h3 className='text-black'>{MainCharacter.combatPower}</h3>
           </div>
         </div>
       ) : (
