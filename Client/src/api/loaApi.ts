@@ -1,7 +1,5 @@
 import { createLostarkInstance } from './instance'
 
-// const instance = createLostarkInstance(import.meta.env.VITE_LOSTARK_API_KEY)
-
 export const getMarketData = async (apikey: string, itemName: string, itemCode: number) => {
   try {
     const instance = createLostarkInstance(apikey)
