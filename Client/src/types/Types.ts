@@ -11,5 +11,5 @@ export interface ExpeditionCharacter {
   CharacterName: string
   CharacterLevel: number
   CharacterClassName: string
-  ItemAvgLevel: string
+  level: string
 }
