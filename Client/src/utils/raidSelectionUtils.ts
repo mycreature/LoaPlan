@@ -26,9 +26,7 @@ export const getTotalGoldForCharacter = (
   return total
 }
 
-export const getTotalRaidGoldFromAllCharacters = (
-  characterSelections: CharacterRaidSelection[],
-) => {
+export const getTotalRaidGold = (characterSelections: CharacterRaidSelection[]) => {
   let total = 0
 
   characterSelections.forEach((character) => {
