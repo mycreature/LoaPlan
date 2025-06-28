@@ -1,7 +1,7 @@
 import { ExpeditionCharacter } from '../types/Types'
 import { levelRanges } from '../constants/levelRanges'
 
-// 평균 아이템 레벨 계산
+// 원정대 상위 6명 캐릭터의 평균 레벨 계산
 export const calculateAverageLevel = (characters?: ExpeditionCharacter[]): number => {
   if (!characters || !Array.isArray(characters)) return 0
 
@@ -16,6 +16,7 @@ export const calculateAverageLevel = (characters?: ExpeditionCharacter[]): numbe
   return AverageLevel
 }
 
+// 원정대 상위 6명 캐릭터의 레벨을 levelRanges에 따라 분류하여 카운트
 export const countCharactersByLevelRange = (
   characters?: ExpeditionCharacter[],
 ): Record<number, number> => {
