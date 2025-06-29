@@ -9,8 +9,9 @@ export const useExpeditionGoldData = () => {
 
   if (!expeditions) return []
 
-  return expeditions.map((character: { name: string }) => ({
+  return expeditions.map((character: { name: string; level: string }) => ({
     name: character.name,
+    level: character.level,
     gold: getTotalGoldForCharacter(character.name, selections),
   }))
 }
