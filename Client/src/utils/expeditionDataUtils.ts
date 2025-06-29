@@ -48,3 +48,26 @@ export const countCharactersByLevelRange = (
 
   return result
 }
+
+// 사용자가 Selection한 캐릭터의 gold을 levelRanges에 따라 분류
+export const getGoldByLevelRange = (data: { name: string; level: string; gold: number }[]) => {
+  const parseLevel = (levelStr: string): number => {
+    return Number(levelStr.replace(/,/g, ''))
+  }
+
+  return levelRanges
+    .map((range) => {
+      const totalGold = data
+        .filter((char) => {
+          const level = parseLevel(char.level)
+          return level >= range && level < range + 10
+        })
+        .reduce((sum, char) => sum + char.gold, 0)
+
+      return {
+        levelRange: range,
+        totalGold,
+      }
+    })
+    .filter((item) => item.totalGold > 0)
+}

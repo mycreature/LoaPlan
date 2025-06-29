@@ -18,7 +18,7 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
 }
 
 interface PieChartComponentProps {
-  data: { name: string; gold: number }[]
+  data: { levelRange: number; totalGold: number }[]
   colors?: string[]
   width?: number
   height?: number
@@ -32,7 +32,7 @@ const PieChartComponent: React.FC<PieChartComponentProps> = ({
   width = 300,
   height = 300,
   outerRadius = 100,
-  dataKey = 'gold',
+  dataKey = 'totalGold',
 }) => {
   return (
     <PieChart width={width} height={height}>
