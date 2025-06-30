@@ -24,14 +24,15 @@ interface PieChartComponentProps {
   height?: number
   outerRadius?: number
   dataKey?: string
+  labelLine?: boolean
 }
 
 const PieChartComponent: React.FC<PieChartComponentProps> = ({
   data,
   colors = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'],
-  width = 300,
-  height = 300,
-  outerRadius = 100,
+  width = 200,
+  height = 200,
+  outerRadius = 90,
   dataKey = 'totalGold',
 }) => {
   return (
@@ -42,7 +43,7 @@ const PieChartComponent: React.FC<PieChartComponentProps> = ({
         cy={height / 2}
         labelLine={false}
         label={renderCustomizedLabel}
-        outerRadius={outerRadius}
+        outerRadius={outerRadius - 5}
         fill='#8884d8'
         dataKey={dataKey}
       >
