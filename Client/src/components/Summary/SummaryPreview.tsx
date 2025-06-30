@@ -7,29 +7,30 @@ import LevelRangeList from '../barracks/LevelRangeList'
 import { getGoldByLevelRange } from '../../utils/expeditionDataUtils'
 import GoldDashboard from '../goldDashboard'
 
-const SummaryPreview = () => {
+const SummaryPreview = ({ viewport = '' }) => {
   const expeditionGoldData = getGoldByLevelRange(useExpeditionGoldData() || [])
-
   const navigate = useNavigate()
 
   if (expeditionGoldData.length === 0) {
     return (
       <div className='flex w-[90%] flex-col items-center justify-center gap-4 opacity-80'>
         <h3 className='text-black'>주간 골드 설정을 해주세요</h3>
-        <Button text='설정하기' onClick={() => navigate('/weekly')} />
+        <Button text='설정하기' onClick={() => navigate('/Weekly')} />
       </div>
     )
   }
 
   return (
     <div className='flex w-[90%] gap-10'>
-      <PieChartComponent
-        data={expeditionGoldData}
-        colors={expeditionColors}
-        width={200}
-        height={200}
-        outerRadius={100}
-      />
+      {viewport !== 'tablet' && (
+        <PieChartComponent
+          data={expeditionGoldData}
+          colors={expeditionColors}
+          width={200}
+          height={200}
+          outerRadius={100}
+        />
+      )}
       <LevelRangeList />
       <GoldDashboard />
     </div>
