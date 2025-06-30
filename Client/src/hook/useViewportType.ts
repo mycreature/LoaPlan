@@ -27,3 +27,5 @@ export const useViewportType = (): ViewportType => {
 
   return viewport
 }
+
+export default useViewportType
