@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import Block from '../components/ui/Block'
 import { useState } from 'react'
-import { AuthFormData } from '../types/authTypes'
+import { AuthFormData } from '../types/Types'
 import { requestPasswordUpdate } from '../api/userApi'
 
 import { useRequireNoAuth } from '../hook/useAuthRedirect'
@@ -29,7 +29,7 @@ const FindPassword = () => {
   }
 
   return (
-    <div className='min-h-screen w-full bg-gray-600'>
+    <div className='min-h-screen bg-gray-600 pt-[50px]'>
       <main className='w-full space-y-[10px] p-[10px]'>
         <div className='flex w-full justify-center gap-x-[10px]'>
           <Block width={390} height={340}>

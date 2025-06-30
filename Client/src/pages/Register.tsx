@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import Block from '../components/ui/Block'
 import RegisterForm from '../components/form/RegisterForm'
 import { requestRegisterUser } from '../api/userApi'
-import { AuthFormData } from '../types/authTypes'
+import { AuthFormData } from '../types/Types'
 import { useRequireNoAuth } from '../hook/useAuthRedirect'
 
 const Register = () => {
@@ -38,7 +38,7 @@ const Register = () => {
   }
 
   return (
-    <div className='min-h-screen bg-gray-600'>
+    <div className='min-h-screen bg-gray-600 pt-[50px]'>
       <main className='space-y-[10px] p-[10px]'>
         <div className='flex justify-center gap-x-[10px]'>
           <Block width={390} height={500}>

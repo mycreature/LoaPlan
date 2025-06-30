@@ -5,14 +5,27 @@ interface BlockProps {
   height?: number
   children?: React.ReactNode
   style?: React.CSSProperties
+  mode?: boolean
+  className?: string
+  darkColor?: string
+  lightColor?: string
 }
 
-const Block = ({ width, height, children, style }: BlockProps) => {
+const Block = ({
+  width,
+  height,
+  children,
+  style,
+  className,
+  mode = true,
+  darkColor = 'bg-gray',
+  lightColor = 'bg-white',
+}: BlockProps) => {
   const { darkMode } = useThemeStore()
 
   return (
     <div
-      className={`flex items-center justify-center rounded-lg ${darkMode ? 'bg-gray' : 'bg-white'}`}
+      className={` ${mode ? (darkMode ? `${darkColor}` : `${lightColor}`) : ''} ${className ? className : 'flex items-center justify-center overflow-hidden rounded-lg'} `}
       style={{
         ...style,
         width: width ? `${width}px` : undefined,

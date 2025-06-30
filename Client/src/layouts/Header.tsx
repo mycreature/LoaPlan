@@ -36,7 +36,9 @@ const Header = () => {
   }
 
   return (
-    <header className={`${darkMode ? 'bg-black' : 'bg-green'} h-[50px] w-full transition-colors`}>
+    <header
+      className={`fixed top-0 left-0 z-50 h-[50px] w-full transition-colors ${darkMode ? 'bg-black' : 'bg-green'}`}
+    >
       <div className='h-full w-full'>
         {/* 로고 */}
         <div className='flex h-full items-center'>

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { AuthFormData } from '../types/authTypes'
+import { AuthFormData } from '../types/Types'
 
 export const requestRegisterUser = async (data: AuthFormData) => {
   try {
@@ -91,4 +91,14 @@ export const requestPasswordUpdate = async (data: AuthFormData) => {
     console.error('❌ 비밀번호 수정 실패:', error)
     throw error
   }
+}
+
+export const getApiKey = () => {
+  const apiKey = JSON.parse(localStorage.getItem('account-storage') || '{}')?.state?.apiKey
+
+  if (!apiKey) {
+    throw new Error('API 키가 설정되지 않았습니다. 먼저 로그인해주세요.')
+  }
+
+  return apiKey
 }

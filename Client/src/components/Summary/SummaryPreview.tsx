@@ -1,0 +1,40 @@
+import PieChartComponent from '../charts/PieChart'
+import { expeditionColors } from '../../styles/colors'
+import { useExpeditionGoldData } from '../../hook/useCharacterGoldData'
+import Button from '../ui/Button'
+import { useNavigate } from 'react-router-dom'
+import LevelRangeList from '../barracks/LevelRangeList'
+import { getGoldByLevelRange } from '../../utils/expeditionDataUtils'
+import GoldDashboard from '../goldDashboard'
+
+const SummaryPreview = ({ viewport = '' }) => {
+  const expeditionGoldData = getGoldByLevelRange(useExpeditionGoldData() || [])
+  const navigate = useNavigate()
+
+  if (expeditionGoldData.length === 0) {
+    return (
+      <div className='flex w-[90%] flex-col items-center justify-center gap-4 opacity-80'>
+        <h3 className='text-black'>주간 골드 설정을 해주세요</h3>
+        <Button text='설정하기' onClick={() => navigate('/Weekly')} />
+      </div>
+    )
+  }
+
+  return (
+    <div className='flex w-[90%] gap-10'>
+      {viewport !== 'tablet' && (
+        <PieChartComponent
+          data={expeditionGoldData}
+          colors={expeditionColors}
+          width={200}
+          height={200}
+          outerRadius={100}
+        />
+      )}
+      <LevelRangeList />
+      <GoldDashboard />
+    </div>
+  )
+}
+
+export default SummaryPreview

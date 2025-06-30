@@ -4,7 +4,7 @@ import Button from '../ui/Button'
 import Input from '../ui/Input'
 import ErrorText from '../ui/ErrorText'
 
-import { AuthFormData } from '../../types/authTypes'
+import { AuthFormData } from '../../types/Types'
 
 import {
   validateEmail,

@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import Block from '../components/ui/Block'
 import { useState } from 'react'
-import { AuthFormData } from '../types/authTypes'
+import { AuthFormData } from '../types/Types'
 import useAccountStore from '../stores/AccountStore'
 import { requestLoginUser } from '../api/userApi'
 import LoginForm from '../components/form/LoginForm'
@@ -36,7 +36,7 @@ const Login = () => {
   }
 
   return (
-    <div className='min-h-screen bg-gray-600'>
+    <div className='min-h-screen bg-gray-600 pt-[50px]'>
       <main className='space-y-[10px] p-[10px]'>
         <div className='flex justify-center gap-x-[10px]'>
           <Block width={390} height={350}>
