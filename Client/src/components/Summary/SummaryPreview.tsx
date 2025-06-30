@@ -5,7 +5,7 @@ import Button from '../ui/Button'
 import { useNavigate } from 'react-router-dom'
 import LevelRangeList from '../barracks/LevelRangeList'
 import { getGoldByLevelRange } from '../../utils/expeditionDataUtils'
-import GoldDashboard from '../goldDashboard'
+import GoldDashboard from '../GoldDashboard'
 
 const SummaryPreview = ({ viewport = '' }) => {
   const expeditionGoldData = getGoldByLevelRange(useExpeditionGoldData() || [])
