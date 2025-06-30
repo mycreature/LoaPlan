@@ -5,6 +5,7 @@ import useAccountStore from '../stores/AccountStore'
 import { useCharacterStore } from '../stores/CharacterStore'
 import MainInfo from '../components/character/MainInfo'
 import BarrackList from '../components/barracks/BarrackList'
+import SummaryPreview from '../components/Summary/SummaryPreview'
 
 const Home = () => {
   // localStorage의 apikey, character 값을 가져와 정보 호출 (캐릭터 정보, 배럭 정보, 원정대 정보)
@@ -58,8 +59,10 @@ const Home = () => {
         </div>
         {/* 차트 부분 */}
         <div className='flex justify-center'>
-          <div className='hidden lg:block'>
-            <Block width={1004} height={300}></Block>
+          <div className='hidden justify-between lg:block'>
+            <Block width={1004} height={300}>
+              <SummaryPreview />
+            </Block>
           </div>
           <div className='hidden md:block lg:hidden'>
             <Block width={748} height={300}></Block>
