@@ -1,5 +1,5 @@
 import { useCharacterStore } from '../stores/CharacterStore'
-import { useRaidSelectionStore } from '../stores/RaidSelectionStore'
+import { useRaidSelectionStore } from '../stores/selections/RaidSelectionStore'
 import useThemeStore from '../stores/ThemeStore'
 import { calculateAverageLevel } from '../utils/expeditionDataUtils'
 import { getTotalRaidGold } from '../utils/raidSelectionUtils'

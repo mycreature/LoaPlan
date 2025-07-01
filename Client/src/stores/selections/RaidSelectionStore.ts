@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import { CharacterRaidSelection, GateSelection } from '../types/Types'
+import { CharacterRaidSelection, GateSelection } from '../../types/Types'
 
 interface RaidSelectionState {
   characterSelections: CharacterRaidSelection[]
