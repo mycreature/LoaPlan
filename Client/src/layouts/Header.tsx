@@ -16,7 +16,7 @@ const Header = () => {
     { to: '/charts', label: '시세차트' },
     { to: '/Spec', label: '스펙효율' },
     { to: '/Investment', label: '투자효율' },
-    { to: '/Weekly', label: '주간골드' },
+    { to: '/weekly-gold', label: '주간골드' },
   ]
 
   const [isOpen, setIsOpen] = useState(false)
