@@ -4,7 +4,12 @@ import { calculateAverageLevel } from '../utils/expeditionDataUtils'
 import { getTotalRaidGold } from '../utils/SelectionUtils'
 import { useExpeditionStore } from '../stores/api/ExpeditionStore'
 
-const GoldDashboard = () => {
+interface GoldDashboardProps {
+  width?: number
+  height?: number
+}
+
+const GoldDashboard = ({ width = 312, height = 200 }: GoldDashboardProps) => {
   const darkMode = useThemeStore((state) => state.darkMode)
 
   const expeditions = useExpeditionStore((state) => state.expeditions)
@@ -17,7 +22,8 @@ const GoldDashboard = () => {
 
   return (
     <div
-      className={`w-78 space-y-3 rounded-xl border px-3 py-3 ${darkMode ? 'border-black/30' : 'border-gray'}`}
+      style={{ width: `${width}px`, height: `${height}px` }}
+      className={`flex flex-col justify-between rounded-xl border px-3 py-3 ${darkMode ? 'border-black/30' : 'border-gray'}`}
     >
       <div className={`flex items-center justify-between`}>
         <h3 className='text-black'>원정대 평균</h3>
@@ -31,7 +37,7 @@ const GoldDashboard = () => {
         <h3 className='text-black'>기타 컨텐츠</h3>
         <h3 className='text-black'>{etcTotalGold} G</h3>
       </div>
-      <div className={`flex items-center justify-between`}>
+      <div className={`mb-0 flex items-center justify-between`}>
         <h3 className='text-black'>주간 골드량</h3>
         <h3 className='text-black'>{totalGold} G</h3>
       </div>
