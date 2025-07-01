@@ -25,6 +25,7 @@ interface PieChartComponentProps {
   outerRadius?: number
   dataKey?: string
   labelLine?: boolean
+  animationDuration?: number
 }
 
 const PieChartComponent: React.FC<PieChartComponentProps> = ({
@@ -34,6 +35,7 @@ const PieChartComponent: React.FC<PieChartComponentProps> = ({
   height = 200,
   outerRadius = 90,
   dataKey = 'totalGold',
+  animationDuration = 600,
 }) => {
   return (
     <PieChart width={width} height={height}>
@@ -46,6 +48,7 @@ const PieChartComponent: React.FC<PieChartComponentProps> = ({
         outerRadius={outerRadius - 5}
         fill='#8884d8'
         dataKey={dataKey}
+        animationDuration={animationDuration}
       >
         {data.map((_entry, index) => (
           <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
