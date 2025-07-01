@@ -15,7 +15,6 @@ export const useExpeditionStore = create<CharacterState>((set) => ({
       const apiKey = getApiKey()
 
       const res = await getExpeditionData(apiKey, characterName)
-      console.log('res', res)
       if (res) {
         if (Array.isArray(res)) {
           // 배열이면 아이템 레벨 기준 정렬

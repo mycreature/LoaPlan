@@ -1,5 +1,6 @@
 import { raidGoldTable } from '../constants/goldRaidTable'
-import { CharacterRaidSelection } from '../types/Types'
+import { goldOtherTable } from '../constants/goldOtherTable'
+import { CharacterOtherSelection, CharacterRaidSelection } from '../types/Types'
 
 // 원정대내 특정 캐릭터의 주간 골드 획득량을 가져옴
 // 사용자가 선택한 레이드 및 게이트(CharacterRaidSelection)를 raidGoldTable 에 맞춰 값을 가져옴
@@ -48,4 +49,25 @@ export const getTotalRaidGold = (characterSelections: CharacterRaidSelection[]) 
   })
 
   return total
+}
+
+export const getOtherDropsForCharacter = (
+  characterName: string,
+  allSelections: CharacterOtherSelection[],
+) => {
+  const character = allSelections.find((c) => c.characterName === characterName)
+  if (!character) return []
+
+  let allDrops: { name: string; amount: number }[] = []
+
+  character.selections.forEach(({ name, type, level }) => {
+    const tableEntry = goldOtherTable.find(
+      (entry) => entry.name === name && entry.type === type && entry.level === level,
+    )
+    if (!tableEntry) return
+
+    allDrops = allDrops.concat(tableEntry.drops)
+  })
+
+  return allDrops
 }

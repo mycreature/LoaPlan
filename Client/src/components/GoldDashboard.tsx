@@ -1,7 +1,7 @@
 import { useRaidSelectionStore } from '../stores/selections/RaidSelectionStore'
 import useThemeStore from '../stores/others/ThemeStore'
 import { calculateAverageLevel } from '../utils/expeditionDataUtils'
-import { getTotalRaidGold } from '../utils/raidSelectionUtils'
+import { getTotalRaidGold } from '../utils/SelectionUtils'
 import { useExpeditionStore } from '../stores/api/ExpeditionStore'
 
 const GoldDashboard = () => {
