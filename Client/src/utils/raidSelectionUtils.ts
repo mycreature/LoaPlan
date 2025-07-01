@@ -3,7 +3,7 @@ import { CharacterRaidSelection } from '../types/Types'
 
 // 원정대내 특정 캐릭터의 주간 골드 획득량을 가져옴
 // 사용자가 선택한 레이드 및 게이트(CharacterRaidSelection)를 raidGoldTable 에 맞춰 값을 가져옴
-export const getTotalGoldForCharacter = (
+export const getRaidGoldForCharacter = (
   characterName: string,
   allSelections: CharacterRaidSelection[],
 ) => {

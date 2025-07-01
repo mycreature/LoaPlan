@@ -1,6 +1,6 @@
 import { useCharacterStore } from '../stores/api/CharacterStore'
 import { useRaidSelectionStore } from '../stores/selections/RaidSelectionStore'
-import { getTotalGoldForCharacter } from '../utils/raidSelectionUtils'
+import { getRaidGoldForCharacter } from '../utils/raidSelectionUtils'
 
 // 사용자가 선택한 selections 값을 expeditions(원정대) 에 맞춰 배열로 변환하는 훅
 export const useExpeditionGoldData = () => {
@@ -12,6 +12,6 @@ export const useExpeditionGoldData = () => {
   return expeditions.map((character: { name: string; level: string }) => ({
     name: character.name,
     level: character.level,
-    gold: getTotalGoldForCharacter(character.name, selections),
+    gold: getRaidGoldForCharacter(character.name, selections),
   }))
 }
