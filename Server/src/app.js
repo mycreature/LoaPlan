@@ -16,6 +16,7 @@ usersRouter.use('/register', require('./routes/register'))
 usersRouter.use('/login', require('./routes/login'))
 usersRouter.use('/userinfo', require('./routes/userinfo'))
 usersRouter.use('/find-password', require('./routes/find-password'))
+usersRouter.use('/weekly-gold', require('./routes/weekly-gold'))
 app.use('/api/users', usersRouter)
 
 // 정적 파일
@@ -23,7 +24,7 @@ const clientDistPath = path.join(__dirname, '../../Client/dist')
 app.use(express.static(clientDistPath))
 
 // 프론트엔드 진입점
-app.get(/^\/(register|login|userinfo|find-password)?$/, (req, res) => {
+app.get(/^\/(register|login|userinfo|find-password|weekly-gold)?$/, (req, res) => {
   res.sendFile(path.join(clientDistPath, 'index.html'))
 })
 
