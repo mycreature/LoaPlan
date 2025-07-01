@@ -1,16 +1,6 @@
-interface MaterialDrop {
-  name: string
-  amount: number
-}
+import { OtherSelection } from '../types/Types'
 
-interface WeeklyContentMaterial {
-  name: string
-  type: '전선' | '카게' | '가토'
-  level: number
-  drops: MaterialDrop[]
-}
-
-export const goldOtherTable: WeeklyContentMaterial[] = [
+export const goldOtherTable: OtherSelection[] = [
   {
     name: '쿠르잔1',
     type: '전선',

@@ -24,3 +24,20 @@ export interface CharacterRaidSelection {
   characterName: string
   selections: GateSelection[]
 }
+
+export interface MaterialDrop {
+  name: string
+  amount: number
+}
+
+export interface OtherSelection {
+  name: string
+  type: '전선' | '카게' | '가토'
+  level: number
+  drops: MaterialDrop[]
+}
+
+export interface CharacterOtherSelection {
+  characterName: string
+  selections: OtherSelection[]
+}
