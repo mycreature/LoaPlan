@@ -2,14 +2,18 @@ import { useExpeditionStore } from '../../stores/api/ExpeditionStore'
 import useThemeStore from '../../stores/others/ThemeStore'
 import Loading from '../ui/Loading'
 
-const BarrackList = () => {
+interface BarrackListProps {
+  islevel?: boolean
+}
+
+const BarrackList = ({ islevel = true }: BarrackListProps) => {
   const expeditionLoading = useExpeditionStore((state) => state.expeditionLoading)
   const expeditions = useExpeditionStore((state) => state.expeditions)
 
   const darkMode = useThemeStore((state) => state.darkMode)
 
   return (
-    <div className='w-[90%]'>
+    <div className='w-[80%]'>
       {expeditionLoading && (!expeditions || expeditions.length === 0) ? (
         <div className='flex justify-center'>
           <Loading />
@@ -26,12 +30,18 @@ const BarrackList = () => {
               <img
                 src={`/icons/class/${character.class}.svg`}
                 alt='avatar'
-                className='mr-[35px] h-10 w-10 rounded-full invert'
+                width={40}
+                height={40}
+                className='mr-[35px] rounded-full'
               />
               <h3 className='w-[200px] max-w-[200px] truncate overflow-hidden whitespace-nowrap text-black'>
                 {character.name}
               </h3>
-              <h3 className='ml-auto text-black'>{Number(character.level.replace(/,/g, ''))}</h3>
+              {islevel ? (
+                <h3 className='ml-auto text-black'>{Number(character.level.replace(/,/g, ''))}</h3>
+              ) : (
+                ''
+              )}
             </div>
           ))}
         </div>
