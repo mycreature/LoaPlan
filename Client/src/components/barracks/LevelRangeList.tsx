@@ -1,12 +1,12 @@
-import { useCharacterStore } from '../../stores/api/CharacterStore'
 import { countCharactersByLevelRange } from '../../utils/expeditionDataUtils'
 import { expeditionColors } from '../../styles/colors'
 import Loading from '../ui/Loading'
 import useThemeStore from '../../stores/others/ThemeStore'
+import { useExpeditionStore } from '../../stores/api/ExpeditionStore'
 
 const LevelRangeList = () => {
-  const expeditionLoading = useCharacterStore((state) => state.expeditionLoading)
-  const expeditions = useCharacterStore((state) => state.expeditions) || []
+  const expeditionLoading = useExpeditionStore((state) => state.expeditionLoading)
+  const expeditions = useExpeditionStore((state) => state.expeditions) || []
 
   const levelRangeCount = countCharactersByLevelRange(expeditions)
 

@@ -1,10 +1,10 @@
-import { useCharacterStore } from '../../stores/api/CharacterStore'
+import { useExpeditionStore } from '../../stores/api/ExpeditionStore'
 import useThemeStore from '../../stores/others/ThemeStore'
 import Loading from '../ui/Loading'
 
 const BarrackList = () => {
-  const expeditionLoading = useCharacterStore((state) => state.expeditionLoading)
-  const expeditions = useCharacterStore((state) => state.expeditions)
+  const expeditionLoading = useExpeditionStore((state) => state.expeditionLoading)
+  const expeditions = useExpeditionStore((state) => state.expeditions)
 
   const darkMode = useThemeStore((state) => state.darkMode)
 

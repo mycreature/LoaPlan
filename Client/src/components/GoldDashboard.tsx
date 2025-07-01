@@ -1,13 +1,13 @@
-import { useCharacterStore } from '../stores/api/CharacterStore'
 import { useRaidSelectionStore } from '../stores/selections/RaidSelectionStore'
 import useThemeStore from '../stores/others/ThemeStore'
 import { calculateAverageLevel } from '../utils/expeditionDataUtils'
 import { getTotalRaidGold } from '../utils/raidSelectionUtils'
+import { useExpeditionStore } from '../stores/api/ExpeditionStore'
 
 const GoldDashboard = () => {
   const darkMode = useThemeStore((state) => state.darkMode)
 
-  const expeditions = useCharacterStore((state) => state.expeditions)
+  const expeditions = useExpeditionStore((state) => state.expeditions)
   const selections = useRaidSelectionStore((state) => state.characterSelections)
 
   const averageLevel = calculateAverageLevel(expeditions)
