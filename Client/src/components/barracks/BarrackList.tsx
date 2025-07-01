@@ -1,5 +1,5 @@
-import { useCharacterStore } from '../../stores/CharacterStore'
-import useThemeStore from '../../stores/ThemeStore'
+import { useCharacterStore } from '../../stores/api/CharacterStore'
+import useThemeStore from '../../stores/others/ThemeStore'
 import Loading from '../ui/Loading'
 
 const BarrackList = () => {

@@ -1,7 +1,7 @@
 // pages/Home.tsx
 import { useEffect } from 'react'
-import useAccountStore from '../stores/AccountStore'
-import { useCharacterStore } from '../stores/CharacterStore'
+import useAccountStore from '../stores/others/AccountStore'
+import { useCharacterStore } from '../stores/api/CharacterStore'
 import useViewportType from '../hook/useViewportType'
 import HomeMobileLayout from '../layouts/HomeMobileLayout'
 import HomeDesktopLayout from '../layouts/HomeDesktopLayout'

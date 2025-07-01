@@ -1,4 +1,4 @@
-import { useCharacterStore } from '../../stores/CharacterStore'
+import { useCharacterStore } from '../../stores/api/CharacterStore'
 import Loading from '../ui/Loading'
 import Tag from '../ui/Tag'
 

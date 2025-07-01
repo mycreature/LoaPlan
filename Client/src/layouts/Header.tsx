@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import useThemeStore from '../stores/ThemeStore'
+import useThemeStore from '../stores/others/ThemeStore'
 import { requestLogOut } from '../api/userApi'
 import Sidebar from '../components/ui/Sidebar'
 import { useState } from 'react'

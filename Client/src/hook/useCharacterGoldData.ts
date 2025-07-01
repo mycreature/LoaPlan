@@ -1,4 +1,4 @@
-import { useCharacterStore } from '../stores/CharacterStore'
+import { useCharacterStore } from '../stores/api/CharacterStore'
 import { useRaidSelectionStore } from '../stores/selections/RaidSelectionStore'
 import { getTotalGoldForCharacter } from '../utils/raidSelectionUtils'
 

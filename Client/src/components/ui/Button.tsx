@@ -1,5 +1,5 @@
 import React from 'react'
-import useThemeStore from '../../stores/ThemeStore'
+import useThemeStore from '../../stores/others/ThemeStore'
 
 interface ButtonProps {
   text?: string

@@ -1,8 +1,8 @@
-import { useCharacterStore } from '../../stores/CharacterStore'
+import { useCharacterStore } from '../../stores/api/CharacterStore'
 import { countCharactersByLevelRange } from '../../utils/expeditionDataUtils'
 import { expeditionColors } from '../../styles/colors'
 import Loading from '../ui/Loading'
-import useThemeStore from '../../stores/ThemeStore'
+import useThemeStore from '../../stores/others/ThemeStore'
 
 const LevelRangeList = () => {
   const expeditionLoading = useCharacterStore((state) => state.expeditionLoading)

@@ -1,4 +1,4 @@
-import useThemeStore from '../../stores/ThemeStore'
+import useThemeStore from '../../stores/others/ThemeStore'
 
 interface SidebarProps {
   isOpen: boolean
