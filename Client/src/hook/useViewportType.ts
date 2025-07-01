@@ -4,7 +4,7 @@ type ViewportType = 'mobile' | 'tablet' | 'desktop'
 
 const MOBILE_MAX = 767
 const TABLET_MAX = 1023
-const THROTTLE_DELAY = 200 // ms (원하면 조정 가능)
+const THROTTLE_DELAY = 100 // ms (원하면 조정 가능)
 
 export const useViewportType = (): ViewportType => {
   const [viewport, setViewport] = useState<ViewportType>('desktop')

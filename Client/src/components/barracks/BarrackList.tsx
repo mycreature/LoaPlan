@@ -9,7 +9,7 @@ const BarrackList = () => {
   const darkMode = useThemeStore((state) => state.darkMode)
 
   return (
-    <div className='w-[430px]'>
+    <div className='w-[90%]'>
       {expeditionLoading && (!expeditions || expeditions.length === 0) ? (
         <div className='flex justify-center'>
           <Loading />
