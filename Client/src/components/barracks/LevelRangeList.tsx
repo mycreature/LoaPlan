@@ -20,6 +20,7 @@ const LevelRangeList = () => {
     <div className='mb-auto grid grid-cols-2 items-center gap-4'>
       {Object.entries(levelRangeCount)
         .filter(([_, count]) => count > 0)
+        .reverse()
         .map(([levelRange, count], index) => (
           <div
             key={index}
