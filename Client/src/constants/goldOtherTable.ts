@@ -10,7 +10,7 @@ interface WeeklyContentMaterial {
   drops: MaterialDrop[]
 }
 
-export const weeklyMaterials: WeeklyContentMaterial[] = [
+export const goldOtherTable: WeeklyContentMaterial[] = [
   {
     name: '쿠르잔1',
     type: '전선',
