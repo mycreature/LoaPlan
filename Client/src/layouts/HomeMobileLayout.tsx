@@ -18,12 +18,12 @@ const HomeMobileLayout = () => {
     <main className='space-y-[10px] p-[10px]'>
       <div className='grid grid-cols-1 place-items-center gap-y-[10px]'>
         <div className='캐릭터 정보'>
-          <Block width={370} height={300}>
+          <Block width={370} height={360}>
             <MainInfo />
           </Block>
         </div>
         <div className='배럭 리스트'>
-          <Block width={370} height={300}>
+          <Block width={370} height={360}>
             <BarrackList />
           </Block>
         </div>

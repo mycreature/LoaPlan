@@ -10,17 +10,17 @@ const HomeDesktopLayout = () => {
       {/* 첫번째열 원정대 간략 정보 */}
       <div className='flex justify-center gap-x-[10px] gap-y-[10px]'>
         <div className='대표 캐릭터 이미지'>
-          <Block width={250} height={300} darkColor='bg-[#15181D]' lightColor='bg-[#15181D]'>
+          <Block width={250} height={360} darkColor='bg-[#15181D]' lightColor='bg-[#15181D]'>
             <MainCard />
           </Block>
         </div>
         <div className='캐릭터 정보'>
-          <Block width={276} height={300}>
+          <Block width={276} height={360}>
             <MainInfo />
           </Block>
         </div>
         <div className='배럭 리스트 (메인 캐릭터 제외)'>
-          <Block width={458} height={300}>
+          <Block width={458} height={360}>
             <BarrackList />
           </Block>
         </div>
@@ -28,7 +28,7 @@ const HomeDesktopLayout = () => {
       {/* 두번째열 주간 골드 정보 */}
       <div className='flex justify-center'>
         <div className='justify-between'>
-          <Block width={1004} height={300}>
+          <Block width={1004} height={270}>
             <SummaryPreview />
           </Block>
         </div>
