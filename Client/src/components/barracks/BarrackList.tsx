@@ -28,7 +28,7 @@ const BarrackList = ({ islevel = true }: BarrackListProps) => {
         </div>
       ) : Array.isArray(expeditions) && expeditions.length > 0 ? (
         <div className='flex flex-col gap-[6px]'>
-          {expeditions.slice(1, 6).map((character, index) => {
+          {expeditions.slice(0, 6).map((character, index) => {
             const isSelected = selectedCharacter === character.name
 
             return (

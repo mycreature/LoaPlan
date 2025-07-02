@@ -8,10 +8,10 @@ const WeeklyGold = () => {
     <div className='min-h-screen bg-gray-600 pt-[50px]'>
       <main className='space-y-[10px] p-[10px]'>
         <div className='flex justify-center gap-x-[10px]'>
-          <Block width={300} height={300}>
+          <Block width={300} height={360}>
             <BarrackList islevel={false} />
           </Block>
-          <Block width={694} height={300}>
+          <Block width={694} height={360}>
             <RaidSelector />
           </Block>
         </div>
