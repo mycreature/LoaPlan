@@ -20,9 +20,11 @@ export interface RaidInfo {
   gates: number[]
 }
 
-export interface RaidSelection {
-  characterName: string
-  selections: RaidInfo[]
+export interface OtherInfo {
+  name: string
+  type: '전선' | '카게' | '가토'
+  level: number
+  drops: DropInfo[]
 }
 
 export interface DropInfo {
@@ -30,11 +32,9 @@ export interface DropInfo {
   amount: number
 }
 
-export interface OtherInfo {
-  name: string
-  type: '전선' | '카게' | '가토'
-  level: number
-  drops: DropInfo[]
+export interface RaidSelection {
+  characterName: string
+  selections: RaidInfo[]
 }
 
 export interface OtherSelection {
