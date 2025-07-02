@@ -14,7 +14,6 @@ const BarrackList = ({ islevel = true }: BarrackListProps) => {
 
   const selectedCharacter = useCharacterSelectionStore((state) => state.selectedCharacterName)
   const setSelectedCharacter = useCharacterSelectionStore((state) => state.setSelectedCharacter)
-  console.log(selectedCharacter)
 
   const handleClick = (name: string) => {
     setSelectedCharacter(name)
