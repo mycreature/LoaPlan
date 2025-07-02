@@ -16,10 +16,10 @@ const WeeklyGold = () => {
           </Block>
         </div>
         <div className='flex justify-center gap-x-[10px]'>
-          <Block width={300} height={300}>
-            <GoldDashboard width={270} height={270} />
+          <Block width={300} height={270}>
+            <GoldDashboard width={270} height={250} />
           </Block>
-          <Block width={694} height={300}></Block>
+          <Block width={694} height={270}></Block>
         </div>
       </main>
     </div>
