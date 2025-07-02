@@ -44,6 +44,10 @@ export const getCharProfile = async (apikey: string, Name: string) => {
     const instance = createLostarkInstance(apikey)
 
     const res = await instance.get(`armories/characters/${Name}/profiles`)
+
+    if (!res.data) {
+      throw new Error('프로필 데이터 로딩 실패 (장기 미접속 문제)')
+    }
     console.log(`✅ ${Name} 프로필 호출`)
     return res.data
   } catch (error) {
