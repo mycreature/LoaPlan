@@ -1,6 +1,6 @@
 import PieChartComponent from '../charts/PieChart'
 import { expeditionColors } from '../../styles/colors'
-import { useExpeditionGoldData } from '../../hook/useCharacterGoldData'
+import { useExpeditionGoldData } from '../../hook/useExpeditionGoldData'
 import Button from '../ui/Button'
 import { useNavigate } from 'react-router-dom'
 import LevelRangeList from '../barracks/LevelRangeList'

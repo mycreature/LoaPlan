@@ -1,9 +1,8 @@
 import Block from '../components/ui/Block'
-
 import MainInfo from '../components/character/MainInfo'
 import BarrackList from '../components/barracks/BarrackList'
 import { getGoldByLevelRange } from '../utils/expeditionDataUtils'
-import { useExpeditionGoldData } from '../hook/useCharacterGoldData'
+import { useExpeditionGoldData } from '../hook/useExpeditionGoldData'
 import PieChartComponent from '../components/charts/PieChart'
 import { expeditionColors } from '../styles/colors'
 import LevelRangeList from '../components/barracks/LevelRangeList'
