@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { useCharacterStore } from '../../stores/api/CharacterStore'
 import { useCharacterSelectionStore } from '../../stores/selections/CharacterSelectionStore'
 import Loading from '../ui/Loading'
@@ -7,20 +6,10 @@ const MainCard = () => {
   const MainCharacter = useCharacterStore((state) => state.MainCharacter)
   const profileLoading = useCharacterStore((state) => state.profileLoading)
 
-  const selectedCharacter = useCharacterSelectionStore((state) => state.selectedCharacterName)
   const SelectedCharacterInfo = useCharacterSelectionStore((state) => state.SelectedCharacterInfo)
-  const loadSelectedProfileData = useCharacterSelectionStore(
-    (state) => state.loadSelectedProfileData,
-  )
-  const profileError = useCharacterSelectionStore((state) => state.profileError)
+  const selectedProfileError = useCharacterSelectionStore((state) => state.profileError)
 
-  useEffect(() => {
-    if (selectedCharacter) {
-      loadSelectedProfileData(selectedCharacter)
-    }
-  }, [selectedCharacter])
-
-  if (profileError) return <div>이미지 불러오기 실패</div>
+  if (selectedProfileError) return <div>이미지 불러오기 실패</div>
 
   if (SelectedCharacterInfo) {
     return (
