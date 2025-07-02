@@ -1,15 +1,15 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import { CharacterOtherSelection, MaterialDrop, OtherSelection } from '../../types/Types'
+import { OtherSelection, DropInfo, OtherInfo } from '../../types/Types'
 
 interface OtherSelectionState {
-  characterSelections: CharacterOtherSelection[]
+  characterSelections: OtherSelection[]
   toggleDrop: (
     characterName: string,
     name: string,
     type: '전선' | '카게' | '가토',
     level: number,
-    dropToToggle: MaterialDrop,
+    dropToToggle: DropInfo,
   ) => void
   clearSelectionsForCharacter: (characterName: string) => void
   clearAllSelections: () => void
@@ -31,7 +31,7 @@ export const useOtherSelectionStore = create<OtherSelectionState>()(
             (s) => s.name === name && s.type === type && s.level === level,
           )
 
-          let updatedSelections: OtherSelection[]
+          let updatedSelections: OtherInfo[]
 
           if (existingSelection) {
             // dropToToggle 이 drops 배열에 있는지 검사 (name 기준으로 비교)

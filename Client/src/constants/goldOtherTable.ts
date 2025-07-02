@@ -1,6 +1,6 @@
-import { OtherSelection } from '../types/Types'
+import { OtherInfo } from '../types/Types'
 
-export const goldOtherTable: OtherSelection[] = [
+export const goldOtherTable: OtherInfo[] = [
   {
     name: '쿠르잔1',
     type: '전선',

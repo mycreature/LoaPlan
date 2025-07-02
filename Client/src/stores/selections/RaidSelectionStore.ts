@@ -1,9 +1,9 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import { CharacterRaidSelection, GateSelection } from '../../types/Types'
+import { RaidSelection, RaidInfo } from '../../types/Types'
 
 interface RaidSelectionState {
-  characterSelections: CharacterRaidSelection[]
+  characterSelections: RaidSelection[]
   toggleGate: (
     characterName: string,
     raidName: string,
@@ -29,7 +29,7 @@ export const useRaidSelectionStore = create<RaidSelectionState>()(
             (s) => s.raidName === raidName && s.type === type,
           )
 
-          let updatedSelections: GateSelection[]
+          let updatedSelections: RaidInfo[]
 
           if (existingRaid) {
             const gates = existingRaid.gates.includes(gate)
