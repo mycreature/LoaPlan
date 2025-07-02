@@ -52,5 +52,6 @@ export const getCharProfile = async (apikey: string, Name: string) => {
     return res.data
   } catch (error) {
     console.error(`❌ ${Name} 프로필 호출 실패:`, error)
+    throw error
   }
 }
