@@ -44,6 +44,12 @@
     color: #bebebe;
   }
 
+  h5 {
+    font-size: 12px !important;
+    font-family: 'SUIT';
+    font-weight: 500;
+  }
+
   @theme {
     --color-green: #4bd66e;
     --color-black: #282828;
