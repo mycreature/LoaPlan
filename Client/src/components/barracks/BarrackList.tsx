@@ -43,7 +43,7 @@ const BarrackList = ({ islevel = true }: BarrackListProps) => {
                   alt='avatar'
                   width={40}
                   height={40}
-                  className='mr-[35px] rounded-full'
+                  className='mr-[25px] rounded-full'
                 />
                 <h3 className='w-[200px] max-w-[200px] truncate overflow-hidden whitespace-nowrap text-black'>
                   {character.name}
