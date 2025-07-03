@@ -20,13 +20,14 @@ const BarrackList = ({ islevel = true }: BarrackListProps) => {
   }
 
   return (
-    <div className='w-[80%]'>
+    <div className='h-full w-[90%]'>
+      <h3 className='my-3 font-extrabold text-black'>원정대 리스트</h3>
       {expeditionLoading && (!expeditions || expeditions.length === 0) ? (
         <div className='flex justify-center'>
           <Loading />
         </div>
       ) : Array.isArray(expeditions) && expeditions.length > 0 ? (
-        <div className='flex flex-col gap-[6px]'>
+        <div className='flex flex-col gap-[5px]'>
           {expeditions.slice(0, 6).map((character, index) => {
             const isSelected = selectedCharacter === character.name
 
@@ -34,16 +35,14 @@ const BarrackList = ({ islevel = true }: BarrackListProps) => {
               <div
                 key={index}
                 onClick={() => handleClick(character.name)}
-                className={`flex min-h-[52px] cursor-pointer items-center rounded-lg border-3 pr-[27px] pl-[25px] ${
+                className={`flex min-h-[50px] cursor-pointer items-center rounded-lg border-3 pr-[27px] pl-[25px] ${
                   isSelected ? 'border-green' : darkMode ? 'border-black/20' : 'border-gray'
                 }`}
               >
                 <img
                   src={`/icons/class/${character.class}.svg`}
                   alt='avatar'
-                  width={40}
-                  height={40}
-                  className='mr-[25px] rounded-full'
+                  className='mr-[25px] h-9 w-9 rounded-full'
                 />
                 <h3 className='w-[200px] max-w-[200px] truncate overflow-hidden whitespace-nowrap text-black'>
                   {character.name}
