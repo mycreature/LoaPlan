@@ -20,8 +20,8 @@ const BarrackList = ({ islevel = true }: BarrackListProps) => {
   }
 
   return (
-    <div className='h-full w-[90%]'>
-      <h3 className='mt-3 mb-2 font-extrabold text-black'>원정대 리스트</h3>
+    <div className='h-[95%] w-[90%]'>
+      <h3 className='mb-2 font-extrabold text-black'>원정대 리스트</h3>
       {expeditionLoading && (!expeditions || expeditions.length === 0) ? (
         <div className='flex justify-center'>
           <Loading />
