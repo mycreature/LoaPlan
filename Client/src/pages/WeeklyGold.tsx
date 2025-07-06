@@ -21,23 +21,21 @@ const WeeklyGold = () => {
             </div>
           </Block>
           <Block width={694} height={300}>
-            {expeditionGoldData.length !== 0 && SelectedCharacterInfo ? (
-              <div className='w-full gap-2 p-3'>
-                <div className='flex flex-col gap-2'>
-                  <h3 className='font-extrabold text-black'>주간 골드 선택</h3>
+            <div className='h-full w-full gap-2 p-3'>
+              <div className='flex h-full w-full flex-col gap-2'>
+                <h3 className='font-extrabold text-black'>주간 골드 선택</h3>
+                {expeditionGoldData.length !== 0 && SelectedCharacterInfo ? (
                   <RaidSelector />
-                </div>
+                ) : (
+                  <div className='flex h-full w-full flex-col items-center justify-center gap-1'>
+                    <h3 className='text-black'>원정대 리스트를 선택해주세요</h3>
+                    <h4 className='text-black opacity-60'>
+                      (선택을 했었으면 장기 미접속으로 인한 정보 불러오기 실패)
+                    </h4>
+                  </div>
+                )}
               </div>
-            ) : (
-              <div className='flex gap-2'>
-                <div className='flex flex-col'>
-                  <h3 className='min-w-[456px] font-extrabold text-black'>주간 골드 선택</h3>
-                  <h3 className='my-auto flex justify-center text-black'>
-                    왼쪽 캐릭터를 선택해주세요.
-                  </h3>
-                </div>
-              </div>
-            )}
+            </div>
           </Block>
         </div>
         <div className='flex justify-center gap-x-[10px]'>
