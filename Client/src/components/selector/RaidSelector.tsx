@@ -14,7 +14,7 @@ const RaidSelector = () => {
   const { toggleGate, characterSelections } = useRaidSelectionStore()
 
   const sliderRef = useRef<HTMLDivElement>(null)
-  const slideWidth = 458
+  const slideWidth = 670
   const maxSelections = 3
 
   const isGateSelected = (raidName: string, type: string, gate: number) => {
@@ -104,10 +104,10 @@ const RaidSelector = () => {
   }
 
   return (
-    <div className='flex w-[456px] flex-col'>
+    <div className='flex w-full flex-col'>
       <div
         ref={sliderRef}
-        className='scrollbar-hide flex w-[456px] flex-row gap-4 overflow-hidden scroll-smooth'
+        className='scrollbar-hide flex flex-row gap-5 overflow-hidden scroll-smooth'
         style={{ scrollSnapType: 'x mandatory' }}
       >
         {Object.entries(groupedRaidGates)
@@ -118,7 +118,7 @@ const RaidSelector = () => {
             return (
               <div
                 key={key}
-                className={`${darkMode ? 'border-black/20' : 'border-gray'} flex h-[185px] w-[140px] flex-shrink-0 flex-col rounded-xl border-2 p-[10px]`}
+                className={`${darkMode ? 'border-black/20' : 'border-gray'} flex h-[185px] w-[152px] flex-shrink-0 flex-col rounded-xl border-2 p-[10px]`}
                 style={{ scrollSnapAlign: 'start' }}
               >
                 <div className='flex justify-between'>

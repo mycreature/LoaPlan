@@ -16,20 +16,21 @@ const WeeklyGold = () => {
       <main className='space-y-[10px] p-[10px]'>
         <div className='flex justify-center gap-x-[10px]'>
           <Block width={300} height={385}>
-            <BarrackList islevel={false} />
+            <div className='h-full w-full p-3'>
+              <BarrackList islevel={false} />
+            </div>
           </Block>
           <Block width={694} height={300}>
             {expeditionGoldData.length !== 0 && SelectedCharacterInfo ? (
-              <div className='flex h-[95%] w-[95%] gap-2'>
+              <div className='w-full gap-2 p-3'>
                 <div className='flex flex-col gap-2'>
-                  <h3 className='min-w-[456px] font-extrabold text-black'>주간 골드 선택</h3>
+                  <h3 className='font-extrabold text-black'>주간 골드 선택</h3>
                   <RaidSelector />
                 </div>
-                <Block width={200} height={150}></Block>
               </div>
             ) : (
-              <div className='flex h-[95%] w-[95%] gap-2'>
-                <div className='flex w-full flex-col'>
+              <div className='flex gap-2'>
+                <div className='flex flex-col'>
                   <h3 className='min-w-[456px] font-extrabold text-black'>주간 골드 선택</h3>
                   <h3 className='my-auto flex justify-center text-black'>
                     왼쪽 캐릭터를 선택해주세요.
