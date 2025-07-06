@@ -15,8 +15,8 @@ const RaidSelector = () => {
 
   const sliderRef = useRef<HTMLDivElement>(null)
   const slideWidth = 458
+  const maxSelections = 3
 
-  // ✅ Store에서 현재 캐릭터의 선택 상태를 가져오는 함수
   const isGateSelected = (raidName: string, type: string, gate: number) => {
     if (!SelectedCharacterInfo) return false
 
@@ -29,38 +29,66 @@ const RaidSelector = () => {
     return raid ? raid.gates.includes(gate) : false
   }
 
+  const canSelectGate = (raidName: string, gate: number) => {
+    if (!SelectedCharacterInfo) return false
+
+    const character = characterSelections.find(
+      (c) => c.characterName === SelectedCharacterInfo.name,
+    )
+    if (!character) return true
+
+    const isCurrentRaidSelected = character.selections.some((s) => s.raidName === raidName)
+
+    // ❌ 같은 raidName에서 중복된 gate 번호가 있으면 불가
+    const isGateConflict = character.selections.some(
+      (s) => s.raidName === raidName && s.gates.includes(gate),
+    )
+    if (isGateConflict) return false
+
+    // ✅ 이미 선택된 레이드는 항상 허용
+    if (isCurrentRaidSelected) return true
+
+    const currentRaidCount = new Set(character.selections.map((s) => s.raidName)).size
+    if (currentRaidCount >= maxSelections) return false
+
+    return true
+  }
+
+  const handleGateToggle = (raidName: string, type: any, gate: number) => {
+    if (!SelectedCharacterInfo) return
+
+    const isSelected = isGateSelected(raidName, type, gate)
+
+    if (isSelected) {
+      toggleGate(SelectedCharacterInfo.name, raidName, type, gate)
+      return
+    }
+
+    if (canSelectGate(raidName, gate)) {
+      toggleGate(SelectedCharacterInfo.name, raidName, type, gate)
+    }
+  }
+
   const availableRaid = getAvailableRaidsByLevel(
-    parseFloat(SelectedCharacterInfo?.level.replace(/,/g, '')),
+    parseFloat(SelectedCharacterInfo?.level.replace(/,/g, '') || '0'),
   )
 
-  // ✅ 한 번의 순회로 그룹핑까지 완료
   const groupedRaidGates = availableRaid.reduce(
     (acc, raid) => {
       const raidData = raidGoldTable.find((r) => r.name === raid.raidName)
       const typeData = raidData?.type.find((t) => t.type === raid.type)
-
       if (!typeData?.gates) return acc
 
       const key = `${raid.raidName}-${raid.type}`
-
       acc[key] = typeData.gates.map((gate) => ({
         raidName: raid.raidName,
         type: raid.type,
         gate: gate.gate,
         gold: gate.gold,
       }))
-
       return acc
     },
-    {} as Record<
-      string,
-      Array<{
-        raidName: string
-        type: any
-        gate: number
-        gold: number
-      }>
-    >,
+    {} as Record<string, Array<{ raidName: string; type: string; gate: number; gold: number }>>,
   )
 
   const handlePrev = () => {
@@ -105,14 +133,12 @@ const RaidSelector = () => {
                     const isChecked = isGateSelected(g.raidName, g.type, g.gate)
                     return (
                       <div key={g.gate} className='mt-2 flex items-center justify-center'>
-                        <h5 className='font-bold text-black'>{g.gate}관문 : </h5>
+                        <h5 className='font-bold text-black'>{g.gate}관문 :</h5>
                         <h5 className='ml-1 font-bold text-black'>{g.gold.toLocaleString()}G</h5>
                         <div className='ml-auto h-full'>
                           <Checkbox
                             checked={isChecked}
-                            onChange={() => {
-                              toggleGate(SelectedCharacterInfo.name, g.raidName, g.type, g.gate)
-                            }}
+                            onChange={() => handleGateToggle(g.raidName, g.type, g.gate)}
                           />
                         </div>
                       </div>
@@ -143,7 +169,6 @@ const RaidSelector = () => {
           onClick={handleNext}
         />
       </div>
-      )
     </div>
   )
 }
