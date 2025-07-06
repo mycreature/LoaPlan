@@ -13,8 +13,12 @@ const WeeklyGold = () => {
           <Block width={300} height={385}>
             <BarrackList islevel={false} />
           </Block>
-          <Block width={694} height={385}>
-            <RaidSelector />
+          <Block width={694} height={300}>
+            <div className='flex h-[95%] flex-col gap-2'>
+              <h3 className='font-extrabold text-black'>주간 골드 선택</h3>
+              <RaidSelector />
+            </div>
+            <Block width={200} height={150}></Block>
           </Block>
         </div>
         <div className='flex justify-center gap-x-[10px]'>
