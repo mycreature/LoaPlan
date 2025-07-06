@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import { useExpeditionGoldData } from '../../hook/useExpeditionGoldData'
+
 import { useCharacterSelectionStore } from '../../stores/selections/CharacterSelectionStore'
 import { getAvailableRaidsByLevel } from '../../utils/expeditionDataUtils'
 import { raidGoldTable } from '../../constants/goldRaidTable'
@@ -9,7 +9,6 @@ import Checkbox from '../ui/CheckBox'
 import { useRaidSelectionStore } from '../../stores/selections/RaidSelectionStore'
 
 const RaidSelector = () => {
-  const expeditionGoldData = useExpeditionGoldData() || []
   const SelectedCharacterInfo = useCharacterSelectionStore((state) => state.SelectedCharacterInfo)
   const darkMode = useThemeStore((state) => state.darkMode)
   const { toggleGate, characterSelections } = useRaidSelectionStore()
@@ -29,8 +28,6 @@ const RaidSelector = () => {
     const raid = character.selections.find((s) => s.raidName === raidName && s.type === type)
     return raid ? raid.gates.includes(gate) : false
   }
-
-  if (expeditionGoldData.length === 0 || !SelectedCharacterInfo) return null
 
   const availableRaid = getAvailableRaidsByLevel(
     parseFloat(SelectedCharacterInfo?.level.replace(/,/g, '')),
@@ -105,9 +102,7 @@ const RaidSelector = () => {
 
                 <div className='mt-1 flex-grow items-center'>
                   {gates.map((g) => {
-                    // ✅ Store 기반으로 체크 상태 결정
                     const isChecked = isGateSelected(g.raidName, g.type, g.gate)
-
                     return (
                       <div key={g.gate} className='mt-2 flex items-center justify-center'>
                         <h5 className='font-bold text-black'>{g.gate}관문 : </h5>
@@ -134,7 +129,6 @@ const RaidSelector = () => {
           })
           .reverse()}
       </div>
-
       <div className='mt-3 flex h-10 justify-center gap-4'>
         <Button
           text='◀ 이전'
@@ -149,6 +143,7 @@ const RaidSelector = () => {
           onClick={handleNext}
         />
       </div>
+      )
     </div>
   )
 }
