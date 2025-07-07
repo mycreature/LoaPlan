@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 
 import { useCharacterSelectionStore } from '../../stores/selections/CharacterSelectionStore'
 import { getAvailableRaidsByLevel } from '../../utils/expeditionDataUtils'
@@ -7,6 +7,7 @@ import Button from '../ui/Button'
 import useThemeStore from '../../stores/others/ThemeStore'
 import Checkbox from '../ui/CheckBox'
 import { useRaidSelectionStore } from '../../stores/selections/RaidSelectionStore'
+import Modal from '../ui/Modal'
 
 const RaidSelector = () => {
   const SelectedCharacterInfo = useCharacterSelectionStore((state) => state.SelectedCharacterInfo)
@@ -16,6 +17,13 @@ const RaidSelector = () => {
   const sliderRef = useRef<HTMLDivElement>(null)
   const slideWidth = 670
   const maxSelections = 3
+
+  // Modal 상태관리
+  const [open, isOpen] = useState(false)
+
+  const handleToggleModal = () => {
+    isOpen((prev) => !prev)
+  }
 
   const isGateSelected = (raidName: string, type: string, gate: number) => {
     if (!SelectedCharacterInfo) return false
@@ -168,6 +176,17 @@ const RaidSelector = () => {
           textClass='text-sm font-extrabold'
           onClick={handleNext}
         />
+        <Button
+          text='기타 컨텐츠'
+          className='h-full'
+          textClass='text-sm font-extrabold'
+          onClick={handleToggleModal}
+        />
+        <Modal onClose={handleToggleModal} open={open}>
+          <div>
+            <h3> 테스트</h3>
+          </div>
+        </Modal>
       </div>
     </div>
   )
