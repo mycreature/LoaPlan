@@ -1,10 +1,16 @@
-import { ExpeditionCharacter } from '../types/Types'
+import { ExpeditionCharacter, OtherInfo } from '../types/Types'
 import { levelRanges } from '../constants/levelRanges'
 import { RaidGold, raidGoldTable, RaidType } from '../constants/goldRaidTable'
+import { goldOtherTable } from '../constants/goldOtherTable'
 
 interface AvailableRaid {
   raidName: string
   type: '노말' | '하드' | '싱글'
+}
+
+interface AvailableOther {
+  name: string
+  type: '전선' | '카게' | '가토'
 }
 
 // 원정대 상위 6명 캐릭터의 평균 레벨 계산
@@ -93,5 +99,20 @@ export const getAvailableRaidsByLevel = (level: number): AvailableRaid[] => {
     })
   })
 
+  return available
+}
+
+// 기타컨텐츠 레벨에 따른 활성화 가능한 기타 컨텐츠 목록을 반환하는 함수
+export const getAvailableOthersByLevel = (level: number): AvailableOther[] => {
+  const available: AvailableOther[] = []
+
+  goldOtherTable.forEach((other: OtherInfo) => {
+    if (level >= other.level) {
+      available.push({
+        name: other.name,
+        type: other.type,
+      })
+    }
+  })
   return available
 }
