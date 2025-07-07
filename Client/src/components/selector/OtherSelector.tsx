@@ -1,7 +1,7 @@
 import { useOtherSelectionStore } from '../../stores/selections/OtherSelectionStore'
 import Button from '../ui/Button'
 
-const OtherSelector = (SelectedCharacterInfo: any) => {
+const OtherSelector = ({ SelectedCharacterInfo }: { SelectedCharacterInfo: any }) => {
   const { toggleDrop, characterSelections } = useOtherSelectionStore()
   console.log(characterSelections)
 

@@ -1,5 +1,4 @@
 import { useRef, useState } from 'react'
-
 import { getAvailableRaidsByLevel } from '../../utils/expeditionDataUtils'
 import { raidGoldTable } from '../../constants/goldRaidTable'
 import Button from '../ui/Button'
@@ -9,7 +8,7 @@ import { useRaidSelectionStore } from '../../stores/selections/RaidSelectionStor
 import Modal from '../ui/Modal'
 import OtherSelector from './OtherSelector'
 
-const RaidSelector = (SelectedCharacterInfo: any) => {
+const RaidSelector = ({ SelectedCharacterInfo }: { SelectedCharacterInfo: any }) => {
   const darkMode = useThemeStore((state) => state.darkMode)
   const { toggleGate, characterSelections } = useRaidSelectionStore()
 
