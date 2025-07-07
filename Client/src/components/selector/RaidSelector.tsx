@@ -1,6 +1,5 @@
 import { useRef, useState } from 'react'
 
-import { useCharacterSelectionStore } from '../../stores/selections/CharacterSelectionStore'
 import { getAvailableRaidsByLevel } from '../../utils/expeditionDataUtils'
 import { raidGoldTable } from '../../constants/goldRaidTable'
 import Button from '../ui/Button'
@@ -8,9 +7,9 @@ import useThemeStore from '../../stores/others/ThemeStore'
 import Checkbox from '../ui/CheckBox'
 import { useRaidSelectionStore } from '../../stores/selections/RaidSelectionStore'
 import Modal from '../ui/Modal'
+import OtherSelector from './OtherSelector'
 
-const RaidSelector = () => {
-  const SelectedCharacterInfo = useCharacterSelectionStore((state) => state.SelectedCharacterInfo)
+const RaidSelector = (SelectedCharacterInfo: any) => {
   const darkMode = useThemeStore((state) => state.darkMode)
   const { toggleGate, characterSelections } = useRaidSelectionStore()
 
@@ -184,7 +183,8 @@ const RaidSelector = () => {
         />
         <Modal onClose={handleToggleModal} open={open}>
           <div>
-            <h3> 테스트</h3>
+            <h3 className='font-extrabold text-black'>주간 골드 선택</h3>
+            <OtherSelector SelectedCharacterInfo={SelectedCharacterInfo} />
           </div>
         </Modal>
       </div>

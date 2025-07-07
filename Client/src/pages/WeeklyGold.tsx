@@ -25,7 +25,7 @@ const WeeklyGold = () => {
               <div className='flex h-full w-full flex-col gap-2'>
                 <h3 className='font-extrabold text-black'>주간 골드 선택</h3>
                 {expeditionGoldData.length !== 0 && SelectedCharacterInfo ? (
-                  <RaidSelector />
+                  <RaidSelector SelectedCharacterInfo={SelectedCharacterInfo} />
                 ) : (
                   <div className='flex h-full w-full flex-col items-center justify-center gap-1'>
                     <h3 className='text-black'>원정대 리스트를 선택해주세요</h3>
