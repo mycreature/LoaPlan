@@ -1,4 +1,5 @@
 import React from 'react'
+import Button from './Button'
 
 interface ModalProps {
   open: boolean
@@ -12,9 +13,7 @@ const Modal = ({ open, onClose, children }: ModalProps) => {
     <div className='fixed inset-0 z-50 flex items-center justify-center bg-black/50'>
       <div className='min-w-[300px] rounded-lg bg-white p-6 shadow-lg'>
         {children}
-        <button className='bg-green mt-4 rounded px-4 py-2 text-white' onClick={onClose}>
-          닫기
-        </button>
+        <Button text='닫기' onClick={onClose} />
       </div>
     </div>
   )
