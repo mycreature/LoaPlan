@@ -1,22 +1,23 @@
+import useThemeStore from '../../stores/others/ThemeStore'
 import { useOtherSelectionStore } from '../../stores/selections/OtherSelectionStore'
-import Button from '../ui/Button'
+import { getAvailableOthersByLevel } from '../../utils/expeditionDataUtils'
 
 const OtherSelector = ({ SelectedCharacterInfo }: { SelectedCharacterInfo: any }) => {
-  const { toggleDrop, characterSelections } = useOtherSelectionStore()
-  console.log(characterSelections)
+  const darkMode = useThemeStore((state) => state.darkMode)
+  const { characterSelections } = useOtherSelectionStore()
+
+  console.log('characterSelections', characterSelections)
+
+  const availableOther = getAvailableOthersByLevel(
+    parseFloat(SelectedCharacterInfo?.level.replace(/,/g, '') || '0'),
+  )
+
+  console.log('availableOther', availableOther)
 
   return (
-    <div className='flex w-full flex-col'>
-      <Button
-        text='테스트'
-        onClick={() =>
-          toggleDrop(SelectedCharacterInfo.name, '쿠르잔1', '전선', 1640, {
-            name: '운명의 파괴석',
-            amount: 147,
-          })
-        }
-      />
-    </div>
+    <div
+      className={`${darkMode ? 'border-black/20' : 'border-gray'} flex w-full flex-col gap-2 rounded-xl border-2 p-[10px]`}
+    ></div>
   )
 }
 

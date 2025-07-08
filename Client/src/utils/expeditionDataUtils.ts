@@ -1,4 +1,4 @@
-import { ExpeditionCharacter, OtherInfo } from '../types/Types'
+import { ExpeditionCharacter } from '../types/Types'
 import { levelRanges } from '../constants/levelRanges'
 import { RaidGold, raidGoldTable, RaidType } from '../constants/goldRaidTable'
 import { goldOtherTable } from '../constants/goldOtherTable'
@@ -11,6 +11,7 @@ interface AvailableRaid {
 interface AvailableOther {
   name: string
   type: '전선' | '카게' | '가토'
+  level: number
 }
 
 // 원정대 상위 6명 캐릭터의 평균 레벨 계산
@@ -102,17 +103,21 @@ export const getAvailableRaidsByLevel = (level: number): AvailableRaid[] => {
   return available
 }
 
-// 기타컨텐츠 레벨에 따른 활성화 가능한 기타 컨텐츠 목록을 반환하는 함수
-export const getAvailableOthersByLevel = (level: number): AvailableOther[] => {
-  const available: AvailableOther[] = []
+// 기타컨텐츠를 입력받은 레벨보다 낮거나 같은 값중 가장 높은 레벨 컨텐츠 반환 함수
+export const getAvailableOthersByLevel = (targetLevel: number): AvailableOther[] => {
+  const typeMap = goldOtherTable
+    .filter((item) => item.level <= targetLevel)
+    .reduce((acc, item) => {
+      const existing = acc.get(item.type)
+      if (!existing || existing.level < item.level) {
+        acc.set(item.type, {
+          name: item.name,
+          type: item.type,
+          level: item.level,
+        })
+      }
+      return acc
+    }, new Map<string, AvailableOther>())
 
-  goldOtherTable.forEach((other: OtherInfo) => {
-    if (level >= other.level) {
-      available.push({
-        name: other.name,
-        type: other.type,
-      })
-    }
-  })
-  return available
+  return Array.from(typeMap.values())
 }
