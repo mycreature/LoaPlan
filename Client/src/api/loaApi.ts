@@ -1,13 +1,13 @@
 import { createLostarkInstance } from './instance'
 
-export const getMarketData = async (apikey: string, itemName: string, itemCode: number) => {
+export const getMarketData = async (apikey: string, itemCode: number, itemName?: string) => {
   try {
     const instance = createLostarkInstance(apikey)
 
     const res = await instance.post('markets/items', {
       Sort: 'GRADE',
       CategoryCode: itemCode,
-      ItemName: itemName,
+      ItemName: itemName || '',
       SortCondition: 'ASC',
     })
     console.log(`✅ ${itemName} 아이템 호출`, res.data)
