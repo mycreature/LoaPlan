@@ -4,12 +4,12 @@ import { OtherSelection, DropInfo, OtherInfo } from '../../types/Types'
 
 interface OtherSelectionState {
   characterSelections: OtherSelection[]
-  toggleDrop: (
+  toggleDrops: (
     characterName: string,
     name: string,
     type: '전선' | '카게' | '가토',
     level: number,
-    dropToToggle: DropInfo,
+    dropToToggle: DropInfo[],
   ) => void
   clearSelectionsForCharacter: (characterName: string) => void
   clearAllSelections: () => void
@@ -20,13 +20,12 @@ export const useOtherSelectionStore = create<OtherSelectionState>()(
     (set, get) => ({
       characterSelections: [],
 
-      toggleDrop: (characterName, name, type, level, dropToToggle) => {
+      toggleDrops: (characterName, name, type, level, dropsToToggle) => {
         const { characterSelections } = get()
 
         const character = characterSelections.find((c) => c.characterName === characterName)
 
         if (character) {
-          // 선택한 캐릭터에서 특정 selection 찾기
           const existingSelection = character.selections.find(
             (s) => s.name === name && s.type === type && s.level === level,
           )
@@ -34,29 +33,35 @@ export const useOtherSelectionStore = create<OtherSelectionState>()(
           let updatedSelections: OtherInfo[]
 
           if (existingSelection) {
-            // dropToToggle 이 drops 배열에 있는지 검사 (name 기준으로 비교)
-            const dropExists = existingSelection.drops.some((d) => d.name === dropToToggle.name)
+            // 기존 드롭들과 비교해서 toggle
+            const currentDrops = existingSelection.drops
 
-            // toggle: 있으면 제거, 없으면 추가
-            const newDrops = dropExists
-              ? existingSelection.drops.filter((d) => d.name !== dropToToggle.name)
-              : [...existingSelection.drops, dropToToggle]
+            // 이름 기준으로 toggle
+            const dropsAfterToggle = currentDrops.filter(
+              (d) => !dropsToToggle.some((t) => t.name === d.name),
+            )
+
+            const dropsToAdd = dropsToToggle.filter(
+              (d) => !currentDrops.some((c) => c.name === d.name),
+            )
+
+            const finalDrops = [...dropsAfterToggle, ...dropsToAdd]
 
             updatedSelections =
-              newDrops.length > 0
+              finalDrops.length > 0
                 ? character.selections.map((s) =>
                     s.name === name && s.type === type && s.level === level
-                      ? { ...s, drops: newDrops }
+                      ? { ...s, drops: finalDrops }
                       : s,
                   )
                 : character.selections.filter(
                     (s) => !(s.name === name && s.type === type && s.level === level),
                   )
           } else {
-            // 기존 selection 없으면 새로 추가
+            // 기존 selection이 없으면 추가
             updatedSelections = [
               ...character.selections,
-              { name, type, level, drops: [dropToToggle] },
+              { name, type, level, drops: dropsToToggle },
             ]
           }
 
@@ -66,11 +71,11 @@ export const useOtherSelectionStore = create<OtherSelectionState>()(
             ),
           })
         } else {
-          // 캐릭터 자체가 없으면 새로 추가
+          // 캐릭터가 없으면 새로 추가
           set({
             characterSelections: [
               ...characterSelections,
-              { characterName, selections: [{ name, type, level, drops: [dropToToggle] }] },
+              { characterName, selections: [{ name, type, level, drops: dropsToToggle }] },
             ],
           })
         }

@@ -5,7 +5,7 @@ import Button from '../ui/Button'
 
 const OtherSelector = ({ SelectedCharacterInfo }: { SelectedCharacterInfo: any }) => {
   const darkMode = useThemeStore((state) => state.darkMode)
-  const { toggleDrop, characterSelections } = useOtherSelectionStore()
+  const { toggleDrops, characterSelections } = useOtherSelectionStore()
 
   console.log(characterSelections)
 
@@ -18,17 +18,17 @@ const OtherSelector = ({ SelectedCharacterInfo }: { SelectedCharacterInfo: any }
       className={`${darkMode ? 'border-black/20' : 'border-gray'} flex w-full flex-col gap-2 rounded-xl border-2 p-[10px]`}
     >
       {Object.entries(availableOther).map(([key, value]) => (
-        <div className='flex justify-between p-[10px]'>
+        <div key={key} className='flex justify-between p-[10px]'>
           <h4 className='text-black'>{value.name}</h4>
           <Button
             text='선택'
             onClick={() =>
-              toggleDrop(
+              toggleDrops(
                 SelectedCharacterInfo.name,
                 value.name,
                 value.type,
                 value.level,
-                value.drops[Number(key)],
+                value.drops,
               )
             }
           />
