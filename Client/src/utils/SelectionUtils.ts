@@ -55,7 +55,7 @@ export const getOtherDropsForCharacter = (
   const character = allSelections.find((c) => c.characterName === characterName)
   if (!character) return []
 
-  let allDrops: { name: string; amount: number }[] = []
+  const allDrops: { name: string; amount: number }[] = []
 
   character.selections.forEach(({ name, type, level }) => {
     const tableEntry = goldOtherTable.find(
@@ -63,7 +63,17 @@ export const getOtherDropsForCharacter = (
     )
     if (!tableEntry) return
 
-    allDrops = allDrops.concat(tableEntry.drops)
+    tableEntry.drops.forEach((drop) => {
+      const existingDrop = allDrops.find((d) => d.name === drop.name)
+
+      if (existingDrop) {
+        // 기존 드롭의 수량 증가
+        existingDrop.amount += drop.amount
+      } else {
+        // 새로운 드롭 추가
+        allDrops.push({ name: drop.name, amount: drop.amount })
+      }
+    })
   })
 
   return allDrops
