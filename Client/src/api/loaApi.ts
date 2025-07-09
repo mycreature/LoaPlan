@@ -1,6 +1,6 @@
 import { createLostarkInstance } from './instance'
 
-export const getCategoryData = async (
+export const getItemData = async (
   apikey: string,
   itemCode: number,
   itemName?: string,
