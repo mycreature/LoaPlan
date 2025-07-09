@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { getCharInfoData, getExpeditionData, getItemData } from '../../api/loaApi'
+import { getItemData } from '../../api/loaApi'
 import { getApiKey } from '../../api/userApi'
 
 interface MarketState {
