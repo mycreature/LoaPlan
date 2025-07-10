@@ -8,7 +8,7 @@ export const goldOtherTable: OtherInfo[] = [
     drops: [
       { name: '운명의 파괴석', amount: 147 },
       { name: '운명의 수호석', amount: 457 },
-      { name: '1레벨 보석', amount: 2 },
+      { name: '1레벨 겁화의 보석', amount: 2 },
     ],
   },
   {
@@ -18,7 +18,7 @@ export const goldOtherTable: OtherInfo[] = [
     drops: [
       { name: '운명의 파괴석', amount: 185 },
       { name: '운명의 수호석', amount: 519 },
-      { name: '1레벨 보석', amount: 4 },
+      { name: '1레벨 겁화의 보석', amount: 4 },
     ],
   },
   {
@@ -28,7 +28,7 @@ export const goldOtherTable: OtherInfo[] = [
     drops: [
       { name: '운명의 파괴석', amount: 223 },
       { name: '운명의 수호석', amount: 642 },
-      { name: '1레벨 보석', amount: 5 },
+      { name: '1레벨 겁화의 보석', amount: 5 },
     ],
   },
   {
@@ -39,7 +39,7 @@ export const goldOtherTable: OtherInfo[] = [
     drops: [
       { name: '운명의 파괴석', amount: 278 },
       { name: '운명의 수호석', amount: 845 },
-      { name: '운명의 돌파석', amount: 5 },
+      { name: '1레벨 겁화의 보석', amount: 5 },
     ],
   },
   {
