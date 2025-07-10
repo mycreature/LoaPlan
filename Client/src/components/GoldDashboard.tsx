@@ -1,23 +1,23 @@
-import { useRaidSelectionStore } from '../stores/selections/RaidSelectionStore'
 import useThemeStore from '../stores/others/ThemeStore'
 import { calculateAverageLevel } from '../utils/expeditionDataUtils'
-import { getTotalRaidGold } from '../utils/SelectionUtils'
 import { useExpeditionStore } from '../stores/api/ExpeditionStore'
+import { expeditionGoldData } from '../types/Types'
 
 interface GoldDashboardProps {
+  GoldData: expeditionGoldData[]
   width?: number
   height?: number
 }
 
-const GoldDashboard = ({ width = 312, height = 200 }: GoldDashboardProps) => {
+const GoldDashboard = ({ width = 312, height = 200, GoldData }: GoldDashboardProps) => {
   const darkMode = useThemeStore((state) => state.darkMode)
 
   const expeditions = useExpeditionStore((state) => state.expeditions)
-  const selections = useRaidSelectionStore((state) => state.characterSelections)
 
   const averageLevel = calculateAverageLevel(expeditions)
-  const raidTotalGold = getTotalRaidGold(selections)
-  const etcTotalGold = 0 // 향후 구현 예정 (레이드 이외의 컨텐츠의 골드 수급량 구현 필요)
+
+  const raidTotalGold = GoldData.reduce((acc, cur) => acc + cur.raidGold, 0)
+  const etcTotalGold = GoldData.reduce((acc, cur) => acc + cur.otherGold, 0)
   const totalGold = raidTotalGold + etcTotalGold
 
   return (

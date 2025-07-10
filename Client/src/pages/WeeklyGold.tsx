@@ -40,7 +40,7 @@ const WeeklyGold = () => {
         </div>
         <div className='flex justify-center gap-x-[10px]'>
           <Block width={300} height={270}>
-            <GoldDashboard width={270} height={250} />
+            <GoldDashboard width={270} height={250} GoldData={expeditionGoldData} />
           </Block>
           <Block width={694} height={270}></Block>
         </div>
