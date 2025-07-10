@@ -55,6 +55,23 @@ export const getItemData = async (
   }
 }
 
+export const getJewelData = async (apikey: string, Name: string) => {
+  try {
+    const instance = createLostarkInstance(apikey)
+    const res = await instance.post('auctions/items', {
+      Sort: 'BUY_PRICE',
+      CategoryCode: 210000,
+      ItemName: Name,
+      SortCondition: 'ASC',
+      PageNo: 1,
+    })
+    // console.log(`✅ ${Name} 정보측`)
+    return res.data
+  } catch (error) {
+    console.error(`❌ ${Name} 정보측 실패`, error)
+  }
+}
+
 export const getExpeditionData = async (apikey: string, Name: string) => {
   try {
     const instance = createLostarkInstance(apikey)
