@@ -17,8 +17,10 @@ export const useExpeditionGoldData = () => {
   return expeditions.map((character: { name: string; level: string }) => ({
     name: character.name,
     level: character.level,
-    gold:
-      getRaidGoldForCharacter(character.name, RaidSelections) +
-      calculateGoldByDrops(getOtherDropsForCharacter(character.name, OtherSelection), itemInfos),
+    raidGold: getRaidGoldForCharacter(character.name, RaidSelections),
+    otherGold: calculateGoldByDrops(
+      getOtherDropsForCharacter(character.name, OtherSelection),
+      itemInfos,
+    ),
   }))
 }
