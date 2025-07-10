@@ -9,12 +9,12 @@ interface MarketState {
 export const useMarketStore = create<MarketState>((set) => ({
   itemInfos: {},
 
-  loadItemInfo: async (CategoryCode: number, itemName?: string, pageNo?: number) => {
+  loadItemInfo: async (itemName: string, CategoryCode?: number, pageNo?: number) => {
     try {
       set({ MarketLoading: true, MarketError: null })
 
       const apiKey = getApiKey()
-      const res = await getItemData(apiKey, CategoryCode, itemName, pageNo)
+      const res = await getItemData(apiKey, itemName, CategoryCode, pageNo)
       if (res) {
         set((state) => ({
           itemInfos: {
