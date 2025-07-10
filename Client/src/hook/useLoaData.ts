@@ -4,6 +4,7 @@ import useAccountStore from '../stores/others/AccountStore'
 import { useCharacterStore } from '../stores/api/CharacterStore'
 import { useExpeditionStore } from '../stores/api/ExpeditionStore'
 import { useCharacterSelectionStore } from '../stores/selections/CharacterSelectionStore'
+import { useMarketStore } from '../stores/api/MarketStore'
 
 const useLoaData = () => {
   // 기본적인 LostArk API 정보 받아오기
@@ -18,6 +19,9 @@ const useLoaData = () => {
     (state) => state.loadSelectedProfileData,
   )
 
+  // 아이템 시세 정보 받아오기
+  const loadItemInfo = useMarketStore((state) => state.loadItemInfo)
+
   useEffect(() => {
     if (characterName) {
       loadProfileData(characterName)
@@ -31,6 +35,10 @@ const useLoaData = () => {
       loadSelectedProfileData(selectedCharacter)
     }
   }, [selectedCharacter])
+
+  useEffect(() => {
+    loadItemInfo()
+  }, [loadItemInfo])
 }
 
 export default useLoaData
