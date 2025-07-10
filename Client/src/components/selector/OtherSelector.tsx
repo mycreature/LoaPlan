@@ -5,9 +5,7 @@ import Button from '../ui/Button'
 
 const OtherSelector = ({ SelectedCharacterInfo }: { SelectedCharacterInfo: any }) => {
   const darkMode = useThemeStore((state) => state.darkMode)
-  const { toggleDrops, characterSelections } = useOtherSelectionStore()
-
-  console.log(characterSelections)
+  const { toggleDrops } = useOtherSelectionStore()
 
   const availableOther = getAvailableOthersByLevel(
     parseFloat(SelectedCharacterInfo?.level.replace(/,/g, '') || '0'),
