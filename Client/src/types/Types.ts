@@ -41,3 +41,10 @@ export interface OtherSelection {
   characterName: string
   selections: OtherInfo[]
 }
+
+export interface expeditionGoldData {
+  name: string
+  level: string
+  raidGold: number
+  otherGold: number
+}
