@@ -18,8 +18,6 @@ const LevelRangeList = ({ levelRange }: any) => {
     levelData[item.levelRange] = item.count
   })
 
-  console.log(levelData)
-
   if (expeditionLoading || expeditions.length === 0) {
     return <Loading />
   }
