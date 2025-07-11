@@ -8,7 +8,8 @@ import { getGoldByLevelRange } from '../../utils/expeditionDataUtils'
 import GoldDashboard from '../GoldDashboard'
 
 const SummaryPreview = ({ viewport = '' }) => {
-  const expeditionGoldData = getGoldByLevelRange(useExpeditionGoldData() || [])
+  const expeditionGoldData = useExpeditionGoldData()
+  const levelRangeExpeditionGoldData = getGoldByLevelRange(expeditionGoldData) || []
   const navigate = useNavigate()
 
   if (expeditionGoldData.length === 0) {
@@ -24,7 +25,7 @@ const SummaryPreview = ({ viewport = '' }) => {
     <div className='flex w-[90%] gap-10'>
       {viewport !== 'tablet' && (
         <PieChartComponent
-          data={expeditionGoldData}
+          data={levelRangeExpeditionGoldData}
           colors={expeditionColors}
           width={200}
           height={200}
@@ -32,7 +33,7 @@ const SummaryPreview = ({ viewport = '' }) => {
         />
       )}
       <LevelRangeList />
-      <GoldDashboard />
+      <GoldDashboard GoldData={expeditionGoldData} />
     </div>
   )
 }

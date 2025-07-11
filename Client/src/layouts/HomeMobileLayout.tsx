@@ -1,7 +1,6 @@
 import Block from '../components/ui/Block'
 import MainInfo from '../components/character/MainInfo'
 import BarrackList from '../components/barracks/BarrackList'
-import { getGoldByLevelRange } from '../utils/expeditionDataUtils'
 import { useExpeditionGoldData } from '../hook/useExpeditionGoldData'
 import PieChartComponent from '../components/charts/PieChart'
 import { expeditionColors } from '../styles/colors'
@@ -11,7 +10,7 @@ import Button from '../components/ui/Button'
 import { useNavigate } from 'react-router-dom'
 
 const HomeMobileLayout = () => {
-  const expeditionGoldData = getGoldByLevelRange(useExpeditionGoldData() || [])
+  const expeditionGoldData = useExpeditionGoldData()
   const navigate = useNavigate()
 
   return (
@@ -59,7 +58,7 @@ const HomeMobileLayout = () => {
             <div className='GoldDashboard'>
               <Block width={370} height={220}>
                 <div className='my-auto'>
-                  <GoldDashboard />
+                  <GoldDashboard GoldData={expeditionGoldData} />
                 </div>
               </Block>
             </div>
