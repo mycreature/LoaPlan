@@ -69,12 +69,14 @@ export const getGoldByLevelRange = (data: expeditionGoldData[]) => {
         return level >= range && level < range + 10
       })
 
-      const totalGold = matched.reduce((sum, char) => sum + char.raidGold + char.otherGold, 0)
+      const validChars = matched.filter((char) => char.raidGold + char.otherGold > 0)
+
+      const totalGold = validChars.reduce((sum, char) => sum + char.raidGold + char.otherGold, 0)
 
       return {
         levelRange: range,
         totalGold,
-        count: matched.length, // ✅ 캐릭터 수 추가
+        count: validChars.length, // 유효한 캐릭터 수만 카운트
       }
     })
     .filter((item) => item.totalGold > 0)
