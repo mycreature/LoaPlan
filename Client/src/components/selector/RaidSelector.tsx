@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { getAvailableRaidsByLevel } from '../../utils/expeditionDataUtils'
 import { raidGoldTable } from '../../constants/goldRaidTable'
 import Button from '../ui/Button'
@@ -18,6 +18,12 @@ const RaidSelector = ({ SelectedCharacterInfo }: { SelectedCharacterInfo: any })
 
   // Modal 상태관리
   const [open, isOpen] = useState(false)
+
+  useEffect(() => {
+    if (sliderRef.current) {
+      sliderRef.current.scrollLeft = 0
+    }
+  }, [SelectedCharacterInfo?.name])
 
   const handleToggleModal = () => {
     isOpen((prev) => !prev)
