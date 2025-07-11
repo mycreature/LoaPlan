@@ -3,11 +3,9 @@ import GoldDashboard from '../components/GoldDashboard'
 import RaidSelector from '../components/selector/RaidSelector'
 import Block from '../components/ui/Block'
 import { useExpeditionGoldData } from '../hook/useExpeditionGoldData'
-import useLoaData from '../hook/useLoaData'
 import { useCharacterSelectionStore } from '../stores/selections/CharacterSelectionStore'
 
 const WeeklyGold = () => {
-  useLoaData()
   const expeditionGoldData = useExpeditionGoldData() || []
   const SelectedCharacterInfo = useCharacterSelectionStore((state) => state.SelectedCharacterInfo)
 
