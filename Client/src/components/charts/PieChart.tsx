@@ -28,7 +28,7 @@ interface PieChartComponentProps {
   animationDuration?: number
 }
 
-const PieChartComponent: React.FC<PieChartComponentProps> = ({
+const PieChartComponent = ({
   data,
   colors = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'],
   width = 200,
@@ -36,7 +36,7 @@ const PieChartComponent: React.FC<PieChartComponentProps> = ({
   outerRadius = 90,
   dataKey = 'totalGold',
   animationDuration = 600,
-}) => {
+}: PieChartComponentProps) => {
   return (
     <PieChart width={width} height={height}>
       <Pie
