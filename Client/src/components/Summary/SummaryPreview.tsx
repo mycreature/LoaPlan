@@ -12,7 +12,7 @@ const SummaryPreview = ({ viewport = '' }) => {
   const levelRangeExpeditionGoldData = getGoldByLevelRange(expeditionGoldData) || []
   const navigate = useNavigate()
 
-  if (expeditionGoldData.length === 0) {
+  if (expeditionGoldData.length === 0 || levelRangeExpeditionGoldData.length === 0) {
     return (
       <div className='flex w-[90%] flex-col items-center justify-center gap-4 opacity-80'>
         <h3 className='text-black'>주간 골드 설정을 해주세요</h3>
