@@ -16,7 +16,7 @@ const SummaryPreview = ({ viewport = '' }) => {
     return (
       <div className='flex w-[90%] flex-col items-center justify-center gap-4 opacity-80'>
         <h3 className='text-black'>주간 골드 설정을 해주세요</h3>
-        <Button text='설정하기' onClick={() => navigate('/Weekly')} />
+        <Button text='설정하기' onClick={() => navigate('/Weekly-gold')} />
       </div>
     )
   }
