@@ -1,4 +1,4 @@
-import { ExpeditionCharacter, OtherInfo } from '../types/Types'
+import { ExpeditionCharacter, expeditionGoldData, OtherInfo } from '../types/Types'
 import { levelRanges } from '../constants/levelRanges'
 import { RaidGold, raidGoldTable, RaidType } from '../constants/goldRaidTable'
 import { goldOtherTable } from '../constants/goldOtherTable'
@@ -57,7 +57,7 @@ export const countCharactersByLevelRange = (
 }
 
 // 사용자가 Selection한 캐릭터의 gold을 levelRanges에 따라 분류
-export const getGoldByLevelRange = (data: { name: string; level: string; gold: number }[]) => {
+export const getGoldByLevelRange = (data: expeditionGoldData[]) => {
   const parseLevel = (levelStr: string): number => {
     return Number(levelStr.replace(/,/g, ''))
   }
@@ -69,7 +69,7 @@ export const getGoldByLevelRange = (data: { name: string; level: string; gold: n
           const level = parseLevel(char.level)
           return level >= range && level < range + 10
         })
-        .reduce((sum, char) => sum + char.gold, 0)
+        .reduce((sum, char) => sum + char.raidGold + char.otherGold, 0)
 
       return {
         levelRange: range,
