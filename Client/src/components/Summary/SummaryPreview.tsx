@@ -32,7 +32,7 @@ const SummaryPreview = ({ viewport = '' }) => {
           outerRadius={100}
         />
       )}
-      <LevelRangeList />
+      <LevelRangeList levelRange={levelRangeExpeditionGoldData} />
       <GoldDashboard GoldData={expeditionGoldData} />
     </div>
   )
