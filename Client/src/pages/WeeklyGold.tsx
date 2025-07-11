@@ -15,7 +15,7 @@ const WeeklyGold = () => {
         <div className='flex justify-center gap-x-[10px]'>
           <Block width={300} height={385}>
             <div className='h-full w-full p-3'>
-              <BarrackList islevel={false} />
+              <BarrackList />
             </div>
           </Block>
           <Block width={694} height={300}>
