@@ -1,5 +1,4 @@
 import { raidGoldTable } from '../constants/goldRaidTable'
-import { goldOtherTable } from '../constants/goldOtherTable'
 import { OtherSelection, RaidSelection } from '../types/Types'
 
 // 원정대내 특정 캐릭터의 주간 골드 획득량을 가져옴
@@ -57,20 +56,13 @@ export const getOtherDropsForCharacter = (
 
   const allDrops: { name: string; amount: number }[] = []
 
-  character.selections.forEach(({ name, type, level }) => {
-    const tableEntry = goldOtherTable.find(
-      (entry) => entry.name === name && entry.type === type && entry.level === level,
-    )
-    if (!tableEntry) return
-
-    tableEntry.drops.forEach((drop) => {
+  character.selections.forEach((selection) => {
+    selection.drops.forEach((drop) => {
       const existingDrop = allDrops.find((d) => d.name === drop.name)
 
       if (existingDrop) {
-        // 기존 드롭의 수량 증가
         existingDrop.amount += drop.amount
       } else {
-        // 새로운 드롭 추가
         allDrops.push({ name: drop.name, amount: drop.amount })
       }
     })
