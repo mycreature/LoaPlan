@@ -188,7 +188,7 @@ const RaidSelector = ({ SelectedCharacterInfo }: { SelectedCharacterInfo: any })
         />
         <Modal onClose={handleToggleModal} open={open}>
           <div>
-            <h3 className='font-extrabold text-black'>주간 골드 선택</h3>
+            <h3 className='pb-2 font-extrabold text-black'>기타 컨텐츠 선택</h3>
             <OtherSelector SelectedCharacterInfo={SelectedCharacterInfo} />
           </div>
         </Modal>
