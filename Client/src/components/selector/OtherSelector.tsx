@@ -126,7 +126,7 @@ const OtherSelector = ({ SelectedCharacterInfo }: { SelectedCharacterInfo: any }
                   <Dropdown
                     width={40}
                     height={20}
-                    options={['1', '2', '3']}
+                    options={['1', '2', '3', '4', '5', '6', '7']}
                     onSelect={(v) => handleOptionChange(value, { multiplier: parseInt(v) })}
                   />
                 </div>
