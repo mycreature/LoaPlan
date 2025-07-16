@@ -9,7 +9,16 @@ interface OtherSelectionState {
     name: string,
     type: '전선' | '카게' | '가토',
     level: number,
-    dropToToggle: DropInfo[],
+    drops: DropInfo[],
+    isDouble: boolean,
+    multiplier: number,
+  ) => void
+  updateSelectionState: (
+    characterName: string,
+    name: string,
+    type: '전선' | '카게' | '가토',
+    level: number,
+    drops: DropInfo[],
     isDouble: boolean,
     multiplier: number,
   ) => void
@@ -22,15 +31,7 @@ export const useOtherSelectionStore = create<OtherSelectionState>()(
     (set, get) => ({
       characterSelections: [],
 
-      toggleDrops: (
-        characterName,
-        name,
-        type,
-        level,
-        dropsToToggle,
-        isDouble = false,
-        multiplier = 1,
-      ) => {
+      toggleDrops: (characterName, name, type, level, drops, isDouble = false, multiplier = 1) => {
         const { characterSelections } = get()
 
         const character = characterSelections.find((c) => c.characterName === characterName)
@@ -49,10 +50,10 @@ export const useOtherSelectionStore = create<OtherSelectionState>()(
 
             // 드롭 토글 처리
             const dropsAfterToggle = currentDrops.filter(
-              (d) => !dropsToToggle.some((t) => t.name === d.name),
+              (d) => !drops.some((t) => t.name === d.name),
             )
 
-            const dropsToAdd = dropsToToggle
+            const dropsToAdd = drops
               .filter((d) => !currentDrops.some((c) => c.name === d.name))
               .map((drop) => ({
                 ...drop,
@@ -79,7 +80,7 @@ export const useOtherSelectionStore = create<OtherSelectionState>()(
                 name,
                 type,
                 level,
-                drops: dropsToToggle.map((drop) => ({
+                drops: drops.map((drop) => ({
                   ...drop,
                   amount: calcFinalAmount(drop.amount),
                 })),
@@ -104,7 +105,7 @@ export const useOtherSelectionStore = create<OtherSelectionState>()(
                     name,
                     type,
                     level,
-                    drops: dropsToToggle.map((drop) => ({
+                    drops: drops.map((drop) => ({
                       ...drop,
                       amount: calcFinalAmount(drop.amount),
                     })),
@@ -114,6 +115,50 @@ export const useOtherSelectionStore = create<OtherSelectionState>()(
             ],
           })
         }
+      },
+
+      // 새로운 덮어쓰기 함수
+      updateSelectionState: (
+        characterName,
+        name,
+        type,
+        level,
+        dropsToUpdate,
+        isDouble = false,
+        multiplier = 1,
+      ) => {
+        const { characterSelections } = get()
+
+        const character = characterSelections.find((c) => c.characterName === characterName)
+
+        if (!character) return // 캐릭터가 없으면 아무것도 하지 않음
+
+        const existingSelection = character.selections.find(
+          (s) => s.name === name && s.type === type && s.level === level,
+        )
+
+        if (!existingSelection) return // 선택이 없으면 아무것도 하지 않음
+
+        const calcFinalAmount = (amount: number) => amount * multiplier * (isDouble ? 2 : 1)
+
+        // 기존 선택을 새로운 상태로 완전히 덮어쓰기
+        const updatedSelections = character.selections.map((s) =>
+          s.name === name && s.type === type && s.level === level
+            ? {
+                ...s,
+                drops: dropsToUpdate.map((drop) => ({
+                  ...drop,
+                  amount: calcFinalAmount(drop.amount),
+                })),
+              }
+            : s,
+        )
+
+        set({
+          characterSelections: characterSelections.map((c) =>
+            c.characterName === characterName ? { ...c, selections: updatedSelections } : c,
+          ),
+        })
       },
 
       clearSelectionsForCharacter: (characterName) => {
