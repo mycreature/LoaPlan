@@ -16,18 +16,20 @@ const OtherSelector = ({ SelectedCharacterInfo }: { SelectedCharacterInfo: any }
   const [isDouble, setIsDouble] = useState<{ [key: string]: boolean }>({})
   const [multiplier, setMultiplier] = useState<{ [key: string]: number }>({})
 
+  // 선택한 캐릭터가 선택가능한 other 컨텐츠 목록 불러오기
   const availableOther = getAvailableOthersByLevel(
     parseFloat(SelectedCharacterInfo?.level.replace(/,/g, '') || '0'),
   )
+
+  const character = characterSelections.find((c) => c.characterName === SelectedCharacterInfo.name)
 
   // 선택 여부 확인 함수
   const isOtherSelected = (name: string) => {
     if (!SelectedCharacterInfo) return false
 
-    const character = characterSelections.find(
-      (c) => c.characterName === SelectedCharacterInfo.name,
-    )
     if (!character) return false
+
+    console.log(character.selections.some((s) => s.name === name))
 
     return character.selections.some((s) => s.name === name)
   }
@@ -80,6 +82,9 @@ const OtherSelector = ({ SelectedCharacterInfo }: { SelectedCharacterInfo: any }
         const selected = isOtherSelected(value.name)
         const doubled = isDouble[value.name] || false
 
+        const defaultDrop = value.drops
+        const currentDrop = character?.selections.find((s) => s.name === value.name)?.drops || []
+
         return (
           <div key={key} className='flex items-center gap-2 p-[5px]'>
             <div
@@ -93,7 +98,7 @@ const OtherSelector = ({ SelectedCharacterInfo }: { SelectedCharacterInfo: any }
                 <div className='flex w-full'>
                   <h5 className='font-bold text-black'>1수 골드 :</h5>
                   <h5 className='ml-1 font-bold text-black'>
-                    {calculateGoldByDrops(value.drops, itemInfos)}G
+                    {calculateGoldByDrops(defaultDrop, itemInfos)}G
                   </h5>
                   <div className='ml-auto h-full'>
                     <Checkbox
@@ -130,6 +135,12 @@ const OtherSelector = ({ SelectedCharacterInfo }: { SelectedCharacterInfo: any }
                     onSelect={(v) => handleOptionChange(value, { multiplier: parseInt(v) })}
                   />
                 </div>
+              </div>
+              <div className='mt-auto flex w-full justify-end'>
+                <h5 className='font-bold text-black'>종합 </h5>
+                <h5 className='ml-1 font-bold text-black'>
+                  {calculateGoldByDrops(currentDrop, itemInfos).toLocaleString()}G
+                </h5>
               </div>
             </div>
           </div>
