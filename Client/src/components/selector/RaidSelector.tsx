@@ -12,6 +12,8 @@ const RaidSelector = ({ SelectedCharacterInfo }: { SelectedCharacterInfo: any })
   const darkMode = useThemeStore((state) => state.darkMode)
   const { toggleGate, characterSelections } = useRaidSelectionStore()
 
+  console.log('characterSelections' + characterSelections[0]?.characterName)
+
   const sliderRef = useRef<HTMLDivElement>(null)
   const slideWidth = 670
   const maxSelections = 3

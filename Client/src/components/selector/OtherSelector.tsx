@@ -29,8 +29,6 @@ const OtherSelector = ({ SelectedCharacterInfo }: { SelectedCharacterInfo: any }
 
     if (!character) return false
 
-    console.log(character.selections.some((s) => s.name === name))
-
     return character.selections.some((s) => s.name === name)
   }
 
