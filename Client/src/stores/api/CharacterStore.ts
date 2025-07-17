@@ -1,6 +1,6 @@
 import { create } from 'zustand'
-import { getCharProfile, getCharInfoData, getExpeditionData } from '../api/loaApi'
-import { getApiKey } from '../api/userApi'
+import { getCharProfile, getCharInfoData, getExpeditionData } from '../../api/loaApi'
+import { getApiKey } from '../../api/userApi'
 
 interface CharacterState {
   [key: string]: any
@@ -21,6 +21,7 @@ export const useCharacterStore = create<CharacterState>((set) => ({
             server: res.ServerName,
             class: res.CharacterClassName,
             level: res.ItemAvgLevel,
+            CharacterLevel: res.CharacterLevel,
             image: res.CharacterImage,
             combatPower: res.CombatPower,
           },

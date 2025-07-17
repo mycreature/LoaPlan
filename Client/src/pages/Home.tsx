@@ -1,7 +1,5 @@
 // pages/Home.tsx
-import { useEffect } from 'react'
-import useAccountStore from '../stores/AccountStore'
-import { useCharacterStore } from '../stores/CharacterStore'
+
 import useViewportType from '../hook/useViewportType'
 import HomeMobileLayout from '../layouts/HomeMobileLayout'
 import HomeDesktopLayout from '../layouts/HomeDesktopLayout'
@@ -11,20 +9,7 @@ import { useRequireUserOrGuest } from '../hook/useAuthRedirect'
 const Home = () => {
   const isViewport = useViewportType()
 
-  const loadProfileData = useCharacterStore((state) => state.loadProfileData)
-  const loadCharInfoData = useCharacterStore((state) => state.loadCharInfoData)
-  const loadExpeditionData = useCharacterStore((state) => state.loadExpeditionData)
-  const characterName = useAccountStore((state) => state.character)
-
   useRequireUserOrGuest('/login')
-
-  useEffect(() => {
-    if (characterName) {
-      loadProfileData(characterName)
-      loadCharInfoData(characterName)
-      loadExpeditionData(characterName)
-    }
-  }, [characterName, loadProfileData, loadCharInfoData, loadExpeditionData])
 
   return (
     <div className='min-h-screen bg-gray-600 pt-[50px]'>

@@ -133,7 +133,7 @@ export const raidGoldTable: RaidGold[] = [
         level: 1700,
         gates: [
           { gate: 1, gold: 7000 },
-          { gate: 2, gold: 1100 },
+          { gate: 2, gold: 11000 },
           { gate: 3, gold: 20000 },
         ],
       },

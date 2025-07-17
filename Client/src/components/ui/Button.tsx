@@ -1,8 +1,8 @@
 import React from 'react'
-import useThemeStore from '../../stores/ThemeStore'
+import useThemeStore from '../../stores/others/ThemeStore'
 
 interface ButtonProps {
-  text?: string
+  text?: string | number
   textClass?: string
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void
   type?: 'button' | 'submit' | 'reset'
@@ -30,7 +30,7 @@ const Button: React.FC<ButtonProps> = ({
     <button
       type={type}
       onClick={onClick}
-      className={` ${mode ? (darkMode ? `${darkColor}` : `${lightColor}`) : ''} ${className ? className : 'rounded-lg px-6 py-2'} ${disabled ? 'cursor-not-allowed opacity-70' : ''}`}
+      className={` ${mode ? (darkMode ? `${darkColor}` : `${lightColor}`) : ''} ${className ? className : 'rounded-lg'} ${disabled ? 'cursor-not-allowed opacity-70' : ''}`}
       disabled={disabled}
     >
       {textStyle ? <div className={textStyle}>{text}</div> : <h3>{text}</h3>}

@@ -35,7 +35,7 @@
   h3 {
     font-size: 22px !important;
     font-family: 'SUIT';
-    font-weight: 800;
+    font-weight: 700;
   }
   h4 {
     font-size: var(--text-base) !important;
@@ -44,12 +44,18 @@
     color: #bebebe;
   }
 
+  h5 {
+    font-size: 12px !important;
+    font-family: 'SUIT';
+    font-weight: 500;
+  }
+
   @theme {
     --color-green: #4bd66e;
     --color-black: #282828;
     --color-gray: #bebebe;
     --color-white: #ffffff;
-    --color-red: #ff3737;
+    --color-red: #ee4444;
 
     --breakpoint-sm: 390px;
     --breakpoint-md: 768px;

@@ -1,9 +1,7 @@
 import Block from '../components/ui/Block'
-
 import MainInfo from '../components/character/MainInfo'
 import BarrackList from '../components/barracks/BarrackList'
-import { getGoldByLevelRange } from '../utils/expeditionDataUtils'
-import { useExpeditionGoldData } from '../hook/useCharacterGoldData'
+import { useExpeditionGoldData } from '../hook/useExpeditionGoldData'
 import PieChartComponent from '../components/charts/PieChart'
 import { expeditionColors } from '../styles/colors'
 import LevelRangeList from '../components/barracks/LevelRangeList'
@@ -12,19 +10,19 @@ import Button from '../components/ui/Button'
 import { useNavigate } from 'react-router-dom'
 
 const HomeMobileLayout = () => {
-  const expeditionGoldData = getGoldByLevelRange(useExpeditionGoldData() || [])
+  const expeditionGoldData = useExpeditionGoldData()
   const navigate = useNavigate()
 
   return (
     <main className='space-y-[10px] p-[10px]'>
       <div className='grid grid-cols-1 place-items-center gap-y-[10px]'>
         <div className='캐릭터 정보'>
-          <Block width={370} height={300}>
+          <Block width={370} height={360}>
             <MainInfo />
           </Block>
         </div>
         <div className='배럭 리스트'>
-          <Block width={370} height={300}>
+          <Block width={370} height={360}>
             <BarrackList />
           </Block>
         </div>
@@ -60,7 +58,7 @@ const HomeMobileLayout = () => {
             <div className='GoldDashboard'>
               <Block width={370} height={220}>
                 <div className='my-auto'>
-                  <GoldDashboard />
+                  <GoldDashboard GoldData={expeditionGoldData} />
                 </div>
               </Block>
             </div>

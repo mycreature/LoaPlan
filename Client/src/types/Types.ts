@@ -14,13 +14,37 @@ export interface ExpeditionCharacter {
   level: string
 }
 
-export interface GateSelection {
+export interface RaidInfo {
   raidName: string
   type: '노말' | '하드' | '싱글'
   gates: number[]
 }
 
-export interface CharacterRaidSelection {
+export interface OtherInfo {
+  name: string
+  type: '전선' | '카게' | '가토'
+  level: number
+  drops: DropInfo[]
+}
+
+export interface DropInfo {
+  name: string
+  amount: number
+}
+
+export interface RaidSelection {
   characterName: string
-  selections: GateSelection[]
+  selections: RaidInfo[]
+}
+
+export interface OtherSelection {
+  characterName: string
+  selections: OtherInfo[]
+}
+
+export interface expeditionGoldData {
+  name: string
+  level: string
+  raidGold: number
+  otherGold: number
 }

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import useThemeStore from '../stores/ThemeStore'
+import useThemeStore from '../stores/others/ThemeStore'
 import { requestLogOut } from '../api/userApi'
 import Sidebar from '../components/ui/Sidebar'
 import { useState } from 'react'
@@ -16,7 +16,7 @@ const Header = () => {
     { to: '/charts', label: '시세차트' },
     { to: '/Spec', label: '스펙효율' },
     { to: '/Investment', label: '투자효율' },
-    { to: '/Weekly', label: '주간골드' },
+    { to: '/weekly-gold', label: '주간골드' },
   ]
 
   const [isOpen, setIsOpen] = useState(false)

@@ -1,12 +1,35 @@
-import { useCharacterStore } from '../../stores/CharacterStore'
+import { useCharacterStore } from '../../stores/api/CharacterStore'
+import { useCharacterSelectionStore } from '../../stores/selections/CharacterSelectionStore'
 import Loading from '../ui/Loading'
 
 const MainCard = () => {
   const MainCharacter = useCharacterStore((state) => state.MainCharacter)
   const profileLoading = useCharacterStore((state) => state.profileLoading)
 
+  const SelectedCharacterInfo = useCharacterSelectionStore((state) => state.SelectedCharacterInfo)
+  const selectedProfileError = useCharacterSelectionStore((state) => state.profileError)
+
+  if (selectedProfileError) return <div>이미지 불러오기 실패</div>
+
+  if (SelectedCharacterInfo) {
+    return (
+      <div className='flex items-center justify-center'>
+        {profileLoading ? (
+          // ✅ 로딩 중일 때
+          <Loading />
+        ) : SelectedCharacterInfo?.image ? (
+          // ✅ 이미지 로드 완료 시
+          <img src={SelectedCharacterInfo?.image} alt={SelectedCharacterInfo?.name} />
+        ) : (
+          // ✅ 에러시
+          <span>로딩중...</span>
+        )}
+      </div>
+    )
+  }
+
   return (
-    <div className='mt-[-20px] flex h-40 items-center justify-center'>
+    <div className='flex items-center justify-center'>
       {profileLoading ? (
         // ✅ 로딩 중일 때
         <Loading />

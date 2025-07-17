@@ -6,6 +6,8 @@ import Register from '../pages/Register'
 import Login from '../pages/Login'
 import Userinfo from '../pages/Userinfo'
 import FindPassword from '../pages/FindPassword'
+import WeeklyGold from '../pages/WeeklyGold'
+import useLoaData from '../hook/useLoaData'
 
 interface LayoutProps {
   children: ReactNode
@@ -26,6 +28,7 @@ const Layout = ({ children }: LayoutProps) => {
 }
 
 const Router = () => {
+  useLoaData()
   return (
     <BrowserRouter>
       <Routes>
@@ -66,6 +69,14 @@ const Router = () => {
           element={
             <Layout>
               <FindPassword />
+            </Layout>
+          }
+        />
+        <Route
+          path='/weekly-Gold'
+          element={
+            <Layout>
+              <WeeklyGold />
             </Layout>
           }
         />

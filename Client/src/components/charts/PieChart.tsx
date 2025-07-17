@@ -1,6 +1,5 @@
-// components/charts/PieChartComponent.tsx
-import React from 'react'
 import { PieChart, Pie, Cell } from 'recharts'
+import { expeditionColors } from '../../styles/colors'
 
 const RADIAN = Math.PI / 180
 
@@ -28,15 +27,15 @@ interface PieChartComponentProps {
   animationDuration?: number
 }
 
-const PieChartComponent: React.FC<PieChartComponentProps> = ({
+const PieChartComponent = ({
   data,
-  colors = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'],
+  colors = expeditionColors,
   width = 200,
   height = 200,
   outerRadius = 90,
   dataKey = 'totalGold',
   animationDuration = 600,
-}) => {
+}: PieChartComponentProps) => {
   return (
     <PieChart width={width} height={height}>
       <Pie
