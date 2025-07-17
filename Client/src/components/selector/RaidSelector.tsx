@@ -12,11 +12,11 @@ const RaidSelector = ({ SelectedCharacterInfo }: { SelectedCharacterInfo: any })
   const darkMode = useThemeStore((state) => state.darkMode)
   const { toggleGate, characterSelections } = useRaidSelectionStore()
 
-  console.log('characterSelections' + characterSelections[0]?.characterName)
-
   const sliderRef = useRef<HTMLDivElement>(null)
   const slideWidth = 670
   const maxSelections = 3
+
+  const character = characterSelections.find((c) => c.characterName === SelectedCharacterInfo.name)
 
   // Modal 상태관리
   const [open, isOpen] = useState(false)
@@ -34,9 +34,6 @@ const RaidSelector = ({ SelectedCharacterInfo }: { SelectedCharacterInfo: any })
   const isGateSelected = (raidName: string, type: string, gate: number) => {
     if (!SelectedCharacterInfo) return false
 
-    const character = characterSelections.find(
-      (c) => c.characterName === SelectedCharacterInfo.name,
-    )
     if (!character) return false
 
     const raid = character.selections.find((s) => s.raidName === raidName && s.type === type)
@@ -127,7 +124,10 @@ const RaidSelector = ({ SelectedCharacterInfo }: { SelectedCharacterInfo: any })
         {Object.entries(groupedRaidGates)
           .map(([key, gates]) => {
             const [raidName, type] = key.split('-')
-            const totalGold = gates.reduce((sum, g) => sum + g.gold, 0)
+            const totalGold = gates.reduce((sum, g) => {
+              const isChecked = isGateSelected(g.raidName, g.type, g.gate)
+              return isChecked ? sum + g.gold : sum
+            }, 0)
 
             return (
               <div
