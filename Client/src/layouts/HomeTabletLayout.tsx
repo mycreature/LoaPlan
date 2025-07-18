@@ -10,7 +10,10 @@ const HomeTabletLayout = () => {
       <div className='flex justify-center gap-x-[10px] gap-y-[10px]'>
         <div className='캐릭터 정보'>
           <Block width={276} height={360}>
-            <MainInfo />
+            <div className='flex h-full w-full flex-col gap-2 p-3'>
+              <h3 className='font-extrabold text-black'> 메인 정보</h3>
+              <MainInfo />
+            </div>
           </Block>
         </div>
         <div className='배럭 리스트 (메인 캐릭터 제외)'>
