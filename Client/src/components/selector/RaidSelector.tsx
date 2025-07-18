@@ -172,19 +172,19 @@ const RaidSelector = ({ SelectedCharacterInfo }: { SelectedCharacterInfo: any })
       <div className='mt-3 flex h-10 justify-center gap-4'>
         <Button
           text='◀ 이전'
-          className='h-full'
+          className='h-full w-23'
           textClass='text-sm font-extrabold'
           onClick={handlePrev}
         />
         <Button
           text='다음 ▶'
-          className='h-full'
+          className='h-full w-23'
           textClass='text-sm font-extrabold'
           onClick={handleNext}
         />
         <Button
           text='기타 컨텐츠'
-          className='h-full'
+          className='h-full w-30'
           textClass='text-sm font-extrabold'
           onClick={handleToggleModal}
         />
