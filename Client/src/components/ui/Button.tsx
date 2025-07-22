@@ -11,6 +11,8 @@ interface ButtonProps {
   darkColor?: string
   lightColor?: string
   disabled?: boolean
+  width?: number | string
+  height?: number | string
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -18,11 +20,12 @@ const Button: React.FC<ButtonProps> = ({
   onClick,
   textClass: textStyle = '',
   type = 'button',
-  className = '',
   mode = true,
   darkColor = 'bg-black',
   lightColor = 'bg-green',
   disabled = false,
+  width = '80px',
+  height = '40px',
 }) => {
   const { darkMode } = useThemeStore()
 
@@ -30,10 +33,15 @@ const Button: React.FC<ButtonProps> = ({
     <button
       type={type}
       onClick={onClick}
-      className={` ${mode ? (darkMode ? `${darkColor}` : `${lightColor}`) : ''} ${className ? className : 'rounded-lg'} ${disabled ? 'cursor-not-allowed opacity-70' : ''}`}
+      className={` ${mode ? (darkMode ? `${darkColor}` : `${lightColor}`) : ''} flex shrink-0 items-center justify-center rounded-lg ${disabled ? 'cursor-not-allowed opacity-70' : ''}`}
+      style={{ width: `${width}px`, height: `${height}px` }}
       disabled={disabled}
     >
-      {textStyle ? <div className={textStyle}>{text}</div> : <h3>{text}</h3>}
+      {textStyle ? (
+        <div className={textStyle}>{text}</div>
+      ) : (
+        <div className='text-lg font-extrabold'>{text}</div>
+      )}
     </button>
   )
 }
