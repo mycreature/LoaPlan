@@ -8,30 +8,41 @@ import LevelRangeList from '../components/barracks/LevelRangeList'
 import GoldDashboard from '../components/GoldDashboard'
 import Button from '../components/ui/Button'
 import { useNavigate } from 'react-router-dom'
+import MainCard from '../components/character/MainCard'
+import { getGoldByLevelRange } from '../utils/expeditionDataUtils'
 
 const HomeMobileLayout = () => {
   const expeditionGoldData = useExpeditionGoldData()
   const navigate = useNavigate()
+  const levelRangeExpeditionGoldData = getGoldByLevelRange(expeditionGoldData) || []
 
   return (
     <main className='space-y-[10px] p-[10px]'>
       <div className='grid grid-cols-1 place-items-center gap-y-[10px]'>
+        <div className='대표 캐릭터 이미지'>
+          <Block width={370} height={295} darkColor='bg-[#15181D]' lightColor='bg-[#15181D]'>
+            <MainCard />
+          </Block>
+        </div>
         <div className='캐릭터 정보'>
-          <Block width={370} height={360}>
-            <div className='flex h-full w-full flex-col gap-2 p-3'>
-              <h3 className='font-extrabold text-black'> 메인 정보</h3>
+          <Block width={370} height={374}>
+            <div className='flex h-full w-full flex-col gap-5 p-4'>
+              <h3 className='leading-none font-extrabold text-black'> 메인 정보</h3>
               <MainInfo />
             </div>
           </Block>
         </div>
-        <div className='배럭 리스트'>
-          <Block width={370} height={360}>
-            <BarrackList />
+        <div className='배럭 리스트 (메인 캐릭터 제외)'>
+          <Block width={370} height={387}>
+            <div className='flex h-full w-full flex-col gap-5 p-4'>
+              <h3 className='leading-none font-extrabold text-black'>원정대 리스트</h3>
+              <BarrackList />
+            </div>
           </Block>
         </div>
         {expeditionGoldData.length === 0 ? (
           <Block width={370} height={230}>
-            <div className='flex w-[90%] flex-col items-center justify-center gap-4 opacity-80'>
+            <div className='flex flex-col items-center justify-center gap-4 opacity-80'>
               <h3 className='text-black'>주간 골드 설정을 해주세요</h3>
               <Button text='설정하기' onClick={() => navigate('/Weekly')} />
             </div>
@@ -39,29 +50,22 @@ const HomeMobileLayout = () => {
         ) : (
           <>
             <div className='차트'>
-              <Block width={370} height={230}>
-                <PieChartComponent
-                  data={expeditionGoldData}
-                  colors={expeditionColors}
-                  width={200}
-                  height={200}
-                  outerRadius={100}
-                />
-              </Block>
-            </div>
-
-            <div className='LevelRangeList'>
-              <Block width={370} height={220}>
-                <div className='my-auto'>
-                  <LevelRangeList />
-                </div>
-              </Block>
-            </div>
-
-            <div className='GoldDashboard'>
-              <Block width={370} height={220}>
-                <div className='my-auto'>
-                  <GoldDashboard GoldData={expeditionGoldData} />
+              <Block width={370} height={772}>
+                <div className='flex h-full w-full flex-col gap-5 p-4'>
+                  <h3 className='mr-auto ml-0 leading-none font-extrabold text-black'>
+                    주간 골드 요약
+                  </h3>
+                  <div className='flex h-[702px] flex-col items-center gap-9'>
+                    <PieChartComponent
+                      data={levelRangeExpeditionGoldData}
+                      colors={expeditionColors}
+                      width={258}
+                      height={262}
+                      outerRadius={129}
+                    />
+                    <LevelRangeList levelRange={levelRangeExpeditionGoldData} />
+                    <GoldDashboard GoldData={expeditionGoldData} width={312} height={196} />
+                  </div>
                 </div>
               </Block>
             </div>
