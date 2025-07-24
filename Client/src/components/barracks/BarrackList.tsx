@@ -21,7 +21,6 @@ const BarrackList = ({ islevel = true }: BarrackListProps) => {
 
   return (
     <div className=''>
-      <h3 className='mb-2 font-extrabold text-black'>원정대 리스트</h3>
       {expeditionLoading && (!expeditions || expeditions.length === 0) ? (
         <div className='flex justify-center'>
           <Loading />
@@ -35,22 +34,20 @@ const BarrackList = ({ islevel = true }: BarrackListProps) => {
               <div
                 key={index}
                 onClick={() => handleClick(character.name)}
-                className={`flex min-h-[50px] cursor-pointer items-center rounded-lg border-3 pr-[27px] pl-[25px] ${
+                className={`flex h-12 cursor-pointer items-center gap-6 rounded-lg border-3 px-6 ${
                   isSelected ? 'border-green' : darkMode ? 'border-black/20' : 'border-gray'
                 }`}
               >
                 <img
                   src={`/icons/class/${character.class}.svg`}
                   alt='avatar'
-                  className='mr-[25px] h-9 w-9 rounded-full'
+                  className='h-9 w-9 rounded-full'
                 />
-                <h3 className='w-[200px] max-w-[200px] truncate overflow-hidden whitespace-nowrap text-black'>
+                <h3 className='w-full truncate overflow-hidden whitespace-nowrap text-black'>
                   {character.name}
                 </h3>
                 {islevel ? (
-                  <h3 className='ml-auto text-black'>
-                    {Number(character.level.replace(/,/g, ''))}
-                  </h3>
+                  <h3 className='text-black'>{Number(character.level.replace(/,/g, ''))}</h3>
                 ) : (
                   ''
                 )}
