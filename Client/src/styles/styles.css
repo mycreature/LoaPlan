@@ -54,27 +54,6 @@
     line-height: 1.5;
   }
 
-  title {
-    font-size: 22px !important;
-    font-family: 'SUIT';
-    font-weight: 800;
-    line-height: 1;
-  }
-
-  subtitle {
-    font-size: 22px !important;
-    font-family: 'SUIT';
-    font-weight: 700;
-    line-height: 1;
-  }
-
-  content {
-    font-size: 16px !important;
-    font-family: 'SUIT';
-    font-weight: 700;
-    line-height: 1;
-  }
-
   @theme {
     --color-green: #4bd66e;
     --color-black: #282828;
