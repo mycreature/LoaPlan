@@ -8,12 +8,22 @@ import { useRaidSelectionStore } from '../../stores/selections/RaidSelectionStor
 import Modal from '../ui/Modal'
 import OtherSelector from './OtherSelector'
 
-const RaidSelector = ({ SelectedCharacterInfo }: { SelectedCharacterInfo: any }) => {
+interface RaidSelectorProps {
+  SelectedCharacterInfo: any
+  slideWidth?: number
+}
+
+const RaidSelector = ({
+  SelectedCharacterInfo,
+  slideWidth = 670,
+}: RaidSelectorProps & {
+  SelectedCharacterInfo: any
+}) => {
   const darkMode = useThemeStore((state) => state.darkMode)
   const { toggleGate, characterSelections } = useRaidSelectionStore()
 
   const sliderRef = useRef<HTMLDivElement>(null)
-  const slideWidth = 670
+
   const maxSelections = 3
 
   const character = characterSelections.find((c) => c.characterName === SelectedCharacterInfo.name)
