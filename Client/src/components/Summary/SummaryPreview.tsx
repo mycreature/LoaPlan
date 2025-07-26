@@ -14,7 +14,7 @@ const SummaryPreview = ({ viewport = '' }) => {
 
   if (expeditionGoldData.length === 0 || levelRangeExpeditionGoldData.length === 0) {
     return (
-      <div className='flex flex-col items-center justify-center gap-4 opacity-80'>
+      <div className='flex h-full w-full flex-col items-center justify-center gap-4 opacity-80'>
         <h3 className='text-black'>주간 골드 설정을 해주세요</h3>
         <Button text='설정하기' onClick={() => navigate('/Weekly-gold')} />
       </div>
@@ -22,8 +22,8 @@ const SummaryPreview = ({ viewport = '' }) => {
   }
 
   return (
-    <div className='flex gap-11'>
-      {viewport !== 'tablet' && (
+    <div className={`flex gap-11 ${viewport === 'mobile' ? 'flex-col' : ''} items-center`}>
+      {
         <PieChartComponent
           data={levelRangeExpeditionGoldData}
           colors={expeditionColors}
@@ -31,7 +31,7 @@ const SummaryPreview = ({ viewport = '' }) => {
           height={196}
           outerRadius={96.5}
         />
-      )}
+      }
       <LevelRangeList levelRange={levelRangeExpeditionGoldData} />
       <GoldDashboard GoldData={expeditionGoldData} width={307} height={196} />
     </div>
