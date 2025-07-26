@@ -23,7 +23,7 @@ const SummaryPreview = ({ viewport = '' }) => {
 
   return (
     <div className={`flex gap-11 ${viewport === 'mobile' ? 'flex-col' : ''} items-center`}>
-      {
+      {viewport !== 'tablet' && (
         <PieChartComponent
           data={levelRangeExpeditionGoldData}
           colors={expeditionColors}
@@ -31,7 +31,7 @@ const SummaryPreview = ({ viewport = '' }) => {
           height={196}
           outerRadius={96.5}
         />
-      }
+      )}
       <LevelRangeList levelRange={levelRangeExpeditionGoldData} />
       <GoldDashboard GoldData={expeditionGoldData} width={307} height={196} />
     </div>
