@@ -28,7 +28,7 @@ const WeeklyDesktopLayout = () => {
         </div>
         <div className='flex flex-col gap-[10px]'>
           <Block width={694} height={299}>
-            <div className='flex h-full flex-col gap-5 px-4 pt-4 pb-2'>
+            <div className='flex h-full w-full flex-col gap-5 px-4 pt-4 pb-2'>
               <h3 className='leading-none font-extrabold text-black'> 주간 골드 선택</h3>
               <div className='flex h-full w-full flex-col'>
                 {expeditionGoldData.length !== 0 && SelectedCharacterInfo ? (
