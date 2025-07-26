@@ -28,7 +28,7 @@ const HomeTabletLayout = () => {
       <div className='flex justify-center'>
         <div className='주간 골드 요약'>
           <Block width={748} height={270}>
-            <div className='flex flex-col gap-4 px-11 pt-4 pb-5'>
+            <div className='flex h-full w-full flex-col gap-4 px-11 pt-4 pb-5'>
               <h3 className='leading-none font-extrabold text-black'>주간 골드 요약</h3>
               <SummaryPreview viewport='tablet' />
             </div>
