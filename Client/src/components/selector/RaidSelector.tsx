@@ -180,24 +180,9 @@ const RaidSelector = ({
           .reverse()}
       </div>
       <div className='mt-2 flex h-10 justify-center gap-4'>
-        <Button
-          text='◀ 이전'
-          className='h-full w-23'
-          textClass='text-sm font-extrabold'
-          onClick={handlePrev}
-        />
-        <Button
-          text='다음 ▶'
-          className='h-full w-23'
-          textClass='text-sm font-extrabold'
-          onClick={handleNext}
-        />
-        <Button
-          text='기타 컨텐츠'
-          className='h-full w-30'
-          textClass='text-sm font-extrabold'
-          onClick={handleToggleModal}
-        />
+        <Button text='◀ 이전' onClick={handlePrev} />
+        <Button text='다음 ▶' onClick={handleNext} />
+        <Button text='기타 컨텐츠' onClick={handleToggleModal} />
         <Modal onClose={handleToggleModal} open={open}>
           <div>
             <h3 className='pb-2 font-extrabold text-black'>기타 컨텐츠 선택</h3>
