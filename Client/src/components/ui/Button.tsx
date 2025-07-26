@@ -34,7 +34,7 @@ const Button: React.FC<ButtonProps> = ({
       type={type}
       onClick={onClick}
       className={` ${mode ? (darkMode ? `${darkColor}` : `${lightColor}`) : ''} flex shrink-0 items-center justify-center rounded-lg ${disabled ? 'cursor-not-allowed opacity-70' : ''}`}
-      style={{ width: `${width}px`, height: `${height}px` }}
+      style={{ width: `${width}`, height: `${height}` }}
       disabled={disabled}
     >
       {textStyle ? (
