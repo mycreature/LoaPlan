@@ -14,9 +14,9 @@ const Header = () => {
 
   const navLinks = [
     { to: '/charts', label: '시세차트' },
-    { to: '/Spec', label: '스펙효율' },
-    { to: '/Investment', label: '투자효율' },
     { to: '/weekly-gold', label: '주간골드' },
+    { to: '/gold-efficiency', label: '시간효율' },
+    { to: '/community', label: '커뮤니티' },
   ]
 
   const [isOpen, setIsOpen] = useState(false)
