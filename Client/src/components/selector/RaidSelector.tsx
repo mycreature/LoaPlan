@@ -118,7 +118,7 @@ const RaidSelector = ({ SelectedCharacterInfo }: { SelectedCharacterInfo: any })
     <div className='flex w-full flex-col'>
       <div
         ref={sliderRef}
-        className='scrollbar-hide flex flex-row gap-5 overflow-hidden scroll-smooth'
+        className='scrollbar-hide flex flex-row gap-[18px] overflow-hidden scroll-smooth'
         style={{ scrollSnapType: 'x mandatory' }}
       >
         {Object.entries(groupedRaidGates)
@@ -169,7 +169,7 @@ const RaidSelector = ({ SelectedCharacterInfo }: { SelectedCharacterInfo: any })
           })
           .reverse()}
       </div>
-      <div className='mt-3 flex h-10 justify-center gap-4'>
+      <div className='mt-2 flex h-10 justify-center gap-4'>
         <Button
           text='◀ 이전'
           className='h-full w-23'
