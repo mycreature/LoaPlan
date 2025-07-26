@@ -2,19 +2,15 @@ import Block from '../components/ui/Block'
 import MainInfo from '../components/character/MainInfo'
 import BarrackList from '../components/barracks/BarrackList'
 import { useExpeditionGoldData } from '../hook/useExpeditionGoldData'
-import PieChartComponent from '../components/charts/PieChart'
-import { expeditionColors } from '../styles/colors'
-import LevelRangeList from '../components/barracks/LevelRangeList'
-import GoldDashboard from '../components/GoldDashboard'
 import Button from '../components/ui/Button'
 import { useNavigate } from 'react-router-dom'
 import MainCard from '../components/character/MainCard'
-import { getGoldByLevelRange } from '../utils/expeditionDataUtils'
+import SummaryPreview from '../components/Summary/SummaryPreview'
 
 const HomeMobileLayout = () => {
   const expeditionGoldData = useExpeditionGoldData()
+
   const navigate = useNavigate()
-  const levelRangeExpeditionGoldData = getGoldByLevelRange(expeditionGoldData) || []
 
   return (
     <main className='space-y-[10px] p-[10px]'>
@@ -50,21 +46,13 @@ const HomeMobileLayout = () => {
         ) : (
           <>
             <div className='차트'>
-              <Block width={370} height={772}>
+              <Block width={370}>
                 <div className='flex h-full w-full flex-col gap-5 p-4'>
                   <h3 className='mr-auto ml-0 leading-none font-extrabold text-black'>
                     주간 골드 요약
                   </h3>
-                  <div className='flex h-[702px] flex-col items-center gap-9'>
-                    <PieChartComponent
-                      data={levelRangeExpeditionGoldData}
-                      colors={expeditionColors}
-                      width={258}
-                      height={262}
-                      outerRadius={129}
-                    />
-                    <LevelRangeList levelRange={levelRangeExpeditionGoldData} />
-                    <GoldDashboard GoldData={expeditionGoldData} width={312} height={196} />
+                  <div className='flex min-h-[180px] items-center justify-center'>
+                    <SummaryPreview viewport='mobile' />
                   </div>
                 </div>
               </Block>
