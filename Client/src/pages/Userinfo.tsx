@@ -46,9 +46,9 @@ const Userinfo = () => {
     <div className='min-h-screen bg-gray-600 pt-[50px]'>
       <main className='w-full space-y-[10px] p-[10px]'>
         <div className='flex w-full justify-center gap-x-[10px]'>
-          <Block width={390} height={340}>
-            <div className='flex h-full w-full flex-col items-center justify-start'>
-              <h2 className='pt-3 text-black'>회원 수정</h2>
+          <Block width={390} height={320}>
+            <div className='flex h-full w-full flex-col gap-5 p-4'>
+              <h2 className='mx-auto leading-none font-extrabold text-black'>회원 수정</h2>
               <UserinfoForm onSubmit={handleProfileSubmit} isLoading={isLoading} />
             </div>
           </Block>
