@@ -125,7 +125,7 @@ const RaidSelector = ({
   }
 
   return (
-    <div className='flex w-full flex-col'>
+    <div className='flex w-full flex-col gap-2'>
       <div
         ref={sliderRef}
         className='scrollbar-hide flex flex-row gap-[18px] overflow-hidden scroll-smooth'
@@ -179,13 +179,12 @@ const RaidSelector = ({
           })
           .reverse()}
       </div>
-      <div className='mt-2 flex h-10 justify-center gap-4'>
-        <Button text='◀ 이전' onClick={handlePrev} />
-        <Button text='다음 ▶' onClick={handleNext} />
-        <Button text='기타 컨텐츠' onClick={handleToggleModal} />
+      <div className='flex w-[322px] justify-between'>
+        <Button text='이전' width={80} onClick={handlePrev} />
+        <Button text='다음' width={80} onClick={handleNext} />
+        <Button text='기타 컨텐츠' width={130} onClick={handleToggleModal} />
         <Modal onClose={handleToggleModal} open={open}>
-          <div>
-            <h3 className='pb-2 font-extrabold text-black'>기타 컨텐츠 선택</h3>
+          <div className='flex h-[259px] w-[370px] flex-col'>
             <OtherSelector SelectedCharacterInfo={SelectedCharacterInfo} />
           </div>
         </Modal>

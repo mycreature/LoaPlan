@@ -75,7 +75,7 @@ const OtherSelector = ({ SelectedCharacterInfo }: { SelectedCharacterInfo: any }
   }
 
   return (
-    <div className='flex'>
+    <div className='flex gap-2'>
       {Object.entries(availableOther).map(([key, value]) => {
         const selected = isOtherSelected(value.name)
         const doubled = isDouble[value.name] || false
@@ -84,7 +84,7 @@ const OtherSelector = ({ SelectedCharacterInfo }: { SelectedCharacterInfo: any }
         const currentDrop = character?.selections.find((s) => s.name === value.name)?.drops || []
 
         return (
-          <div key={key} className='flex items-center gap-2 p-[5px]'>
+          <div key={key} className='flex items-center'>
             <div
               className={`${darkMode ? 'border-black/20' : 'border-gray'} flex h-[185px] w-[152px] flex-shrink-0 flex-col rounded-xl border-2 p-[10px]`}
             >
