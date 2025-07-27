@@ -106,7 +106,7 @@ const UserinfoForm = ({ onSubmit, isLoading = false }: UserinfoFormProps) => {
           render={({ field }) => (
             <Input
               {...field}
-              width={250}
+              width={260}
               placeholder='대표 캐릭터명'
               disabled={disabledCharacterInput(
                 character,
