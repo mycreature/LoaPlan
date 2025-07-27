@@ -3,10 +3,10 @@ interface ErrorTextProps {
 }
 
 const ErrorText = ({ message }: ErrorTextProps) => {
-  if (!message) return null
+  if (!message) return <div className='my-1 h-5' /> // 빈 공간 유지
 
   return (
-    <span style={{ color: 'red', fontSize: '0.9rem' }} className='mb-3'>
+    <span style={{ color: 'red', fontSize: '14px', height: '20px' }} className='my-1'>
       {message}
     </span>
   )
