@@ -146,7 +146,7 @@ const UserinfoForm = ({ onSubmit, isLoading = false }: UserinfoFormProps) => {
       </div>
       <ErrorText message={errors.character?.message} />
 
-      <div className='flex flex-col gap-2'>
+      <div className='mt-2 flex flex-col gap-2'>
         {/* 변경 사항 저장 */}
         <Button type='submit' text={isLoading ? '처리중...' : '변경 적용'} disabled={isLoading} />
         {/* 회원 삭제 */}
