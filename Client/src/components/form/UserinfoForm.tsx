@@ -58,9 +58,9 @@ const UserinfoForm = ({ onSubmit, isLoading = false }: UserinfoFormProps) => {
   }
 
   return (
-    <form className='flex w-[358px] flex-col' onSubmit={handleSubmit(handleFormSubmit)}>
+    <form className='flex h-full w-[358px] flex-col' onSubmit={handleSubmit(handleFormSubmit)}>
       {/* API Key 필드와 인증 버튼 */}
-      <div className={`${errors.apiKey ? 'mb-1' : 'mb-3'} flex h-10 items-center justify-between`}>
+      <div className={`flex h-10 items-center justify-between`}>
         <Controller
           name='apiKey'
           control={control}
@@ -71,7 +71,7 @@ const UserinfoForm = ({ onSubmit, isLoading = false }: UserinfoFormProps) => {
               error={errors.apiKey?.message || ''}
               disabled={disabledApiKeyInput(apiKey, apiKeyChecked, errors.apiKey?.message || '')}
               type='api' // 커스텀 Input이므로 커스텀 type 허용
-              width={250}
+              width={260}
               onChange={(e) => {
                 field.onChange(e.target.value) // 입력값 변경
                 setApiKeyChecked(false) // 인증 초기화
@@ -99,9 +99,7 @@ const UserinfoForm = ({ onSubmit, isLoading = false }: UserinfoFormProps) => {
       <ErrorText message={errors.apiKey?.message} />
 
       {/* 캐릭터명 필드와 인증 버튼 */}
-      <div
-        className={`${errors.character ? 'mb-1' : 'mb-3'} flex h-10 w-full items-center justify-between`}
-      >
+      <div className={`flex h-10 w-full items-center justify-between`}>
         <Controller
           name='character'
           control={control}
@@ -148,7 +146,7 @@ const UserinfoForm = ({ onSubmit, isLoading = false }: UserinfoFormProps) => {
       </div>
       <ErrorText message={errors.character?.message} />
 
-      <div className='flex flex-col gap-3'>
+      <div className='flex flex-col gap-2'>
         {/* 변경 사항 저장 */}
         <Button type='submit' text={isLoading ? '처리중...' : '변경 적용'} disabled={isLoading} />
         {/* 회원 삭제 */}
