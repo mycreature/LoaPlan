@@ -79,7 +79,7 @@ const RegisterForm = ({ onSubmit, isLoading = false }: RegisterFormProps) => {
   }
 
   return (
-    <form className='mt-4 w-[90%] space-y-[20px]' onSubmit={handleSubmit(handleFormSubmit)}>
+    <form className='flex w-[358px] flex-col' onSubmit={handleSubmit(handleFormSubmit)}>
       {/* 이메일 필드 */}
       <Controller
         name='email'
@@ -92,7 +92,6 @@ const RegisterForm = ({ onSubmit, isLoading = false }: RegisterFormProps) => {
             <Input
               {...field}
               placeholder='이메일'
-              className={`w-full ${errors.email ? 'mb-1' : ''}`}
               type='email'
               error={errors.email?.message || ''}
             />
@@ -110,12 +109,7 @@ const RegisterForm = ({ onSubmit, isLoading = false }: RegisterFormProps) => {
         }}
         render={({ field }) => (
           <>
-            <Input
-              {...field}
-              placeholder='비밀번호'
-              className={`w-full ${errors.password ? 'mb-1' : ''}`}
-              type='password'
-            />
+            <Input {...field} placeholder='비밀번호' type='password' />
             <ErrorText message={errors.password?.message} />
           </>
         )}
@@ -130,12 +124,7 @@ const RegisterForm = ({ onSubmit, isLoading = false }: RegisterFormProps) => {
         }}
         render={({ field }) => (
           <>
-            <Input
-              {...field}
-              placeholder='비밀번호 재입력'
-              className={`w-full ${errors.confirmPassword ? 'mb-1' : ''}`}
-              type='password'
-            />
+            <Input {...field} placeholder='비밀번호 재입력' type='password' />
             <ErrorText message={errors.confirmPassword?.message} />
           </>
         )}
@@ -151,6 +140,7 @@ const RegisterForm = ({ onSubmit, isLoading = false }: RegisterFormProps) => {
               {...field}
               placeholder='API KEY'
               error={errors.apiKey?.message || ''}
+              width={260}
               disabled={disabledApiKeyInput(apiKey, apiKeyChecked, errors.apiKey?.message || '')}
               type='api' // 커스텀 Input이므로 커스텀 type 허용
               onChange={(e) => {
@@ -164,8 +154,6 @@ const RegisterForm = ({ onSubmit, isLoading = false }: RegisterFormProps) => {
         />
         <Button
           text='인증'
-          textClass='text-2xl font-extrabold h-full '
-          className='h-full rounded-lg px-6 py-1'
           type='button'
           disabled={disabledApiKeyInput(apiKey, apiKeyChecked, errors.apiKey?.message || '')}
           onClick={async () => {
@@ -190,6 +178,7 @@ const RegisterForm = ({ onSubmit, isLoading = false }: RegisterFormProps) => {
             <Input
               {...field}
               placeholder='대표 캐릭터명'
+              width={260}
               disabled={disabledCharacterInput(
                 character,
                 characterChecked,
@@ -210,7 +199,6 @@ const RegisterForm = ({ onSubmit, isLoading = false }: RegisterFormProps) => {
         />
         <Button
           text='인증'
-          textClass='text-2xl font-extrabold h-full '
           type='button'
           disabled={disabledCharacterInput(
             character,
@@ -220,7 +208,6 @@ const RegisterForm = ({ onSubmit, isLoading = false }: RegisterFormProps) => {
             apiKeyChecked,
             errors.apiKey?.message || '',
           )}
-          className='h-full rounded-lg px-6 py-1'
           onClick={async () => {
             const error = await validateCharacterName(character, apiKey)
             if (error) {
@@ -235,14 +222,8 @@ const RegisterForm = ({ onSubmit, isLoading = false }: RegisterFormProps) => {
       <ErrorText message={errors.character?.message} />
 
       {/* 최종 제출 버튼 */}
-      <div className='mt-8 space-y-[10px]'>
-        <Button
-          type='submit'
-          text={isLoading ? '처리중...' : '회원가입'}
-          className='w-full'
-          textClass='text-xl font-extrabold'
-          disabled={isLoading}
-        />
+      <div className='mt-2 flex flex-col'>
+        <Button type='submit' text={isLoading ? '처리중...' : '회원가입'} disabled={isLoading} />
       </div>
     </form>
   )
