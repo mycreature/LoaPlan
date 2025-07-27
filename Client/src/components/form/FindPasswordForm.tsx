@@ -55,7 +55,7 @@ const FindPasswordForm = ({ onSubmit, isLoading = false }: FindPasswordProps) =>
   }
 
   return (
-    <form className='mt-4 w-[90%] space-y-[20px]' onSubmit={handleSubmit(handleFormSubmit)}>
+    <form className='flex flex-col' onSubmit={handleSubmit(handleFormSubmit)}>
       {/* 이메일 필드 */}
       <Controller
         name='email'
@@ -118,12 +118,10 @@ const FindPasswordForm = ({ onSubmit, isLoading = false }: FindPasswordProps) =>
       />
 
       {/* 최종 제출 버튼 */}
-      <div className='space-y-[10px]'>
+      <div className='mt-2 flex flex-col'>
         <Button
           type='submit'
           text={isLoading ? '처리중...' : '비밀번호 변경'}
-          className='w-full'
-          textClass='text-xl font-extrabold'
           disabled={isLoading}
         />
       </div>
