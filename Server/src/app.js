@@ -17,6 +17,7 @@ usersRouter.use('/login', require('./routes/login'))
 usersRouter.use('/userinfo', require('./routes/userinfo'))
 usersRouter.use('/find-password', require('./routes/find-password'))
 usersRouter.use('/weekly-gold', require('./routes/weekly-gold'))
+usersRouter.use('/delete', require('./routes/delete-user'))
 app.use('/api/users', usersRouter)
 
 // 정적 파일
