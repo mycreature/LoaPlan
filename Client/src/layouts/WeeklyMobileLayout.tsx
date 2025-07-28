@@ -42,6 +42,8 @@ const WeeklyMobileLayout = () => {
               <GoldDashboard width={338} height={196} GoldData={expeditionGoldData} />
             </div>
           </Block>
+          <Block width={370} height={324}></Block>
+          <Block width={370} height={324}></Block>
         </div>
       </main>
     </div>

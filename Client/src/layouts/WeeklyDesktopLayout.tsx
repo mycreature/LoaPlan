@@ -44,8 +44,10 @@ const WeeklyDesktopLayout = () => {
               </div>
             </div>
           </Block>
-
-          <Block width={694} height={358}></Block>
+          <div className='flex gap-[10px]'>
+            <Block width={342} height={358}></Block>
+            <Block width={342} height={358}></Block>
+          </div>
         </div>
       </main>
     </div>

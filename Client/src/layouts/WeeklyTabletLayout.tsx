@@ -45,7 +45,8 @@ const WeeklyTabletLayout = () => {
             </Block>
           </div>
           <div className='flex flex-col gap-[10px]'>
-            <Block width={439} height={667}></Block>
+            <Block width={439} height={329}></Block>
+            <Block width={439} height={328}></Block>
           </div>
         </div>
       </main>
