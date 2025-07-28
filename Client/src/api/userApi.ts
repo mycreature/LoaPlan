@@ -102,3 +102,16 @@ export const getApiKey = () => {
 
   return apiKey
 }
+
+export const requestDeleteUser = async (email: string) => {
+  try {
+    const response = await axios.delete(`/api/users/delete/${email}`)
+    localStorage.clear()
+    sessionStorage.clear()
+    console.log('✅ 회원 탈퇴 성공:', response.data)
+    return response.data
+  } catch (error) {
+    console.error('❌ 회원 탈퇴 실패:', error)
+    throw error
+  }
+}
