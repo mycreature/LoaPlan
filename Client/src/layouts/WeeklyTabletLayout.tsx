@@ -1,4 +1,5 @@
 import BarrackList from '../components/barracks/BarrackList'
+import BarChartComponent from '../components/charts/BarChart'
 import GoldDashboard from '../components/GoldDashboard'
 import RaidSelector from '../components/selector/RaidSelector'
 import Block from '../components/ui/Block'
@@ -45,7 +46,12 @@ const WeeklyTabletLayout = () => {
             </Block>
           </div>
           <div className='flex flex-col gap-[10px]'>
-            <Block width={439} height={329}></Block>
+            <Block width={439} height={329}>
+              <div className='flex h-full w-full flex-col gap-5 p-4'>
+                <h3 className='leading-none font-extrabold text-black'> 골드 차트</h3>
+                <BarChartComponent data={expeditionGoldData} width={407} height={255} />
+              </div>
+            </Block>
             <Block width={439} height={328}></Block>
           </div>
         </div>
