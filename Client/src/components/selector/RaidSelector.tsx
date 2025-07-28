@@ -179,7 +179,7 @@ const RaidSelector = ({
           })
           .reverse()}
       </div>
-      <div className='flex w-[322px] justify-between'>
+      <div className='mx-auto flex w-[322px] justify-between'>
         <Button text='이전' width={80} onClick={handlePrev} />
         <Button text='다음' width={80} onClick={handleNext} />
         <Button text='기타 컨텐츠' width={130} onClick={handleToggleModal} />
