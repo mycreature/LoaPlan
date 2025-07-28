@@ -1,6 +1,5 @@
 import { ResponsiveContainer, BarChart, CartesianGrid, XAxis, Tooltip, Legend, Bar } from 'recharts'
 import { expeditionGoldData } from '../../types/Types'
-import useThemeStore from '../../stores/others/ThemeStore'
 
 interface PieChartComponentProps {
   data: expeditionGoldData[]
@@ -8,8 +7,7 @@ interface PieChartComponentProps {
   width?: number
   height?: number
   dataKey?: string
-  darkColor?: string[]
-  lightColor?: string[]
+  color?: string[]
 }
 
 const BarChartComponent = ({
@@ -17,13 +15,8 @@ const BarChartComponent = ({
   dataKey = 'name',
   width = 200,
   height = 200,
-  darkColor = ['#8884d8', '#F59E0B'],
-  lightColor = ['#8884d8', '#82ca9d'],
+  color = ['#8884d8', '#4BD66E'],
 }: PieChartComponentProps) => {
-  const darkMode = useThemeStore((state) => state.darkMode)
-
-  const colors = darkMode ? darkColor : lightColor
-
   return (
     <ResponsiveContainer width='100%' height='100%'>
       <BarChart width={width} height={height} data={data.slice(0, 6)}>
@@ -40,13 +33,13 @@ const BarChartComponent = ({
         />
         <Legend
           payload={[
-            { value: '레이드 골드', type: 'square', id: 'raidGold', color: colors[0] },
-            { value: '기타 골드', type: 'square', id: 'otherGold', color: colors[1] },
+            { value: '레이드 골드', type: 'square', id: 'raidGold', color: color[0] },
+            { value: '기타 골드', type: 'square', id: 'otherGold', color: color[1] },
           ]}
         />
 
-        <Bar dataKey='raidGold' stackId='a' fill={colors[0]} />
-        <Bar dataKey='otherGold' stackId='a' fill={colors[1]} />
+        <Bar dataKey='raidGold' stackId='a' fill={color[0]} />
+        <Bar dataKey='otherGold' stackId='a' fill={color[1]} />
       </BarChart>
     </ResponsiveContainer>
   )
