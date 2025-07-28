@@ -31,6 +31,7 @@ const BarChartComponent = ({
         <XAxis dataKey={dataKey} interval={0} fontSize={12} fontFamily='SUIT' fontWeight={600} />
 
         <Tooltip
+          itemStyle={{ color: '#000', fontSize: 16, fontFamily: 'SUIT', fontWeight: 500 }}
           formatter={(value, name) => {
             if (name === 'raidGold') return [value, '레이드 골드']
             if (name === 'otherGold') return [value, '기타 골드']
