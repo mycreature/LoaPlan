@@ -10,7 +10,6 @@ import AreaChartComponent from '../components/charts/AreaChart'
 const WeeklyDesktopLayout = () => {
   const expeditionGoldData = useExpeditionGoldData() || []
   const SelectedCharacterInfo = useCharacterSelectionStore((state) => state.SelectedCharacterInfo)
-  console.log('expeditionGoldData', expeditionGoldData)
 
   return (
     <div className='min-h-screen bg-gray-600'>
@@ -51,13 +50,13 @@ const WeeklyDesktopLayout = () => {
             <Block width={342} height={358}>
               <div className='flex h-full w-full flex-col gap-5 p-4'>
                 <h3 className='leading-none font-extrabold text-black'> 골드 차트</h3>
-                <BarChartComponent width={310} height={284} data={expeditionGoldData} />
+                <BarChartComponent data={expeditionGoldData} />
               </div>
             </Block>
             <Block width={342} height={358}>
               <div className='flex h-full w-full flex-col gap-5 p-4'>
                 <h3 className='leading-none font-extrabold text-black'> 주차별 골드 예상치</h3>
-                <AreaChartComponent width={310} height={284} data={expeditionGoldData} />
+                <AreaChartComponent data={expeditionGoldData} />
               </div>
             </Block>
           </div>

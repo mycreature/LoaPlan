@@ -25,7 +25,7 @@ const BarChartComponent = ({
   const colors = darkMode ? darkColor : lightColor
 
   return (
-    <ResponsiveContainer width={width} height={height}>
+    <ResponsiveContainer width='100%' height='100%'>
       <BarChart width={width} height={height} data={data.slice(0, 6)}>
         <CartesianGrid strokeDasharray='3 3' strokeWidth={3} />
         <XAxis dataKey={dataKey} interval={0} fontSize={12} fontFamily='SUIT' fontWeight={600} />

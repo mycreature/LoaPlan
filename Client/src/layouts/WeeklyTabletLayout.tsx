@@ -50,13 +50,13 @@ const WeeklyTabletLayout = () => {
             <Block width={439} height={329}>
               <div className='flex h-full w-full flex-col gap-5 p-4'>
                 <h3 className='leading-none font-extrabold text-black'> 골드 차트</h3>
-                <BarChartComponent data={expeditionGoldData} width={407} height={255} />
+                <BarChartComponent data={expeditionGoldData} />
               </div>
             </Block>
             <Block width={439} height={328}>
               <div className='flex h-full w-full flex-col gap-5 p-4'>
                 <h3 className='leading-none font-extrabold text-black'> 주차별 골드 예상치</h3>
-                <AreaChartComponent width={407} height={254} data={expeditionGoldData} />
+                <AreaChartComponent data={expeditionGoldData} />
               </div>
             </Block>
           </div>
