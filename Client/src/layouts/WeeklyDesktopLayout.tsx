@@ -5,6 +5,7 @@ import Block from '../components/ui/Block'
 import { useExpeditionGoldData } from '../hook/useExpeditionGoldData'
 import { useCharacterSelectionStore } from '../stores/selections/CharacterSelectionStore'
 import BarChartComponent from '../components/charts/BarChart'
+import AreaChartComponent from '../components/charts/AreaChart'
 
 const WeeklyDesktopLayout = () => {
   const expeditionGoldData = useExpeditionGoldData() || []
@@ -53,7 +54,12 @@ const WeeklyDesktopLayout = () => {
                 <BarChartComponent width={310} height={284} data={expeditionGoldData} />
               </div>
             </Block>
-            <Block width={342} height={358}></Block>
+            <Block width={342} height={358}>
+              <div className='flex h-full w-full flex-col gap-5 p-4'>
+                <h3 className='leading-none font-extrabold text-black'> 주차별 골드 예상치</h3>
+                <AreaChartComponent width={310} height={284} data={expeditionGoldData} />
+              </div>
+            </Block>
           </div>
         </div>
       </main>
