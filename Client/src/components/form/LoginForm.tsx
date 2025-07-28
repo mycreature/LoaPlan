@@ -50,8 +50,8 @@ const LoginForm = ({ onSubmit, isLoading = false }: LoginFormProps) => {
   }
 
   return (
-    <form className='mt-4 w-[90%] space-y-[10px]' onSubmit={handleSubmit(handleFormSubmit)}>
-      <div className='space-y-[20px]'>
+    <form className='flex flex-col' onSubmit={handleSubmit(handleFormSubmit)}>
+      <div className='flex flex-col'>
         {/* 이메일 필드 */}
         <Controller
           name='email'
@@ -64,7 +64,6 @@ const LoginForm = ({ onSubmit, isLoading = false }: LoginFormProps) => {
               <Input
                 {...field}
                 placeholder='이메일'
-                className={`w-full ${errors.email ? 'mb-1' : ''}`}
                 type='email'
                 error={errors.email?.message || ''}
               />
@@ -86,7 +85,7 @@ const LoginForm = ({ onSubmit, isLoading = false }: LoginFormProps) => {
           )}
         />
       </div>
-      <div className='space-x-[10px]'>
+      <div className='my-1 flex h-5 gap-2'>
         <Link to='/register'>
           <span className='text-sm text-black underline'>회원가입</span>
         </Link>
@@ -94,21 +93,13 @@ const LoginForm = ({ onSubmit, isLoading = false }: LoginFormProps) => {
           <span className='text-sm text-black underline'>비밀번호 찾기</span>
         </Link>
       </div>
-      <div className='space-y-[10px] pt-3'>
-        <Button
-          text={isLoading ? '로그인 중...' : '로그인'}
-          type='submit'
-          className='w-full'
-          textClass='text-xl font-extrabold'
-          disabled={isLoading}
-        />
+      <div className='mt-2 flex flex-col gap-2'>
+        <Button text={isLoading ? '로그인 중...' : '로그인'} type='submit' disabled={isLoading} />
 
         <Button
           text='게스트 로그인'
-          className='w-full text-black'
           darkColor='bg-white'
           lightColor='bg-gray'
-          textClass='text-xl font-extrabold'
           onClick={handleGusetLogin}
           disabled={isLoading}
         />

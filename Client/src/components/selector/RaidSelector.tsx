@@ -8,12 +8,22 @@ import { useRaidSelectionStore } from '../../stores/selections/RaidSelectionStor
 import Modal from '../ui/Modal'
 import OtherSelector from './OtherSelector'
 
-const RaidSelector = ({ SelectedCharacterInfo }: { SelectedCharacterInfo: any }) => {
+interface RaidSelectorProps {
+  SelectedCharacterInfo: any
+  slideWidth?: number
+}
+
+const RaidSelector = ({
+  SelectedCharacterInfo,
+  slideWidth = 670,
+}: RaidSelectorProps & {
+  SelectedCharacterInfo: any
+}) => {
   const darkMode = useThemeStore((state) => state.darkMode)
   const { toggleGate, characterSelections } = useRaidSelectionStore()
 
   const sliderRef = useRef<HTMLDivElement>(null)
-  const slideWidth = 670
+
   const maxSelections = 3
 
   const character = characterSelections.find((c) => c.characterName === SelectedCharacterInfo.name)
@@ -115,10 +125,10 @@ const RaidSelector = ({ SelectedCharacterInfo }: { SelectedCharacterInfo: any })
   }
 
   return (
-    <div className='flex w-full flex-col'>
+    <div className='flex w-full flex-col gap-2'>
       <div
         ref={sliderRef}
-        className='scrollbar-hide flex flex-row gap-5 overflow-hidden scroll-smooth'
+        className='scrollbar-hide flex flex-row gap-[18px] overflow-hidden scroll-smooth'
         style={{ scrollSnapType: 'x mandatory' }}
       >
         {Object.entries(groupedRaidGates)
@@ -169,28 +179,12 @@ const RaidSelector = ({ SelectedCharacterInfo }: { SelectedCharacterInfo: any })
           })
           .reverse()}
       </div>
-      <div className='mt-3 flex h-10 justify-center gap-4'>
-        <Button
-          text='◀ 이전'
-          className='h-full'
-          textClass='text-sm font-extrabold'
-          onClick={handlePrev}
-        />
-        <Button
-          text='다음 ▶'
-          className='h-full'
-          textClass='text-sm font-extrabold'
-          onClick={handleNext}
-        />
-        <Button
-          text='기타 컨텐츠'
-          className='h-full'
-          textClass='text-sm font-extrabold'
-          onClick={handleToggleModal}
-        />
+      <div className='flex w-[322px] justify-between'>
+        <Button text='이전' width={80} onClick={handlePrev} />
+        <Button text='다음' width={80} onClick={handleNext} />
+        <Button text='기타 컨텐츠' width={130} onClick={handleToggleModal} />
         <Modal onClose={handleToggleModal} open={open}>
-          <div>
-            <h3 className='pb-2 font-extrabold text-black'>기타 컨텐츠 선택</h3>
+          <div className='flex h-[259px] w-[370px] flex-col'>
             <OtherSelector SelectedCharacterInfo={SelectedCharacterInfo} />
           </div>
         </Modal>

@@ -1,6 +1,7 @@
 import { useCharacterStore } from '../../stores/api/CharacterStore'
 import { useCharacterSelectionStore } from '../../stores/selections/CharacterSelectionStore'
 import Loading from '../ui/Loading'
+import { useMemo } from 'react'
 
 const MainCard = () => {
   const MainCharacter = useCharacterStore((state) => state.MainCharacter)
@@ -9,38 +10,29 @@ const MainCard = () => {
   const SelectedCharacterInfo = useCharacterSelectionStore((state) => state.SelectedCharacterInfo)
   const selectedProfileError = useCharacterSelectionStore((state) => state.profileError)
 
-  if (selectedProfileError) return <div>이미지 불러오기 실패</div>
+  // 현재 표시할 캐릭터 정보를 결정
+  const currentCharacter = useMemo(() => {
+    return SelectedCharacterInfo || MainCharacter
+  }, [SelectedCharacterInfo, MainCharacter])
 
-  if (SelectedCharacterInfo) {
-    return (
-      <div className='flex items-center justify-center'>
-        {profileLoading ? (
-          // ✅ 로딩 중일 때
-          <Loading />
-        ) : SelectedCharacterInfo?.image ? (
-          // ✅ 이미지 로드 완료 시
-          <img src={SelectedCharacterInfo?.image} alt={SelectedCharacterInfo?.name} />
-        ) : (
-          // ✅ 에러시
-          <span>로딩중...</span>
-        )}
-      </div>
-    )
+  const render = useMemo(() => {
+    if (profileLoading) {
+      return <Loading />
+    }
+
+    if (currentCharacter?.image) {
+      return <img src={currentCharacter.image} alt={currentCharacter.name} />
+    }
+
+    return <span>로딩중...</span>
+  }, [profileLoading, currentCharacter])
+
+  // 에러 처리
+  if (selectedProfileError) {
+    return <div>이미지 불러오기 실패</div>
   }
 
-  return (
-    <div className='flex items-center justify-center'>
-      {profileLoading ? (
-        // ✅ 로딩 중일 때
-        <Loading />
-      ) : MainCharacter?.image ? (
-        // ✅ 이미지 로드 완료 시
-        <img src={MainCharacter?.image} alt={MainCharacter?.name} />
-      ) : (
-        // ✅ 에러시
-        <span>로딩중...</span>
-      )}
-    </div>
-  )
+  return <div className='flex items-center justify-center'>{render}</div>
 }
+
 export default MainCard

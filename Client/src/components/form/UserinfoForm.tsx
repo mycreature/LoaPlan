@@ -58,9 +58,9 @@ const UserinfoForm = ({ onSubmit, isLoading = false }: UserinfoFormProps) => {
   }
 
   return (
-    <form className='mt-4 w-[90%] space-y-[20px]' onSubmit={handleSubmit(handleFormSubmit)}>
+    <form className='flex h-full w-[358px] flex-col' onSubmit={handleSubmit(handleFormSubmit)}>
       {/* API Key 필드와 인증 버튼 */}
-      <div className={`${errors.apiKey ? 'mb-1' : ''} flex w-full items-center justify-between`}>
+      <div className={`flex h-10 items-center justify-between`}>
         <Controller
           name='apiKey'
           control={control}
@@ -71,6 +71,7 @@ const UserinfoForm = ({ onSubmit, isLoading = false }: UserinfoFormProps) => {
               error={errors.apiKey?.message || ''}
               disabled={disabledApiKeyInput(apiKey, apiKeyChecked, errors.apiKey?.message || '')}
               type='api' // 커스텀 Input이므로 커스텀 type 허용
+              width={260}
               onChange={(e) => {
                 field.onChange(e.target.value) // 입력값 변경
                 setApiKeyChecked(false) // 인증 초기화
@@ -82,8 +83,6 @@ const UserinfoForm = ({ onSubmit, isLoading = false }: UserinfoFormProps) => {
         />
         <Button
           text='인증'
-          textClass='text-2xl font-extrabold h-full '
-          className='h-full rounded-lg px-6 py-1'
           type='button'
           disabled={disabledApiKeyInput(apiKey, apiKeyChecked, errors.apiKey?.message || '')}
           onClick={async () => {
@@ -100,13 +99,14 @@ const UserinfoForm = ({ onSubmit, isLoading = false }: UserinfoFormProps) => {
       <ErrorText message={errors.apiKey?.message} />
 
       {/* 캐릭터명 필드와 인증 버튼 */}
-      <div className={`${errors.character ? 'mb-1' : ''} flex w-full items-center justify-between`}>
+      <div className={`flex h-10 w-full items-center justify-between`}>
         <Controller
           name='character'
           control={control}
           render={({ field }) => (
             <Input
               {...field}
+              width={260}
               placeholder='대표 캐릭터명'
               disabled={disabledCharacterInput(
                 character,
@@ -123,7 +123,6 @@ const UserinfoForm = ({ onSubmit, isLoading = false }: UserinfoFormProps) => {
         />
         <Button
           text='인증'
-          textClass='text-2xl font-extrabold h-full '
           type='button'
           disabled={disabledCharacterInput(
             character,
@@ -133,7 +132,7 @@ const UserinfoForm = ({ onSubmit, isLoading = false }: UserinfoFormProps) => {
             apiKeyChecked,
             errors.apiKey?.message || '',
           )}
-          className='h-full rounded-lg px-6 py-1'
+          className='h-full'
           onClick={async () => {
             const error = await validateCharacterName(character, apiKey)
             if (error) {
@@ -147,23 +146,16 @@ const UserinfoForm = ({ onSubmit, isLoading = false }: UserinfoFormProps) => {
       </div>
       <ErrorText message={errors.character?.message} />
 
-      {/* 최종 제출 버튼 */}
-      <div className='mt-3 mb-3'>
-        <Button
-          type='submit'
-          text={isLoading ? '처리중...' : '변경 적용'}
-          className='w-full'
-          textClass='text-xl font-extrabold'
-          disabled={isLoading}
-        />
-      </div>
-      <div className=''>
+      <div className='mt-2 flex flex-col gap-2'>
+        {/* 변경 사항 저장 */}
+        <Button type='submit' text={isLoading ? '처리중...' : '변경 적용'} disabled={isLoading} />
+        {/* 회원 삭제 */}
         <Button
           type='submit'
           text={isLoading ? '처리중...' : '회원 삭제'}
-          className='bg-red w-full'
-          textClass='text-xl font-extrabold'
           disabled={isLoading}
+          lightColor='bg-red'
+          darkColor='bg-black'
         />
       </div>
     </form>

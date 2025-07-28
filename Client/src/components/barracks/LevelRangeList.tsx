@@ -23,14 +23,14 @@ const LevelRangeList = ({ levelRange }: any) => {
   }
 
   return (
-    <div className='mb-auto grid grid-cols-2 items-center gap-4'>
+    <div className='mb-auto grid w-78 grid-cols-2 items-center gap-4'>
       {Object.entries(levelData)
         .filter(([_, count]) => count > 0)
         .reverse()
         .map(([range, count], index) => (
           <div
             key={index}
-            className={`flex h-12 w-37 items-center justify-center gap-2 rounded-lg border ${
+            className={`flex h-12 w-37 items-center justify-center gap-2 rounded-lg border-2 ${
               darkMode ? 'border-black/30' : 'border-gray'
             }`}
           >

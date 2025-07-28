@@ -11,7 +11,7 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
 
   return (
     <text x={x} y={y} fill='white' textAnchor={x > cx ? 'start' : 'end'} dominantBaseline='central'>
-      {`${(percent * 100).toFixed(0)}%`}
+      {`${((percent ?? 1) * 100).toFixed(0)}%`}
     </text>
   )
 }
@@ -40,11 +40,11 @@ const PieChartComponent = ({
     <PieChart width={width} height={height}>
       <Pie
         data={data}
-        cx={width / 2}
-        cy={height / 2}
+        cx='50%'
+        cy='50%'
         labelLine={false}
         label={renderCustomizedLabel}
-        outerRadius={outerRadius - 5}
+        outerRadius={outerRadius}
         fill='#8884d8'
         dataKey={dataKey}
         animationDuration={animationDuration}
