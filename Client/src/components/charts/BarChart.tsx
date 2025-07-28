@@ -25,6 +25,12 @@ const BarChartComponent = ({
 
         <Tooltip
           itemStyle={{ color: '#000', fontSize: 16, fontFamily: 'SUIT', fontWeight: 500 }}
+          contentStyle={{
+            border: '2px solid #BEBEBE',
+            borderRadius: '10px',
+            padding: '8px 12px', // 안쪽 여백
+            boxShadow: '0 2px 6px rgba(0,0,0,0.1)', // 시각적 보강
+          }}
           formatter={(value, name) => {
             if (name === 'raidGold') return [value, '레이드 골드']
             if (name === 'otherGold') return [value, '기타 골드']
