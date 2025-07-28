@@ -37,6 +37,7 @@ router.post('/', async (req, res) => {
       message: '로그인 성공',
       token: token,
       user: {
+        email: user.email,
         character: user.character,
         apiKey: user.apiKey,
       },

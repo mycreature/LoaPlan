@@ -13,6 +13,7 @@ const Login = () => {
 
   const setApiKey = useAccountStore((state) => state.setApiKey)
   const setCharacter = useAccountStore((state) => state.setCharacter)
+  const setEmail = useAccountStore((state) => state.setEmail)
 
   // 비로그인시만 접근가능 (로그인, 게스트시 메인페이지 리다이렉트)
   useRequireNoAuth()
@@ -24,6 +25,7 @@ const Login = () => {
 
       setApiKey(respone.user.apiKey)
       setCharacter(respone.user.character)
+      setEmail(respone.user.email)
 
       sessionStorage.clear()
 
