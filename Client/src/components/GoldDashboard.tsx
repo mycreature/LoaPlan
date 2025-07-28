@@ -23,7 +23,7 @@ const GoldDashboard = ({ width = 312, height = 200, GoldData }: GoldDashboardPro
   return (
     <div
       style={{ width: `${width}px`, height: `${height}px` }}
-      className={`flex flex-col justify-between gap-3 rounded-xl border p-3 ${darkMode ? 'border-black/30' : 'border-gray'}`}
+      className={`flex flex-col justify-between gap-3 rounded-xl border-2 p-3 ${darkMode ? 'border-black/30' : 'border-gray'}`}
     >
       <div className={`flex items-center justify-between`}>
         <h3 className='text-black'>원정대 평균</h3>

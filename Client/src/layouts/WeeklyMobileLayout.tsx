@@ -1,4 +1,6 @@
 import BarrackList from '../components/barracks/BarrackList'
+import SingleBarChartComponent from '../components/charts/SingleBarChart'
+import BarChartComponent from '../components/charts/BarChart'
 import GoldDashboard from '../components/GoldDashboard'
 import RaidSelector from '../components/selector/RaidSelector'
 import Block from '../components/ui/Block'
@@ -40,6 +42,18 @@ const WeeklyMobileLayout = () => {
             <div className='flex h-full w-full flex-col gap-5 p-4'>
               <h3 className='leading-none font-extrabold text-black'> 주간 골드</h3>
               <GoldDashboard width={338} height={196} GoldData={expeditionGoldData} />
+            </div>
+          </Block>
+          <Block width={370} height={324}>
+            <div className='flex h-full w-full flex-col gap-5 p-4'>
+              <h3 className='leading-none font-extrabold text-black'> 주간 골드</h3>
+              <BarChartComponent data={expeditionGoldData} />
+            </div>
+          </Block>
+          <Block width={370} height={324}>
+            <div className='flex h-full w-full flex-col gap-5 p-4'>
+              <h3 className='leading-none font-extrabold text-black'> 주차별 골드 예상치</h3>
+              <SingleBarChartComponent data={expeditionGoldData} />
             </div>
           </Block>
         </div>

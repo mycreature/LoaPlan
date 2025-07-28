@@ -25,7 +25,7 @@ const Modal = ({ open, onClose, children, isButton = false }: ModalProps) => {
       className='fixed inset-0 z-50 flex items-center justify-center bg-black/50'
       onClick={handleOverlayClick}
     >
-      <div className='rounded-lg bg-white p-4 shadow-lg' onClick={handleModalContentClick}>
+      <div className='rounded-lg bg-white shadow-lg' onClick={handleModalContentClick}>
         {children}
         {isButton && <Button text='닫기' onClick={onClose} />}
       </div>
