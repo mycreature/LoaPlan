@@ -3,9 +3,7 @@ import { useState } from 'react'
 import Button from '../ui/Button'
 import Input from '../ui/Input'
 import ErrorText from '../ui/ErrorText'
-
 import { AuthFormData } from '../../types/Types'
-
 import {
   validateCharacterName,
   validateApiKey,
@@ -146,17 +144,9 @@ const UserinfoForm = ({ onSubmit, isLoading = false }: UserinfoFormProps) => {
       </div>
       <ErrorText message={errors.character?.message} />
 
-      <div className='mt-2 flex flex-col gap-2'>
+      <div className='mt-2 flex flex-col'>
         {/* 변경 사항 저장 */}
         <Button type='submit' text={isLoading ? '처리중...' : '변경 적용'} disabled={isLoading} />
-        {/* 회원 삭제 */}
-        <Button
-          type='submit'
-          text={isLoading ? '처리중...' : '회원 삭제'}
-          disabled={isLoading}
-          lightColor='bg-red'
-          darkColor='bg-black'
-        />
       </div>
     </form>
   )
