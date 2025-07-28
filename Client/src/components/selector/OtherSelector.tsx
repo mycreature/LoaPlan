@@ -75,7 +75,7 @@ const OtherSelector = ({ SelectedCharacterInfo }: { SelectedCharacterInfo: any }
   }
 
   return (
-    <div className='flex gap-2'>
+    <div className='mx-auto flex gap-[18px]'>
       {Object.entries(availableOther).map(([key, value]) => {
         const selected = isOtherSelected(value.name)
         const doubled = isDouble[value.name] || false

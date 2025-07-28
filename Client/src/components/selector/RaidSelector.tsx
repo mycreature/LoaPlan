@@ -184,7 +184,8 @@ const RaidSelector = ({
         <Button text='다음' width={80} onClick={handleNext} />
         <Button text='기타 컨텐츠' width={130} onClick={handleToggleModal} />
         <Modal onClose={handleToggleModal} open={open}>
-          <div className='flex h-[259px] w-[370px] flex-col'>
+          <div className='flex h-[259px] w-[370px] flex-col gap-5 p-4'>
+            <h3 className='leading-none font-extrabold text-black'>기타 컨텐츠 선택</h3>
             <OtherSelector SelectedCharacterInfo={SelectedCharacterInfo} />
           </div>
         </Modal>
