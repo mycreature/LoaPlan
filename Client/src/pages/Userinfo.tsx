@@ -6,6 +6,7 @@ import useAccountStore from '../stores/others/AccountStore'
 import { requestProfileUpdate } from '../api/userApi'
 import UserinfoForm from '../components/form/UserinfoForm'
 import { useRequireUser } from '../hook/useAuthRedirect'
+import DeleteUserForm from '../components/form/DeleteUserForm'
 
 const Userinfo = () => {
   const [isLoading, setIsLoading] = useState(false)
@@ -47,9 +48,12 @@ const Userinfo = () => {
       <main className='w-full space-y-[10px] p-[10px]'>
         <div className='flex w-full justify-center gap-x-[10px]'>
           <Block width={390} height={310}>
-            <div className='flex h-full w-full flex-col gap-5 p-4'>
+            <div className='flex w-full flex-col gap-5 p-4'>
               <h2 className='mx-auto leading-none font-extrabold text-black'>회원 수정</h2>
-              <UserinfoForm onSubmit={handleProfileSubmit} isLoading={isLoading} />
+              <div className='flex flex-col gap-2'>
+                <UserinfoForm onSubmit={handleProfileSubmit} isLoading={isLoading} />
+                <DeleteUserForm />
+              </div>
             </div>
           </Block>
         </div>
