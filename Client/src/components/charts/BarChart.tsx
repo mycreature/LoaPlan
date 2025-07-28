@@ -42,6 +42,21 @@ const BarChartComponent = ({
             { value: '레이드 골드', type: 'square', id: 'raidGold', color: color[0] },
             { value: '기타 골드', type: 'square', id: 'otherGold', color: color[1] },
           ]}
+          formatter={(value) => (
+            <span
+              style={{
+                color: '#000',
+                fontFamily: 'SUIT',
+                fontWeight: 500,
+                fontSize: '14px',
+                lineHeight: '14px',
+                verticalAlign: 'middle',
+              }}
+            >
+              {value}
+            </span>
+          )}
+          iconType='square'
         />
 
         <Bar dataKey='raidGold' stackId='a' fill={color[0]} />

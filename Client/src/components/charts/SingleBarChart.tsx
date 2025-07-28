@@ -37,8 +37,8 @@ const SingleBarChartComponent = ({
           contentStyle={{
             border: '2px solid #BEBEBE',
             borderRadius: '10px',
-            padding: '8px 12px', // 안쪽 여백
-            boxShadow: '0 2px 6px rgba(0,0,0,0.1)', // 시각적 보강
+            padding: '8px 12px',
+            boxShadow: '0 2px 6px rgba(0,0,0,0.1)',
           }}
           formatter={(value, name) => {
             if (name === 'totalGold') return [value, '종합 골드']
@@ -50,10 +50,26 @@ const SingleBarChartComponent = ({
             {
               value: '종합 골드',
               id: 'totalGold',
-              type: 'square', // ✅ 도형 타입 추가
-              color: color, // ✅ 색상 적용됨
+              type: 'square',
+              color: color,
             },
           ]}
+          formatter={(value) => (
+            <span
+              style={{
+                color: '#000',
+                fontFamily: 'SUIT',
+                fontWeight: 500,
+                fontSize: '14px',
+                lineHeight: '14px',
+                verticalAlign: 'middle',
+                display: 'inline-block',
+              }}
+            >
+              {value}
+            </span>
+          )}
+          iconType='square'
         />
         <Bar type='monotone' dataKey='totalGold' fill={color} />
       </BarChart>
