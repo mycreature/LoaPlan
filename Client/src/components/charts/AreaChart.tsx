@@ -5,7 +5,6 @@ import {
   Tooltip,
   AreaChart,
   Area,
-  YAxis,
   Legend,
 } from 'recharts'
 import { expeditionGoldData } from '../../types/Types'
