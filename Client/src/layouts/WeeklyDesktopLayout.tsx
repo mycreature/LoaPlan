@@ -4,10 +4,12 @@ import RaidSelector from '../components/selector/RaidSelector'
 import Block from '../components/ui/Block'
 import { useExpeditionGoldData } from '../hook/useExpeditionGoldData'
 import { useCharacterSelectionStore } from '../stores/selections/CharacterSelectionStore'
+import BarChartComponent from '../components/charts/BarChart'
 
 const WeeklyDesktopLayout = () => {
   const expeditionGoldData = useExpeditionGoldData() || []
   const SelectedCharacterInfo = useCharacterSelectionStore((state) => state.SelectedCharacterInfo)
+  console.log('expeditionGoldData', expeditionGoldData)
 
   return (
     <div className='min-h-screen bg-gray-600'>
@@ -45,7 +47,12 @@ const WeeklyDesktopLayout = () => {
             </div>
           </Block>
           <div className='flex gap-[10px]'>
-            <Block width={342} height={358}></Block>
+            <Block width={342} height={358}>
+              <div className='flex h-full w-full flex-col gap-5 p-4'>
+                <h3 className='leading-none font-extrabold text-black'> 골드 차트</h3>
+                <BarChartComponent width={310} height={284} data={expeditionGoldData} />
+              </div>
+            </Block>
             <Block width={342} height={358}></Block>
           </div>
         </div>
