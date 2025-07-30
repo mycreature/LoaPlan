@@ -7,7 +7,7 @@ export const useRequireUserOrGuest = (redirectUrl: string = '/') => {
 
   useEffect(() => {
     const isLogin = !!localStorage.getItem('token')
-    const isGuest = !!sessionStorage.getItem('guest-storage')
+    const isGuest = !!localStorage.getItem('account-storage')
 
     if (!isLogin && !isGuest) {
       navigate(redirectUrl)
