@@ -6,6 +6,7 @@ import { requestGuestUser, requestLoginUser } from '../api/userApi'
 import LoginForm from '../components/form/LoginForm'
 import { useRequireNoAuth } from '../hook/useAuthRedirect'
 import GuestLoginForm from '../components/form/GusetLoginForm'
+import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
   const [isLoading, setIsLoading] = useState(false)
@@ -13,6 +14,8 @@ const Login = () => {
   const setApiKey = useAccountStore((state) => state.setApiKey)
   const setCharacter = useAccountStore((state) => state.setCharacter)
   const setEmail = useAccountStore((state) => state.setEmail)
+
+  const navigate = useNavigate()
 
   // 비로그인시만 접근가능 (로그인, 게스트시 메인페이지 리다이렉트)
   useRequireNoAuth()
@@ -40,7 +43,7 @@ const Login = () => {
     } catch (error: any) {
       alert(error.response?.data?.message || '게스트 로그인 중 오류 발생')
     } finally {
-      window.location.href = '/'
+      navigate('/')
       alert('게스트 로그인 성공')
       setIsLoading(false)
     }
