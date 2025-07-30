@@ -1,5 +1,3 @@
-// pages/Home.tsx
-
 import useViewportType from '../hook/useViewportType'
 import HomeMobileLayout from '../layouts/HomeMobileLayout'
 import HomeDesktopLayout from '../layouts/HomeDesktopLayout'
