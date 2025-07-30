@@ -30,7 +30,6 @@ const useLoaData = () => {
     if (isGuest == null) {
       localStorage.clear()
       sessionStorage.clear()
-      console.log('게스트 로그인 감지 - 스토리지 초기화됨')
     }
   }, [])
 

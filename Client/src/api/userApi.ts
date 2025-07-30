@@ -49,7 +49,6 @@ export const requestGuestUser = async () => {
       JSON.stringify({ state: guestRaidSelection.state }),
     )
     sessionStorage.setItem('guest-token', 'guest-token')
-    console.log('✅ 게스트 로그인 성공:')
   } catch (error) {
     console.error('❌ 게스트 로그인 실패:', error)
     throw error
