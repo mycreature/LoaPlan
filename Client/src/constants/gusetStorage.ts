@@ -1,7 +1,7 @@
 export const guestAccount = {
   email: 'guest@guest.com',
   character: '이크리처',
-  apiKey: process.env.REACT_APP_GUEST_API_KEY,
+  apiKey: import.meta.env.VITE_GUEST_API_KEY,
 }
 
 export const guestRaidSelection = {
