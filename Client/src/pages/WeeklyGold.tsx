@@ -4,6 +4,7 @@ import { useRequireUserOrGuest } from '../hook/useAuthRedirect'
 import WeeklyDesktopLayout from '../layouts/WeeklyDesktopLayout'
 import WeeklyTabletLayout from '../layouts/WeeklyTabletLayout'
 import WeeklyMobileLayout from '../layouts/WeeklyMobileLayout'
+import LoadingLayout from '../layouts/LoadingLayout'
 
 const WeeklyGold = () => {
   const isViewport = useViewportType()
@@ -16,8 +17,10 @@ const WeeklyGold = () => {
         <WeeklyDesktopLayout />
       ) : isViewport === 'tablet' ? (
         <WeeklyTabletLayout />
-      ) : (
+      ) : isViewport === 'mobile' ? (
         <WeeklyMobileLayout />
+      ) : (
+        <LoadingLayout />
       )}
     </div>
   )
