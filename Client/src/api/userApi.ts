@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { AuthFormData } from '../types/Types'
+import { guestAccount, guestOtherSelection, guestRaidSelection } from '../constants/gusetStorage'
 
 export const requestRegisterUser = async (data: AuthFormData) => {
   try {
@@ -26,6 +27,7 @@ export const requestLoginUser = async (data: AuthFormData) => {
       password: data.password,
     })
     console.log('✅ 로그인 성공:', response.data)
+    requestStorageClear()
     localStorage.setItem('token', response.data.token)
     return response.data
   } catch (error) {
@@ -35,14 +37,17 @@ export const requestLoginUser = async (data: AuthFormData) => {
 }
 
 export const requestGuestUser = async () => {
-  const guestApiKey = import.meta.env.VITE_GUEST_API_KEY || ''
-  const guestCharacter = import.meta.env.VITE_GUEST_CHARACTER || ''
-
   try {
-    const guestData = { apiKey: guestApiKey, character: guestCharacter }
-    localStorage.removeItem('token')
-    localStorage.removeItem('account-storage')
-    sessionStorage.setItem('guest-storage', JSON.stringify(guestData))
+    requestStorageClear()
+    localStorage.setItem('account-storage', JSON.stringify({ state: guestAccount }))
+    localStorage.setItem(
+      'other-selection-storage',
+      JSON.stringify({ state: guestOtherSelection.state }),
+    )
+    localStorage.setItem(
+      'raid-selection-storage',
+      JSON.stringify({ state: guestRaidSelection.state }),
+    )
     console.log('✅ 게스트 로그인 성공:')
   } catch (error) {
     console.error('❌ 게스트 로그인 실패:', error)
@@ -52,10 +57,7 @@ export const requestGuestUser = async () => {
 
 export const requestLogOut = async () => {
   try {
-    localStorage.removeItem('token')
-    localStorage.removeItem('account-storage')
-    localStorage.removeItem('character-storage')
-    sessionStorage.clear()
+    requestStorageClear()
     console.log('✅ 로그아웃 성공')
   } catch (error) {
     console.error('❌ 로그아 실패:', error)
@@ -107,11 +109,22 @@ export const requestDeleteUser = async (email: string) => {
   try {
     const response = await axios.delete(`/api/users/delete/${email}`)
     localStorage.clear()
-    sessionStorage.clear()
     console.log('✅ 회원 탈퇴 성공:', response.data)
     return response.data
   } catch (error) {
     console.error('❌ 회원 탈퇴 실패:', error)
+    throw error
+  }
+}
+
+export const requestStorageClear = async () => {
+  try {
+    localStorage.removeItem('account-storage')
+    localStorage.removeItem('other-selection-storage')
+    localStorage.removeItem('raid-selection-storage')
+    localStorage.removeItem('token')
+  } catch (error) {
+    console.error('❌ 스토리지 초기화 실패:', error)
     throw error
   }
 }
