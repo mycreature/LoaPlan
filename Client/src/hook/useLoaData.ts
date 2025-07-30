@@ -22,6 +22,18 @@ const useLoaData = () => {
   // 아이템 시세 정보 받아오기
   const loadItemInfo = useMarketStore((state) => state.loadItemInfo)
 
+  // 첫 로드 시 게스트 로그인 여부 확인
+  // 게스트 로그인 정보가 있을시 localStorage 초기화
+  useEffect(() => {
+    const isGuest = sessionStorage.getItem('guest-token')
+
+    if (isGuest == null) {
+      localStorage.clear()
+      sessionStorage.clear()
+      console.log('게스트 로그인 감지 - 스토리지 초기화됨')
+    }
+  }, [])
+
   useEffect(() => {
     if (characterName) {
       loadProfileData(characterName)
