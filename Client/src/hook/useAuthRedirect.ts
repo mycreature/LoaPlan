@@ -35,7 +35,7 @@ export const useRequireNoAuth = (redirectUrl: string = '/') => {
 
   useEffect(() => {
     const isLogin = !!localStorage.getItem('token')
-    const isGuest = !!sessionStorage.getItem('guest-storage')
+    const isGuest = !!sessionStorage.getItem('guest-token')
 
     if (isLogin || isGuest) {
       navigate(redirectUrl)
