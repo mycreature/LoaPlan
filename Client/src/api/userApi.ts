@@ -27,7 +27,7 @@ export const requestLoginUser = async (data: AuthFormData) => {
       password: data.password,
     })
     console.log('✅ 로그인 성공:', response.data)
-    requestStorageClear()
+    storageClear()
     localStorage.setItem('token', response.data.token)
     return response.data
   } catch (error) {
@@ -38,7 +38,7 @@ export const requestLoginUser = async (data: AuthFormData) => {
 
 export const requestGuestUser = async () => {
   try {
-    requestStorageClear()
+    storageClear()
     localStorage.setItem('account-storage', JSON.stringify({ state: guestAccount }))
     localStorage.setItem(
       'other-selection-storage',
@@ -57,7 +57,7 @@ export const requestGuestUser = async () => {
 
 export const requestLogOut = async () => {
   try {
-    requestStorageClear()
+    storageClear()
     console.log('✅ 로그아웃 성공')
   } catch (error) {
     console.error('❌ 로그아 실패:', error)
@@ -117,7 +117,7 @@ export const requestDeleteUser = async (email: string) => {
   }
 }
 
-export const requestStorageClear = async () => {
+export const storageClear = async () => {
   try {
     localStorage.removeItem('account-storage')
     localStorage.removeItem('other-selection-storage')
