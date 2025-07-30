@@ -117,7 +117,10 @@ const Header = () => {
               </Link>
               {/* 로그인 / 로그아웃 버튼 */}
               {isLogin == true || isGuest == true ? (
-                <button className='m-0 border-none bg-transparent p-0' onClick={handleLogout}>
+                <button
+                  className='flex h-full w-full items-center border-none bg-transparent p-0 whitespace-nowrap'
+                  onClick={handleLogout}
+                >
                   <h3 className='pl-2 text-white'>로그아웃</h3>
                 </button>
               ) : (
