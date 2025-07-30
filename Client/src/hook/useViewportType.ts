@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react'
 
-type ViewportType = 'mobile' | 'tablet' | 'desktop'
+type ViewportType = 'mobile' | 'tablet' | 'desktop' | null
 
 const MOBILE_MAX = 767
 const TABLET_MAX = 1023
-const THROTTLE_DELAY = 100 // ms (원하면 조정 가능)
+const THROTTLE_DELAY = 100 // ms
 
-export const useViewportType = (): ViewportType => {
-  const [viewport, setViewport] = useState<ViewportType>('desktop')
+export const useViewportType = (): ViewportType | null => {
+  const [viewport, setViewport] = useState<ViewportType>(null) // 초기값 null
 
   useEffect(() => {
     let throttleTimeout: NodeJS.Timeout | null = null
@@ -28,7 +28,7 @@ export const useViewportType = (): ViewportType => {
       }, THROTTLE_DELAY)
     }
 
-    handleResize() // 초기 렌더링시 체크
+    handleResize() // 초기 랜더링 실행
     window.addEventListener('resize', handleResize)
 
     return () => {

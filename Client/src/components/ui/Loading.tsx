@@ -1,6 +1,6 @@
 const Loading = () => {
   return (
-    <div className='border-t-green h-10 w-10 animate-spin rounded-full border-4 border-gray-300' />
+    <div className='border-t-green h-20 w-20 animate-spin rounded-full border-8 border-gray-300' />
   )
 }
 

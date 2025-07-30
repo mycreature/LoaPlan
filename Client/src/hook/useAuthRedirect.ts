@@ -7,7 +7,7 @@ export const useRequireUserOrGuest = (redirectUrl: string = '/') => {
 
   useEffect(() => {
     const isLogin = !!localStorage.getItem('token')
-    const isGuest = !!sessionStorage.getItem('guest-storage')
+    const isGuest = !!localStorage.getItem('account-storage')
 
     if (!isLogin && !isGuest) {
       navigate(redirectUrl)
@@ -35,7 +35,7 @@ export const useRequireNoAuth = (redirectUrl: string = '/') => {
 
   useEffect(() => {
     const isLogin = !!localStorage.getItem('token')
-    const isGuest = !!sessionStorage.getItem('guest-storage')
+    const isGuest = !!sessionStorage.getItem('guest-token')
 
     if (isLogin || isGuest) {
       navigate(redirectUrl)

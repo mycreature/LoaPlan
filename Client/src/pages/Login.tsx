@@ -1,15 +1,14 @@
-import { useNavigate } from 'react-router-dom'
 import Block from '../components/ui/Block'
 import { useState } from 'react'
 import { AuthFormData } from '../types/Types'
 import useAccountStore from '../stores/others/AccountStore'
-import { requestLoginUser } from '../api/userApi'
+import { requestGuestUser, requestLoginUser } from '../api/userApi'
 import LoginForm from '../components/form/LoginForm'
 import { useRequireNoAuth } from '../hook/useAuthRedirect'
+import GuestLoginForm from '../components/form/GusetLoginForm'
 
 const Login = () => {
   const [isLoading, setIsLoading] = useState(false)
-  const navigate = useNavigate()
 
   const setApiKey = useAccountStore((state) => state.setApiKey)
   const setCharacter = useAccountStore((state) => state.setCharacter)
@@ -26,13 +25,24 @@ const Login = () => {
       setApiKey(respone.user.apiKey)
       setCharacter(respone.user.character)
       setEmail(respone.user.email)
-
-      sessionStorage.clear()
-
-      navigate('/')
     } catch (error: any) {
       alert(error.response?.data?.message || '로그인 중 오류 발생')
     } finally {
+      window.location.href = '/'
+      setIsLoading(false)
+    }
+  }
+
+  const handleGusetLogin = async () => {
+    setIsLoading(true)
+    try {
+      await requestGuestUser()
+    } catch (error: any) {
+      alert(error.response?.data?.message || '게스트 로그인 중 오류 발생')
+    } finally {
+      window.location.href = '/'
+
+      alert('게스트 로그인 성공')
       setIsLoading(false)
     }
   }
@@ -44,7 +54,10 @@ const Login = () => {
           <Block width={390} height={310}>
             <div className='flex h-full w-full flex-col gap-5 p-4'>
               <h2 className='mx-auto leading-none font-extrabold text-black'>로그인</h2>
-              <LoginForm onSubmit={handleLoginSubmit} isLoading={isLoading} />
+              <div className='flex flex-col gap-2'>
+                <LoginForm onSubmit={handleLoginSubmit} isLoading={isLoading} />
+                <GuestLoginForm onSubmit={handleGusetLogin} isLoading={isLoading} />
+              </div>
             </div>
           </Block>
         </div>

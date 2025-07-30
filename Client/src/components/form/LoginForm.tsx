@@ -6,8 +6,7 @@ import ErrorText from '../ui/ErrorText'
 import { AuthFormData } from '../../types/Types'
 
 import { validateEmail } from '../../utils/validation'
-import { Link, useNavigate } from 'react-router-dom'
-import { requestGuestUser } from '../../api/userApi'
+import { Link } from 'react-router-dom'
 
 interface LoginFormProps {
   onSubmit: (data: AuthFormData) => void
@@ -15,7 +14,6 @@ interface LoginFormProps {
 }
 
 const LoginForm = ({ onSubmit, isLoading = false }: LoginFormProps) => {
-  const navigate = useNavigate()
   const {
     control,
     handleSubmit,
@@ -41,12 +39,6 @@ const LoginForm = ({ onSubmit, isLoading = false }: LoginFormProps) => {
       })
       alert('입력한 정보를 확인해주세요.')
     }
-  }
-
-  const handleGusetLogin = () => {
-    requestGuestUser()
-    alert('게스트 로그인이 완료되었습니다.')
-    navigate('/')
   }
 
   return (
@@ -93,16 +85,8 @@ const LoginForm = ({ onSubmit, isLoading = false }: LoginFormProps) => {
           <span className='text-sm text-black underline'>비밀번호 찾기</span>
         </Link>
       </div>
-      <div className='mt-2 flex flex-col gap-2'>
+      <div className='mt-2 flex flex-col'>
         <Button text={isLoading ? '로그인 중...' : '로그인'} type='submit' disabled={isLoading} />
-
-        <Button
-          text='게스트 로그인'
-          darkColor='bg-white'
-          lightColor='bg-gray'
-          onClick={handleGusetLogin}
-          disabled={isLoading}
-        />
       </div>
     </form>
   )

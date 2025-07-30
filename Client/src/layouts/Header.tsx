@@ -10,7 +10,7 @@ const Header = () => {
   // toggleDarkMode: 다크모드를 온오프 함수
   const { darkMode, toggleDarkMode } = useThemeStore()
   const isLogin = !!localStorage.getItem('token')
-  const isGuest = !!sessionStorage.getItem('guest-storage')
+  const isGuest = !!localStorage.getItem('account-storage')
 
   const navLinks = [
     { to: '/charts', label: '시세차트' },
@@ -98,7 +98,7 @@ const Header = () => {
           </button>
           {/* 사이드바 요소*/}
           <Sidebar isOpen={isOpen} onClose={closeSidebar}>
-            <ul className='space-y-[20px]'>
+            <ul className='flex flex-col gap-5'>
               {navLinks.map(({ to, label }) => (
                 <Link
                   key={to}
@@ -117,7 +117,10 @@ const Header = () => {
               </Link>
               {/* 로그인 / 로그아웃 버튼 */}
               {isLogin == true || isGuest == true ? (
-                <button className='m-0 border-none bg-transparent p-0' onClick={handleLogout}>
+                <button
+                  className='flex h-full w-full items-center border-none bg-transparent p-0 whitespace-nowrap'
+                  onClick={handleLogout}
+                >
                   <h3 className='pl-2 text-white'>로그아웃</h3>
                 </button>
               ) : (
