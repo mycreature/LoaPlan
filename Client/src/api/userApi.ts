@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { AuthFormData } from '../types/Types'
-import { guestAccount, guestOtherSelection, guestRaidSelection } from '../constants/gusetStorage'
+import { guestAccount, guestOtherSelection, guestRaidSelection } from '../constants/guestStorage'
 
 export const requestRegisterUser = async (data: AuthFormData) => {
   try {
@@ -48,6 +48,7 @@ export const requestGuestUser = async () => {
       'raid-selection-storage',
       JSON.stringify({ state: guestRaidSelection.state }),
     )
+    sessionStorage.setItem('guest-token', 'guest-token')
     console.log('✅ 게스트 로그인 성공:')
   } catch (error) {
     console.error('❌ 게스트 로그인 실패:', error)
@@ -123,6 +124,7 @@ export const storageClear = async () => {
     localStorage.removeItem('other-selection-storage')
     localStorage.removeItem('raid-selection-storage')
     localStorage.removeItem('token')
+    sessionStorage.removeItem('guest-token')
   } catch (error) {
     console.error('❌ 스토리지 초기화 실패:', error)
     throw error
