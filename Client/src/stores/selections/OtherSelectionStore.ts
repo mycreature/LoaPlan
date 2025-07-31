@@ -84,6 +84,8 @@ export const useOtherSelectionStore = create<OtherSelectionState>()(
                   ...drop,
                   amount: calcFinalAmount(drop.amount),
                 })),
+                isDouble,
+                multiplier,
               },
             ]
           }
@@ -109,6 +111,8 @@ export const useOtherSelectionStore = create<OtherSelectionState>()(
                       ...drop,
                       amount: calcFinalAmount(drop.amount),
                     })),
+                    isDouble,
+                    multiplier,
                   },
                 ],
               },
