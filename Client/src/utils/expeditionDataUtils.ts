@@ -112,6 +112,8 @@ export const getAvailableOthersByLevel = (targetLevel: number): OtherInfo[] => {
           type: item.type,
           level: item.level,
           drops: item.drops,
+          isDouble: item.isDouble,
+          multiplier: item.multiplier,
         })
       }
       return acc
