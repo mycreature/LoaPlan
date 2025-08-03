@@ -6,6 +6,7 @@ import { getAvailableOthersByLevel } from '../../utils/expeditionDataUtils'
 import { calculateGoldByDrops } from '../../utils/MarketDataUtils'
 import Checkbox from '../ui/CheckBox'
 import Dropdown from '../ui/DropDown'
+import { OtherInfo } from '../../types/Types'
 
 const OtherSelector = ({ SelectedCharacterInfo }: { SelectedCharacterInfo: any }) => {
   const darkMode = useThemeStore((state) => state.darkMode)
@@ -62,15 +63,15 @@ const OtherSelector = ({ SelectedCharacterInfo }: { SelectedCharacterInfo: any }
 
     // store 상태도 동기화
     if (isOtherSelected(value.name)) {
-      updateSelectionState(
-        SelectedCharacterInfo.name,
-        value.name,
-        value.type,
-        value.level,
-        value.drops,
-        currentDouble,
-        currentMultiplier,
-      )
+      const info: OtherInfo = {
+        name: value.name,
+        type: value.type,
+        level: value.level,
+        drops: value.drops,
+        isDouble: currentDouble,
+        multiplier: currentMultiplier,
+      }
+      updateSelectionState(SelectedCharacterInfo.name, info)
     }
   }
 
@@ -82,6 +83,15 @@ const OtherSelector = ({ SelectedCharacterInfo }: { SelectedCharacterInfo: any }
 
         const defaultDrop = value.drops
         const currentDrop = character?.selections.find((s) => s.name === value.name)?.drops || []
+
+        const info: OtherInfo = {
+          name: value.name,
+          type: value.type,
+          level: value.level,
+          drops: value.drops,
+          isDouble: doubled,
+          multiplier: multiplier[value.name] || 1,
+        }
 
         return (
           <div key={key} className='flex items-center'>
@@ -101,17 +111,7 @@ const OtherSelector = ({ SelectedCharacterInfo }: { SelectedCharacterInfo: any }
                   <div className='ml-auto h-full'>
                     <Checkbox
                       checked={selected}
-                      onChange={() =>
-                        toggleDrops(
-                          SelectedCharacterInfo.name,
-                          value.name,
-                          value.type,
-                          value.level,
-                          value.drops,
-                          doubled,
-                          multiplier[value.name] || 1,
-                        )
-                      }
+                      onChange={() => toggleDrops(SelectedCharacterInfo.name, info)}
                     />
                   </div>
                 </div>
