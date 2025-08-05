@@ -10,6 +10,8 @@ export const goldOtherTable: OtherInfo[] = [
       { name: '운명의 수호석', amount: 457 },
       { name: '1레벨 겁화의 보석', amount: 2 },
     ],
+    isDouble: false,
+    multiplier: 1,
   },
   {
     name: '쿠르잔2',
@@ -20,6 +22,8 @@ export const goldOtherTable: OtherInfo[] = [
       { name: '운명의 수호석', amount: 519 },
       { name: '1레벨 겁화의 보석', amount: 4 },
     ],
+    isDouble: false,
+    multiplier: 1,
   },
   {
     name: '쿠르잔3',
@@ -30,17 +34,20 @@ export const goldOtherTable: OtherInfo[] = [
       { name: '운명의 수호석', amount: 642 },
       { name: '1레벨 겁화의 보석', amount: 5 },
     ],
+    isDouble: false,
+    multiplier: 1,
   },
   {
     name: '네프타1',
     type: '전선',
     level: 1700,
-
     drops: [
       { name: '운명의 파괴석', amount: 278 },
       { name: '운명의 수호석', amount: 845 },
       { name: '1레벨 겁화의 보석', amount: 5 },
     ],
+    isDouble: false,
+    multiplier: 1,
   },
   {
     name: '아게오로스',
@@ -51,6 +58,8 @@ export const goldOtherTable: OtherInfo[] = [
       { name: '운명의 수호석', amount: 288 },
       { name: '운명의 돌파석', amount: 12 },
     ],
+    isDouble: false,
+    multiplier: 1,
   },
   {
     name: '스콜라키아',
@@ -61,6 +70,8 @@ export const goldOtherTable: OtherInfo[] = [
       { name: '운명의 수호석', amount: 430 },
       { name: '운명의 돌파석', amount: 18 },
     ],
+    isDouble: false,
+    multiplier: 1,
   },
   {
     name: '드렉탈라스',
@@ -71,5 +82,7 @@ export const goldOtherTable: OtherInfo[] = [
       { name: '운명의 수호석', amount: 550 },
       { name: '운명의 돌파석', amount: 20 },
     ],
+    isDouble: false,
+    multiplier: 1,
   },
 ]

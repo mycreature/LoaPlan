@@ -25,6 +25,8 @@ export interface OtherInfo {
   type: '전선' | '카게' | '가토'
   level: number
   drops: DropInfo[]
+  isDouble: boolean
+  multiplier: number
 }
 
 export interface DropInfo {

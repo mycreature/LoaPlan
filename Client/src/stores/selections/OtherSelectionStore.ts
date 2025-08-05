@@ -1,27 +1,11 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import { OtherSelection, DropInfo, OtherInfo } from '../../types/Types'
+import { OtherSelection, OtherInfo } from '../../types/Types'
 
 interface OtherSelectionState {
   characterSelections: OtherSelection[]
-  toggleDrops: (
-    characterName: string,
-    name: string,
-    type: '전선' | '카게' | '가토',
-    level: number,
-    drops: DropInfo[],
-    isDouble: boolean,
-    multiplier: number,
-  ) => void
-  updateSelectionState: (
-    characterName: string,
-    name: string,
-    type: '전선' | '카게' | '가토',
-    level: number,
-    drops: DropInfo[],
-    isDouble: boolean,
-    multiplier: number,
-  ) => void
+  toggleDrops: (characterName: string, info: OtherInfo) => void
+  updateSelectionState: (characterName: string, info: OtherInfo) => void
   clearSelectionsForCharacter: (characterName: string) => void
   clearAllSelections: () => void
 }
@@ -31,8 +15,9 @@ export const useOtherSelectionStore = create<OtherSelectionState>()(
     (set, get) => ({
       characterSelections: [],
 
-      toggleDrops: (characterName, name, type, level, drops, isDouble = false, multiplier = 1) => {
+      toggleDrops: (characterName, info) => {
         const { characterSelections } = get()
+        const { name, type, level, drops, isDouble, multiplier } = info
 
         const character = characterSelections.find((c) => c.characterName === characterName)
 
@@ -84,6 +69,8 @@ export const useOtherSelectionStore = create<OtherSelectionState>()(
                   ...drop,
                   amount: calcFinalAmount(drop.amount),
                 })),
+                isDouble,
+                multiplier,
               },
             ]
           }
@@ -109,6 +96,8 @@ export const useOtherSelectionStore = create<OtherSelectionState>()(
                       ...drop,
                       amount: calcFinalAmount(drop.amount),
                     })),
+                    isDouble,
+                    multiplier,
                   },
                 ],
               },
@@ -118,16 +107,9 @@ export const useOtherSelectionStore = create<OtherSelectionState>()(
       },
 
       // 새로운 덮어쓰기 함수
-      updateSelectionState: (
-        characterName,
-        name,
-        type,
-        level,
-        dropsToUpdate,
-        isDouble = false,
-        multiplier = 1,
-      ) => {
+      updateSelectionState: (characterName, info) => {
         const { characterSelections } = get()
+        const { name, type, level, drops, isDouble, multiplier } = info
 
         const character = characterSelections.find((c) => c.characterName === characterName)
 
@@ -146,10 +128,12 @@ export const useOtherSelectionStore = create<OtherSelectionState>()(
           s.name === name && s.type === type && s.level === level
             ? {
                 ...s,
-                drops: dropsToUpdate.map((drop) => ({
+                drops: drops.map((drop) => ({
                   ...drop,
                   amount: calcFinalAmount(drop.amount),
                 })),
+                isDouble,
+                multiplier,
               }
             : s,
         )

@@ -33,12 +33,21 @@ const SingleBarChartComponent = ({
         <CartesianGrid strokeDasharray='3 3' strokeWidth={2.5} />
         <XAxis dataKey='week' fontSize={12} fontFamily='SUIT' fontWeight={600} interval={0} />
         <Tooltip
-          itemStyle={{ color: '#000', fontSize: 16, fontFamily: 'SUIT', fontWeight: 500 }}
+          itemStyle={{ color: '#000', fontSize: 14, fontFamily: 'SUIT', fontWeight: 500 }}
           contentStyle={{
             border: '2px solid #BEBEBE',
             borderRadius: '10px',
             padding: '8px 12px',
-            boxShadow: '0 2px 6px rgba(0,0,0,0.1)',
+            boxShadow: '0 2px 6px rgba(0,0,0,0.5)',
+          }}
+          labelStyle={{
+            color: '#000',
+            fontSize: 14,
+            fontFamily: 'SUIT',
+            fontWeight: 700,
+
+            marginBottom: '4px',
+            marginTop: '4px',
           }}
           formatter={(value, name) => {
             if (name === 'totalGold') return [value, '종합 골드']
