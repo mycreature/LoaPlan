@@ -24,12 +24,21 @@ const BarChartComponent = ({
         <XAxis dataKey={dataKey} interval={0} fontSize={12} fontFamily='SUIT' fontWeight={600} />
 
         <Tooltip
-          itemStyle={{ color: '#000', fontSize: 16, fontFamily: 'SUIT', fontWeight: 500 }}
+          itemStyle={{ color: '#000', fontSize: 14, fontFamily: 'SUIT', fontWeight: 500 }}
           contentStyle={{
             border: '2px solid #BEBEBE',
             borderRadius: '10px',
-            padding: '8px 12px', // 안쪽 여백
-            boxShadow: '0 2px 6px rgba(0,0,0,0.1)', // 시각적 보강
+            padding: '0px 12px',
+            boxShadow: '0 2px 6px rgba(0,0,0,0.5)', // 그림자 추가
+          }}
+          labelStyle={{
+            color: '#000',
+            fontSize: 14,
+            fontFamily: 'SUIT',
+            fontWeight: 700,
+
+            marginBottom: '4px',
+            marginTop: '8px',
           }}
           formatter={(value, name) => {
             if (name === 'raidGold') return [value, '레이드 골드']
