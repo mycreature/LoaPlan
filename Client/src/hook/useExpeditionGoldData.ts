@@ -10,7 +10,7 @@ export const useExpeditionGoldData = () => {
   const RaidSelections = useRaidSelectionStore((state) => state.characterSelections)
   const OtherSelection = useOtherSelectionStore((state) => state.characterSelections)
   const expeditions = useExpeditionStore((state) => state.expeditions)
-  const itemInfos = useMarketStore((state) => state.itemInfos)
+  const dropItemInfos = useMarketStore((state) => state.dropItemInfos)
 
   if (!expeditions) return []
 
@@ -20,7 +20,7 @@ export const useExpeditionGoldData = () => {
     raidGold: getRaidGoldForCharacter(character.name, RaidSelections),
     otherGold: calculateGoldByDrops(
       getOtherDropsForCharacter(character.name, OtherSelection),
-      itemInfos,
+      dropItemInfos,
     ),
   }))
 }

@@ -17,7 +17,7 @@ interface ItemInfo {
 }
 
 interface MarketState {
-  itemInfos: Record<string, ItemInfo>
+  dropItemInfos: Record<string, ItemInfo>
   MarketLoading?: boolean
   MarketError?: string | null
   loadItemInfo: () => Promise<void>
@@ -25,7 +25,7 @@ interface MarketState {
 }
 
 export const useMarketStore = create<MarketState>((set) => ({
-  itemInfos: {},
+  dropItemInfos: {},
 
   loadItemInfo: async () => {
     try {
@@ -43,8 +43,8 @@ export const useMarketStore = create<MarketState>((set) => ({
             if (res?.Items?.length > 0) {
               const jewelItem = res.Items[0]
               set((state) => ({
-                itemInfos: {
-                  ...state.itemInfos,
+                dropItemInfos: {
+                  ...state.dropItemInfos,
                   [jewelItem.Name]: {
                     name: jewelItem.Name,
                     image: jewelItem.Icon,
@@ -62,8 +62,8 @@ export const useMarketStore = create<MarketState>((set) => ({
             if (res?.Items?.length > 0) {
               const itemData = res.Items[0]
               set((state) => ({
-                itemInfos: {
-                  ...state.itemInfos,
+                dropItemInfos: {
+                  ...state.dropItemInfos,
                   [itemData.Name]: {
                     name: itemData.Name,
                     image: itemData.Icon,
@@ -85,8 +85,11 @@ export const useMarketStore = create<MarketState>((set) => ({
       set({ MarketError: error instanceof Error ? error.message : '아이템 정보 불러오기 실패' })
     } finally {
       set({ MarketLoading: false })
+      if (typeof window !== 'undefined') {
+        ;(window as any).marketStore = useMarketStore
+      }
     }
   },
 
-  resetState: () => set({ itemInfos: {} }),
+  resetState: () => set({ dropItemInfos: {} }),
 }))
