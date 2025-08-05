@@ -171,7 +171,7 @@ const RaidSelector = ({
                 </div>
 
                 <div className='mt-auto flex justify-end'>
-                  <h5 className='mr-1 font-bold text-black'>종합</h5>
+                  <h5 className='mr-1 font-bold text-black'>총</h5>
                   <h5 className='font-bold text-black'>{totalGold.toLocaleString()}G</h5>
                 </div>
               </div>
