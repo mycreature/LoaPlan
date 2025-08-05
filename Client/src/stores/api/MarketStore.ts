@@ -57,7 +57,7 @@ export const useMarketStore = create<MarketState>((set) => ({
               }))
             }
           } else {
-            res = await getItemData(apiKey, item.name, item.code)
+            res = await getItemData(apiKey, item.name, item.CategoryCode)
 
             if (res?.Items?.length > 0) {
               const itemData = res.Items[0]
