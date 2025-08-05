@@ -55,6 +55,23 @@ export const getItemData = async (
   }
 }
 
+export const getItemsByCategory = async (apikey: string, CategoryCode: number) => {
+  try {
+    const instance = createLostarkInstance(apikey)
+    const res = await instance.post('markets/items', {
+      Sort: 'GRADE',
+      CategoryCode: CategoryCode,
+      SortCondition: 'ASC',
+      PageNo: 1,
+    })
+    // console.log(`✅ ${CategoryCode} 카테고리코드의 아이템 정보`)
+
+    return res.data
+  } catch (error) {
+    console.error(`❌ ${CategoryCode} 카테고리코드 오류`, error)
+  }
+}
+
 export const getJewelData = async (apikey: string, Name: string) => {
   try {
     const instance = createLostarkInstance(apikey)
