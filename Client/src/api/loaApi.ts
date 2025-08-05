@@ -55,14 +55,14 @@ export const getItemData = async (
   }
 }
 
-export const getItemsByCategory = async (apikey: string, CategoryCode: number) => {
+export const getItemsByCategory = async (apikey: string, CategoryCode: number, pageNo?: number) => {
   try {
     const instance = createLostarkInstance(apikey)
     const res = await instance.post('markets/items', {
       Sort: 'GRADE',
       CategoryCode: CategoryCode,
       SortCondition: 'ASC',
-      PageNo: 1,
+      PageNo: pageNo || 1,
     })
     // console.log(`✅ ${CategoryCode} 카테고리코드의 아이템 정보`)
 
