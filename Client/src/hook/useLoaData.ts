@@ -5,6 +5,7 @@ import { useCharacterStore } from '../stores/api/CharacterStore'
 import { useExpeditionStore } from '../stores/api/ExpeditionStore'
 import { useCharacterSelectionStore } from '../stores/selections/CharacterSelectionStore'
 import { useMarketStore } from '../stores/api/MarketStore'
+import { getAuthStatus } from './useAuthRedirect'
 
 const useLoaData = () => {
   // 기본적인 LostArk API 정보 받아오기
@@ -25,9 +26,9 @@ const useLoaData = () => {
   // 첫 로드 시 게스트 로그인 여부 확인
   // 게스트 로그인 정보가 있을시 localStorage 초기화
   useEffect(() => {
-    const isGuest = sessionStorage.getItem('guest-token')
+    const { isGuest, isLogin } = getAuthStatus()
 
-    if (isGuest == null) {
+    if (!isGuest && !isLogin) {
       localStorage.clear()
       sessionStorage.clear()
     }
