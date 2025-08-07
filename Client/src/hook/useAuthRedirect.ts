@@ -1,13 +1,20 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+// 현재 계정 상태 확인
+export const getAuthStatus = () => {
+  const isGuest = !!sessionStorage.getItem('guest-token')
+  const isLogin = !!localStorage.getItem('token')
+
+  return { isGuest, isLogin }
+}
+
 // 로그인 or 게스트 유저만 접근 가능 (비 로그인 x)
 export const useRequireUserOrGuest = (redirectUrl: string = '/') => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    const isLogin = !!localStorage.getItem('token')
-    const isGuest = !!localStorage.getItem('account-storage')
+    const { isGuest, isLogin } = getAuthStatus()
 
     if (!isLogin && !isGuest) {
       navigate(redirectUrl)
@@ -20,8 +27,7 @@ export const useRequireUser = (redirectUrl: string = '/') => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    const isLogin = !!localStorage.getItem('token')
-    const isGuest = !!sessionStorage.getItem('guest-storage')
+    const { isGuest, isLogin } = getAuthStatus()
 
     if (isGuest || !isLogin) {
       navigate(redirectUrl)
@@ -34,8 +40,7 @@ export const useRequireNoAuth = (redirectUrl: string = '/') => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    const isLogin = !!localStorage.getItem('token')
-    const isGuest = !!sessionStorage.getItem('guest-token')
+    const { isGuest, isLogin } = getAuthStatus()
 
     if (isLogin || isGuest) {
       navigate(redirectUrl)
