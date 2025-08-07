@@ -55,7 +55,12 @@ export const getItemData = async (
   }
 }
 
-export const getItemsByCategory = async (apikey: string, CategoryCode: number, pageNo?: number) => {
+export const getItemsByCategory = async (
+  apikey: string,
+  CategoryCode: number,
+  pageNo?: number,
+  ItemTier?: number,
+) => {
   try {
     const instance = createLostarkInstance(apikey)
     const res = await instance.post('markets/items', {
@@ -63,6 +68,7 @@ export const getItemsByCategory = async (apikey: string, CategoryCode: number, p
       CategoryCode: CategoryCode,
       SortCondition: 'ASC',
       PageNo: pageNo || 1,
+      ItemTier: ItemTier || null,
     })
     // console.log(`✅ ${CategoryCode} 카테고리코드의 아이템 정보`)
 
