@@ -17,17 +17,17 @@ interface ItemInfo {
 }
 
 interface MarketState {
-  dropItemInfos: Record<string, ItemInfo>
+  refineItemInfos: Record<string, ItemInfo>
   MarketLoading?: boolean
   MarketError?: string | null
-  loadDropItemInfos: () => Promise<void>
+  loadRefineItemInfos: () => Promise<void>
   resetState: () => void
 }
 
 export const useMarketStore = create<MarketState>((set) => ({
-  dropItemInfos: {},
+  refineItemInfos: {},
 
-  loadDropItemInfos: async () => {
+  loadRefineItemInfos: async () => {
     try {
       set({ MarketLoading: true, MarketError: null })
 
@@ -51,8 +51,8 @@ export const useMarketStore = create<MarketState>((set) => ({
               const jewelItem = res.Items[4] // 호출되는 10개 중 중간값
 
               set((state) => ({
-                dropItemInfos: {
-                  ...state.dropItemInfos,
+                refineItemInfos: {
+                  ...state.refineItemInfos,
                   [jewelItem.Name]: {
                     name: jewelItem.Name,
                     image: jewelItem.Icon,
@@ -92,7 +92,7 @@ export const useMarketStore = create<MarketState>((set) => ({
 
                 // 아이템 상태에 반영
                 set((state) => {
-                  const updated: Record<string, ItemInfo> = { ...state.dropItemInfos }
+                  const updated: Record<string, ItemInfo> = { ...state.refineItemInfos }
 
                   allItems.forEach((item: any) => {
                     updated[item.Name] = {
@@ -105,7 +105,7 @@ export const useMarketStore = create<MarketState>((set) => ({
                     }
                   })
 
-                  return { dropItemInfos: updated }
+                  return { refineItemInfos: updated }
                 })
               }
             }
@@ -119,11 +119,8 @@ export const useMarketStore = create<MarketState>((set) => ({
       set({ MarketError: error instanceof Error ? error.message : '아이템 정보 불러오기 실패' })
     } finally {
       set({ MarketLoading: false })
-      if (typeof window !== 'undefined') {
-        ;(window as any).marketStore = useMarketStore
-      }
     }
   },
 
-  resetState: () => set({ dropItemInfos: {} }),
+  resetState: () => set({ refineItemInfos: {} }),
 }))

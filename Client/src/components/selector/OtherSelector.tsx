@@ -10,7 +10,7 @@ import { OtherInfo } from '../../types/Types'
 const OtherSelector = ({ SelectedCharacterInfo }: { SelectedCharacterInfo: any }) => {
   const darkMode = useThemeStore((state) => state.darkMode)
   const { toggleDrops, updateSelectionState, characterSelections } = useOtherSelectionStore()
-  const dropItemInfos = useMarketStore((state) => state.dropItemInfos)
+  const refineItemInfos = useMarketStore((state) => state.refineItemInfos)
 
   // 선택한 캐릭터가 선택가능한 other 컨텐츠 목록 불러오기
   const availableOther = getAvailableOthersByLevel(
@@ -95,7 +95,7 @@ const OtherSelector = ({ SelectedCharacterInfo }: { SelectedCharacterInfo: any }
                 <div className='flex w-full'>
                   <h5 className='font-bold text-black'>1수 골드 :</h5>
                   <h5 className='ml-1 font-bold text-black'>
-                    {calculateGoldByDrops(defaultDrop, dropItemInfos)}G
+                    {calculateGoldByDrops(defaultDrop, refineItemInfos)}G
                   </h5>
                   <div className='ml-auto h-full'>
                     <Checkbox
@@ -127,7 +127,7 @@ const OtherSelector = ({ SelectedCharacterInfo }: { SelectedCharacterInfo: any }
               <div className='mt-auto flex w-full justify-end'>
                 <h5 className='font-bold text-black'>종합 </h5>
                 <h5 className='ml-1 font-bold text-black'>
-                  {calculateGoldByDrops(dropByName, dropItemInfos).toLocaleString()}G
+                  {calculateGoldByDrops(dropByName, refineItemInfos).toLocaleString()}G
                 </h5>
               </div>
             </div>
