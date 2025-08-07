@@ -20,7 +20,7 @@ const useLoaData = () => {
   )
 
   // 아이템 시세 정보 받아오기
-  const loadItemInfo = useMarketStore((state) => state.loadItemInfo)
+  const loadItemInfo = useMarketStore((state) => state.loadDropItemInfos)
 
   // 첫 로드 시 게스트 로그인 여부 확인
   // 게스트 로그인 정보가 있을시 localStorage 초기화
