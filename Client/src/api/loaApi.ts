@@ -58,8 +58,8 @@ export const getItemData = async (
 export const getItemsByCategory = async (
   apikey: string,
   CategoryCode: number,
-  pageNo?: number,
   ItemTier?: number,
+  pageNo?: number,
 ) => {
   try {
     const instance = createLostarkInstance(apikey)
