@@ -6,7 +6,6 @@ interface ButtonProps {
   textStyle?: string
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void
   type?: 'button' | 'submit' | 'reset'
-  className?: string
   mode?: boolean
   darkColor?: string
   lightColor?: string
@@ -15,7 +14,7 @@ interface ButtonProps {
   height?: number
 }
 
-const Button: React.FC<ButtonProps> = ({
+const Button = ({
   text = '',
   onClick,
   textStyle = '',
@@ -24,23 +23,23 @@ const Button: React.FC<ButtonProps> = ({
   darkColor = 'bg-black',
   lightColor = 'bg-green',
   disabled = false,
-  width = '80px',
-  height = '40',
-}) => {
+  width = 80,
+  height = 40,
+}: ButtonProps) => {
   const { darkMode } = useThemeStore()
 
   return (
     <button
       type={type}
       onClick={onClick}
-      className={` ${mode ? (darkMode ? `${darkColor}` : `${lightColor}`) : ''} flex shrink-0 items-center justify-center rounded-lg ${disabled ? 'cursor-not-allowed opacity-70' : ''}`}
+      className={` ${mode ? (darkMode ? `${darkColor}` : `${lightColor}`) : ''} flex items-center justify-center rounded-lg ${disabled ? 'cursor-not-allowed opacity-70' : ''}`}
       style={{ width: `${width}px`, height: `${height}px` }}
       disabled={disabled}
     >
       {textStyle ? (
         <div className={textStyle}>{text}</div>
       ) : (
-        <div className='text-lg font-extrabold'>{text}</div>
+        <div className='flex shrink-0 text-lg font-extrabold'>{text}</div>
       )}
     </button>
   )
