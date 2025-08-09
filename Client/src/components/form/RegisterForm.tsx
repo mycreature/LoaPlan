@@ -153,6 +153,7 @@ const RegisterForm = ({ onSubmit, isLoading = false }: RegisterFormProps) => {
                 verificationCode,
                 verificationCodeChecked,
                 errors.verificationCode?.message || '',
+                emailChecked,
               )}
               type='verificationCode'
               onChange={(e) => {
@@ -171,6 +172,7 @@ const RegisterForm = ({ onSubmit, isLoading = false }: RegisterFormProps) => {
             verificationCode,
             verificationCodeChecked,
             errors.verificationCode?.message || '',
+            emailChecked,
           )}
           onClick={async () => {
             const code = await checkEmailCode(email, verificationCode)

@@ -107,9 +107,13 @@ export const disableldVerificationCodeInput = (
   verificationCode: string,
   verificationCodeChecked: boolean,
   verificationCodeError: string,
+  emailChecked: boolean,
 ) => {
   if (verificationCodeError) {
     return false
+  }
+  if (emailChecked == false) {
+    return true
   }
   if (verificationCodeChecked && verificationCode) {
     return true
