@@ -118,7 +118,7 @@ const RegisterForm = ({ onSubmit, isLoading = false }: RegisterFormProps) => {
           )}
         />
         <Button
-          text='인증'
+          text='발송'
           type='button'
           disabled={disabledEmailInput(email, emailChecked, errors.email?.message || '')}
           onClick={async () => {
