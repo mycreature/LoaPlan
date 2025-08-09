@@ -108,9 +108,6 @@ export const disableldVerificationCodeInput = (
   verificationCodeChecked: boolean,
   verificationCodeError: string,
 ) => {
-  console.log('verificationCodeError', verificationCodeError)
-  console.log('verificationCodeChecked', verificationCodeChecked)
-  console.log('verificationCode', verificationCode)
   if (verificationCodeError) {
     return false
   }
