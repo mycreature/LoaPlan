@@ -14,7 +14,10 @@ import {
   validateApiKey,
   disabledCharacterInput,
   disabledApiKeyInput,
+  disabledEmailInput,
+  disableldVerificationCodeInput,
 } from '../../utils/validation'
+import { checkEmailCode, sendEmailCode } from '../../api/userApi'
 
 interface RegisterFormProps {
   onSubmit: (data: AuthFormData) => void // 폼 제출 시 실행할 함수
@@ -22,9 +25,15 @@ interface RegisterFormProps {
 }
 
 const RegisterForm = ({ onSubmit, isLoading = false }: RegisterFormProps) => {
-  // API Key, 캐릭터 인증 여부를 상태로 관리
+  // API Key, 캐릭터 인증 여부 상태 관리
+
   const [apiKeyChecked, setApiKeyChecked] = useState(false)
   const [characterChecked, setCharacterChecked] = useState(false)
+
+  // 이메일 인증여부 상태 관리
+  const [emailChecked, setEmailChecked] = useState(false)
+  const [verificationCode, setVerificationCode] = useState('')
+  const [verificationCodeChecked, setVerificationCodeChecked] = useState(false)
 
   // useForm 훅으로 폼을 제어
   const {
@@ -39,6 +48,7 @@ const RegisterForm = ({ onSubmit, isLoading = false }: RegisterFormProps) => {
     mode: 'onTouched', // onBlur 시 값 검사
     defaultValues: {
       email: '',
+      verificationCode: '',
       password: '',
       confirmPassword: '',
       apiKey: '',
@@ -46,18 +56,20 @@ const RegisterForm = ({ onSubmit, isLoading = false }: RegisterFormProps) => {
     },
   })
 
-  const { password, apiKey, character } = watch() // 필요한 값 구조분해
+  const { email, password, apiKey, character } = watch() // 필요한 값 구조분해
 
   // 실제 폼 제출 함수 (유효성 검사를 통과한 경우만 실행)
   const handleFormSubmit = (data: AuthFormData) => {
     // 모든 값이 유효하고, 인증도 완료된 경우에만 onSubmit 호출
     if (
       !errors.email &&
+      !errors.verificationCode &&
       !errors.password &&
       !errors.confirmPassword &&
       !errors.apiKey &&
       !errors.character &&
       data.email &&
+      data.verificationCode &&
       data.password &&
       data.confirmPassword &&
       data.apiKey &&
@@ -69,6 +81,7 @@ const RegisterForm = ({ onSubmit, isLoading = false }: RegisterFormProps) => {
       // 실패 시 로그 출력 및 알림
       console.log('유효성 검사 실패:', {
         emailError: errors.email?.message,
+        verificationCodeError: errors.verificationCode?.message,
         passwordError: errors.password?.message,
         confirmPasswordError: errors.confirmPassword?.message,
         apiKeyError: errors.apiKey?.message,
@@ -81,24 +94,97 @@ const RegisterForm = ({ onSubmit, isLoading = false }: RegisterFormProps) => {
   return (
     <form className='flex w-[358px] flex-col' onSubmit={handleSubmit(handleFormSubmit)}>
       {/* 이메일 필드 */}
-      <Controller
-        name='email'
-        control={control}
-        rules={{
-          validate: (value) => validateEmail(value) || true, // 유효하지 않으면 에러 메시지, 유효하면 true
-        }}
-        render={({ field }) => (
-          <>
+      <div className={`${errors.email ? 'mb-1' : ''} flex w-full items-center justify-between`}>
+        <Controller
+          name='email'
+          control={control}
+          rules={{
+            validate: (value) => validateEmail(value) || true, // 유효하지 않으면 에러 메시지, 유효하면 true
+          }}
+          render={({ field }) => (
             <Input
               {...field}
               placeholder='이메일'
-              type='email'
               error={errors.email?.message || ''}
+              width={260}
+              disabled={disabledEmailInput(email, emailChecked, errors.email?.message || '')}
+              type='email'
+              onChange={(e) => {
+                field.onChange(e.target.value) // 입력값 변경
+                setEmailChecked(false) // 인증 초기화
+                clearErrors('email') // 에러 초기화
+              }}
             />
-            <ErrorText message={errors.email?.message} />
-          </>
-        )}
-      />
+          )}
+        />
+        <Button
+          text='인증'
+          type='button'
+          disabled={disabledEmailInput(email, emailChecked, errors.email?.message || '')}
+          onClick={async () => {
+            const code = await sendEmailCode(email)
+
+            if (!code) {
+              setError('email', { message: code.message })
+            } else {
+              clearErrors('email')
+              alert('이메일 인증 코드를 전송했습니다.')
+            }
+            setEmailChecked(true) // 인증 상태 true
+          }}
+        />
+      </div>
+      <ErrorText message={errors.email?.message} />
+
+      {/* 이메일 인증 코드 필드 */}
+      <div
+        className={`${errors.verificationCode ? 'mb-1' : ''} flex w-full items-center justify-between`}
+      >
+        <Controller
+          name='verificationCode'
+          control={control}
+          render={({ field }) => (
+            <Input
+              {...field}
+              placeholder='이메일 인증코드'
+              error={errors.verificationCode?.message || ''}
+              width={260}
+              disabled={disableldVerificationCodeInput(
+                verificationCode,
+                verificationCodeChecked,
+                errors.verificationCode?.message || '',
+              )}
+              type='verificationCode'
+              onChange={(e) => {
+                field.onChange(e.target.value) // 입력값 변경
+                setVerificationCode(e.target.value)
+                setVerificationCodeChecked(false) // 인증 초기화
+                clearErrors('verificationCode') // 에러 초기화
+              }}
+            />
+          )}
+        />
+        <Button
+          text='인증'
+          type='button'
+          disabled={disableldVerificationCodeInput(
+            verificationCode,
+            verificationCodeChecked,
+            errors.verificationCode?.message || '',
+          )}
+          onClick={async () => {
+            const code = await checkEmailCode(email, verificationCode)
+            if (!code) {
+              setError('verificationCode', { message: code.message })
+            } else {
+              clearErrors('verificationCode')
+              alert('이메일 인증가 완료되었습니다.')
+            }
+            setVerificationCodeChecked(true) // 인증 상태 true
+          }}
+        />
+      </div>
+      <ErrorText message={errors.verificationCode?.message} />
 
       {/* 비밀번호 필드 */}
       <Controller
