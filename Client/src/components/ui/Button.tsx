@@ -1,5 +1,6 @@
 import React from 'react'
 import useThemeStore from '../../stores/others/ThemeStore'
+import Loading from '../ui/Loading'
 
 interface ButtonProps {
   text?: string | number
@@ -12,6 +13,7 @@ interface ButtonProps {
   disabled?: boolean
   width?: number
   height?: number
+  isLoading?: boolean
 }
 
 const Button = ({
@@ -25,8 +27,19 @@ const Button = ({
   disabled = false,
   width = 80,
   height = 40,
+  isLoading = false,
 }: ButtonProps) => {
   const { darkMode } = useThemeStore()
+
+  if (isLoading)
+    return (
+      <div
+        className='flex items-center justify-center rounded-lg'
+        style={{ width: `${width}px`, height: `${height}px` }}
+      >
+        <Loading />
+      </div>
+    )
 
   return (
     <button
