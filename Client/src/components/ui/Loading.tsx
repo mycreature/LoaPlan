@@ -1,6 +1,14 @@
-const Loading = () => {
+interface LoadingProps {
+  width?: number
+  height?: number
+}
+
+const Loading = ({ width = 40, height = 40 }: LoadingProps) => {
   return (
-    <div className='border-t-green h-20 w-20 animate-spin rounded-full border-8 border-gray-300' />
+    <div
+      style={{ width: `${width}px`, height: `${height}px` }}
+      className='border-t-green animate-spin rounded-full border-8 border-gray-300'
+    />
   )
 }
 
