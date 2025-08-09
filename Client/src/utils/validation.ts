@@ -92,6 +92,35 @@ export const disabledApiKeyInput = (
   }
 }
 
+export const disabledEmailInput = (email: string, emailChecked: boolean, emailError: string) => {
+  if (emailError) {
+    return false
+  }
+  if (emailChecked && email) {
+    return true
+  } else {
+    return false
+  }
+}
+
+export const disableldVerificationCodeInput = (
+  verificationCode: string,
+  verificationCodeChecked: boolean,
+  verificationCodeError: string,
+) => {
+  console.log('verificationCodeError', verificationCodeError)
+  console.log('verificationCodeChecked', verificationCodeChecked)
+  console.log('verificationCode', verificationCode)
+  if (verificationCodeError) {
+    return false
+  }
+  if (verificationCodeChecked && verificationCode) {
+    return true
+  } else {
+    return false
+  }
+}
+
 export const disabledCharacterInput = (
   character: string,
   characterChecked: boolean,
