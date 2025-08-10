@@ -119,11 +119,7 @@ const FindPasswordForm = ({ onSubmit, isLoading = false }: FindPasswordProps) =>
 
       {/* 최종 제출 버튼 */}
       <div className='mt-2 flex flex-col'>
-        <Button
-          type='submit'
-          text={isLoading ? '처리중...' : '비밀번호 변경'}
-          disabled={isLoading}
-        />
+        <Button type='submit' text='비밀번호 변경' isLoading={isLoading} width={358} height={40} />
       </div>
     </form>
   )

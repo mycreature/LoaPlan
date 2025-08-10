@@ -86,7 +86,14 @@ const LoginForm = ({ onSubmit, isLoading = false }: LoginFormProps) => {
         </Link>
       </div>
       <div className='mt-2 flex flex-col'>
-        <Button text={isLoading ? '로그인 중...' : '로그인'} type='submit' disabled={isLoading} />
+        <Button
+          text='로그인'
+          type='submit'
+          disabled={isLoading}
+          isLoading={isLoading}
+          width={358}
+          height={40}
+        />
       </div>
     </form>
   )

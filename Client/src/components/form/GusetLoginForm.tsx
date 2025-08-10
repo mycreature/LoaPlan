@@ -15,11 +15,13 @@ const GuestLoginForm = ({ onSubmit, isLoading = false }: GuestLoginFormProps) =>
       className='flex flex-col'
     >
       <Button
-        text={isLoading ? '로그인 중...' : '게스트 로그인'}
+        text='게스트 로그인'
         type='submit'
-        disabled={isLoading}
         darkColor='bg-black'
         lightColor='bg-red'
+        width={358}
+        height={40}
+        isLoading={isLoading}
       />
     </form>
   )
