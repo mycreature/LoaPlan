@@ -13,7 +13,6 @@ export const validatePassword = (value: string) => {
 }
 
 export const validateConfirmPassword = (password: string, confirmPassword: string) => {
-  if (!confirmPassword) return '비밀번호를 재입력하세요.'
   if (password !== confirmPassword) return '비밀번호가 일치하지 않습니다.'
   return ''
 }
@@ -39,7 +38,10 @@ export const validateApiKey = async (apiKey: string) => {
     if (res.status === 200) alert('API 키 검증 성공.')
     return ''
   } catch (e: any) {
-    if (e.response && e.response.status === 401) {
+    if (
+      (e.response && e.response.status === 401) ||
+      (e.message && e.message.includes('String contains non ISO-8859-1 code point'))
+    ) {
       return 'API 키가 유효하지 않습니다.'
     }
     return 'API 키 검증 중 오류가 발생했습니다.'
@@ -78,6 +80,29 @@ export const validateCharacterName = async (character: string, apiKey: string) =
   }
 }
 
+export const disabledEmailInput = (email: string, emailChecked: boolean, emailError?: string) => {
+  if (emailError) return false
+
+  if (emailChecked && email) return true
+
+  return false
+}
+
+export const disableldVerificationCodeInput = (
+  verificationCode: string,
+  verificationCodeChecked: boolean,
+  emailChecked: boolean,
+  verificationCodeError?: string,
+) => {
+  if (verificationCodeError) return false
+
+  if (!emailChecked) return true
+
+  if (verificationCodeChecked && emailChecked && verificationCode) return true
+
+  return false
+}
+
 export const disabledApiKeyInput = (
   apiKey: string,
   apiKeyChecked: boolean,
@@ -85,11 +110,9 @@ export const disabledApiKeyInput = (
 ) => {
   if (apikeyError) return false
 
-  if (apiKeyChecked && apiKey) {
-    return true
-  } else {
-    return false
-  }
+  if (apiKeyChecked && apiKey) return true
+
+  return false
 }
 
 export const disabledCharacterInput = (
@@ -100,15 +123,13 @@ export const disabledCharacterInput = (
   apiKeyChecked: boolean,
   apiKeyError: string,
 ) => {
-  if (!disabledApiKeyInput(apiKey, apiKeyChecked, apiKeyError)) {
-    return true
-  }
-  if (characterError) {
-    return false
-  }
-  if (characterChecked && character) {
-    return true
-  } else {
-    return false
-  }
+  const apikeyState = disabledApiKeyInput(apiKey, apiKeyChecked, apiKeyError)
+
+  if (characterError) return false
+
+  if (!apikeyState) return true
+
+  if (character && characterChecked && apikeyState) return true
+
+  return false
 }

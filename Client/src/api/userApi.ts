@@ -117,6 +117,34 @@ export const requestDeleteUser = async (email: string) => {
   }
 }
 
+export const sendEmailCode = async (email: string, type: 'register' | 'password') => {
+  try {
+    const response = await axios.post('/api/users/email-verification', {
+      email: email,
+      type: type,
+    })
+    console.log('✅ 코드 전송 성공:', response.data)
+    return response.data
+  } catch (error) {
+    console.error('❌ 코드 전송 실패:', error)
+    throw error
+  }
+}
+
+export const checkEmailCode = async (email: string, code: string) => {
+  try {
+    const response = await axios.post('/api/users/email-verification/verify', {
+      email: email,
+      code: code,
+    })
+    console.log('✅ 코드 확인 성공:', response.data)
+    return response.data
+  } catch (error) {
+    console.error('❌ 코드 확인 실패:', error)
+    throw error
+  }
+}
+
 export const storageClear = async () => {
   try {
     localStorage.removeItem('account-storage')

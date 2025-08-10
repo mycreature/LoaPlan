@@ -1,5 +1,6 @@
 export interface AuthFormData {
   email: string
+  verificationCode: string
   password: string
   confirmPassword: string
   apiKey: string
