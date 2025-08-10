@@ -31,6 +31,7 @@ const Userinfo = () => {
 
       await requestProfileUpdate(data)
 
+      alert('변경이 완료되었습니다.')
       navigate('/')
     } catch (error: any) {
       // 실패 시 이전 값으로 복원
