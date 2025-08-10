@@ -10,6 +10,7 @@ import {
   disabledCharacterInput,
   disabledApiKeyInput,
 } from '../../utils/validation'
+import useAccountStore from '../../stores/others/AccountStore'
 
 interface UserinfoFormProps {
   onSubmit: (data: AuthFormData) => void // 폼 제출 시 실행할 함수
@@ -20,6 +21,8 @@ const UserinfoForm = ({ onSubmit, isLoading = false }: UserinfoFormProps) => {
   // API Key, 캐릭터 인증 여부를 상태로 관리
   const [apiKeyChecked, setApiKeyChecked] = useState(false)
   const [characterChecked, setCharacterChecked] = useState(false)
+
+  const email = useAccountStore((state) => state.email)
 
   // useForm 훅으로 폼을 제어
   const {
@@ -35,6 +38,7 @@ const UserinfoForm = ({ onSubmit, isLoading = false }: UserinfoFormProps) => {
     defaultValues: {
       apiKey: '',
       character: '',
+      email: email,
     },
   })
 
@@ -145,7 +149,7 @@ const UserinfoForm = ({ onSubmit, isLoading = false }: UserinfoFormProps) => {
 
       <div className='mt-2 flex flex-col'>
         {/* 변경 사항 저장 */}
-        <Button type='submit' text={isLoading ? '처리중...' : '변경 적용'} disabled={isLoading} />
+        <Button type='submit' text='변경 사항 저장' isLoading={isLoading} width={358} height={40} />
       </div>
     </form>
   )
