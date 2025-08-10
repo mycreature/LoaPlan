@@ -3,7 +3,8 @@ import { useState } from 'react'
 import Button from '../ui/Button'
 import Input from '../ui/Input'
 import ErrorText from '../ui/ErrorText'
-
+import { checkEmailCode, sendEmailCode } from '../../api/userApi'
+import { AxiosError } from 'axios'
 import { AuthFormData } from '../../types/Types'
 
 import {
@@ -17,7 +18,6 @@ import {
   disabledEmailInput,
   disableldVerificationCodeInput,
 } from '../../utils/validation'
-import { checkEmailCode, sendEmailCode } from '../../api/userApi'
 
 interface RegisterFormProps {
   onSubmit: (data: AuthFormData) => void // 폼 제출 시 실행할 함수
@@ -25,15 +25,20 @@ interface RegisterFormProps {
 }
 
 const RegisterForm = ({ onSubmit, isLoading = false }: RegisterFormProps) => {
-  // API Key, 캐릭터 인증 여부 상태 관리
-
-  const [apiKeyChecked, setApiKeyChecked] = useState(false)
-  const [characterChecked, setCharacterChecked] = useState(false)
-
   // 이메일 인증여부 상태 관리
   const [emailChecked, setEmailChecked] = useState(false)
   const [verificationCode, setVerificationCode] = useState('')
   const [verificationCodeChecked, setVerificationCodeChecked] = useState(false)
+
+  // 버튼 클릭시 각각의 로딩 상태 관리
+  const [loadingEmailSend, setLoadingEmailSend] = useState(false)
+  const [loadingVerificationCode, setLoadingVerificationCode] = useState(false)
+  const [loadingApiKey, setLoadingApiKey] = useState(false)
+  const [loadingCharacter, setLoadingCharacter] = useState(false)
+
+  // API Key, 캐릭터 인증 여부 상태 관리
+  const [apiKeyChecked, setApiKeyChecked] = useState(false)
+  const [characterChecked, setCharacterChecked] = useState(false)
 
   // useForm 훅으로 폼을 제어
   const {
@@ -74,7 +79,8 @@ const RegisterForm = ({ onSubmit, isLoading = false }: RegisterFormProps) => {
       data.confirmPassword &&
       data.apiKey &&
       data.character &&
-      apiKeyChecked
+      apiKeyChecked &&
+      characterChecked
     ) {
       onSubmit(data)
     } else {
@@ -91,10 +97,21 @@ const RegisterForm = ({ onSubmit, isLoading = false }: RegisterFormProps) => {
     }
   }
 
+  const handleError = (field: keyof AuthFormData, error: any) => {
+    if (error instanceof AxiosError) {
+      setError(field, {
+        message: error.response?.data.message || field + ' 에 대한 오류가 발생했습니다.',
+      })
+      alert(error.response?.data.message)
+    } else {
+      setError(field, { message: '알수 없는 오류가 발생했습니다.' })
+    }
+  }
+
   return (
     <form className='flex w-[358px] flex-col' onSubmit={handleSubmit(handleFormSubmit)}>
       {/* 이메일 필드 */}
-      <div className={`${errors.email ? 'mb-1' : ''} flex w-full items-center justify-between`}>
+      <div className={`flex w-full items-center justify-between`}>
         <Controller
           name='email'
           control={control}
@@ -121,25 +138,34 @@ const RegisterForm = ({ onSubmit, isLoading = false }: RegisterFormProps) => {
           text='발송'
           type='button'
           disabled={disabledEmailInput(email, emailChecked, errors.email?.message || '')}
+          isLoading={loadingEmailSend}
           onClick={async () => {
-            const code = await sendEmailCode(email)
+            setLoadingEmailSend(true)
+            try {
+              if (validateEmail(email)) {
+                return alert('이메일 형식이 올바르지 않습니다.')
+              }
+              const code = await sendEmailCode(email)
 
-            if (!code) {
-              setError('email', { message: code.message })
-            } else {
-              clearErrors('email')
-              alert('이메일 인증 코드를 전송했습니다.')
+              if (!code) {
+                setError('email', { message: code.message })
+              } else {
+                clearErrors('email')
+                alert('이메일 인증 코드를 전송했습니다.')
+                setEmailChecked(true) // 인증 상태 true
+              }
+            } catch (error) {
+              handleError('email', error)
+            } finally {
+              setLoadingEmailSend(false) // 로딩 종료
             }
-            setEmailChecked(true) // 인증 상태 true
           }}
         />
       </div>
       <ErrorText message={errors.email?.message} />
 
       {/* 이메일 인증 코드 필드 */}
-      <div
-        className={`${errors.verificationCode ? 'mb-1' : ''} flex w-full items-center justify-between`}
-      >
+      <div className={`flex w-full items-center justify-between`}>
         <Controller
           name='verificationCode'
           control={control}
@@ -152,8 +178,8 @@ const RegisterForm = ({ onSubmit, isLoading = false }: RegisterFormProps) => {
               disabled={disableldVerificationCodeInput(
                 verificationCode,
                 verificationCodeChecked,
-                errors.verificationCode?.message || '',
                 emailChecked,
+                errors.verificationCode?.message,
               )}
               type='verificationCode'
               onChange={(e) => {
@@ -171,18 +197,26 @@ const RegisterForm = ({ onSubmit, isLoading = false }: RegisterFormProps) => {
           disabled={disableldVerificationCodeInput(
             verificationCode,
             verificationCodeChecked,
-            errors.verificationCode?.message || '',
             emailChecked,
+            errors.verificationCode?.message || '',
           )}
+          isLoading={loadingVerificationCode}
           onClick={async () => {
-            const code = await checkEmailCode(email, verificationCode)
-            if (!code) {
-              setError('verificationCode', { message: code.message })
-            } else {
-              clearErrors('verificationCode')
-              alert('이메일 인증가 완료되었습니다.')
+            setLoadingVerificationCode(true)
+            try {
+              const code = await checkEmailCode(email, verificationCode)
+              if (!code) {
+                setError('verificationCode', { message: code.message })
+              } else {
+                clearErrors('verificationCode')
+                alert('이메일 인증이 완료되었습니다.')
+                setVerificationCodeChecked(true) // 인증 상태 true
+              }
+            } catch (error) {
+              handleError('verificationCode', error)
+            } finally {
+              setLoadingVerificationCode(false)
             }
-            setVerificationCodeChecked(true) // 인증 상태 true
           }}
         />
       </div>
@@ -219,7 +253,7 @@ const RegisterForm = ({ onSubmit, isLoading = false }: RegisterFormProps) => {
       />
 
       {/* API Key 필드와 인증 버튼 */}
-      <div className={`${errors.apiKey ? 'mb-1' : ''} flex w-full items-center justify-between`}>
+      <div className={`flex w-full items-center justify-between`}>
         <Controller
           name='apiKey'
           control={control}
@@ -244,21 +278,29 @@ const RegisterForm = ({ onSubmit, isLoading = false }: RegisterFormProps) => {
           text='인증'
           type='button'
           disabled={disabledApiKeyInput(apiKey, apiKeyChecked, errors.apiKey?.message || '')}
+          isLoading={loadingApiKey}
           onClick={async () => {
-            const error = await validateApiKey(apiKey) // API 키 유효성 검사
-            if (error) {
-              setError('apiKey', { message: error })
-            } else {
-              clearErrors('apiKey')
+            setLoadingApiKey(true)
+            try {
+              const error = await validateApiKey(apiKey) // API 키 유효성 검사
+              if (error) {
+                setError('apiKey', { message: error })
+              } else {
+                setApiKeyChecked(true)
+                clearErrors('apiKey')
+              }
+            } catch (error) {
+              handleError('apiKey', error)
+            } finally {
+              setLoadingApiKey(false)
             }
-            setApiKeyChecked(true) // 인증 상태 true
           }}
         />
       </div>
       <ErrorText message={errors.apiKey?.message} />
 
       {/* 캐릭터명 필드와 인증 버튼 */}
-      <div className={`${errors.character ? 'mb-1' : ''} flex w-full items-center justify-between`}>
+      <div className={`flex w-full items-center justify-between`}>
         <Controller
           name='character'
           control={control}
@@ -296,14 +338,22 @@ const RegisterForm = ({ onSubmit, isLoading = false }: RegisterFormProps) => {
             apiKeyChecked,
             errors.apiKey?.message || '',
           )}
+          isLoading={loadingCharacter}
           onClick={async () => {
-            const error = await validateCharacterName(character, apiKey)
-            if (error) {
-              setError('character', { message: error })
-            } else {
-              clearErrors('character')
+            setLoadingCharacter(true)
+            try {
+              const error = await validateCharacterName(character, apiKey)
+              if (error) {
+                setError('character', { message: error })
+              } else {
+                setCharacterChecked(true)
+                clearErrors('character')
+              }
+            } catch (error) {
+              handleError('character', error)
+            } finally {
+              setLoadingCharacter(false)
             }
-            setCharacterChecked(true)
           }}
         />
       </div>
@@ -311,7 +361,13 @@ const RegisterForm = ({ onSubmit, isLoading = false }: RegisterFormProps) => {
 
       {/* 최종 제출 버튼 */}
       <div className='mt-2 flex flex-col'>
-        <Button type='submit' text={isLoading ? '처리중...' : '회원가입'} disabled={isLoading} />
+        <Button
+          type='submit'
+          text={isLoading ? '처리중...' : '회원가입'}
+          width={358}
+          height={40}
+          disabled={isLoading}
+        />
       </div>
     </form>
   )
