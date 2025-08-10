@@ -92,9 +92,9 @@ export const disabledApiKeyInput = (
   }
 }
 
-export const disabledEmailInput = (email: string, emailChecked: boolean, emailError: string) => {
+export const disabledEmailInput = (email: string, emailChecked: boolean, emailError?: string) => {
   if (emailError) {
-    return false
+    return true
   }
   if (emailChecked && email) {
     return true
@@ -106,11 +106,11 @@ export const disabledEmailInput = (email: string, emailChecked: boolean, emailEr
 export const disableldVerificationCodeInput = (
   verificationCode: string,
   verificationCodeChecked: boolean,
-  verificationCodeError: string,
   emailChecked: boolean,
+  verificationCodeError?: string,
 ) => {
   if (verificationCodeError) {
-    return false
+    return true
   }
   if (emailChecked == false) {
     return true
