@@ -13,7 +13,6 @@ export const validatePassword = (value: string) => {
 }
 
 export const validateConfirmPassword = (password: string, confirmPassword: string) => {
-  if (!confirmPassword) return '비밀번호를 재입력하세요.'
   if (password !== confirmPassword) return '비밀번호가 일치하지 않습니다.'
   return ''
 }
