@@ -91,7 +91,7 @@ const UserinfoForm = ({ onSubmit, isLoading = false }: UserinfoFormProps) => {
           render={({ field }) => (
             <Input
               {...field}
-              placeholder='API KEY'
+              placeholder='새로 입력할 API KEY'
               error={errors.apiKey?.message || ''}
               width={260}
               disabled={disabledApiKeyInput(apiKey, apiKeyChecked, errors.apiKey?.message || '')}
@@ -138,7 +138,7 @@ const UserinfoForm = ({ onSubmit, isLoading = false }: UserinfoFormProps) => {
           render={({ field }) => (
             <Input
               {...field}
-              placeholder='대표 캐릭터명'
+              placeholder='새로 입력할 대표 캐릭터명'
               width={260}
               disabled={disabledCharacterInput(
                 character,
