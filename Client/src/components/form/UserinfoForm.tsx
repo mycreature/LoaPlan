@@ -11,6 +11,7 @@ import {
   disabledApiKeyInput,
 } from '../../utils/validation'
 import useAccountStore from '../../stores/others/AccountStore'
+import { AxiosError } from 'axios'
 
 interface UserinfoFormProps {
   onSubmit: (data: AuthFormData) => void // 폼 제출 시 실행할 함수
@@ -21,6 +22,9 @@ const UserinfoForm = ({ onSubmit, isLoading = false }: UserinfoFormProps) => {
   // API Key, 캐릭터 인증 여부를 상태로 관리
   const [apiKeyChecked, setApiKeyChecked] = useState(false)
   const [characterChecked, setCharacterChecked] = useState(false)
+
+  const [loadingApiKey, setLoadingApiKey] = useState(false)
+  const [loadingCharacter, setLoadingCharacter] = useState(false)
 
   const email = useAccountStore((state) => state.email)
 
@@ -47,7 +51,14 @@ const UserinfoForm = ({ onSubmit, isLoading = false }: UserinfoFormProps) => {
   // 실제 폼 제출 함수 (유효성 검사를 통과한 경우만 실행)
   const handleFormSubmit = (data: AuthFormData) => {
     // 모든 값이 유효하고, 인증도 완료된 경우에만 onSubmit 호출
-    if (!errors.apiKey && !errors.character && data.apiKey && data.character && apiKeyChecked) {
+    if (
+      !errors.apiKey &&
+      !errors.character &&
+      data.apiKey &&
+      data.character &&
+      apiKeyChecked &&
+      characterChecked
+    ) {
       onSubmit(data)
     } else {
       // 실패 시 로그 출력 및 알림
@@ -59,10 +70,21 @@ const UserinfoForm = ({ onSubmit, isLoading = false }: UserinfoFormProps) => {
     }
   }
 
+  const handleError = (field: keyof AuthFormData, error: any) => {
+    if (error instanceof AxiosError) {
+      setError(field, {
+        message: error.response?.data.message || field + ' 에 대한 오류가 발생했습니다.',
+      })
+      alert(error.response?.data.message)
+    } else {
+      setError(field, { message: '알수 없는 오류가 발생했습니다.' })
+    }
+  }
+
   return (
     <form className='flex h-full w-[358px] flex-col' onSubmit={handleSubmit(handleFormSubmit)}>
       {/* API Key 필드와 인증 버튼 */}
-      <div className={`flex h-10 items-center justify-between`}>
+      <div className={`flex w-full items-center justify-between`}>
         <Controller
           name='apiKey'
           control={control}
@@ -71,9 +93,9 @@ const UserinfoForm = ({ onSubmit, isLoading = false }: UserinfoFormProps) => {
               {...field}
               placeholder='API KEY'
               error={errors.apiKey?.message || ''}
+              width={260}
               disabled={disabledApiKeyInput(apiKey, apiKeyChecked, errors.apiKey?.message || '')}
               type='api' // 커스텀 Input이므로 커스텀 type 허용
-              width={260}
               onChange={(e) => {
                 field.onChange(e.target.value) // 입력값 변경
                 setApiKeyChecked(false) // 인증 초기화
@@ -87,29 +109,37 @@ const UserinfoForm = ({ onSubmit, isLoading = false }: UserinfoFormProps) => {
           text='인증'
           type='button'
           disabled={disabledApiKeyInput(apiKey, apiKeyChecked, errors.apiKey?.message || '')}
+          isLoading={loadingApiKey}
           onClick={async () => {
-            const error = await validateApiKey(apiKey) // API 키 유효성 검사
-            if (error) {
-              setError('apiKey', { message: error })
-            } else {
-              clearErrors('apiKey')
+            setLoadingApiKey(true)
+            try {
+              const error = await validateApiKey(apiKey) // API 키 유효성 검사
+              if (error) {
+                setError('apiKey', { message: error })
+              } else {
+                setApiKeyChecked(true)
+                clearErrors('apiKey')
+              }
+            } catch (error) {
+              handleError('apiKey', error)
+            } finally {
+              setLoadingApiKey(false)
             }
-            setApiKeyChecked(true) // 인증 상태 true
           }}
         />
       </div>
       <ErrorText message={errors.apiKey?.message} />
 
       {/* 캐릭터명 필드와 인증 버튼 */}
-      <div className={`flex h-10 w-full items-center justify-between`}>
+      <div className={`flex w-full items-center justify-between`}>
         <Controller
           name='character'
           control={control}
           render={({ field }) => (
             <Input
               {...field}
-              width={260}
               placeholder='대표 캐릭터명'
+              width={260}
               disabled={disabledCharacterInput(
                 character,
                 characterChecked,
@@ -120,6 +150,11 @@ const UserinfoForm = ({ onSubmit, isLoading = false }: UserinfoFormProps) => {
               )}
               error={errors.character?.message || ''}
               type='character'
+              onChange={(e) => {
+                field.onChange(e.target.value) // 값 업데이트
+                setCharacterChecked(false) // 인증 초기화
+                clearErrors('character') // 에러 초기화
+              }}
             />
           )}
         />
@@ -134,14 +169,22 @@ const UserinfoForm = ({ onSubmit, isLoading = false }: UserinfoFormProps) => {
             apiKeyChecked,
             errors.apiKey?.message || '',
           )}
+          isLoading={loadingCharacter}
           onClick={async () => {
-            const error = await validateCharacterName(character, apiKey)
-            if (error) {
-              setError('character', { message: error })
-            } else {
-              clearErrors('character')
+            setLoadingCharacter(true)
+            try {
+              const error = await validateCharacterName(character, apiKey)
+              if (error) {
+                setError('character', { message: error })
+              } else {
+                setCharacterChecked(true)
+                clearErrors('character')
+              }
+            } catch (error) {
+              handleError('character', error)
+            } finally {
+              setLoadingCharacter(false)
             }
-            setCharacterChecked(true)
           }}
         />
       </div>
