@@ -117,10 +117,11 @@ export const requestDeleteUser = async (email: string) => {
   }
 }
 
-export const sendEmailCode = async (email: string) => {
+export const sendEmailCode = async (email: string, type: 'register' | 'password') => {
   try {
     const response = await axios.post('/api/users/email-verification', {
       email: email,
+      type: type,
     })
     console.log('✅ 코드 전송 성공:', response.data)
     return response.data

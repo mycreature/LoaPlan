@@ -145,7 +145,7 @@ const RegisterForm = ({ onSubmit, isLoading = false }: RegisterFormProps) => {
               if (validateEmail(email)) {
                 return alert('이메일 형식이 올바르지 않습니다.')
               }
-              const code = await sendEmailCode(email)
+              const code = await sendEmailCode(email, 'register')
 
               if (!code) {
                 setError('email', { message: code.message })
