@@ -130,7 +130,6 @@ const UserinfoForm = ({ onSubmit, isLoading = false }: UserinfoFormProps) => {
             apiKeyChecked,
             errors.apiKey?.message || '',
           )}
-          className='h-full'
           onClick={async () => {
             const error = await validateCharacterName(character, apiKey)
             if (error) {
