@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const bcrypt = require('bcrypt')
 const { User } = require('../models')
-const { generateToken } = require('../utils/jwt')
+const { generateToken, generateRefreshToken } = require('../utils/jwt')
 
 // 로그인 엔드포인트
 router.post('/', async (req, res) => {
@@ -21,12 +21,21 @@ router.post('/', async (req, res) => {
       return res.status(401).json({ message: '이메일 또는 비밀번호가 올바르지 않습니다.' })
     }
 
-    const token = generateToken(user)
+    const acessToken = generateToken(user)
+    const refreshToken = generateRefreshToken(user)
 
-    // 로그인 성공
+    // httpOnly 리프레쉬 토큰 생성
+    res.cookie('refreshToken', refreshToken, {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'none',
+      maxAge: 30 * 24 * 60 * 60 * 1000, // 24시간
+    })
+
+    // 엑세스 토큰 생성
     res.status(200).json({
       message: '로그인 성공',
-      token: token,
+      token: acessToken,
       user: {
         email: user.email,
         character: user.character,
