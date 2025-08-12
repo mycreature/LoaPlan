@@ -4,7 +4,7 @@ import { guestAccount, guestOtherSelection, guestRaidSelection } from '../consta
 
 export const requestRegisterUser = async (data: AuthFormData) => {
   try {
-    const response = await axios.post('/api/users/register', {
+    const response = await axios.post('/api/auth/signup', {
       email: data.email,
       password: data.password,
       apiKey: data.apiKey,
@@ -22,7 +22,7 @@ export const requestRegisterUser = async (data: AuthFormData) => {
 
 export const requestLoginUser = async (data: AuthFormData) => {
   try {
-    const response = await axios.post('/api/users/login', {
+    const response = await axios.post('/api/auth/login', {
       email: data.email,
       password: data.password,
     })
@@ -67,7 +67,7 @@ export const requestLogOut = async () => {
 
 export const requestProfileUpdate = async (data: AuthFormData) => {
   try {
-    const response = await axios.put('/api/users/userinfo', {
+    const response = await axios.put('/api/users/update', {
       email: data.email,
       apiKey: data.apiKey,
       character: data.character,
@@ -82,7 +82,7 @@ export const requestProfileUpdate = async (data: AuthFormData) => {
 
 export const requestPasswordUpdate = async (data: AuthFormData) => {
   try {
-    const response = await axios.put('/api/users/find-password', {
+    const response = await axios.put('/api/auth/find-password', {
       email: data.email,
       password: data.password,
     })
@@ -119,7 +119,7 @@ export const requestDeleteUser = async (email: string) => {
 
 export const sendEmailCode = async (email: string, type: 'register' | 'password') => {
   try {
-    const response = await axios.post('/api/users/email-verification', {
+    const response = await axios.post(`/api/verification/`, {
       email: email,
       type: type,
     })
@@ -133,7 +133,7 @@ export const sendEmailCode = async (email: string, type: 'register' | 'password'
 
 export const checkEmailCode = async (email: string, code: string) => {
   try {
-    const response = await axios.post('/api/users/email-verification/verify', {
+    const response = await axios.post(`/api/verification/verify`, {
       email: email,
       code: code,
     })

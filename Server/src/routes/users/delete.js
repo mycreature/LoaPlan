@@ -1,8 +1,9 @@
 const express = require('express')
 const router = express.Router()
-const { User } = require('../models')
+const { User } = require('../../models')
 
-router.delete('/:email', async (req, res) => {
+// 회원 삭제 엔드포인트
+router.delete('/', async (req, res) => {
   const { email } = req.params
 
   try {

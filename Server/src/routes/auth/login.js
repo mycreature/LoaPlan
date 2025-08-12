@@ -1,11 +1,11 @@
 const express = require('express')
 const router = express.Router()
 const bcrypt = require('bcrypt')
-const { User } = require('../models')
-const { generateToken, generateRefreshToken } = require('../utils/jwt')
+const { User } = require('../../models')
+const { generateToken, generateRefreshToken } = require('../../utils/jwt')
 
 // 로그인 엔드포인트
-router.post('/', async (req, res) => {
+router.post('/login', async (req, res) => {
   const { email, password } = req.body
 
   try {

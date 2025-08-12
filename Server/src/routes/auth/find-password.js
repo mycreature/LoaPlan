@@ -1,10 +1,10 @@
 const express = require('express')
 const router = express.Router()
 const bcrypt = require('bcrypt')
-const { User } = require('../models')
+const { User } = require('../../models')
 
-// 회원 정보 수정 엔드포인트
-router.put('/', async (req, res) => {
+// 비밀번호 찾기 엔드포인트
+router.put('/find-password', async (req, res) => {
   const { email, password } = req.body
   const hashedPassword = await bcrypt.hash(password, 10)
 

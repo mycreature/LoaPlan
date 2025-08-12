@@ -1,10 +1,11 @@
 const express = require('express')
 const router = express.Router()
-const { User } = require('../models')
+const { User } = require('../../models')
 
 // 회원 정보 수정 엔드포인트
 router.put('/', async (req, res) => {
-  const { email, apiKey, character } = req.body
+  const { email } = req.params
+  const { apiKey, character } = req.body
 
   try {
     // 1. 이메일로 기존 사용자 검색
