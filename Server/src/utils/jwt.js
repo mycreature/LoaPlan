@@ -30,7 +30,26 @@ const generateRefreshToken = (user) => {
   return token
 }
 
+const verifyAccessToken = (token) => {
+  try {
+    return jwt.verify(token, JWT_SECRET)
+  } catch (error) {
+    return null
+  }
+}
+
+// 리프레시 토큰 검증
+const verifyRefreshToken = (token) => {
+  try {
+    return jwt.verify(token, REFRESH_SECRET)
+  } catch (error) {
+    return null
+  }
+}
+
 module.exports = {
   generateToken,
   generateRefreshToken,
+  verifyAccessToken,
+  verifyRefreshToken,
 }
