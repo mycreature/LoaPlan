@@ -2,18 +2,26 @@ const express = require('express')
 const cors = require('cors')
 const dotenv = require('dotenv')
 const path = require('path')
+const cookieParser = require('cookie-parser')
 dotenv.config()
 
 const app = express()
 const PORT = process.env.PORT || 5000
+const authMiddleware = require('./middlewares/auth')
 
-app.use(cors())
+app.use(
+  cors({
+    origin: 'http://localhost:5173',
+    credentials: true,
+  }),
+)
+app.use(cookieParser())
 app.use(express.json())
 
 // 사용자 리소스 관리
 const usersRouter = express.Router()
-usersRouter.put('/:email', require('./routes/users/update')) // 사용자 정보 수정
-usersRouter.delete('/:email', require('./routes/users/delete')) // 사용자 삭제
+usersRouter.put('/:email', authMiddleware, require('./routes/users/update')) // 사용자 정보 수정
+usersRouter.delete('/delete', authMiddleware, require('./routes/users/delete')) // 사용자 삭제
 app.use('/api/users', usersRouter)
 
 // 인증 관련
