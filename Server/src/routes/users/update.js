@@ -1,10 +1,11 @@
 const express = require('express')
 const router = express.Router()
 const { User } = require('../../models')
+const authMiddleware = require('../../middlewares/auth')
 
 // 회원 정보 수정 엔드포인트
-router.put('/', async (req, res) => {
-  const { email } = req.params
+router.put('/update', authMiddleware, async (req, res) => {
+  const { email } = req.user
   const { apiKey, character } = req.body
 
   try {

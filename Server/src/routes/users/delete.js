@@ -5,7 +5,7 @@ const authMiddleware = require('../../middlewares/auth')
 
 router.delete('/delete', authMiddleware, async (req, res) => {
   try {
-    const { id } = req.user //
+    const { id } = req.user
 
     const deleted = await User.destroy({ where: { id } }) // id 기반 삭제
     if (!deleted) {

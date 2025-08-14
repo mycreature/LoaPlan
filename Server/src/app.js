@@ -20,7 +20,7 @@ app.use(express.json())
 
 // 사용자 리소스 관리
 const usersRouter = express.Router()
-usersRouter.put('/:email', authMiddleware, require('./routes/users/update')) // 사용자 정보 수정
+usersRouter.put('/update', authMiddleware, require('./routes/users/update')) // 사용자 정보 수정
 usersRouter.delete('/delete', authMiddleware, require('./routes/users/delete')) // 사용자 삭제
 app.use('/api/users', usersRouter)
 

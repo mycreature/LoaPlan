@@ -67,8 +67,12 @@ export const requestLogOut = async () => {
 
 export const requestProfileUpdate = async (data: AuthFormData) => {
   try {
+    const token = localStorage.getItem('token')
     const response = await axios.put('/api/users/update', {
-      email: data.email,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      withCredentials: true,
       apiKey: data.apiKey,
       character: data.character,
     })
