@@ -32,7 +32,7 @@ const generateRefreshToken = (user) => {
 
 const verifyAccessToken = (token) => {
   try {
-    return jwt.verify(token, JWT_SECRET)
+    return jwt.verify(token, process.env.JWT_SECRET)
   } catch (error) {
     return null
   }
@@ -41,7 +41,7 @@ const verifyAccessToken = (token) => {
 // 리프레시 토큰 검증
 const verifyRefreshToken = (token) => {
   try {
-    return jwt.verify(token, REFRESH_SECRET)
+    return jwt.verify(token, process.env.REFRESH_SECRET)
   } catch (error) {
     return null
   }
