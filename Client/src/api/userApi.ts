@@ -105,9 +105,15 @@ export const getApiKey = () => {
   return apiKey
 }
 
-export const requestDeleteUser = async (email: string) => {
+export const requestDeleteUser = async () => {
   try {
-    const response = await axios.delete(`/api/users/delete/${email}`)
+    const token = localStorage.getItem('token')
+    const response = await axios.delete(`/api/users/delete`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      withCredentials: true, // refreshToken 쿠키 전송 필요 시
+    })
     localStorage.clear()
     console.log('✅ 회원 탈퇴 성공:', response.data)
     return response.data
