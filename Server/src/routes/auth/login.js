@@ -15,13 +15,13 @@ router.post('/login', async (req, res) => {
       return res.status(401).json({ message: '이메일 또는 비밀번호가 올바르지 않습니다.' })
     }
 
-    // 비밀번호 비교
+    // 입력한 비밀번호 와 DB에 저장된 비밀번호 비교
     const isMatch = await bcrypt.compare(password, user.password)
     if (!isMatch) {
       return res.status(401).json({ message: '이메일 또는 비밀번호가 올바르지 않습니다.' })
     }
 
-    const acessToken = generateToken(user)
+    const accessToken = generateToken(user)
     const refreshToken = generateRefreshToken(user)
 
     // httpOnly 리프레쉬 토큰 생성
@@ -29,13 +29,15 @@ router.post('/login', async (req, res) => {
       httpOnly: true,
       secure: true,
       sameSite: 'none',
-      maxAge: 30 * 24 * 60 * 60 * 1000, // 24시간
+      maxAge: 30 * 24 * 60 * 60 * 1000, // 30일
     })
 
-    // 엑세스 토큰 생성
+    // header에 엑세스 토큰 저장
+    res.setHeader('Authorization', `Bearer ${accessToken}`)
+
     res.status(200).json({
       message: '로그인 성공',
-      token: acessToken,
+      token: accessToken,
       user: {
         email: user.email,
         character: user.character,
