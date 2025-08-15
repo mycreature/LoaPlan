@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { AuthFormData } from '../types/Types'
 import { guestAccount, guestOtherSelection, guestRaidSelection } from '../constants/guestStorage'
+import useAccountStore from '../stores/others/AccountStore'
 
 export const requestRegisterUser = async (data: AuthFormData) => {
   try {
@@ -101,7 +102,7 @@ export const requestPasswordUpdate = async (data: AuthFormData) => {
 }
 
 export const getApiKey = () => {
-  const apiKey = JSON.parse(localStorage.getItem('account-storage') || '{}')?.state?.apiKey
+  const apiKey = useAccountStore.getState().apiKey
 
   if (!apiKey) {
     throw new Error('API 키가 설정되지 않았습니다. 먼저 로그인해주세요.')
