@@ -37,7 +37,7 @@ const authMiddleware = async (req, res, next) => {
         // 새 엑세스 토큰 발급
         const newAccessToken = generateToken(user)
         res.setHeader('Authorization', `Bearer ${newAccessToken}`) // 새로운 엑세스 토큰을 헤더에 담아 전송
-        req.user = { id: user.id, email: user.email } // req.user에 사용자 정보 저장
+        res.status(200).json({ message: '토큰 재발급 완료!', token: newAccessToken })
 
         return next()
       } catch (error) {
