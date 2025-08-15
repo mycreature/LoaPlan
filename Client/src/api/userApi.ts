@@ -77,6 +77,7 @@ export const requestProfileUpdate = async (data: AuthFormData) => {
       character: data.character,
     })
     console.log('✅ 프로필 수정 성공:', response.data)
+    localStorage.setItem('token', response.data.token)
     return response.data
   } catch (error) {
     console.error('❌ 프로필 수정 실패:', error)
