@@ -56,6 +56,24 @@ export const requestGuestUser = async () => {
   }
 }
 
+export const checkToken = async () => {
+  try {
+    const token = localStorage.getItem('token')
+    const response = await axios.post('/api/auth/token', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      withCredentials: true,
+    })
+    // console.log('✅ 토근 검증 성공:', response.data)
+    localStorage.setItem('token', response.data.token)
+    return response.data
+  } catch (error) {
+    console.error('❌ 토큰 검증 실패:', error)
+    throw error
+  }
+}
+
 export const requestLogOut = async () => {
   try {
     storageClear()
