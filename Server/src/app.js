@@ -28,6 +28,7 @@ app.use('/api/users', usersRouter)
 const authRouter = express.Router()
 authRouter.post('/signup', require('./routes/auth/signup')) // 회원가입
 authRouter.post('/login', require('./routes/auth/login')) // 로그인
+authRouter.post('/token', authMiddleware, require('./routes/auth/token'))
 // authRouter.post('/logout', require('./routes/auth/logout')) // 로그아웃
 authRouter.put('/find-password', require('./routes/auth/find-password')) // 비밀번호 재설정
 app.use('/api/auth', authRouter)
