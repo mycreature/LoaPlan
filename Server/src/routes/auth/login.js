@@ -5,7 +5,7 @@ const { User } = require('../../models')
 const { generateToken, generateRefreshToken } = require('../../utils/jwt')
 
 // 로그인 엔드포인트
-router.post('/login', async (req, res) => {
+router.post('/sessions', async (req, res) => {
   const { email, password } = req.body
 
   try {

@@ -4,8 +4,8 @@ const router = express.Router()
 const { verificationCode } = require('../../utils/mail-service')
 
 // 이메일 인증코드 확인 엔드포인트
-router.post('/verify', async (req, res) => {
-  const { email, code } = req.body
+router.post('/:email/:code', async (req, res) => {
+  const { email, code } = req.params
   if (!email || !code) return res.status(400).json({ message: '이메일과 코드가 필요합니다.' })
 
   const savedCode = verificationCode[email]

@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const authMiddleware = require('../../middlewares/auth')
 
-router.post('/token', authMiddleware, (req, res) => {
+router.post('/sessions', authMiddleware, (req, res) => {
   // res.setHeader로 새 액세스 토큰이 이미 헤더에 설정됨
   // 미들웨어 에서 다 처리하기에 얘 아무것도 하는거없음 미들웨어 사용을 위한 엔드포인트
 
