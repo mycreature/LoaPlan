@@ -1,11 +1,11 @@
 const express = require('express')
 const router = express.Router()
 const bcrypt = require('bcrypt')
-const { User } = require('../models')
-const jwt = require('jsonwebtoken')
+const { User } = require('../../models')
+const { generateToken, generateRefreshToken } = require('../../utils/jwt')
 
 // 로그인 엔드포인트
-router.post('/', async (req, res) => {
+router.post('/login', async (req, res) => {
   const { email, password } = req.body
 
   try {
@@ -15,27 +15,29 @@ router.post('/', async (req, res) => {
       return res.status(401).json({ message: '이메일 또는 비밀번호가 올바르지 않습니다.' })
     }
 
-    // 비밀번호 비교
+    // 입력한 비밀번호 와 DB에 저장된 비밀번호 비교
     const isMatch = await bcrypt.compare(password, user.password)
     if (!isMatch) {
       return res.status(401).json({ message: '이메일 또는 비밀번호가 올바르지 않습니다.' })
     }
 
-    const token = jwt.sign(
-      {
-        id: user.id,
-        email: user.email,
-        character: user.character,
-        apiKey: user.apiKey,
-      },
-      process.env.JWT_SECRET,
-      { expiresIn: '1d' },
-    )
+    const accessToken = generateToken(user)
+    const refreshToken = generateRefreshToken(user)
 
-    // 로그인 성공
+    // httpOnly 리프레쉬 토큰 생성
+    res.cookie('refreshToken', refreshToken, {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'none',
+      maxAge: 30 * 24 * 60 * 60 * 1000, // 30일
+    })
+
+    // header에 엑세스 토큰 저장
+    res.setHeader('Authorization', `Bearer ${accessToken}`)
+
     res.status(200).json({
       message: '로그인 성공',
-      token: token,
+      token: accessToken,
       user: {
         email: user.email,
         character: user.character,

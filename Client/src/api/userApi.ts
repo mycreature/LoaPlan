@@ -1,10 +1,11 @@
 import axios from 'axios'
 import { AuthFormData } from '../types/Types'
 import { guestAccount, guestOtherSelection, guestRaidSelection } from '../constants/guestStorage'
+import useAccountStore from '../stores/others/AccountStore'
 
 export const requestRegisterUser = async (data: AuthFormData) => {
   try {
-    const response = await axios.post('/api/users/register', {
+    const response = await axios.post('/api/auth/signup', {
       email: data.email,
       password: data.password,
       apiKey: data.apiKey,
@@ -22,7 +23,7 @@ export const requestRegisterUser = async (data: AuthFormData) => {
 
 export const requestLoginUser = async (data: AuthFormData) => {
   try {
-    const response = await axios.post('/api/users/login', {
+    const response = await axios.post('/api/auth/login', {
       email: data.email,
       password: data.password,
     })
@@ -55,6 +56,24 @@ export const requestGuestUser = async () => {
   }
 }
 
+export const checkToken = async () => {
+  try {
+    const token = localStorage.getItem('token')
+    const response = await axios.post('/api/auth/token', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      withCredentials: true,
+    })
+    // console.log('✅ 토근 검증 성공:', response.data)
+    localStorage.setItem('token', response.data.token)
+    return response.data
+  } catch (error) {
+    console.error('❌ 토큰 검증 실패:', error)
+    throw error
+  }
+}
+
 export const requestLogOut = async () => {
   try {
     storageClear()
@@ -67,12 +86,17 @@ export const requestLogOut = async () => {
 
 export const requestProfileUpdate = async (data: AuthFormData) => {
   try {
-    const response = await axios.put('/api/users/userinfo', {
-      email: data.email,
+    const token = localStorage.getItem('token')
+    const response = await axios.put('/api/users/update', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      withCredentials: true,
       apiKey: data.apiKey,
       character: data.character,
     })
     console.log('✅ 프로필 수정 성공:', response.data)
+    localStorage.setItem('token', response.data.token)
     return response.data
   } catch (error) {
     console.error('❌ 프로필 수정 실패:', error)
@@ -82,7 +106,7 @@ export const requestProfileUpdate = async (data: AuthFormData) => {
 
 export const requestPasswordUpdate = async (data: AuthFormData) => {
   try {
-    const response = await axios.put('/api/users/find-password', {
+    const response = await axios.put('/api/auth/find-password', {
       email: data.email,
       password: data.password,
     })
@@ -96,7 +120,7 @@ export const requestPasswordUpdate = async (data: AuthFormData) => {
 }
 
 export const getApiKey = () => {
-  const apiKey = JSON.parse(localStorage.getItem('account-storage') || '{}')?.state?.apiKey
+  const apiKey = useAccountStore.getState().apiKey
 
   if (!apiKey) {
     throw new Error('API 키가 설정되지 않았습니다. 먼저 로그인해주세요.')
@@ -105,9 +129,15 @@ export const getApiKey = () => {
   return apiKey
 }
 
-export const requestDeleteUser = async (email: string) => {
+export const requestDeleteUser = async () => {
   try {
-    const response = await axios.delete(`/api/users/delete/${email}`)
+    const token = localStorage.getItem('token')
+    const response = await axios.delete(`/api/users/delete`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      withCredentials: true, // refreshToken 쿠키 전송 필요 시
+    })
     localStorage.clear()
     console.log('✅ 회원 탈퇴 성공:', response.data)
     return response.data
@@ -119,7 +149,7 @@ export const requestDeleteUser = async (email: string) => {
 
 export const sendEmailCode = async (email: string, type: 'register' | 'password') => {
   try {
-    const response = await axios.post('/api/users/email-verification', {
+    const response = await axios.post(`/api/verification/`, {
       email: email,
       type: type,
     })
@@ -133,7 +163,7 @@ export const sendEmailCode = async (email: string, type: 'register' | 'password'
 
 export const checkEmailCode = async (email: string, code: string) => {
   try {
-    const response = await axios.post('/api/users/email-verification/verify', {
+    const response = await axios.post(`/api/verification/verify`, {
       email: email,
       code: code,
     })

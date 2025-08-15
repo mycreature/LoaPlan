@@ -1,22 +1,14 @@
 import Block from '../components/ui/Block'
 import { useState } from 'react'
 import { AuthFormData } from '../types/Types'
-import useAccountStore from '../stores/others/AccountStore'
 import { requestGuestUser, requestLoginUser } from '../api/userApi'
 import LoginForm from '../components/form/LoginForm'
 import { useRequireNoAuth } from '../hook/useAuthRedirect'
 import GuestLoginForm from '../components/form/GusetLoginForm'
-import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
   const [loadingGuest, setLoadingGuest] = useState(false)
   const [loadingAuth, setLoadingAuth] = useState(false)
-
-  const setApiKey = useAccountStore((state) => state.setApiKey)
-  const setCharacter = useAccountStore((state) => state.setCharacter)
-  const setEmail = useAccountStore((state) => state.setEmail)
-
-  const navigate = useNavigate()
 
   // 비로그인시만 접근가능 (로그인, 게스트시 메인페이지 리다이렉트)
   useRequireNoAuth()
@@ -24,13 +16,8 @@ const Login = () => {
   const handleLoginSubmit = async (data: AuthFormData) => {
     setLoadingAuth(true)
     try {
-      const respone = await requestLoginUser(data)
-
-      setApiKey(respone.user.apiKey)
-      setCharacter(respone.user.character)
-      setEmail(respone.user.email)
-
-      navigate('/')
+      await requestLoginUser(data)
+      window.location.reload()
     } catch (error: any) {
       alert(error.response?.data?.message || '로그인 중 오류 발생')
     } finally {

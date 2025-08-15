@@ -21,14 +21,14 @@ const DeleteUserForm = () => {
       return
     }
     try {
-      await requestDeleteUser(email)
+      await requestDeleteUser()
       navigate('/login')
     } catch (error) {
       console.error('회원 탈퇴 실패:', error)
       alert('회원 탈퇴 중 오류가 발생했습니다.')
     } finally {
       setIsLoading(false)
-      window.location.reload()
+      // window.location.reload()
       alert('회원 탈퇴가 완료되었습니다.')
     }
   }

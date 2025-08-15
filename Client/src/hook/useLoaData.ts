@@ -6,6 +6,7 @@ import { useExpeditionStore } from '../stores/api/ExpeditionStore'
 import { useCharacterSelectionStore } from '../stores/selections/CharacterSelectionStore'
 import { useMarketStore } from '../stores/api/MarketStore'
 import { getAuthStatus } from './useAuthRedirect'
+import getJwtInfo from '../utils/jwtInfo'
 
 const useLoaData = () => {
   // 기본적인 LostArk API 정보 받아오기
@@ -51,6 +52,10 @@ const useLoaData = () => {
   useEffect(() => {
     loadRefineItemInfo()
   }, [loadRefineItemInfo])
+
+  useEffect(() => {
+    getJwtInfo()
+  }, [])
 }
 
 export default useLoaData

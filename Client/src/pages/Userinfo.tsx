@@ -2,7 +2,6 @@ import { useNavigate } from 'react-router-dom'
 import Block from '../components/ui/Block'
 import { useState } from 'react'
 import { AuthFormData } from '../types/Types'
-import useAccountStore from '../stores/others/AccountStore'
 import { requestProfileUpdate } from '../api/userApi'
 import UserinfoForm from '../components/form/UserinfoForm'
 import { useRequireUser } from '../hook/useAuthRedirect'
@@ -12,32 +11,18 @@ const Userinfo = () => {
   const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
 
-  const setApiKey = useAccountStore((state) => state.setApiKey)
-  const setCharacter = useAccountStore((state) => state.setCharacter)
-
   // 로그인시 접근가능 (게스트, 비로그인 접근 x)
   useRequireUser('/login')
 
   const handleProfileSubmit = async (data: AuthFormData) => {
     setIsLoading(true)
 
-    const prevState = useAccountStore.getState()
-    const prevApiKey = prevState.apiKey
-    const prevCharacter = prevState.character
-
     try {
-      setApiKey(data.apiKey)
-      setCharacter(data.character)
-
       await requestProfileUpdate(data)
 
       alert('변경이 완료되었습니다.')
       navigate('/')
     } catch (error: any) {
-      // 실패 시 이전 값으로 복원
-      setApiKey(prevApiKey)
-      setCharacter(prevCharacter)
-
       alert(error.response?.data?.message || '변경중 오류가 발생했습니다.')
     } finally {
       setIsLoading(false)

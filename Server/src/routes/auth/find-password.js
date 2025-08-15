@@ -1,21 +1,28 @@
 const express = require('express')
 const router = express.Router()
-const { User } = require('../models')
+const bcrypt = require('bcrypt')
+const { User } = require('../../models')
 
-// 회원 정보 수정 엔드포인트
-router.put('/', async (req, res) => {
-  const { email, apiKey, character } = req.body
+// 비밀번호 찾기 엔드포인트
+router.put('/find-password', async (req, res) => {
+  const { email, password } = req.body
+  const hashedPassword = await bcrypt.hash(password, 10)
 
   try {
+    // 비밀번호 확인
+    if (!password) {
+      return res.status(400).json({ message: '비밀번호를 입력해주세요.' })
+    }
+
     // 1. 이메일로 기존 사용자 검색
     const existingUser = await User.findOne({ where: { email } })
     if (!existingUser) {
       return res.status(400).json({ message: '이메일을 찾을 수 없습니다.' })
     }
 
-    // 2. apiKey와 character 정보 업데이트
+    // 2. 비밀번호 정보 업데이트
     await User.update(
-      { apiKey, character }, // 변경할 값
+      { password: hashedPassword }, // 변경할 값
       { where: { email } }, // 조건
     )
 

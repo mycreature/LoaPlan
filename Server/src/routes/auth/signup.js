@@ -1,10 +1,10 @@
 const express = require('express')
 const router = express.Router()
 const bcrypt = require('bcrypt')
-const { User } = require('../models')
+const { User } = require('../../models')
 
 // 회원가입 엔드포인트
-router.post('/', async (req, res) => {
+router.post('/signup', async (req, res) => {
   const { email, password, apiKey, character } = req.body
 
   try {

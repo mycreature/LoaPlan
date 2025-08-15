@@ -2,32 +2,56 @@ const express = require('express')
 const cors = require('cors')
 const dotenv = require('dotenv')
 const path = require('path')
+const cookieParser = require('cookie-parser')
 dotenv.config()
 
 const app = express()
 const PORT = process.env.PORT || 5000
+const authMiddleware = require('./middlewares/auth')
 
-app.use(cors())
+app.use(
+  cors({
+    origin: 'http://localhost:5173',
+    credentials: true,
+  }),
+)
+app.use(cookieParser())
 app.use(express.json())
 
-// 사용자 관련 라우터
+// 사용자 리소스 관리
 const usersRouter = express.Router()
-usersRouter.use('/register', require('./routes/register'))
-usersRouter.use('/login', require('./routes/login'))
-usersRouter.use('/userinfo', require('./routes/userinfo'))
-usersRouter.use('/find-password', require('./routes/find-password'))
-usersRouter.use('/weekly-gold', require('./routes/weekly-gold'))
-usersRouter.use('/delete', require('./routes/delete-user'))
-usersRouter.use('/email-verification', require('./routes/email-verification'))
+usersRouter.put('/update', authMiddleware, require('./routes/users/update')) // 사용자 정보 수정
+usersRouter.delete('/delete', authMiddleware, require('./routes/users/delete')) // 사용자 삭제
 app.use('/api/users', usersRouter)
 
-// 정적 파일
+// 인증 관련
+const authRouter = express.Router()
+authRouter.post('/signup', require('./routes/auth/signup')) // 회원가입
+authRouter.post('/login', require('./routes/auth/login')) // 로그인
+authRouter.post('/token', authMiddleware, require('./routes/auth/token'))
+// authRouter.post('/logout', require('./routes/auth/logout')) // 로그아웃
+authRouter.put('/find-password', require('./routes/auth/find-password')) // 비밀번호 재설정
+app.use('/api/auth', authRouter)
+
+// 이메일 관련
+const verificationRouter = express.Router()
+verificationRouter.post('/', require('./routes/verification/send')) // 인증 코드 발송
+verificationRouter.post('/verify', require('./routes/verification/verify')) // 인증 확인
+app.use('/api/verification', verificationRouter)
+
+// 정적 파일 서빙
 const clientDistPath = path.join(__dirname, '../../Client/dist')
 app.use(express.static(clientDistPath))
 
-// 프론트엔드 진입점
-app.get(/^\/(register|login|userinfo|find-password|weekly-gold)?$/, (req, res) => {
+// SPA를 위한 라우팅 (API가 아닌 프론트엔드 라우팅)
+app.get(/^\/(signup|login|info|find-password)?$/, (req, res) => {
   res.sendFile(path.join(clientDistPath, 'index.html'))
+})
+
+// 에러 핸들링 미들웨어
+app.use((err, req, res, next) => {
+  console.error(err.stack)
+  res.status(500).json({ error: 'Internal server error' })
 })
 
 // 서버 실행
