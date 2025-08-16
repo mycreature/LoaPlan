@@ -5,7 +5,7 @@ import useAccountStore from '../stores/others/AccountStore'
 
 export const requestRegisterUser = async (data: AuthFormData) => {
   try {
-    const response = await axios.post('/api/auth/signup', {
+    const response = await axios.post('/api/users/', {
       email: data.email,
       password: data.password,
       apiKey: data.apiKey,
@@ -23,7 +23,7 @@ export const requestRegisterUser = async (data: AuthFormData) => {
 
 export const requestLoginUser = async (data: AuthFormData) => {
   try {
-    const response = await axios.post('/api/auth/login', {
+    const response = await axios.post('/api/auth/sessions', {
       email: data.email,
       password: data.password,
     })
@@ -40,7 +40,7 @@ export const requestLoginUser = async (data: AuthFormData) => {
 export const requestGuestUser = async () => {
   try {
     storageClear()
-    localStorage.setItem('account-storage', JSON.stringify({ state: guestAccount }))
+    localStorage.setItem('guest-storage', JSON.stringify({ state: guestAccount }))
     localStorage.setItem(
       'other-selection-storage',
       JSON.stringify({ state: guestOtherSelection.state }),
@@ -59,7 +59,7 @@ export const requestGuestUser = async () => {
 export const checkToken = async () => {
   try {
     const token = localStorage.getItem('token')
-    const response = await axios.post('/api/auth/token', {
+    const response = await axios.post('/api/auth/sessions', {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -87,14 +87,19 @@ export const requestLogOut = async () => {
 export const requestProfileUpdate = async (data: AuthFormData) => {
   try {
     const token = localStorage.getItem('token')
-    const response = await axios.put('/api/users/update', {
-      headers: {
-        Authorization: `Bearer ${token}`,
+    const response = await axios.put(
+      '/api/users/',
+      {
+        apiKey: data.apiKey,
+        character: data.character,
       },
-      withCredentials: true,
-      apiKey: data.apiKey,
-      character: data.character,
-    })
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        withCredentials: true,
+      },
+    )
     console.log('✅ 프로필 수정 성공:', response.data)
     localStorage.setItem('token', response.data.token)
     return response.data
@@ -106,7 +111,7 @@ export const requestProfileUpdate = async (data: AuthFormData) => {
 
 export const requestPasswordUpdate = async (data: AuthFormData) => {
   try {
-    const response = await axios.put('/api/auth/find-password', {
+    const response = await axios.put('/api/password-reset/', {
       email: data.email,
       password: data.password,
     })
@@ -132,7 +137,7 @@ export const getApiKey = () => {
 export const requestDeleteUser = async () => {
   try {
     const token = localStorage.getItem('token')
-    const response = await axios.delete(`/api/users/delete`, {
+    const response = await axios.delete(`/api/users/`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -149,7 +154,7 @@ export const requestDeleteUser = async () => {
 
 export const sendEmailCode = async (email: string, type: 'register' | 'password') => {
   try {
-    const response = await axios.post(`/api/verification/`, {
+    const response = await axios.post(`/api/verifications/`, {
       email: email,
       type: type,
     })
@@ -163,10 +168,7 @@ export const sendEmailCode = async (email: string, type: 'register' | 'password'
 
 export const checkEmailCode = async (email: string, code: string) => {
   try {
-    const response = await axios.post(`/api/verification/verify`, {
-      email: email,
-      code: code,
-    })
+    const response = await axios.post(`/api/verifications/${email}/${code}`, {})
     console.log('✅ 코드 확인 성공:', response.data)
     return response.data
   } catch (error) {

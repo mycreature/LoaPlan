@@ -5,7 +5,7 @@ const authMiddleware = require('../../middlewares/auth')
 const { generateToken, generateRefreshToken } = require('../../utils/jwt')
 
 // 회원 정보 수정 엔드포인트
-router.put('/update', authMiddleware, async (req, res) => {
+router.put('/', authMiddleware, async (req, res) => {
   const { email } = req.user
   const { apiKey, character } = req.body
 

@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt')
 const { User } = require('../../models')
 
 // 비밀번호 찾기 엔드포인트
-router.put('/find-password', async (req, res) => {
+router.put('/', async (req, res) => {
   const { email, password } = req.body
   const hashedPassword = await bcrypt.hash(password, 10)
 
