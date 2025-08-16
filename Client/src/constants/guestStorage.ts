@@ -1,3 +1,5 @@
+import type { RaidSelection, OtherSelection } from '../types/Types' // 타입 정의 경로 맞게 수정
+
 export const guestAccount = {
   email: 'guest@guest.com',
   character: '이크리처',
@@ -55,6 +57,9 @@ export const guestRaidSelection = {
     ],
   },
   version: 0,
+} satisfies {
+  state: { characterSelections: RaidSelection[] }
+  version: number
 }
 
 export const guestOtherSelection = {
@@ -72,6 +77,8 @@ export const guestOtherSelection = {
               { name: '운명의 수호석', amount: 5070 },
               { name: '1레벨 겁화의 보석', amount: 30 },
             ],
+            isDouble: false,
+            multiplier: 1,
           },
           {
             name: '드렉탈라스',
@@ -82,6 +89,8 @@ export const guestOtherSelection = {
               { name: '운명의 수호석', amount: 3300 },
               { name: '운명의 돌파석', amount: 120 },
             ],
+            isDouble: false,
+            multiplier: 1,
           },
         ],
       },
@@ -97,6 +106,8 @@ export const guestOtherSelection = {
               { name: '운명의 수호석', amount: 3852 },
               { name: '1레벨 겁화의 보석', amount: 30 },
             ],
+            isDouble: false,
+            multiplier: 1,
           },
           {
             name: '스콜라키아',
@@ -107,6 +118,8 @@ export const guestOtherSelection = {
               { name: '운명의 수호석', amount: 2580 },
               { name: '운명의 돌파석', amount: 108 },
             ],
+            isDouble: true,
+            multiplier: 1,
           },
         ],
       },
@@ -122,6 +135,8 @@ export const guestOtherSelection = {
               { name: '운명의 수호석', amount: 3852 },
               { name: '1레벨 겁화의 보석', amount: 30 },
             ],
+            isDouble: true,
+            multiplier: 1,
           },
           {
             name: '스콜라키아',
@@ -132,6 +147,8 @@ export const guestOtherSelection = {
               { name: '운명의 수호석', amount: 2580 },
               { name: '운명의 돌파석', amount: 108 },
             ],
+            isDouble: false,
+            multiplier: 3,
           },
         ],
       },
@@ -147,6 +164,8 @@ export const guestOtherSelection = {
               { name: '운명의 수호석', amount: 3114 },
               { name: '1레벨 겁화의 보석', amount: 24 },
             ],
+            isDouble: false,
+            multiplier: 1,
           },
         ],
       },
@@ -162,6 +181,8 @@ export const guestOtherSelection = {
               { name: '운명의 수호석', amount: 3114 },
               { name: '1레벨 겁화의 보석', amount: 24 },
             ],
+            isDouble: false,
+            multiplier: 1,
           },
           {
             name: '아게오로스',
@@ -172,6 +193,8 @@ export const guestOtherSelection = {
               { name: '운명의 수호석', amount: 1728 },
               { name: '운명의 돌파석', amount: 72 },
             ],
+            isDouble: false,
+            multiplier: 1,
           },
         ],
       },
@@ -187,6 +210,8 @@ export const guestOtherSelection = {
               { name: '운명의 수호석', amount: 3114 },
               { name: '1레벨 겁화의 보석', amount: 24 },
             ],
+            isDouble: false,
+            multiplier: 1,
           },
           {
             name: '아게오로스',
@@ -197,10 +222,15 @@ export const guestOtherSelection = {
               { name: '운명의 수호석', amount: 1728 },
               { name: '운명의 돌파석', amount: 72 },
             ],
+            isDouble: false,
+            multiplier: 1,
           },
         ],
       },
     ],
   },
   version: 0,
+} satisfies {
+  state: { characterSelections: OtherSelection[] }
+  version: number
 }
