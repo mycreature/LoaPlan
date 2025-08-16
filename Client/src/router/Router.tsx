@@ -14,10 +14,7 @@ interface LayoutProps {
 }
 
 const Layout = ({ children }: LayoutProps) => {
-  // const location = useLocation()
-
-  // Header가 안나오는 페이지 설정
-  // const excludedPaths: string[] = ['/non-member', '/login']
+  useLoaData()
 
   return (
     <>
@@ -28,7 +25,6 @@ const Layout = ({ children }: LayoutProps) => {
 }
 
 const Router = () => {
-  useLoaData()
   return (
     <BrowserRouter>
       <Routes>
