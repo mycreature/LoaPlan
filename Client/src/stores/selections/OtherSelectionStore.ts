@@ -8,6 +8,7 @@ interface OtherSelectionState {
   updateSelectionState: (characterName: string, info: OtherInfo) => void
   clearSelectionsForCharacter: (characterName: string) => void
   clearAllSelections: () => void
+  loadSelectionState: (characterSelections: OtherSelection[]) => void
 }
 
 export const useOtherSelectionStore = create<OtherSelectionState>()(
@@ -144,6 +145,8 @@ export const useOtherSelectionStore = create<OtherSelectionState>()(
           ),
         })
       },
+
+      loadSelectionState: (raidSelections) => set({ characterSelections: raidSelections }),
 
       clearSelectionsForCharacter: (characterName) => {
         set({

@@ -12,6 +12,7 @@ interface RaidSelectionState {
   ) => void
   clearSelectionsForCharacter: (characterName: string) => void
   clearAllSelections: () => void
+  loadSelectionState: (raidSelections: RaidSelection[]) => void
 }
 
 export const useRaidSelectionStore = create<RaidSelectionState>()(
@@ -60,6 +61,9 @@ export const useRaidSelectionStore = create<RaidSelectionState>()(
           })
         }
       },
+
+      loadSelectionState: (raidSelections: RaidSelection[]) =>
+        set({ characterSelections: raidSelections }),
 
       clearSelectionsForCharacter: (characterName) => {
         set({
