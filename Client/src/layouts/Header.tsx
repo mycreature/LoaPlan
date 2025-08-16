@@ -3,14 +3,14 @@ import useThemeStore from '../stores/others/ThemeStore'
 import { requestLogOut } from '../api/userApi'
 import Sidebar from '../components/ui/Sidebar'
 import { useState } from 'react'
+import { getAuthStatus } from '../hook/useAuthRedirect'
 
 const Header = () => {
   // user: 로그인 된 사용자 정보
   // darkMode: 다크모드 활성화 여부
   // toggleDarkMode: 다크모드를 온오프 함수
   const { darkMode, toggleDarkMode } = useThemeStore()
-  const isLogin = !!localStorage.getItem('token')
-  const isGuest = !!localStorage.getItem('account-storage')
+  const { isGuest, isLogin } = getAuthStatus()
 
   const navLinks = [
     { to: '/charts', label: '시세차트' },
