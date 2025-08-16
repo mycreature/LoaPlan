@@ -5,6 +5,7 @@ import { requestGuestUser, requestLoginUser } from '../api/userApi'
 import LoginForm from '../components/form/LoginForm'
 import { useRequireNoAuth } from '../hook/useAuthRedirect'
 import GuestLoginForm from '../components/form/GusetLoginForm'
+import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
   const [loadingGuest, setLoadingGuest] = useState(false)
@@ -13,11 +14,13 @@ const Login = () => {
   // 비로그인시만 접근가능 (로그인, 게스트시 메인페이지 리다이렉트)
   useRequireNoAuth()
 
+  const navigate = useNavigate()
+
   const handleLoginSubmit = async (data: AuthFormData) => {
     setLoadingAuth(true)
     try {
       await requestLoginUser(data)
-      window.location.reload()
+      navigate('/')
     } catch (error: any) {
       alert(error.response?.data?.message || '로그인 중 오류 발생')
     } finally {
@@ -34,8 +37,7 @@ const Login = () => {
     } finally {
       setLoadingGuest(false)
       alert('게스트 로그인 성공')
-
-      window.location.href = '/'
+      navigate('/')
     }
   }
 
