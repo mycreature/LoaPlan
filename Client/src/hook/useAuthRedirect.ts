@@ -1,9 +1,10 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import useAccountStore from '../stores/others/AccountStore'
 
 // 현재 계정 상태 확인
 export const getAuthStatus = () => {
-  const isGuest = !!sessionStorage.getItem('guest-token')
+  const isGuest = useAccountStore.getState().isGuest
   const isLogin = !!localStorage.getItem('token')
 
   return { isGuest, isLogin }

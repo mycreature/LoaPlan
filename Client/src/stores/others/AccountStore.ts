@@ -5,6 +5,7 @@ interface accountStoreState {
   apiKey: string
   character: string
   exp: number
+  isGuest: boolean
 }
 
 const useAccountStore = create<accountStoreState>()(() => ({
@@ -12,6 +13,7 @@ const useAccountStore = create<accountStoreState>()(() => ({
   apiKey: '',
   character: '',
   exp: 0,
+  isGuest: false,
 }))
 
 export default useAccountStore
