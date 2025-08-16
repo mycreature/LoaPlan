@@ -49,6 +49,9 @@ const useLoaData = () => {
       loadProfileData(characterName)
       loadCharInfoData(characterName)
       loadExpeditionData(characterName)
+    }
+
+    if (isGuest) {
       loadRaidSelectionState(guestRaidInfo)
       loadOtherSelectionState(gusstOtherInfo)
     }
