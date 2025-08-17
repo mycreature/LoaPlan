@@ -17,6 +17,9 @@ const useLoaData = () => {
   const loadExpeditionData = useExpeditionStore((state) => state.loadExpeditionData)
   const characterName = useAccountStore((state) => state.character)
 
+  // 아이템 시세 정보 받아오기
+  const loadRefineItemInfo = useMarketStore((state) => state.loadRefineItemInfos)
+
   // 게스트 로그인 정보 받아오기
   const loadRaidSelectionState = useRaidSelectionStore((state) => state.loadSelectionState)
   const loadOtherSelectionState = useOtherSelectionStore((state) => state.loadSelectionState)
@@ -29,9 +32,6 @@ const useLoaData = () => {
   const loadSelectedProfileData = useCharacterSelectionStore(
     (state) => state.loadSelectedProfileData,
   )
-
-  // 아이템 시세 정보 받아오기
-  const loadRefineItemInfo = useMarketStore((state) => state.loadRefineItemInfos)
 
   const { isGuest, isLogin } = getAuthStatus()
 
@@ -49,6 +49,7 @@ const useLoaData = () => {
       loadProfileData(characterName)
       loadCharInfoData(characterName)
       loadExpeditionData(characterName)
+      loadRefineItemInfo()
     }
   }, [characterName, isGuest, isLogin])
 
@@ -66,11 +67,8 @@ const useLoaData = () => {
   }, [selectedCharacter])
 
   useEffect(() => {
-    loadRefineItemInfo()
-  }, [isGuest, isLogin])
-
-  useEffect(() => {
     getJwtInfo()
+    loadRefineItemInfo()
   }, [isGuest, isLogin])
 }
 
