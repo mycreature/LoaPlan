@@ -30,14 +30,15 @@ const OtherSelector = ({ SelectedCharacterInfo }: { SelectedCharacterInfo: any }
     return character.selections.some((s) => s.name === name)
   }
 
-  const toggleIsDouble = (value: any, isDouble: boolean) => {
+  const toggleIsDouble = (value: any) => {
+    const double = character?.selections.find((s) => s.name === value.name)?.isDouble ?? false
     if (isOtherSelected(value.name)) {
       const info: OtherInfo = {
         name: value.name,
         type: value.type,
         level: value.level,
         drops: value.drops,
-        isDouble: !isDouble,
+        isDouble: !double,
         multiplier: multiplier,
       }
 
@@ -69,6 +70,8 @@ const OtherSelector = ({ SelectedCharacterInfo }: { SelectedCharacterInfo: any }
 
         const isDoubleByName =
           character?.selections.find((s) => s.name === value.name)?.isDouble ?? false
+
+        console.log('isDoubleByName', isDoubleByName)
 
         const multiplierByName =
           character?.selections.find((s) => s.name === value.name)?.multiplier ?? 1
@@ -107,10 +110,7 @@ const OtherSelector = ({ SelectedCharacterInfo }: { SelectedCharacterInfo: any }
                 <div className='flex w-full'>
                   <h5 className='font-bold text-black'>휴식게이지 적용 </h5>
                   <div className='ml-auto h-full'>
-                    <Checkbox
-                      checked={isDoubleByName}
-                      onChange={() => toggleIsDouble(value, isDouble)}
-                    />
+                    <Checkbox checked={isDoubleByName} onChange={() => toggleIsDouble(value)} />
                   </div>
                 </div>
                 <div className='flex w-full justify-between gap-1'>
