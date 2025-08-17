@@ -50,12 +50,14 @@ const useLoaData = () => {
       loadCharInfoData(characterName)
       loadExpeditionData(characterName)
     }
+  }, [characterName, isGuest, isLogin])
 
+  useEffect(() => {
     if (isGuest) {
       loadRaidSelectionState(guestRaidInfo)
       loadOtherSelectionState(gusstOtherInfo)
     }
-  }, [characterName, isGuest, isLogin])
+  }, [isGuest])
 
   useEffect(() => {
     if (selectedCharacter) {
