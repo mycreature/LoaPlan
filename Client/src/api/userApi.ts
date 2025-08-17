@@ -40,7 +40,14 @@ export const requestLoginUser = async (data: AuthFormData) => {
 export const requestGuestUser = async () => {
   try {
     storageClear()
-    localStorage.setItem('guest-storage', JSON.stringify({ state: guestAccount }))
+
+    const store = useAccountStore.getState()
+
+    store.email = guestAccount.email
+    store.apiKey = guestAccount.apiKey
+    store.character = guestAccount.character
+    store.isGuest = true
+
     localStorage.setItem(
       'other-selection-storage',
       JSON.stringify({ state: guestOtherSelection.state }),
