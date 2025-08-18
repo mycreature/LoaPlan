@@ -49,7 +49,6 @@ const useLoaData = () => {
       loadProfileData(characterName)
       loadCharInfoData(characterName)
       loadExpeditionData(characterName)
-      loadRefineItemInfo()
     }
   }, [characterName, isGuest, isLogin])
 
