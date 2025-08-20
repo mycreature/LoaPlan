@@ -13,10 +13,10 @@ const Header = () => {
   const { isGuest, isLogin } = getAuthStatus()
 
   const navLinks = [
-    { to: '/charts', label: '시세차트' },
-    { to: '/weekly-gold', label: '주간골드' },
-    { to: '/gold-efficiency', label: '시간효율' },
-    { to: '/community', label: '커뮤니티' },
+    { to: '/charts', label: '시세차트', disabled: true },
+    { to: '/weekly-gold', label: '주간골드', disabled: false },
+    { to: '/gold-efficiency', label: '시간효율', disabled: true },
+    { to: '/gold-efficiency', label: '골드효율', disabled: true },
   ]
 
   const [isOpen, setIsOpen] = useState(false)
@@ -35,6 +35,10 @@ const Header = () => {
     }
   }
 
+  const handleUndevelopedClick = () => {
+    alert('이 기능은 현재 개발 중입니다. 빠른 시일 내에 개발하겠습니다.')
+  }
+
   return (
     <header
       className={`fixed top-0 left-0 z-50 h-[50px] w-full transition-colors ${darkMode ? 'bg-black' : 'bg-green'}`}
@@ -47,11 +51,20 @@ const Header = () => {
 
         {/* 해더바 메뉴들 */}
         <nav className='hidden gap-10 lg:flex'>
-          {navLinks.map(({ to, label }) => (
-            <Link key={to} to={to} className='flex h-full items-center whitespace-nowrap'>
-              <h2 className='w-[91px] text-white'>{label}</h2>
-            </Link>
-          ))}
+          {navLinks.map(({ to, label, disabled }) =>
+            disabled ? (
+              <button
+                onClick={handleUndevelopedClick}
+                className='flex h-[39px] w-[91px] items-center bg-transparent p-0 whitespace-nowrap'
+              >
+                <h2 className='w-[91px] text-white'>{label}</h2>
+              </button>
+            ) : (
+              <Link key={to} to={to} className='flex h-full items-center whitespace-nowrap'>
+                <h2 className='w-[91px] text-white'>{label}</h2>
+              </Link>
+            ),
+          )}
         </nav>
         <div className='mr-0 ml-auto flex gap-5'>
           {/* 다크모드 토글 버튼 */}
@@ -99,15 +112,25 @@ const Header = () => {
           {/* 사이드바 요소*/}
           <Sidebar isOpen={isOpen} onClose={closeSidebar}>
             <ul className='flex flex-col gap-5'>
-              {navLinks.map(({ to, label }) => (
-                <Link
-                  key={to}
-                  to={to}
-                  className='flex h-full items-center border-b border-white/30 whitespace-nowrap'
-                >
-                  <h3 className='pl-2 text-white'>{label}</h3>
-                </Link>
-              ))}
+              {navLinks.map(({ to, label, disabled }) =>
+                disabled ? (
+                  <button
+                    key={to}
+                    onClick={handleUndevelopedClick}
+                    className='flex h-full items-center border-b border-none border-white/30 bg-transparent p-0 whitespace-nowrap'
+                  >
+                    <h3 className='pl-2 text-white'>{label}</h3>
+                  </button>
+                ) : (
+                  <Link
+                    key={to}
+                    to={to}
+                    className='flex h-full items-center border-b border-white/30 whitespace-nowrap'
+                  >
+                    <h3 className='pl-2 text-white'>{label}</h3>
+                  </Link>
+                ),
+              )}
               {/* 사이드바 프로필 이동 링크*/}
               <Link
                 to='/userinfo'
