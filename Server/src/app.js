@@ -7,6 +7,7 @@ dotenv.config()
 
 const app = express()
 const PORT = process.env.PORT || 5000
+const HOST = process.env.DEV_MODE === 'true' ? 'localhost' : '0.0.0.0'
 const authMiddleware = require('./middlewares/auth')
 
 app.use(
@@ -68,8 +69,8 @@ app.use((err, req, res, next) => {
 })
 
 // 서버 실행
-const server = app.listen(PORT, () => {
-  console.log(`✅ 서버가 http://localhost:${PORT} 에서 실행 중입니다`)
+const server = app.listen(PORT, HOST, () => {
+  console.log(`✅ 서버가 http://${HOST}:${PORT} 에서 실행 중입니다`)
 })
 server.on('error', (err) => {
   console.error('❌ 서버 실행 중 오류 발생:', err.message)
