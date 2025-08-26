@@ -15,7 +15,7 @@ const Header = () => {
   const navLinks = [
     { to: '/charts', label: '시세차트', disabled: true },
     { to: '/weekly-gold', label: '주간골드', disabled: false },
-    { to: '/gold-efficiency', label: '시간효율', disabled: true },
+    { to: '/time-efficiency', label: '시간효율', disabled: true },
     { to: '/gold-efficiency', label: '골드효율', disabled: true },
   ]
 
@@ -54,6 +54,7 @@ const Header = () => {
           {navLinks.map(({ to, label, disabled }) =>
             disabled ? (
               <button
+                key={to}
                 onClick={handleUndevelopedClick}
                 className='flex h-[39px] w-[91px] items-center bg-transparent p-0 whitespace-nowrap'
               >
