@@ -39,13 +39,11 @@ button {
   background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
+  opacity: 1;
 }
 button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  opacity: 0.55;
+  transition: opacity 0.15s;
 }
 
 @media (prefers-color-scheme: light) {
