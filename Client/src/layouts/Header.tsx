@@ -57,6 +57,7 @@ const Header = () => {
           {navLinks.map(({ to, label, disabled }) =>
             disabled ? (
               <button
+                key={to}
                 onClick={handleUndevelopedClick}
                 className='flex h-[39px] w-[91px] items-center bg-transparent p-0 whitespace-nowrap'
               >
