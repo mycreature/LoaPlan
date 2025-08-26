@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import useThemeStore from '../stores/others/ThemeStore'
 import { requestLogOut } from '../api/userApi'
 import Sidebar from '../components/ui/Sidebar'
@@ -19,6 +19,8 @@ const Header = () => {
     { to: '/gold-efficiency', label: '골드효율', disabled: true },
   ]
 
+  const navigate = useNavigate()
+
   const [isOpen, setIsOpen] = useState(false)
   const toggleSideOpen = () => setIsOpen((isOpen) => !isOpen)
   const closeSidebar = () => setIsOpen(false)
@@ -26,7 +28,6 @@ const Header = () => {
   const handleLogout = () => {
     try {
       requestLogOut()
-      window.location
     } catch (error) {
       console.error('로그아웃 실패:', error)
       throw error
@@ -35,8 +36,12 @@ const Header = () => {
     }
   }
 
-  const handleUndevelopedClick = () => {
-    alert('이 기능은 현재 개발 중입니다. 빠른 시일 내에 개발하겠습니다.')
+  const handleUndevelopedClick = (disabled: boolean, link: string) => {
+    if (disabled) {
+      alert('이 기능은 현재 개발 중입니다. 빠른 시일 내에 개발하겠습니다.')
+    } else {
+      navigate(link)
+    }
   }
 
   return (
@@ -54,21 +59,15 @@ const Header = () => {
 
         {/* 해더바 메뉴들 */}
         <nav className='hidden gap-10 lg:flex'>
-          {navLinks.map(({ to, label, disabled }) =>
-            disabled ? (
-              <button
-                key={to}
-                onClick={handleUndevelopedClick}
-                className='flex h-[39px] w-[91px] items-center bg-transparent p-0 whitespace-nowrap'
-              >
-                <h2 className='w-[91px] text-white'>{label}</h2>
-              </button>
-            ) : (
-              <Link key={to} to={to} className='flex h-full items-center whitespace-nowrap'>
-                <h2 className='w-[91px] text-white'>{label}</h2>
-              </Link>
-            ),
-          )}
+          {navLinks.map(({ to, label, disabled }) => (
+            <button
+              key={to}
+              onClick={() => handleUndevelopedClick(disabled, to)}
+              className='flex h-[39px] w-[91px] items-center bg-transparent p-0 whitespace-nowrap'
+            >
+              <h2 className='w-[91px] text-white'>{label}</h2>
+            </button>
+          ))}
         </nav>
         <div className='mr-0 ml-auto flex gap-5'>
           {/* 다크모드 토글 버튼 */}
@@ -89,9 +88,12 @@ const Header = () => {
 
           {/* 계정 링크 */}
           <div className='hidden items-center justify-center lg:flex'>
-            <Link to='/Userinfo' className='flex h-8 w-8 items-center'>
+            <button
+              onClick={() => navigate('/userinfo')}
+              className='flex h-8 w-8 items-center border-none bg-transparent p-0'
+            >
               <img src='/icons/avatar.svg' alt='avatar' className='h-full w-full rounded-full' />
-            </Link>
+            </button>
           </div>
 
           {/* 로그아웃 버튼 */}
@@ -116,32 +118,22 @@ const Header = () => {
           {/* 사이드바 요소*/}
           <Sidebar isOpen={isOpen} onClose={closeSidebar}>
             <ul className='flex flex-col gap-5'>
-              {navLinks.map(({ to, label, disabled }) =>
-                disabled ? (
-                  <button
-                    key={to}
-                    onClick={handleUndevelopedClick}
-                    className='flex h-full items-center border-b border-none border-white/30 bg-transparent p-0 whitespace-nowrap'
-                  >
-                    <h3 className='pl-2 text-white'>{label}</h3>
-                  </button>
-                ) : (
-                  <Link
-                    key={to}
-                    to={to}
-                    className='flex h-full items-center border-b border-white/30 whitespace-nowrap'
-                  >
-                    <h3 className='pl-2 text-white'>{label}</h3>
-                  </Link>
-                ),
-              )}
+              {navLinks.map(({ to, label, disabled }) => (
+                <button
+                  key={to}
+                  onClick={() => handleUndevelopedClick(disabled, to)}
+                  className='flex h-full items-center border-b border-none border-white/30 bg-transparent p-0 whitespace-nowrap'
+                >
+                  <h3 className='pl-2 text-white'>{label}</h3>
+                </button>
+              ))}
               {/* 사이드바 프로필 이동 링크*/}
-              <Link
-                to='/userinfo'
-                className='flex h-full items-center border-b border-white/30 whitespace-nowrap'
+              <button
+                onClick={() => navigate('/Userinfo')}
+                className='flex h-full items-center border-b border-none border-white/30 bg-transparent p-0 whitespace-nowrap'
               >
                 <h3 className='pl-2 text-white'>프로필</h3>
-              </Link>
+              </button>
               {/* 로그인 / 로그아웃 버튼 */}
               {isLogin == true || isGuest == true ? (
                 <button
@@ -151,12 +143,14 @@ const Header = () => {
                   <h3 className='pl-2 text-white'>로그아웃</h3>
                 </button>
               ) : (
-                <Link
-                  to='/login'
+                <button
+                  onClick={() => {
+                    navigate('/login')
+                  }}
                   className='flex h-full items-center border-b border-white/30 whitespace-nowrap'
                 >
                   <h3 className='pl-2 text-white'>로그인</h3>
-                </Link>
+                </button>
               )}
 
               <div
