@@ -45,8 +45,11 @@ const Header = () => {
     >
       <div className='flex h-full items-center px-7'>
         {/* 로고 */}
-        <Link to='/' className='mr-13'>
+        <Link to='/' className='mr-13 flex shrink-0 items-center gap-2'>
           <h1 className='w-40 text-white'>LOAPLAN</h1>
+          <h4 className='flex w-13 justify-center rounded-4xl border border-white text-white'>
+            Beta
+          </h4>
         </Link>
 
         {/* 해더바 메뉴들 */}
@@ -54,7 +57,6 @@ const Header = () => {
           {navLinks.map(({ to, label, disabled }) =>
             disabled ? (
               <button
-                key={to}
                 onClick={handleUndevelopedClick}
                 className='flex h-[39px] w-[91px] items-center bg-transparent p-0 whitespace-nowrap'
               >
