@@ -147,7 +147,7 @@ const Header = () => {
                   onClick={() => {
                     navigate('/login')
                   }}
-                  className='flex h-full items-center border-b border-white/30 whitespace-nowrap'
+                  className='flex h-full w-full items-center border-none bg-transparent p-0 whitespace-nowrap'
                 >
                   <h3 className='pl-2 text-white'>로그인</h3>
                 </button>
