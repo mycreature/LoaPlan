@@ -48,6 +48,7 @@
 * **Backend**: `Express.js`, `Jsonwebtoken`, `Nodemailer`
 * **Database** : `MariaDB`, `Sequelize`
 * **배포 환경**: `AWS EC2`, `Nginx`
+* **디자인**: [Figma](https://www.figma.com/design/qzABw5547sycZqPFMvSD1y/LOAPLAN?node-id=0-1&p=f&t=M012MYaLKJtmYyHb-0)
 
 <br>
 
