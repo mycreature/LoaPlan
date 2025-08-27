@@ -1,4 +1,4 @@
-import useThemeStore from '../../stores/ThemeStore'
+import useThemeStore from '../../stores/others/ThemeStore'
 
 interface InputProps {
   value?: string
@@ -9,6 +9,8 @@ interface InputProps {
   className?: string
   error?: string
   disabled?: boolean
+  width?: number
+  height?: number
 }
 
 const Input = ({
@@ -20,6 +22,8 @@ const Input = ({
   className = '',
   error = '',
   disabled = false,
+  width,
+  height,
 }: InputProps) => {
   const { darkMode } = useThemeStore()
 
@@ -31,7 +35,8 @@ const Input = ({
       onChange={onChange}
       placeholder={placeholder}
       disabled={disabled}
-      className={`rounded-lg border-[1px] bg-none px-3 py-2 text-black ${!error ? (darkMode ? 'border-black' : 'border-gray') : 'border-red'} ${className} ${disabled ? `${darkMode ? 'opacity-25' : 'bg-gray'} cursor-not-allowed` : ''}`}
+      style={{ width: width ? `${width}px` : '100%', height: height ? `${height}px` : '40px' }}
+      className={`h-10 rounded-lg border-[1px] bg-none px-3 py-2 text-black ${!error ? (darkMode ? 'border-black' : 'border-gray') : 'border-red'} ${className} ${disabled ? `${darkMode ? 'opacity-25' : 'bg-gray'} cursor-not-allowed` : ''}`}
     />
   )
 }

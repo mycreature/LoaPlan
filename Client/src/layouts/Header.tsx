@@ -1,74 +1,195 @@
-import { Link } from 'react-router-dom'
-import useThemeStore from '../stores/ThemeStore'
+import { Link, useNavigate } from 'react-router-dom'
+import useThemeStore from '../stores/others/ThemeStore'
+import { requestLogOut } from '../api/userApi'
+import Sidebar from '../components/ui/Sidebar'
+import { useState } from 'react'
+import { getAuthStatus } from '../hook/useAuthRedirect'
 
 const Header = () => {
   // user: 로그인 된 사용자 정보
   // darkMode: 다크모드 활성화 여부
   // toggleDarkMode: 다크모드를 온오프 함수
   const { darkMode, toggleDarkMode } = useThemeStore()
+  const { isGuest, isLogin } = getAuthStatus()
 
   const navLinks = [
-    { to: '/charts', label: '시세차트' },
-    { to: '/Spec', label: '스펙효율' },
-    { to: '/Investment', label: '투자효율' },
-    { to: '/Weekly', label: '주간골드' },
+    { to: '/charts', label: '시세차트', disabled: true },
+    { to: '/weekly-gold', label: '주간골드', disabled: false },
+    { to: '/time-efficiency', label: '시간효율', disabled: true },
+    { to: '/gold-efficiency', label: '골드효율', disabled: true },
   ]
 
+  const navigate = useNavigate()
+
+  const [isOpen, setIsOpen] = useState(false)
+  const toggleSideOpen = () => setIsOpen((isOpen) => !isOpen)
+  const closeSidebar = () => setIsOpen(false)
+
+  const handleLogout = () => {
+    try {
+      requestLogOut()
+    } catch (error) {
+      console.error('로그아웃 실패:', error)
+      throw error
+    } finally {
+      window.location.replace('/login')
+    }
+  }
+
+  const handleUndevelopedClick = (disabled: boolean, link: string) => {
+    if (disabled) {
+      alert('이 기능은 현재 개발 중입니다. 빠른 시일 내에 개발하겠습니다.')
+    } else {
+      navigate(link)
+    }
+  }
+
   return (
-    <header className={`${darkMode ? 'bg-black' : 'bg-green'} h-[50px] w-full transition-colors`}>
-      <div className='h-full w-full'>
+    <header
+      className={`fixed top-0 left-0 z-50 h-[50px] w-full transition-colors ${darkMode ? 'bg-black' : 'bg-green'}`}
+    >
+      <div className='flex h-full items-center px-7'>
         {/* 로고 */}
-        <div className='flex h-full items-center'>
-          <Link to='/' className='flex h-full items-center pr-11'>
-            <h1 className='pl-4 text-white'>LOAPLAN</h1>
-          </Link>
+        <Link to='/' className='mr-13 flex shrink-0 items-center gap-2'>
+          <h1 className='w-40 text-white'>LOAPLAN</h1>
+          <h4 className='flex w-13 justify-center rounded-4xl border border-white text-white'>
+            Beta
+          </h4>
+        </Link>
 
-          {/* 해더바 메뉴들 */}
-          <nav className='hidden space-x-11 pr-6 lg:flex'>
-            {navLinks.map(({ to, label }) => (
-              <Link key={to} to={to} className='flex h-full items-center whitespace-nowrap'>
-                <h2 className='pl-2 text-white'>{label}</h2>
-              </Link>
-            ))}
-          </nav>
-          <div className='mr-7 ml-auto flex items-center space-x-5'>
-            {/* 다크 모드 토글 버튼 */}
+        {/* 해더바 메뉴들 */}
+        <nav className='hidden gap-10 lg:flex'>
+          {navLinks.map(({ to, label, disabled }) => (
             <button
-              onClick={toggleDarkMode}
-              className={`hidden rounded-full border-2 border-white p-2 md:flex ${darkMode ? 'bg-black' : 'bg-green'}`}
+              key={to}
+              onClick={() => handleUndevelopedClick(disabled, to)}
+              className='flex h-[39px] w-[91px] items-center bg-transparent p-0 whitespace-nowrap'
             >
-              {darkMode ? (
-                <svg className='h-5 w-5' fill='currentColor' viewBox='0 0 20 20'>
-                  <path d='M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z' />
-                </svg>
-              ) : (
-                <svg className='h-5 w-5' fill='currentColor' viewBox='0 0 20 20'>
-                  <path d='M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z' />
-                </svg>
-              )}
+              <h2 className='w-[91px] text-white'>{label}</h2>
             </button>
+          ))}
+        </nav>
+        <div className='mr-0 ml-auto flex gap-5'>
+          {/* 다크모드 토글 버튼 */}
+          <button
+            onClick={toggleDarkMode}
+            className={`hidden rounded-full border-2 border-white p-2 lg:flex ${darkMode ? 'bg-black' : 'bg-green'}`}
+          >
+            {darkMode ? (
+              <svg className='h-5 w-5 text-white' fill='currentColor' viewBox='0 0 20 20'>
+                <path d='M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z' />
+              </svg>
+            ) : (
+              <svg className='h-5 w-5 text-white' fill='currentColor' viewBox='0 0 20 20'>
+                <path d='M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z' />
+              </svg>
+            )}
+          </button>
 
-            {/* 계정 링크 */}
-            <div className='hidden items-center justify-center md:flex'>
-              <Link to='/account' className='flex h-7 w-7 items-center'>
-                <img src='/icons/avatar.svg' alt='avatar' className='h-full w-full rounded-full' />
-              </Link>
-            </div>
-
-            {/* 로그아웃 버튼 */}
-            <div className='hidden items-center justify-center md:flex'>
-              <button className='h-7 w-7 border-none bg-transparent p-0'>
-                <img src='/icons/logout.svg' alt='logout' className='h-full w-full' />
-              </button>
-            </div>
-
-            {/* 메뉴 버튼 */}
-            <div className='flex items-center justify-center lg:hidden'>
-              <button className='h-7 w-7 border-none bg-transparent p-0'>
-                <img src='/icons/hambugerMenu.svg' alt='menu' className='h-full w-full' />
-              </button>
-            </div>
+          {/* 계정 링크 */}
+          <div className='hidden items-center justify-center lg:flex'>
+            <button
+              onClick={() => navigate('/userinfo')}
+              className='flex h-8 w-8 items-center border-none bg-transparent p-0'
+            >
+              <img src='/icons/avatar.svg' alt='avatar' className='h-full w-full rounded-full' />
+            </button>
           </div>
+
+          {/* 로그아웃 버튼 */}
+          <div className='hidden items-center justify-center lg:flex'>
+            <button className='h-8 w-8 border-none bg-transparent p-0'>
+              <img
+                src='/icons/logout.svg'
+                alt='logout'
+                className='h-full w-full'
+                onClick={handleLogout}
+              />
+            </button>
+          </div>
+          {/* 사이드바 메뉴 (햄버거 메뉴)*/}
+          <button
+            className='m-0 h-8 w-8 border-none bg-transparent p-0 lg:hidden'
+            onClick={toggleSideOpen}
+            style={{ display: 'inline-flex' }}
+          >
+            <img src='/icons/hamburgerMenu.svg' alt='menu' />
+          </button>
+          {/* 사이드바 요소*/}
+          <Sidebar isOpen={isOpen} onClose={closeSidebar}>
+            <ul className='flex flex-col gap-5'>
+              {navLinks.map(({ to, label, disabled }) => (
+                <button
+                  key={to}
+                  onClick={() => handleUndevelopedClick(disabled, to)}
+                  className='flex h-full items-center border-b border-none border-white/30 bg-transparent p-0 whitespace-nowrap'
+                >
+                  <h3 className='pl-2 text-white'>{label}</h3>
+                </button>
+              ))}
+              {/* 사이드바 프로필 이동 링크*/}
+              <button
+                onClick={() => navigate('/Userinfo')}
+                className='flex h-full items-center border-b border-none border-white/30 bg-transparent p-0 whitespace-nowrap'
+              >
+                <h3 className='pl-2 text-white'>프로필</h3>
+              </button>
+              {/* 로그인 / 로그아웃 버튼 */}
+              {isLogin == true || isGuest == true ? (
+                <button
+                  className='flex h-full w-full items-center border-none bg-transparent p-0 whitespace-nowrap'
+                  onClick={handleLogout}
+                >
+                  <h3 className='pl-2 text-white'>로그아웃</h3>
+                </button>
+              ) : (
+                <button
+                  onClick={() => {
+                    navigate('/login')
+                  }}
+                  className='flex h-full items-center border-b border-white/30 whitespace-nowrap'
+                >
+                  <h3 className='pl-2 text-white'>로그인</h3>
+                </button>
+              )}
+
+              <div
+                className={
+                  'mt-7 flex items-center justify-center space-x-5 rounded-3xl border border-white py-1.5'
+                }
+              >
+                <label className=''>
+                  {/* 사이드바 다크모드 아이콘 (라벨) */}
+                  {darkMode ? (
+                    <svg className='h-5 w-5 text-white' fill='currentColor' viewBox='0 0 20 20'>
+                      <path d='M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z' />
+                    </svg>
+                  ) : (
+                    <svg
+                      className='text-w h-5 w-5 text-white'
+                      fill='currentColor'
+                      viewBox='0 0 20 20'
+                    >
+                      <path d='M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z' />
+                    </svg>
+                  )}
+                </label>
+                {/* 사이드바 다크모드 스위치 */}
+                <button
+                  onClick={toggleDarkMode}
+                  className={`relative h-6 w-12 rounded-full transition-colors duration-300 ${
+                    darkMode ? 'bg-gray-600' : 'bg-gray-300'
+                  }`}
+                >
+                  <span
+                    className={`absolute top-1 left-1 h-4 w-4 transform rounded-full bg-white transition-transform duration-300 ${
+                      darkMode ? 'translate-x-6' : 'translate-x-0'
+                    }`}
+                  ></span>
+                </button>
+              </div>
+            </ul>
+          </Sidebar>
         </div>
       </div>
     </header>

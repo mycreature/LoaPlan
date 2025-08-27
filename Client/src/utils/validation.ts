@@ -13,7 +13,6 @@ export const validatePassword = (value: string) => {
 }
 
 export const validateConfirmPassword = (password: string, confirmPassword: string) => {
-  if (!confirmPassword) return '비밀번호를 재입력하세요.'
   if (password !== confirmPassword) return '비밀번호가 일치하지 않습니다.'
   return ''
 }
@@ -22,8 +21,6 @@ export const validateApiKey = async (apiKey: string) => {
   if (!apiKey) return 'API 키를 입력하세요.'
 
   apiKey = 'bearer ' + apiKey.trim()
-
-  console.log('✅ API Key Test:', apiKey)
 
   try {
     const res = await axios.get(
@@ -36,11 +33,15 @@ export const validateApiKey = async (apiKey: string) => {
         timeout: 3000, // 3초 제한
       },
     )
+
     // 200 OK면 정상
-    if (res.status === 200) return ''
-    return 'API 키가 유효하지 않습니다.'
+    if (res.status === 200) alert('API 키 검증 성공.')
+    return ''
   } catch (e: any) {
-    if (e.response && e.response.status === 401) {
+    if (
+      (e.response && e.response.status === 401) ||
+      (e.message && e.message.includes('String contains non ISO-8859-1 code point'))
+    ) {
       return 'API 키가 유효하지 않습니다.'
     }
     return 'API 키 검증 중 오류가 발생했습니다.'
@@ -54,7 +55,7 @@ export const validateCharacterName = async (character: string, apiKey: string) =
 
   try {
     const res = await axios.get(
-      `https://developer-lostark.game.onstove.com/characters/${character}/siblings`,
+      `https://developer-lostark.game.onstove.com/armories/characters/${character}/profiles`,
       {
         headers: {
           authorization: 'bearer ' + apiKey,
@@ -63,13 +64,72 @@ export const validateCharacterName = async (character: string, apiKey: string) =
         timeout: 3000, // 3초 제한
       },
     )
-    // 200 OK면 정상
-    if (res.status === 200) return ''
-    return '캐릭터명이 유효하지 않습니다.'
+    if (res.data == null) {
+      return '캐릭터명이 유효하지 않습니다.'
+    }
+    if (res.data.length == 0 || res.data.CharacterImage == null) {
+      return '캐릭터명이 유효하지 않습니다.'
+    }
+    if (res.status === 200) alert('캐릭터 검증 성공.')
+    return ''
   } catch (e: any) {
     if (e.response && e.response.status === 404) {
       return '캐릭터명이 유효하지 않습니다.'
     }
     return '캐릭터명 검증 중 오류가 발생했습니다.'
   }
+}
+
+export const disabledEmailInput = (email: string, emailChecked: boolean, emailError?: string) => {
+  if (emailError) return false
+
+  if (emailChecked && email) return true
+
+  return false
+}
+
+export const disableldVerificationCodeInput = (
+  verificationCode: string,
+  verificationCodeChecked: boolean,
+  emailChecked: boolean,
+  verificationCodeError?: string,
+) => {
+  if (verificationCodeError) return false
+
+  if (!emailChecked) return true
+
+  if (verificationCodeChecked && emailChecked && verificationCode) return true
+
+  return false
+}
+
+export const disabledApiKeyInput = (
+  apiKey: string,
+  apiKeyChecked: boolean,
+  apikeyError: string,
+) => {
+  if (apikeyError) return false
+
+  if (apiKeyChecked && apiKey) return true
+
+  return false
+}
+
+export const disabledCharacterInput = (
+  character: string,
+  characterChecked: boolean,
+  characterError: string,
+  apiKey: string,
+  apiKeyChecked: boolean,
+  apiKeyError: string,
+) => {
+  const apikeyState = disabledApiKeyInput(apiKey, apiKeyChecked, apiKeyError)
+
+  if (characterError) return false
+
+  if (!apikeyState) return true
+
+  if (character && characterChecked && apikeyState) return true
+
+  return false
 }

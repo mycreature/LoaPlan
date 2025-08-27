@@ -4,17 +4,17 @@ import Header from '../layouts/Header'
 import Home from '../pages/Home'
 import Register from '../pages/Register'
 import Login from '../pages/Login'
-import Account from '../pages/Account'
+import Userinfo from '../pages/Userinfo'
+import FindPassword from '../pages/FindPassword'
+import WeeklyGold from '../pages/WeeklyGold'
+import useLoaData from '../hook/useLoaData'
 
 interface LayoutProps {
   children: ReactNode
 }
 
 const Layout = ({ children }: LayoutProps) => {
-  // const location = useLocation()
-
-  // Header가 안나오는 페이지 설정
-  // const excludedPaths: string[] = ['/non-member', '/login']
+  useLoaData()
 
   return (
     <>
@@ -53,10 +53,26 @@ const Router = () => {
           }
         />
         <Route
-          path='/account'
+          path='/Userinfo'
           element={
             <Layout>
-              <Account />
+              <Userinfo />
+            </Layout>
+          }
+        />
+        <Route
+          path='/find-password'
+          element={
+            <Layout>
+              <FindPassword />
+            </Layout>
+          }
+        />
+        <Route
+          path='/weekly-Gold'
+          element={
+            <Layout>
+              <WeeklyGold />
             </Layout>
           }
         />

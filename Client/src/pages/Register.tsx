@@ -1,201 +1,50 @@
+// pages/register.tsx
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import Block from '../components/ui/Block'
-import Button from '../components/ui/Button'
-import Input from '../components/ui/Input'
-import useAccountStore from '../stores/AccountStore'
-import {
-  validateEmail,
-  validatePassword,
-  validateCharacterName,
-  validateConfirmPassword,
-  validateApiKey,
-} from '../utils/validation'
+import RegisterForm from '../components/form/RegisterForm'
 import { requestRegisterUser } from '../api/userApi'
+import { AuthFormData } from '../types/Types'
+import { useRequireNoAuth } from '../hook/useAuthRedirect'
 
-const register = () => {
-  // 전역 상태관리
-  const setEmail = useAccountStore((state) => state.setEmail)
-  const setPassword = useAccountStore((state) => state.setPassword)
-  const setConfirmPassword = useAccountStore((state) => state.setConfirmPassword)
-  const setApiKey = useAccountStore((state) => state.setApiKey)
-  const setCharacter = useAccountStore((state) => state.setCharacter)
+const Register = () => {
+  const [isLoading, setIsLoading] = useState(false)
+  const navigate = useNavigate()
 
-  // 로컬 상태관리
-  const [email, setEmailState] = useState('')
-  const [password, setPasswordState] = useState('')
-  const [confirmPassword, setConfirmPasswordState] = useState('')
-  const [apiKey, setApiKeyState] = useState('')
-  const [character, setCharacterState] = useState('')
+  // 비로그인시 접근가능 (로그인, 게스트 접근 x)
+  useRequireNoAuth()
 
-  // 유효성 검사 상태관리
-  const [emailError, setEmailError] = useState('')
-  const [passwordError, setPasswordError] = useState('')
-  const [confirmPasswordError, setConfirmPasswordError] = useState('')
-  const [apiKeyError, setApiKeyError] = useState('')
-  const [apiKeyChecked, setApiKeyChecked] = useState(false)
-  const [characterError, setCharacterError] = useState('')
+  /**
+   * 회원가입 폼 제출 핸들러
+   * @param data {AuthFormData} 회원가입 폼 데이터
+   */
+  const handleRegisterSubmit = async (data: AuthFormData) => {
+    setIsLoading(true)
+
+    try {
+      // 1. API 호출
+      await requestRegisterUser(data)
+      sessionStorage.clear()
+
+      // 3. 성공 시 로그인 페이지로 이동
+      navigate('/login')
+    } catch (error: any) {
+      // 4. 에러 발생 경우
+      alert(error.response?.data?.message || '회원가입 중 오류가 발생했습니다.')
+    } finally {
+      // 5. 로딩 상태 초기화
+      setIsLoading(false)
+    }
+  }
 
   return (
-    <div className='min-h-screen bg-gray-600'>
+    <div className='min-h-screen bg-gray-600 pt-[50px]'>
       <main className='space-y-[10px] p-[10px]'>
         <div className='flex justify-center gap-x-[10px]'>
-          <Block width={390} height={600}>
-            <div className='flex h-full flex-col items-center justify-start'>
-              <h2 className='pt-3 text-black'>회원가입</h2>
-              <div className='mt-4 w-[90%] space-y-[20px]'>
-                <Input
-                  value={email}
-                  placeholder='이메일'
-                  className={`w-full ${emailError ? 'mb-1' : ''}`}
-                  type='email'
-                  error={emailError}
-                  onChange={(e) => {
-                    setEmailError(validateEmail(e.target.value))
-                    setEmailState(e.target.value)
-                  }}
-                  onBlur={(e) => (!emailError ? setEmailState(e.target.value) : '')}
-                />
-                {emailError && (
-                  <span style={{ color: 'red', fontSize: '0.9rem' }} className='mb-3'>
-                    {emailError}
-                  </span>
-                )}
-                <Input
-                  placeholder='비밀번호'
-                  className={`w-full ${passwordError ? 'mb-1' : ''}`}
-                  type='password'
-                  onChange={(e) => {
-                    setPasswordError(validatePassword(e.target.value))
-                  }}
-                  onBlur={(e) => (!passwordError ? setPasswordState(e.target.value) : '')}
-                />
-                {passwordError && (
-                  <span style={{ color: 'red', fontSize: '0.9rem' }} className='mb-3'>
-                    {passwordError}
-                  </span>
-                )}
-                <Input
-                  placeholder='비밀번호 재입력'
-                  className={`w-full ${confirmPasswordError ? 'mb-1' : ''}`}
-                  type='password'
-                  onChange={(e) => {
-                    setConfirmPasswordError(validateConfirmPassword(password, e.target.value))
-                  }}
-                  onBlur={(e) =>
-                    !confirmPasswordError ? setConfirmPasswordState(e.target.value) : ''
-                  }
-                />
-                {confirmPasswordError && (
-                  <span style={{ color: 'red', fontSize: '0.9rem' }} className='mb-3'>
-                    {confirmPasswordError}
-                  </span>
-                )}
-                <div
-                  className={`${apiKeyError ? 'mb-1' : ''} flex w-full items-center justify-between`}
-                >
-                  <Input
-                    placeholder='API KEY'
-                    error={apiKeyError}
-                    value={apiKey}
-                    type='api'
-                    onChange={(e) => {
-                      setApiKeyState(e.target.value)
-                      setApiKeyChecked(false)
-                      setApiKeyError('')
-                      setCharacterState('')
-                    }}
-                  />
-                  <Button
-                    text='인증'
-                    textStyle='text-2xl font-extrabold h-full '
-                    className='h-full rounded-lg px-6 py-1'
-                    onClick={async () => {
-                      const error = await validateApiKey(apiKey)
-                      setApiKeyError(error)
-                      setApiKeyChecked(true)
-                    }}
-                  />
-                </div>
-                {apiKeyError && (
-                  <span style={{ color: 'red', fontSize: '0.9rem' }} className='mb-3'>
-                    {apiKeyError}
-                  </span>
-                )}
-                <div
-                  className={`${characterError ? 'mb-1' : ''} flex w-full items-center justify-between`}
-                >
-                  <Input
-                    placeholder='대표 캐릭터명'
-                    disabled={!apiKeyChecked || !!apiKeyError || !apiKey}
-                    error={characterError}
-                    value={character}
-                    type='character'
-                    onChange={(e) => {
-                      setCharacterState(e.target.value)
-                    }}
-                  />
-                  <Button
-                    text='인증'
-                    textStyle='text-2xl font-extrabold h-full '
-                    className='h-full rounded-lg px-6 py-1'
-                    onClick={async () => {
-                      const error = await validateCharacterName(character, apiKey)
-                      setCharacterError(error)
-                    }}
-                  />
-                </div>
-                {characterError && (
-                  <span style={{ color: 'red', fontSize: '0.9rem' }} className='mb-3'>
-                    {characterError}
-                  </span>
-                )}
-              </div>
-              <div className='mt-8 w-[90%] space-y-[10px]'>
-                <Button
-                  text='회원가입'
-                  className='w-full'
-                  textStyle='text-xl font-extrabold'
-                  onClick={() => {
-                    if (
-                      !emailError &&
-                      !passwordError &&
-                      !confirmPasswordError &&
-                      !apiKeyError &&
-                      !characterError &&
-                      email &&
-                      password &&
-                      confirmPassword &&
-                      apiKey &&
-                      character &&
-                      apiKeyChecked
-                    ) {
-                      setEmail(email)
-                      setPassword(password)
-                      setConfirmPassword(confirmPassword)
-                      setApiKey(apiKey)
-                      setCharacter(character)
-                      console.log('회원가입 정보:', { email, password, apiKey, character })
-                      requestRegisterUser(useAccountStore.getState())
-                    } else {
-                      console.log('유효성 검사 실패:', {
-                        emailError: emailError,
-                        passwordError: passwordError,
-                        confirmPasswordError: confirmPasswordError,
-                        apiKeyError: apiKeyError,
-                        characterError: characterError,
-                      })
-                      alert('입력한 정보를 확인해주세요.')
-                    }
-                  }}
-                />
-                <Button
-                  text='Google 로그인'
-                  className='w-full text-black'
-                  darkColor='bg-white'
-                  lightColor='bg-gray'
-                  textStyle='text-xl font-extrabold'
-                />
-              </div>
+          <Block width={390} height={534}>
+            <div className='flex h-full w-full flex-col gap-5 p-4'>
+              <h2 className='mx-auto leading-none font-extrabold text-black'>회원가입</h2>
+              <RegisterForm onSubmit={handleRegisterSubmit} isLoading={isLoading} />
             </div>
           </Block>
         </div>
@@ -204,4 +53,4 @@ const register = () => {
   )
 }
 
-export default register
+export default Register

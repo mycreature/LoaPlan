@@ -1,7 +1,6 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  font-family: 'SUIT', sans-serif;
+  letter-spacing: 0;
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
@@ -30,11 +29,6 @@ body {
   min-height: 100vh;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
 button {
   border-radius: 8px;
   border: 1px solid transparent;
@@ -45,13 +39,11 @@ button {
   background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
+  opacity: 1;
 }
 button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  opacity: 0.55;
+  transition: opacity 0.15s;
 }
 
 @media (prefers-color-scheme: light) {

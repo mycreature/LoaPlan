@@ -1,20 +1,33 @@
 import React from 'react'
+import Button from './Button'
 
 interface ModalProps {
   open: boolean
+  isButton?: boolean
   onClose: () => void
   children: React.ReactNode
 }
 
-const Modal = ({ open, onClose, children }: ModalProps) => {
+const Modal = ({ open, onClose, children, isButton = false }: ModalProps) => {
   if (!open) return null
+
+  const handleOverlayClick = () => {
+    onClose()
+  }
+
+  // 이벤트 버블링 차단 함수
+  const handleModalContentClick = (e: React.MouseEvent) => {
+    e.stopPropagation()
+  }
+
   return (
-    <div className='fixed inset-0 z-50 flex items-center justify-center bg-black/50'>
-      <div className='min-w-[300px] rounded-lg bg-white p-6 shadow-lg'>
+    <div
+      className='fixed inset-0 z-50 flex items-center justify-center bg-black/50'
+      onClick={handleOverlayClick}
+    >
+      <div className='rounded-lg bg-white shadow-lg' onClick={handleModalContentClick}>
         {children}
-        <button className='bg-green mt-4 rounded px-4 py-2 text-white' onClick={onClose}>
-          닫기
-        </button>
+        {isButton && <Button text='닫기' onClick={onClose} />}
       </div>
     </div>
   )

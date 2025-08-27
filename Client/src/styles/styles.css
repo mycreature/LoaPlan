@@ -23,25 +23,35 @@
 
 @layer base {
   h1 {
-    font-size: 40px !important;
+    font-size: 32px !important;
     font-family: 'SUIT';
     font-weight: 800;
+    line-height: 1.2;
   }
   h2 {
     font-size: 26px !important;
     font-family: 'SUIT';
     font-weight: 700;
+    line-height: 1.5;
   }
   h3 {
     font-size: 22px !important;
     font-family: 'SUIT';
-    font-weight: 800;
+    font-weight: 700;
+    line-height: 1.5;
   }
   h4 {
-    font-size: var(--text-base) !important;
+    font-size: 16px !important;
     font-family: 'SUIT';
     font-weight: 600;
-    color: #bebebe;
+    line-height: 1.5;
+  }
+
+  h5 {
+    font-size: 12px !important;
+    font-family: 'SUIT';
+    font-weight: 600;
+    line-height: 1.5;
   }
 
   @theme {
@@ -49,7 +59,7 @@
     --color-black: #282828;
     --color-gray: #bebebe;
     --color-white: #ffffff;
-    --color-red: #ff3737;
+    --color-red: #ee4444;
 
     --breakpoint-sm: 390px;
     --breakpoint-md: 768px;
