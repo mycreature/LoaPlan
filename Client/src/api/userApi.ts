@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { AuthFormData } from '../types/Types'
 import { guestAccount, guestOtherSelection, guestRaidSelection } from '../constants/guestStorage'
@@ -64,6 +65,7 @@ export const requestGuestUser = async () => {
 }
 
 export const checkToken = async () => {
+  const navigate = useNavigate()
   try {
     const token = localStorage.getItem('token')
     const response = await axios.post('/api/auth/sessions', {
@@ -72,11 +74,11 @@ export const checkToken = async () => {
       },
       withCredentials: true,
     })
-    // console.log('✅ 토근 검증 성공:', response.data)
     localStorage.setItem('token', response.data.token)
     return response.data
   } catch (error) {
     console.error('❌ 토큰 검증 실패:', error)
+    navigate('/login')
     throw error
   }
 }
