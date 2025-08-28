@@ -128,7 +128,7 @@ const RaidSelector = ({
     <div className='flex w-full flex-col gap-2'>
       <div
         ref={sliderRef}
-        className='scrollbar-hide flex flex-row gap-[18px] overflow-hidden scroll-smooth'
+        className='scrollbar-hide relative flex flex-row gap-[18px] overflow-hidden scroll-smooth'
         style={{ scrollSnapType: 'x mandatory' }}
       >
         {Object.entries(groupedRaidGates)
