@@ -41,7 +41,7 @@ jobs:
 
       # 5. 빌드된 파일과 서버 코드를 압축하여 전송 준비
       - name: Create deployment package
-        run: tar -czvf deployment.tar.gz Client/build Server
+        run: tar -czvf deployment.tar.gz Client/dist Server
 
       # 6. 압축 파일을 EC2 서버로 안전하게 전송 (SCP)
       - name: Copy package to EC2
