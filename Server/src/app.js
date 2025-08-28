@@ -10,9 +10,16 @@ const PORT = process.env.PORT || 5000
 const HOST = process.env.DEV_MODE === 'true' ? 'localhost' : '0.0.0.0'
 const authMiddleware = require('./middlewares/auth')
 
+// 1. DEV_MODE 환경 변수를 기반으로 현재 환경을 확인합니다.
+const isDevMode = process.env.DEV_MODE === 'true'
+
+// 2. 현재 환경에 맞는 origin 값을 설정합니다.
+const allowedOrigin = isDevMode ? 'http://localhost:5173' : 'https://loaplan.com'
+
+// 3. 동적으로 설정된 origin 값을 cors 미들웨어에 적용합니다.
 app.use(
   cors({
-    origin: 'http://localhost:5173',
+    origin: allowedOrigin,
     credentials: true,
   }),
 )
