@@ -1,28 +1,11 @@
-import { ReactNode } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import Header from '../layouts/Header'
 import Home from '../pages/Home'
 import Register from '../pages/Register'
 import Login from '../pages/Login'
 import Userinfo from '../pages/Userinfo'
 import FindPassword from '../pages/FindPassword'
 import WeeklyGold from '../pages/WeeklyGold'
-import useLoaData from '../hook/useLoaData'
-
-interface LayoutProps {
-  children: ReactNode
-}
-
-const Layout = ({ children }: LayoutProps) => {
-  useLoaData()
-
-  return (
-    <>
-      {<Header />}
-      {children}
-    </>
-  )
-}
+import Layout from '../layouts/DefaultLayout'
 
 const Router = () => {
   return (
