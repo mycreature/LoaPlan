@@ -50,12 +50,14 @@ const Header = () => {
     >
       <div className='flex h-full items-center px-7'>
         {/* 로고 */}
-        <Link to='/' className='mr-13 flex shrink-0 items-center gap-2'>
-          <h1 className='w-40 text-white'>LOAPLAN</h1>
+        <div className='mr-13 flex shrink-0 items-center gap-2'>
+          <Link to='/'>
+            <h1 className='w-40 text-white'>LOAPLAN</h1>
+          </Link>
           <h4 className='flex w-13 justify-center rounded-4xl border border-white text-white'>
             Beta
           </h4>
-        </Link>
+        </div>
 
         {/* 해더바 메뉴들 */}
         <nav className='hidden gap-10 lg:flex'>
@@ -87,14 +89,16 @@ const Header = () => {
           </button>
 
           {/* 계정 링크 */}
-          <div className='hidden items-center justify-center lg:flex'>
-            <button
-              onClick={() => navigate('/userinfo')}
-              className='flex h-8 w-8 items-center border-none bg-transparent p-0'
-            >
-              <img src='/icons/avatar.svg' alt='avatar' className='h-full w-full rounded-full' />
-            </button>
-          </div>
+          {isLogin == true ? (
+            <div className='hidden items-center justify-center lg:flex'>
+              <button
+                onClick={() => navigate('/userinfo')}
+                className='flex h-8 w-8 items-center border-none bg-transparent p-0'
+              >
+                <img src='/icons/avatar.svg' alt='avatar' className='h-full w-full rounded-full' />
+              </button>
+            </div>
+          ) : null}
 
           {/* 로그아웃 버튼 */}
           <div className='hidden items-center justify-center lg:flex'>
@@ -128,12 +132,14 @@ const Header = () => {
                 </button>
               ))}
               {/* 사이드바 프로필 이동 링크*/}
-              <button
-                onClick={() => navigate('/Userinfo')}
-                className='flex h-full items-center border-b border-none border-white/30 bg-transparent p-0 whitespace-nowrap'
-              >
-                <h3 className='pl-2 text-white'>프로필</h3>
-              </button>
+              {isLogin == true ? (
+                <button
+                  onClick={() => navigate('/Userinfo')}
+                  className='flex h-full items-center border-b border-none border-white/30 bg-transparent p-0 whitespace-nowrap'
+                >
+                  <h3 className='pl-2 text-white'>프로필</h3>
+                </button>
+              ) : null}
               {/* 로그인 / 로그아웃 버튼 */}
               {isLogin == true || isGuest == true ? (
                 <button
