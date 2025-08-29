@@ -5,7 +5,7 @@ import SummaryPreview from '../components/Summary/SummaryPreview'
 
 const HomeTabletLayout = () => {
   return (
-    <main className='space-y-[10px] p-[10px]'>
+    <main className='flex flex-col space-y-[10px]'>
       {/* 첫번째열 원정대 간략 정보 */}
       <div className='flex justify-center gap-x-[10px] gap-y-[10px]'>
         <div className='캐릭터 정보'>

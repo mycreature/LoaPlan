@@ -30,21 +30,17 @@ const Userinfo = () => {
   }
 
   return (
-    <div className='min-h-screen bg-gray-600 pt-[50px]'>
-      <main className='w-full space-y-[10px] p-[10px]'>
-        <div className='flex w-full justify-center gap-x-[10px]'>
-          <Block width={390} height={310}>
-            <div className='flex w-full flex-col gap-5 p-4'>
-              <h2 className='mx-auto leading-none font-extrabold text-black'>회원 수정</h2>
-              <div className='flex flex-col gap-2'>
-                <UserinfoForm onSubmit={handleProfileSubmit} isLoading={isLoading} />
-                <DeleteUserForm />
-              </div>
-            </div>
-          </Block>
+    <main className='flex h-full w-full justify-center'>
+      <Block width={390} height={310}>
+        <div className='flex w-full flex-col gap-5 p-4'>
+          <h2 className='mx-auto leading-none font-extrabold text-black'>회원 수정</h2>
+          <div className='flex flex-col gap-2'>
+            <UserinfoForm onSubmit={handleProfileSubmit} isLoading={isLoading} />
+            <DeleteUserForm />
+          </div>
         </div>
-      </main>
-    </div>
+      </Block>
+    </main>
   )
 }
 

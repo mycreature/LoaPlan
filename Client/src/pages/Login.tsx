@@ -42,21 +42,17 @@ const Login = () => {
   }
 
   return (
-    <div className='min-h-screen bg-gray-600 pt-[50px]'>
-      <main className='space-y-[10px] p-[10px]'>
-        <div className='flex justify-center gap-x-[10px]'>
-          <Block width={390} height={310}>
-            <div className='flex h-full w-full flex-col gap-5 p-4'>
-              <h2 className='mx-auto leading-none font-extrabold text-black'>로그인</h2>
-              <div className='flex flex-col gap-2'>
-                <LoginForm onSubmit={handleLoginSubmit} isLoading={loadingAuth} />
-                <GuestLoginForm onSubmit={handleGusetLogin} isLoading={loadingGuest} />
-              </div>
-            </div>
-          </Block>
+    <main className='flex h-full w-full justify-center'>
+      <Block width={390} height={310}>
+        <div className='flex h-full w-full flex-col gap-5 p-4'>
+          <h2 className='mx-auto leading-none font-extrabold text-black'>로그인</h2>
+          <div className='flex flex-col gap-2'>
+            <LoginForm onSubmit={handleLoginSubmit} isLoading={loadingAuth} />
+            <GuestLoginForm onSubmit={handleGusetLogin} isLoading={loadingGuest} />
+          </div>
         </div>
-      </main>
-    </div>
+      </Block>
+    </main>
   )
 }
 
