@@ -11,7 +11,7 @@ const Home = () => {
   useRequireUserOrGuest('/login')
 
   return (
-    <div className='min-h-screen bg-gray-600 pt-[50px]'>
+    <main className='flex h-full w-full justify-center'>
       {isViewport === 'desktop' ? (
         <HomeDesktopLayout />
       ) : isViewport === 'tablet' ? (
@@ -21,7 +21,7 @@ const Home = () => {
       ) : (
         <LoadingLayout />
       )}
-    </div>
+    </main>
   )
 }
 

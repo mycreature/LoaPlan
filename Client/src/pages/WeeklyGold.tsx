@@ -12,7 +12,7 @@ const WeeklyGold = () => {
   useRequireUserOrGuest('/login')
 
   return (
-    <div className='min-h-screen bg-gray-600 pt-[50px]'>
+    <div className='flex h-full w-full justify-center'>
       {isViewport === 'desktop' ? (
         <WeeklyDesktopLayout />
       ) : isViewport === 'tablet' ? (
