@@ -34,7 +34,7 @@ const MainCard = ({ width = 100, height = 100 }: MainCardProps) => {
           <img
             src={character.image}
             alt={character.name}
-            className='rounded-lg bg-black'
+            className='rounded-lg bg-black object-contain'
             style={{ width: computedWidth, height: computedHeight }}
           />
           <Tag text={character.name} width={computedWidth} />
