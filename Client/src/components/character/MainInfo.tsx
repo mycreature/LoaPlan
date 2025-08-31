@@ -30,34 +30,36 @@ const MainInfo = () => {
   // 공통 렌더링 함수 - UI 구성 정확히 일치
   const renderMaininfo = (character: any) => {
     return (
-      <div className={`flex h-full flex-col items-center justify-center gap-6`}>
-        <div className={`flex w-full items-center gap-5`}>
-          <Tag text='닉네임'></Tag>
-          <h3 className='leading-none text-black'>{character.name}</h3>
-        </div>
-        <div className={`flex w-full items-center gap-5`}>
-          <Tag text='서버'></Tag>
-          <h3 className='leading-none text-black'>{character.server}</h3>
-        </div>
-        <div className={`flex w-full items-center gap-5`}>
-          <Tag text='클래스'></Tag>
-          <h3 className='leading-none text-black'>{character.class}</h3>
-        </div>
-        <div className={`flex w-full items-center gap-5`}>
-          <Tag text='레벨'></Tag>
-          <h3 className='leading-none text-black'>
-            {Number(character.level?.replace(/,/g, '')) || parsedLevel || '정보 없음'}
-          </h3>
-        </div>
-        <div className={`flex w-full items-center gap-5`}>
-          <Tag text='전투레벨'></Tag>
-          <h3 className='leading-none text-black'>
-            {Number(character.CharacterLevel) || parsedCharacterLevel}
-          </h3>
-        </div>
-        <div className={`flex w-full items-center gap-5`}>
-          <Tag text='전투력'></Tag>
-          <h3 className='leading-none text-black'>{character.combatPower}</h3>
+      <div className={`flex gap-8`}>
+        <div className='flex flex-col items-center gap-6'>
+          <div className={`flex w-full items-center gap-5`}>
+            <Tag text='닉네임' width={90}></Tag>
+            <h3 className='leading-none text-black'>{character.name}</h3>
+          </div>
+          <div className={`flex w-full items-center gap-5`}>
+            <Tag text='서버' width={90}></Tag>
+            <h3 className='leading-none text-black'>{character.server}</h3>
+          </div>
+          <div className={`flex w-full items-center gap-5`}>
+            <Tag text='클래스' width={90}></Tag>
+            <h3 className='leading-none text-black'>{character.class}</h3>
+          </div>
+          <div className={`flex w-full items-center gap-5`}>
+            <Tag text='레벨' width={90}></Tag>
+            <h3 className='leading-none text-black'>
+              {Number(character.level?.replace(/,/g, '')) || parsedLevel || '정보 없음'}
+            </h3>
+          </div>
+          <div className={`flex w-full items-center gap-5`}>
+            <Tag text='전투레벨' width={90}></Tag>
+            <h3 className='leading-none text-black'>
+              {Number(character.CharacterLevel) || parsedCharacterLevel}
+            </h3>
+          </div>
+          <div className={`flex w-full items-center gap-5`}>
+            <Tag text='전투력' width={90}></Tag>
+            <h3 className='leading-none text-black'>{character.combatPower || '미확인'}</h3>
+          </div>
         </div>
       </div>
     )
