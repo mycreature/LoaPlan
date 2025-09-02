@@ -1,7 +1,7 @@
 import Block from '../components/ui/Block'
 import MainInfo from '../components/character/MainInfo'
 import BarrackList from '../components/barracks/BarrackList'
-import SummaryPreview from '../components/Summary/SummaryPreview'
+import SummaryPreview from '../components/Summary/WeeklyGoldPreview'
 
 const HomeTabletLayout = () => {
   return (

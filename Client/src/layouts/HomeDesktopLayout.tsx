@@ -1,8 +1,9 @@
 import Block from '../components/ui/Block'
 import MainInfo from '../components/character/MainInfo'
 import BarrackList from '../components/barracks/BarrackList'
-import SummaryPreview from '../components/Summary/SummaryPreview'
+import SummaryPreview from '../components/Summary/WeeklyGoldPreview'
 import MainCard from '../components/character/MainCard'
+import GoldDistribution from '../components/Summary/GoldDistribution'
 
 const HomeDesktopLayout = () => {
   return (
@@ -18,9 +19,14 @@ const HomeDesktopLayout = () => {
           <BarrackList />
         </Block>
       </div>
-      <Block height={270} title='주간 골드 요약' className='col-span-2'>
-        <SummaryPreview />
-      </Block>
+      <div className='flex gap-[10px]'>
+        <Block height={270} width={370} title='골드 분포'>
+          <GoldDistribution />
+        </Block>
+        <Block height={270} width={624} title='주간 골드'>
+          <SummaryPreview />
+        </Block>
+      </div>
     </main>
   )
 }

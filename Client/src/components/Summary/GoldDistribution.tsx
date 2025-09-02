@@ -3,12 +3,10 @@ import { expeditionColors } from '../../styles/colors'
 import { useExpeditionGoldData } from '../../hook/useExpeditionGoldData'
 import Button from '../ui/Button'
 import { useNavigate } from 'react-router-dom'
-import LevelRangeList from '../barracks/LevelRangeList'
 import { getGoldByLevelRange } from '../../utils/expeditionDataUtils'
-import GoldDashboard from '../GoldDashboard'
-import BarChartComponent from '../charts/BarChart'
+import LevelRangeList from '../barracks/LevelRangeList'
 
-const SummaryPreview = ({ viewport = '' }) => {
+const GoldDistribution = () => {
   const expeditionGoldData = useExpeditionGoldData()
   const levelRangeExpeditionGoldData = getGoldByLevelRange(expeditionGoldData) || []
   const navigate = useNavigate()
@@ -23,29 +21,18 @@ const SummaryPreview = ({ viewport = '' }) => {
   }
 
   return (
-    <div
-      className={`flex justify-between ${viewport === 'mobile' ? 'flex-col gap-9' : ''} items-center`}
-    >
-      {viewport !== 'tablet' && (
-        <div className='w-[164px]'>
-          <PieChartComponent
-            data={levelRangeExpeditionGoldData}
-            colors={expeditionColors}
-            height={168}
-            outerRadius={82}
-          />
-        </div>
-      )}
+    <div className={`flex items-center justify-between`}>
+      <div className='h-[166px] w-[164px]'>
+        <PieChartComponent
+          data={levelRangeExpeditionGoldData}
+          colors={expeditionColors}
+          height={168}
+          outerRadius={84}
+        />
+      </div>
       <LevelRangeList levelRange={levelRangeExpeditionGoldData} />
-      <div className='w-[312px]'>
-        <BarChartComponent data={expeditionGoldData} legend={false} />
-      </div>
-
-      <div className='w-[255px]'>
-        <GoldDashboard GoldData={expeditionGoldData} height={196} />
-      </div>
     </div>
   )
 }
 
-export default SummaryPreview
+export default GoldDistribution

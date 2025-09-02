@@ -5,7 +5,7 @@ import { useExpeditionGoldData } from '../hook/useExpeditionGoldData'
 import Button from '../components/ui/Button'
 import { useNavigate } from 'react-router-dom'
 import MainCard from '../components/character/MainCard'
-import SummaryPreview from '../components/Summary/SummaryPreview'
+import SummaryPreview from '../components/Summary/WeeklyGoldPreview'
 
 const HomeMobileLayout = () => {
   const expeditionGoldData = useExpeditionGoldData()
