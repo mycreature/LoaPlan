@@ -8,6 +8,7 @@ interface PieChartComponentProps {
   height?: number
   dataKey?: string
   color?: string[]
+  legend?: boolean
 }
 
 const BarChartComponent = ({
@@ -16,6 +17,7 @@ const BarChartComponent = ({
   width = 200,
   height = 200,
   color = ['#8884d8', '#4BD66E'],
+  legend = true,
 }: PieChartComponentProps) => {
   return (
     <ResponsiveContainer width='100%' height='100%'>
@@ -46,27 +48,29 @@ const BarChartComponent = ({
             return [value, name]
           }}
         />
-        <Legend
-          payload={[
-            { value: '레이드 골드', type: 'square', id: 'raidGold', color: color[0] },
-            { value: '기타 골드', type: 'square', id: 'otherGold', color: color[1] },
-          ]}
-          formatter={(value) => (
-            <span
-              style={{
-                color: '#000',
-                fontFamily: 'SUIT',
-                fontWeight: 500,
-                fontSize: '14px',
-                lineHeight: '14px',
-                verticalAlign: 'middle',
-              }}
-            >
-              {value}
-            </span>
-          )}
-          iconType='square'
-        />
+        {legend && (
+          <Legend
+            payload={[
+              { value: '레이드 골드', type: 'square', id: 'raidGold', color: color[0] },
+              { value: '기타 골드', type: 'square', id: 'otherGold', color: color[1] },
+            ]}
+            formatter={(value) => (
+              <span
+                style={{
+                  color: '#000',
+                  fontFamily: 'SUIT',
+                  fontWeight: 500,
+                  fontSize: '14px',
+                  lineHeight: '14px',
+                  verticalAlign: 'middle',
+                }}
+              >
+                {value}
+              </span>
+            )}
+            iconType='square'
+          />
+        )}
 
         <Bar dataKey='raidGold' stackId='a' fill={color[0]} />
         <Bar dataKey='otherGold' stackId='a' fill={color[1]} />
