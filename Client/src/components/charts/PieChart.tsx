@@ -31,7 +31,6 @@ const PieChartComponent = ({
   data,
   colors = expeditionColors,
   height = 200,
-  outerRadius = 90,
   dataKey = 'totalGold',
   animationDuration = 600,
 }: PieChartComponentProps) => {
@@ -44,7 +43,7 @@ const PieChartComponent = ({
           cy='50%'
           labelLine={false}
           label={renderCustomizedLabel}
-          outerRadius={outerRadius}
+          outerRadius={height / 2}
           fill='#8884d8'
           dataKey={dataKey}
           animationDuration={animationDuration}
