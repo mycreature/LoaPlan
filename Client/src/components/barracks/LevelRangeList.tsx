@@ -23,7 +23,9 @@ const LevelRangeList = ({ levelRange }: any) => {
   }
 
   return (
-    <div className='mb-auto grid w-78 grid-cols-2 items-center gap-4'>
+    <div
+      className={`scrollbar-thin scrollbar-track-transparent ${darkMode ? 'scrollbar-thumb-gray-500' : 'scrollbar-thumb-green'} flex h-42 flex-col items-center justify-between overflow-x-hidden overflow-y-auto`}
+    >
       {Object.entries(levelData)
         .filter(([_, count]) => count > 0)
         .reverse()
