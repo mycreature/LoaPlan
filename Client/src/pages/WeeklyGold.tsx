@@ -15,7 +15,7 @@ const WeeklyGold = () => {
     <div className='flex h-full w-full justify-center'>
       {isViewport === 'desktop' ? (
         <WeeklyDesktopLayout />
-      ) : isViewport === 'tablet' ? (
+      ) : isViewport === 'tablet' || 'tablet_v2' ? (
         <WeeklyTabletLayout />
       ) : isViewport === 'mobile' ? (
         <WeeklyMobileLayout />

@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
 
-type ViewportType = 'mobile' | 'tablet' | 'desktop' | null
+type ViewportType = 'mobile' | 'tablet' | 'desktop' | 'tablet_v2' | null
 
 const MOBILE_MAX = 767
 const TABLET_MAX = 1023
+const TABLET_V2 = 901
 const THROTTLE_DELAY = 100 // ms
 
 export const useViewportType = (): ViewportType | null => {
@@ -21,6 +22,8 @@ export const useViewportType = (): ViewportType | null => {
           setViewport('mobile')
         } else if (width <= TABLET_MAX) {
           setViewport('tablet')
+        } else if (width <= TABLET_V2) {
+          setViewport('tablet_v2') // TABLET_V2 이하에서는 'tablet'으로 설정
         } else {
           setViewport('desktop')
         }
