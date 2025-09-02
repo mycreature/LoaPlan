@@ -27,15 +27,16 @@ const MainInfo = () => {
     return Number(characterData.CharacterLevel)
   }, [characterData?.CharacterLevel])
 
+  const parsedExpedtionLevel = useMemo(() => {
+    if (!characterData?.ExpeditionLevel) return null
+    return Number(characterData.ExpeditionLevel)
+  }, [characterData?.ExpeditionLevel])
+
   // 공통 렌더링 함수 - UI 구성 정확히 일치
   const renderMaininfo = (character: any) => {
     return (
       <div className='flex'>
         <div className='flex flex-col items-center gap-6'>
-          <div className={`flex w-full items-center gap-5`}>
-            <Tag text='닉네임' width={90}></Tag>
-            <h3 className='leading-none text-black'>{character.name}</h3>
-          </div>
           <div className={`flex w-full items-center gap-5`}>
             <Tag text='서버' width={90}></Tag>
             <h3 className='leading-none text-black'>{character.server}</h3>
@@ -54,6 +55,12 @@ const MainInfo = () => {
             <Tag text='전투레벨' width={90}></Tag>
             <h3 className='leading-none text-black'>
               {Number(character.CharacterLevel) || parsedCharacterLevel}
+            </h3>
+          </div>
+          <div className={`flex w-full items-center gap-5`}>
+            <Tag text='원정대' width={90}></Tag>
+            <h3 className='leading-none text-black'>
+              {Number(character.ExpeditionLevel || parsedExpedtionLevel)}
             </h3>
           </div>
           <div className={`flex w-full items-center gap-5`}>

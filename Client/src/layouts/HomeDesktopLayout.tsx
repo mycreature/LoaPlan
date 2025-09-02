@@ -8,7 +8,7 @@ const HomeDesktopLayout = () => {
   return (
     <main className='flex flex-col gap-[10px]'>
       <div className='flex gap-[10px]'>
-        <Block title='메인 정보' height={387}>
+        <Block title='메인 정보' height={387} width={536}>
           <div className='flex gap-7'>
             <MainCard height={254} width={258} />
             <MainInfo />
