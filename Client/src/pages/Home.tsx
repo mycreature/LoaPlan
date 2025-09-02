@@ -14,7 +14,7 @@ const Home = () => {
     <main className='flex h-full w-full justify-center'>
       {isViewport === 'desktop' ? (
         <HomeDesktopLayout />
-      ) : isViewport === 'tablet' || 'tablet_v2' ? (
+      ) : isViewport === 'tablet' || isViewport === 'tablet_v2' ? (
         <HomeTabletLayout />
       ) : isViewport === 'mobile' ? (
         <HomeMobileLayout />

@@ -20,10 +20,10 @@ export const useViewportType = (): ViewportType | null => {
         const width = window.innerWidth
         if (width <= MOBILE_MAX) {
           setViewport('mobile')
+        } else if (width <= TABLET_V2) {
+          setViewport('tablet_v2')
         } else if (width <= TABLET_MAX) {
           setViewport('tablet')
-        } else if (width <= TABLET_V2) {
-          setViewport('tablet_v2') // TABLET_V2 이하에서는 'tablet'으로 설정
         } else {
           setViewport('desktop')
         }
