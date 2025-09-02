@@ -30,7 +30,7 @@ const MainInfo = () => {
   // 공통 렌더링 함수 - UI 구성 정확히 일치
   const renderMaininfo = (character: any) => {
     return (
-      <div className={`flex gap-8`}>
+      <div className='flex'>
         <div className='flex flex-col items-center gap-6'>
           <div className={`flex w-full items-center gap-5`}>
             <Tag text='닉네임' width={90}></Tag>
@@ -70,7 +70,7 @@ const MainInfo = () => {
   }
 
   if (SelectedCharacterInfo) {
-    return <div className='w-full'>{renderMaininfo(SelectedCharacterInfo)}</div>
+    return <div className=''>{renderMaininfo(SelectedCharacterInfo)}</div>
   }
 
   return (

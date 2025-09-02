@@ -9,29 +9,20 @@ const HomeTabletLayout = () => {
       {/* 첫번째열 원정대 간략 정보 */}
       <div className='flex justify-center gap-x-[10px] gap-y-[10px]'>
         <div className='캐릭터 정보'>
-          <Block width={276} height={387}>
-            <div className='flex h-full w-full flex-col gap-5 p-4'>
-              <h3 className='leading-none font-extrabold text-black'> 메인 정보</h3>
-              <MainInfo />
-            </div>
+          <Block width={276} height={387} title='메인 정보'>
+            <MainInfo />
           </Block>
         </div>
         <div className='배럭 리스트 (메인 캐릭터 제외)'>
-          <Block width={458} height={387}>
-            <div className='flex h-full w-full flex-col gap-5 p-4'>
-              <h3 className='leading-none font-extrabold text-black'>원정대 리스트</h3>
-              <BarrackList />
-            </div>
+          <Block width={458} height={387} title='원정대 리스트'>
+            <BarrackList />
           </Block>
         </div>
       </div>
       <div className='flex justify-center'>
         <div className='주간 골드 요약'>
-          <Block width={748} height={270}>
-            <div className='flex h-full w-full flex-col gap-4 px-11 pt-4 pb-5'>
-              <h3 className='leading-none font-extrabold text-black'>주간 골드 요약</h3>
-              <SummaryPreview viewport='tablet' />
-            </div>
+          <Block width={748} height={270} title='주간 골드 요약'>
+            <SummaryPreview viewport='tablet' />
           </Block>
         </div>
       </div>

@@ -13,46 +13,31 @@ const WeeklyMobileLayout = () => {
 
   return (
     <main className='flex flex-col justify-center gap-y-[10px]'>
-      <Block width={370} height={387}>
-        <div className='flex h-full w-full flex-col gap-5 p-4'>
-          <h3 className='leading-none font-extrabold text-black'> 원정대 리스트</h3>
-          <BarrackList />
+      <Block width={370} height={387} title='원정대 리스트'>
+        <BarrackList />
+      </Block>
+      <Block width={370} height={299} title='주간 골드 선택'>
+        <div className='mx-auto flex h-full w-[322px] flex-col'>
+          {expeditionGoldData.length !== 0 && SelectedCharacterInfo ? (
+            <RaidSelector SelectedCharacterInfo={SelectedCharacterInfo} slideWidth={338} />
+          ) : (
+            <div className='flex h-full w-full flex-col items-center justify-center gap-1'>
+              <h3 className='text-black'>원정대 리스트를 선택해주세요</h3>
+              <h4 className='text-black opacity-60'>
+                (또는 장기 미접속으로 인한 정보 불러오기 실패)
+              </h4>
+            </div>
+          )}
         </div>
       </Block>
-      <Block width={370} height={299}>
-        <div className='flex h-full w-full flex-col gap-5 px-4 pt-4 pb-2'>
-          <h3 className='leading-none font-extrabold text-black'> 주간 골드 선택</h3>
-          <div className='mx-auto flex h-full w-[322px] flex-col'>
-            {expeditionGoldData.length !== 0 && SelectedCharacterInfo ? (
-              <RaidSelector SelectedCharacterInfo={SelectedCharacterInfo} slideWidth={338} />
-            ) : (
-              <div className='flex h-full w-full flex-col items-center justify-center gap-1'>
-                <h3 className='text-black'>원정대 리스트를 선택해주세요</h3>
-                <h4 className='text-black opacity-60'>
-                  (또는 장기 미접속으로 인한 정보 불러오기 실패)
-                </h4>
-              </div>
-            )}
-          </div>
-        </div>
+      <Block width={370} height={270} title='주간 골드'>
+        <GoldDashboard height={196} GoldData={expeditionGoldData} />
       </Block>
-      <Block width={370} height={270}>
-        <div className='flex h-full w-full flex-col gap-5 p-4'>
-          <h3 className='leading-none font-extrabold text-black'> 주간 골드</h3>
-          <GoldDashboard width={338} height={196} GoldData={expeditionGoldData} />
-        </div>
+      <Block width={370} height={324} title='주간 골드'>
+        <BarChartComponent data={expeditionGoldData} />
       </Block>
-      <Block width={370} height={324}>
-        <div className='flex h-full w-full flex-col gap-5 p-4'>
-          <h3 className='leading-none font-extrabold text-black'> 주간 골드</h3>
-          <BarChartComponent data={expeditionGoldData} />
-        </div>
-      </Block>
-      <Block width={370} height={324}>
-        <div className='flex h-full w-full flex-col gap-5 p-4'>
-          <h3 className='leading-none font-extrabold text-black'> 주차별 골드 예상치</h3>
-          <SingleBarChartComponent data={expeditionGoldData} />
-        </div>
+      <Block width={370} height={324} title='주차별 골드 예상치'>
+        <SingleBarChartComponent data={expeditionGoldData} />
       </Block>
     </main>
   )

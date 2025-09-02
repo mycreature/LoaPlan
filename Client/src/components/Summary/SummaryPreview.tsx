@@ -23,7 +23,9 @@ const SummaryPreview = ({ viewport = '' }) => {
   }
 
   return (
-    <div className={`flex justify-between ${viewport === 'mobile' ? 'flex-col' : ''} items-center`}>
+    <div
+      className={`flex justify-between ${viewport === 'mobile' ? 'flex-col gap-9' : ''} items-center`}
+    >
       {viewport !== 'tablet' && (
         <div className='w-[164px]'>
           <PieChartComponent
