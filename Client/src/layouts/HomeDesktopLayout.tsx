@@ -1,7 +1,7 @@
 import Block from '../components/ui/Block'
 import MainInfo from '../components/character/MainInfo'
 import BarrackList from '../components/barracks/BarrackList'
-import SummaryPreview from '../components/Summary/WeeklyGoldPreview'
+import WeeklyGoldPreview from '../components/Summary/WeeklyGoldPreview'
 import MainCard from '../components/character/MainCard'
 import GoldDistribution from '../components/Summary/GoldDistribution'
 
@@ -24,7 +24,7 @@ const HomeDesktopLayout = () => {
           <GoldDistribution />
         </Block>
         <Block height={270} width={624} title='주간 골드'>
-          <SummaryPreview />
+          <WeeklyGoldPreview />
         </Block>
       </div>
     </main>

@@ -6,7 +6,7 @@ import { getGoldByLevelRange } from '../../utils/expeditionDataUtils'
 import GoldDashboard from '../GoldDashboard'
 import BarChartComponent from '../charts/BarChart'
 
-const SummaryPreview = ({ viewport = '' }) => {
+const WeeklyGoldPreview = ({ viewport = '' }) => {
   const expeditionGoldData = useExpeditionGoldData()
   const levelRangeExpeditionGoldData = getGoldByLevelRange(expeditionGoldData) || []
   const navigate = useNavigate()
@@ -35,4 +35,4 @@ const SummaryPreview = ({ viewport = '' }) => {
   )
 }
 
-export default SummaryPreview
+export default WeeklyGoldPreview

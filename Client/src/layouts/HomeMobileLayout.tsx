@@ -5,7 +5,7 @@ import { useExpeditionGoldData } from '../hook/useExpeditionGoldData'
 import Button from '../components/ui/Button'
 import { useNavigate } from 'react-router-dom'
 import MainCard from '../components/character/MainCard'
-import SummaryPreview from '../components/Summary/WeeklyGoldPreview'
+import WeeklyGoldPreview from '../components/Summary/WeeklyGoldPreview'
 
 const HomeMobileLayout = () => {
   const expeditionGoldData = useExpeditionGoldData()
@@ -39,7 +39,7 @@ const HomeMobileLayout = () => {
         <>
           <div className='차트'>
             <Block width={370} title='주간 골드 요약'>
-              <SummaryPreview viewport='mobile' />
+              <WeeklyGoldPreview viewport='mobile' />
             </Block>
           </div>
         </>
