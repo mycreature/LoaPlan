@@ -1,4 +1,4 @@
-import { PieChart, Pie, Cell } from 'recharts'
+import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts'
 import { expeditionColors } from '../../styles/colors'
 
 const RADIAN = Math.PI / 180
@@ -30,30 +30,31 @@ interface PieChartComponentProps {
 const PieChartComponent = ({
   data,
   colors = expeditionColors,
-  width = 200,
   height = 200,
   outerRadius = 90,
   dataKey = 'totalGold',
   animationDuration = 600,
 }: PieChartComponentProps) => {
   return (
-    <PieChart width={width} height={height}>
-      <Pie
-        data={data}
-        cx='50%'
-        cy='50%'
-        labelLine={false}
-        label={renderCustomizedLabel}
-        outerRadius={outerRadius}
-        fill='#8884d8'
-        dataKey={dataKey}
-        animationDuration={animationDuration}
-      >
-        {data.map((_entry, index) => (
-          <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
-        ))}
-      </Pie>
-    </PieChart>
+    <ResponsiveContainer width='100%' height={height}>
+      <PieChart>
+        <Pie
+          data={data}
+          cx='50%'
+          cy='50%'
+          labelLine={false}
+          label={renderCustomizedLabel}
+          outerRadius={outerRadius}
+          fill='#8884d8'
+          dataKey={dataKey}
+          animationDuration={animationDuration}
+        >
+          {data.map((_entry, index) => (
+            <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
+          ))}
+        </Pie>
+      </PieChart>
+    </ResponsiveContainer>
   )
 }
 
