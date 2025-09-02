@@ -1,4 +1,4 @@
-import { ResponsiveContainer, BarChart, CartesianGrid, XAxis, Tooltip, Legend, Bar } from 'recharts'
+import { BarChart, CartesianGrid, XAxis, Tooltip, Legend, Bar, ResponsiveContainer } from 'recharts'
 import { expeditionGoldData } from '../../types/Types'
 
 interface PieChartComponentProps {
@@ -14,14 +14,13 @@ interface PieChartComponentProps {
 const BarChartComponent = ({
   data,
   dataKey = 'name',
-  width = 200,
   height = 200,
   color = ['#8884d8', '#4BD66E'],
   legend = true,
 }: PieChartComponentProps) => {
   return (
-    <ResponsiveContainer width={width} height={height} aspect={1.5}>
-      <BarChart width={width} height={height} data={data.slice(0, 6)}>
+    <ResponsiveContainer width='100%' height={height}>
+      <BarChart data={data.slice(0, 6)} margin={{ top: 0, right: 0, left: 0, bottom: -10 }}>
         <CartesianGrid strokeDasharray='3 3' strokeWidth={3} />
         <XAxis dataKey={dataKey} interval={0} fontSize={12} fontFamily='SUIT' fontWeight={600} />
 
