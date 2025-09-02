@@ -11,6 +11,7 @@ interface BlockProps {
   className?: string
   darkColor?: string
   lightColor?: string
+  auth?: boolean
 }
 
 const Block = ({
@@ -24,6 +25,7 @@ const Block = ({
   mode = true,
   darkColor = 'bg-gray',
   lightColor = 'bg-white',
+  auth = false,
 }: BlockProps) => {
   const { darkMode } = useThemeStore()
 
@@ -38,7 +40,12 @@ const Block = ({
         padding: padding ? `${padding}px` : undefined,
       }}
     >
-      <h3 className='w-full leading-none font-extrabold text-black'>{title}</h3>
+      {auth ? (
+        <h2 className='mx-auto leading-none font-extrabold text-black'>{title}</h2>
+      ) : (
+        <h3 className='w-full leading-none font-extrabold text-black'>{title}</h3>
+      )}
+
       <div className='h-full w-full'>{children}</div>
     </div>
   )

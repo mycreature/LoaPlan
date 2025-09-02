@@ -39,11 +39,8 @@ const Register = () => {
 
   return (
     <main className='flex h-full w-full justify-center'>
-      <Block width={390} height={534}>
-        <div className='flex h-full w-full flex-col gap-5 p-4'>
-          <h2 className='mx-auto leading-none font-extrabold text-black'>회원가입</h2>
-          <RegisterForm onSubmit={handleRegisterSubmit} isLoading={isLoading} />
-        </div>
+      <Block width={390} height={534} title='회원가입' auth={true}>
+        <RegisterForm onSubmit={handleRegisterSubmit} isLoading={isLoading} />
       </Block>
     </main>
   )
