@@ -32,7 +32,7 @@ const HomeDesktopLayout = () => {
       <div className='flex justify-center'>
         <div className='주간 골드 요약'>
           <Block width={1004} height={270}>
-            <div className='flex h-full w-full flex-col gap-4 px-13 pt-4 pb-5'>
+            <div className='flex h-full w-full flex-col gap-5 p-4'>
               <h3 className='leading-none font-extrabold text-black'>주간 골드 요약</h3>
               <SummaryPreview />
             </div>
