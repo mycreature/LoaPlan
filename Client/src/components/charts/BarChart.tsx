@@ -4,8 +4,6 @@ import { expeditionGoldData } from '../../types/Types'
 interface PieChartComponentProps {
   data: expeditionGoldData[]
   colors?: string[]
-  width?: number
-  height?: number
   dataKey?: string
   color?: string[]
   legend?: boolean
@@ -14,13 +12,12 @@ interface PieChartComponentProps {
 const BarChartComponent = ({
   data,
   dataKey = 'name',
-  height = 200,
   color = ['#8884d8', '#4BD66E'],
   legend = true,
 }: PieChartComponentProps) => {
   return (
-    <ResponsiveContainer width='100%' height={height} aspect={1.5}>
-      <BarChart data={data.slice(0, 6)} margin={{ top: 0, right: 0, left: 0, bottom: -10 }}>
+    <ResponsiveContainer width='100%' height='100%' aspect={1.5}>
+      <BarChart data={data.slice(0, 6)}>
         <CartesianGrid strokeDasharray='3 3' strokeWidth={3} />
         <XAxis dataKey={dataKey} interval={0} fontSize={12} fontFamily='SUIT' fontWeight={600} />
 
