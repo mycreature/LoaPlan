@@ -38,7 +38,7 @@ const SummaryPreview = ({ viewport = '' }) => {
       )}
       <LevelRangeList levelRange={levelRangeExpeditionGoldData} />
       <div className='w-[312px]'>
-        <BarChartComponent data={expeditionGoldData} height={196} legend={false} />
+        <BarChartComponent data={expeditionGoldData} legend={false} />
       </div>
 
       <div className='w-[255px]'>
