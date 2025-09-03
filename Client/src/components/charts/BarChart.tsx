@@ -17,7 +17,7 @@ const BarChartComponent = ({
 }: PieChartComponentProps) => {
   return (
     <ResponsiveContainer width='100%' height='100%' aspect={1.5}>
-      <BarChart data={data.slice(0, 6)}>
+      <BarChart data={data.slice(0, 6)} margin={{ right: 0, left: 0, bottom: -10, top: 0 }}>
         <CartesianGrid strokeDasharray='3 3' strokeWidth={3} />
         <XAxis dataKey={dataKey} interval={0} fontSize={12} fontFamily='SUIT' fontWeight={600} />
 
