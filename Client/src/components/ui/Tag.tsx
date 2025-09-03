@@ -18,7 +18,7 @@ const Tag = ({ text, className = '', width = 90, height = 30 }: TagProps) => {
       className={`${className} flex items-center justify-center rounded-lg ${darkMode ? 'bg-black' : 'bg-green'}`}
       style={{ width: computedWidth, height: computedHeight }}
     >
-      {text}
+      <span className='flex shrink-0'>{text}</span>
     </h3>
   )
 }
