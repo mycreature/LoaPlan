@@ -6,6 +6,8 @@ interface PieChartComponentProps {
   colors?: string[]
   dataKey?: string
   color?: string[]
+  width?: number | string
+  height?: number | string
   aspect?: number
   legend?: boolean
 }
@@ -14,11 +16,13 @@ const BarChartComponent = ({
   data,
   dataKey = 'name',
   color = ['#8884d8', '#4BD66E'],
-  aspect = 1.5,
+  aspect = 0,
   legend = true,
+  width = '100%',
+  height = '100%',
 }: PieChartComponentProps) => {
   return (
-    <ResponsiveContainer width='100%' height='100%' aspect={aspect}>
+    <ResponsiveContainer width={width} height={height} aspect={aspect}>
       <BarChart data={data.slice(0, 6)} margin={{ right: 0, left: 0, bottom: -10, top: 0 }}>
         <CartesianGrid strokeDasharray='3 3' strokeWidth={3} />
         <XAxis dataKey={dataKey} interval={0} fontSize={12} fontFamily='SUIT' fontWeight={600} />
