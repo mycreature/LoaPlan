@@ -6,7 +6,11 @@ import { useNavigate } from 'react-router-dom'
 import { getGoldByLevelRange } from '../../utils/expeditionDataUtils'
 import LevelRangeList from '../barracks/LevelRangeList'
 
-const GoldDistribution = () => {
+interface viewportType {
+  type?: 'tablet' | 'mobile' | null
+}
+
+const GoldDistribution = ({ type = null }: viewportType) => {
   const expeditionGoldData = useExpeditionGoldData()
   const levelRangeExpeditionGoldData = getGoldByLevelRange(expeditionGoldData) || []
   const navigate = useNavigate()
@@ -20,16 +24,26 @@ const GoldDistribution = () => {
     )
   }
 
-  return (
-    <div className={`flex items-center justify-between`}>
-      <div className='h-[166px] w-[164px]'>
-        <PieChartComponent
-          data={levelRangeExpeditionGoldData}
-          colors={expeditionColors}
-          height={168}
-          outerRadius={84}
-        />
-      </div>
+  return type == 'tablet' ? (
+    <div className='grid h-full w-full grid-cols-1 place-items-center justify-center gap-3'>
+      <PieChartComponent
+        data={levelRangeExpeditionGoldData}
+        colors={expeditionColors}
+        width={148}
+      />
+      <LevelRangeList levelRange={levelRangeExpeditionGoldData} />
+    </div>
+  ) : type == 'mobile' ? (
+    <div className='h-full w-full'>
+      <PieChartComponent
+        data={levelRangeExpeditionGoldData}
+        colors={expeditionColors}
+        height={250}
+      />
+    </div>
+  ) : (
+    <div className='grid h-full w-full grid-cols-[1fr_148px] items-center gap-6'>
+      <PieChartComponent data={levelRangeExpeditionGoldData} colors={expeditionColors} />
       <LevelRangeList levelRange={levelRangeExpeditionGoldData} />
     </div>
   )

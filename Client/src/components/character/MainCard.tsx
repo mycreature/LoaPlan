@@ -9,14 +9,11 @@ interface MainCardProps {
   height?: number | string
 }
 
-const MainCard = ({ width = 100, height = 100 }: MainCardProps) => {
+const MainCard = ({ width = '100%', height = '100%' }: MainCardProps) => {
   const MainCharacter = useCharacterStore((state) => state.MainCharacter)
   const profileLoading = useCharacterStore((state) => state.profileLoading)
   const SelectedCharacterInfo = useCharacterSelectionStore((state) => state.SelectedCharacterInfo)
   const selectedProfileError = useCharacterSelectionStore((state) => state.profileError)
-
-  const computedWidth = typeof width === 'number' ? `${width}px` : width
-  const computedHeight = typeof height === 'number' ? `${height}px` : height
 
   // 현재 표시할 캐릭터 정보를 결정
   const character = useMemo(() => {
@@ -30,20 +27,20 @@ const MainCard = ({ width = 100, height = 100 }: MainCardProps) => {
 
     if (character?.image) {
       return (
-        <div className='flex flex-col items-center justify-center gap-4'>
+        <div className='flex w-full flex-col items-center justify-center gap-4'>
           <img
             src={character.image}
             alt={character.name}
-            className='rounded-lg bg-black object-contain'
-            style={{ width: computedWidth, height: computedHeight }}
+            className='rounded-lg bg-black object-cover'
+            style={{ width: width, height: height }}
           />
-          <Tag text={character.name} width={computedWidth} />
+          <Tag text={character.name} width={width} />
         </div>
       )
     }
 
     return <span>로딩중...</span>
-  }, [profileLoading, character, computedWidth, computedHeight, width])
+  }, [profileLoading, character])
 
   // 에러 처리
   if (selectedProfileError) {

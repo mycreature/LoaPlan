@@ -12,7 +12,9 @@ const FindPassword = () => {
   const navigate = useNavigate()
 
   // 비로그인시 접근가능 (로그인, 게스트 접근 x)
-  useRequireNoAuth()
+  const checked = useRequireNoAuth()
+
+  if (!checked) return null
 
   const handlePasswordSubmit = async (data: AuthFormData) => {
     setIsLoading(true)

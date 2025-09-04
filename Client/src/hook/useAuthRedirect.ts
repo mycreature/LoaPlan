@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import useAccountStore from '../stores/others/AccountStore'
 
@@ -13,6 +13,7 @@ export const getAuthStatus = () => {
 // 로그인 or 게스트 유저만 접근 가능 (비 로그인 x)
 export const useRequireUserOrGuest = (redirectUrl: string = '/', message?: boolean) => {
   const navigate = useNavigate()
+  const [checked, setChecked] = useState(false)
 
   useEffect(() => {
     const { isGuest, isLogin } = getAuthStatus()
@@ -23,12 +24,16 @@ export const useRequireUserOrGuest = (redirectUrl: string = '/', message?: boole
       }
       navigate(redirectUrl)
     }
+    setChecked(true)
   }, [navigate, redirectUrl])
+
+  return checked
 }
 
 // 로그인 유저만 접근 가능 (게스트, 비 로그인 x)
 export const useRequireUser = (redirectUrl: string = '/', message?: boolean) => {
   const navigate = useNavigate()
+  const [checked, setChecked] = useState(false)
 
   useEffect(() => {
     const { isGuest, isLogin } = getAuthStatus()
@@ -39,12 +44,16 @@ export const useRequireUser = (redirectUrl: string = '/', message?: boolean) => 
       }
       navigate(redirectUrl)
     }
+    setChecked(true)
   }, [navigate, redirectUrl])
+
+  return checked
 }
 
 // 비 로그인 유저만 접근 가능 (로그인, 게스트 x)
 export const useRequireNoAuth = (redirectUrl: string = '/', message?: boolean) => {
   const navigate = useNavigate()
+  const [checked, setChecked] = useState(false)
 
   useEffect(() => {
     const { isGuest, isLogin } = getAuthStatus()
@@ -55,5 +64,8 @@ export const useRequireNoAuth = (redirectUrl: string = '/', message?: boolean) =
       }
       navigate(redirectUrl)
     }
+    setChecked(true)
   }, [navigate, redirectUrl])
+
+  return checked
 }

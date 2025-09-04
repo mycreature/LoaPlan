@@ -12,7 +12,9 @@ const Userinfo = () => {
   const navigate = useNavigate()
 
   // 로그인시 접근가능 (게스트, 비로그인 접근 x)
-  useRequireUser('/login')
+  const checked = useRequireUser('/login')
+
+  if (!checked) return null
 
   const handleProfileSubmit = async (data: AuthFormData) => {
     setIsLoading(true)

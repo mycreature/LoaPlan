@@ -1,5 +1,4 @@
 import useViewportType from '../hook/useViewportType'
-
 import { useRequireUserOrGuest } from '../hook/useAuthRedirect'
 import WeeklyDesktopLayout from '../layouts/WeeklyDesktopLayout'
 import WeeklyTabletLayout from '../layouts/WeeklyTabletLayout'
@@ -9,13 +8,15 @@ import LoadingLayout from '../layouts/LoadingLayout'
 const WeeklyGold = () => {
   const isViewport = useViewportType()
 
-  useRequireUserOrGuest('/login')
+  const checked = useRequireUserOrGuest('/login')
+
+  if (!checked) return null
 
   return (
     <div className='flex h-full w-full justify-center'>
       {isViewport === 'desktop' ? (
         <WeeklyDesktopLayout />
-      ) : isViewport === 'tablet' || isViewport === 'tablet_v2' ? (
+      ) : isViewport === 'tablet' ? (
         <WeeklyTabletLayout />
       ) : isViewport === 'mobile' ? (
         <WeeklyMobileLayout />

@@ -19,12 +19,13 @@ const HomeDesktopLayout = () => {
           <BarrackList />
         </Block>
       </div>
+
       <div className='flex gap-[10px]'>
         <Block height={270} width={370} title='골드 분포'>
           <GoldDistribution />
         </Block>
         <Block height={270} width={624} title='주간 골드'>
-          <WeeklyGoldPreview />
+          <WeeklyGoldPreview type={'desktop'} />
         </Block>
       </div>
     </main>
