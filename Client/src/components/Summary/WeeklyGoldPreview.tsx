@@ -1,12 +1,15 @@
 import { useExpeditionGoldData } from '../../hook/useExpeditionGoldData'
 import Button from '../ui/Button'
 import { useNavigate } from 'react-router-dom'
-
 import { getGoldByLevelRange } from '../../utils/expeditionDataUtils'
 import GoldDashboard from '../GoldDashboard'
 import BarChartComponent from '../charts/BarChart'
 
-const WeeklyGoldPreview = ({ viewport = '' }) => {
+interface viewportType {
+  type: 'tablet' | 'mobile' | 'desktop' | null
+}
+
+const WeeklyGoldPreview = ({ type = null }: viewportType) => {
   const expeditionGoldData = useExpeditionGoldData()
   const levelRangeExpeditionGoldData = getGoldByLevelRange(expeditionGoldData) || []
   const navigate = useNavigate()
@@ -20,19 +23,24 @@ const WeeklyGoldPreview = ({ viewport = '' }) => {
     )
   }
 
-  return (
-    <div
-      className={`flex justify-between ${viewport === 'mobile' ? 'flex-col gap-9' : ''} items-center`}
-    >
-      <div className='h-[196px] w-[312px]'>
-        <BarChartComponent data={expeditionGoldData} legend={false} />
-      </div>
-
-      <div className='w-[255px]'>
+  return type === 'desktop' ? (
+    <div className='flex w-full gap-5'>
+      <BarChartComponent data={expeditionGoldData} legend={false} height={196} />
+      <GoldDashboard GoldData={expeditionGoldData} height={196} />
+    </div>
+  ) : type === 'tablet' ? (
+    <div className='md-lg:grid-cols-[1fr_255px] grid h-full w-full grid-cols-1 items-center gap-5'>
+      <BarChartComponent data={expeditionGoldData} legend={false} height={196} />
+      <div className='md-lg:block hidden'>
         <GoldDashboard GoldData={expeditionGoldData} height={196} />
       </div>
     </div>
-  )
+  ) : type === 'mobile' ? (
+    <div className='sm-md:grid-cols-[1fr_255px] grid w-full grid-cols-1 items-center justify-center gap-6'>
+      <BarChartComponent data={expeditionGoldData} legend={false} height={196} />
+      <GoldDashboard GoldData={expeditionGoldData} height={196} />
+    </div>
+  ) : null
 }
 
 export default WeeklyGoldPreview

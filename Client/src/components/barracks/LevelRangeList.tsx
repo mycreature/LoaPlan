@@ -24,7 +24,7 @@ const LevelRangeList = ({ levelRange }: any) => {
 
   return (
     <div
-      className={`scrollbar-thin scrollbar-track-transparent ${darkMode ? 'scrollbar-thumb-gray-500' : 'scrollbar-thumb-green'} grid h-42 grid-cols-1 gap-3 overflow-x-hidden overflow-y-auto`}
+      className={`scrollbar-thin scrollbar-track-transparent w-37 ${darkMode ? 'scrollbar-thumb-gray-500' : 'scrollbar-thumb-green'} grid h-42 grid-cols-1 gap-3 overflow-x-hidden overflow-y-auto`}
     >
       {Object.entries(levelData)
         .filter(([_, count]) => count > 0)

@@ -26,8 +26,8 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
 interface PieChartComponentProps {
   data: { levelRange: number; totalGold: number }[]
   colors?: string[]
-  width?: number
-  height?: number
+  width?: number | string
+  height?: number | string
   outerRadius?: number
   dataKey?: string
   labelLine?: boolean
@@ -37,12 +37,13 @@ interface PieChartComponentProps {
 const PieChartComponent = ({
   data,
   colors = expeditionColors,
-  height = 200,
+  width = '100%',
+  height = '100%',
   dataKey = 'totalGold',
   animationDuration = 600,
 }: PieChartComponentProps) => {
   return (
-    <ResponsiveContainer width='100%' height={height}>
+    <ResponsiveContainer width={width} height={height}>
       <PieChart>
         <Pie
           data={data}
@@ -50,7 +51,7 @@ const PieChartComponent = ({
           cy='50%'
           labelLine={false}
           label={renderCustomizedLabel}
-          outerRadius={height / 2 - 2}
+          outerRadius={'100%'}
           fill='#8884d8'
           dataKey={dataKey}
           animationDuration={animationDuration}

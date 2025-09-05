@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react'
 
-type ViewportType = 'mobile' | 'tablet' | 'desktop' | 'tablet_v2' | null
+type ViewportType = 'mobile' | 'tablet' | 'desktop' | null
 
 const MOBILE_MAX = 767
 const TABLET_MAX = 1023
-const TABLET_V2 = 901
 const THROTTLE_DELAY = 100 // ms
 
 export const useViewportType = (): ViewportType | null => {
@@ -20,8 +19,6 @@ export const useViewportType = (): ViewportType | null => {
         const width = window.innerWidth
         if (width <= MOBILE_MAX) {
           setViewport('mobile')
-        } else if (width <= TABLET_V2) {
-          setViewport('tablet_v2')
         } else if (width <= TABLET_MAX) {
           setViewport('tablet')
         } else {

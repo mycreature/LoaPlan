@@ -8,21 +8,24 @@ import LoadingLayout from '../layouts/LoadingLayout'
 const Home = () => {
   const isViewport = useViewportType()
 
-  useRequireUserOrGuest('/login')
+  const checked = useRequireUserOrGuest('/login')
 
-  return (
-    <main className='flex h-full w-full justify-center'>
-      {isViewport === 'desktop' ? (
-        <HomeDesktopLayout />
-      ) : isViewport === 'tablet' || isViewport === 'tablet_v2' ? (
-        <HomeTabletLayout />
-      ) : isViewport === 'mobile' ? (
-        <HomeMobileLayout />
-      ) : (
-        <LoadingLayout />
-      )}
-    </main>
-  )
+  if (!checked) return null
+  else {
+    return (
+      <div className='flex h-full w-full justify-center'>
+        {isViewport === 'desktop' ? (
+          <HomeDesktopLayout />
+        ) : isViewport === 'tablet' ? (
+          <HomeTabletLayout />
+        ) : isViewport === 'mobile' ? (
+          <HomeMobileLayout />
+        ) : (
+          <LoadingLayout />
+        )}
+      </div>
+    )
+  }
 }
 
 export default Home
