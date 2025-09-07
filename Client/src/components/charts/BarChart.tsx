@@ -1,7 +1,7 @@
 import { BarChart, CartesianGrid, XAxis, Tooltip, Legend, Bar, ResponsiveContainer } from 'recharts'
 import { expeditionGoldData } from '../../types/Types'
 
-interface PieChartComponentProps {
+interface BarChartProps {
   data: expeditionGoldData[]
   colors?: string[]
   dataKey?: string
@@ -20,7 +20,7 @@ const BarChartComponent = ({
   legend = true,
   width = '100%',
   height = '100%',
-}: PieChartComponentProps) => {
+}: BarChartProps) => {
   return (
     <ResponsiveContainer width={width} height={height} aspect={aspect}>
       <BarChart data={data.slice(0, 6)} margin={{ right: 0, left: 0, bottom: -10, top: 0 }}>
