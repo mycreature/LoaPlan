@@ -1,39 +1,39 @@
 import Block from '../components/ui/Block'
 import MainInfo from '../components/character/MainInfo'
 import BarrackList from '../components/barracks/BarrackList'
-import SummaryPreview from '../components/Summary/SummaryPreview'
+import WeeklyGoldPreview from '../components/Summary/WeeklyGoldPreview'
+import MainCard from '../components/character/MainCard'
+import GoldDistribution from '../components/Summary/GoldDistribution'
 
 const HomeTabletLayout = () => {
   return (
-    <main className='flex flex-col space-y-[10px]'>
-      {/* 첫번째열 원정대 간략 정보 */}
-      <div className='flex justify-center gap-x-[10px] gap-y-[10px]'>
-        <div className='캐릭터 정보'>
-          <Block width={276} height={387}>
-            <div className='flex h-full w-full flex-col gap-5 p-4'>
-              <h3 className='leading-none font-extrabold text-black'> 메인 정보</h3>
-              <MainInfo />
-            </div>
-          </Block>
+    <main className='grid w-full grid-cols-[252px_1fr_198px] gap-[10px]'>
+      <Block width={252} height={698} title='메인 정보' className='row-span-2'>
+        <div className='flex flex-col gap-6'>
+          <MainCard width={220} height={254} />
+          <MainInfo />
         </div>
-        <div className='배럭 리스트 (메인 캐릭터 제외)'>
-          <Block width={458} height={387}>
-            <div className='flex h-full w-full flex-col gap-5 p-4'>
-              <h3 className='leading-none font-extrabold text-black'>원정대 리스트</h3>
-              <BarrackList />
-            </div>
-          </Block>
-        </div>
+      </Block>
+
+      <div className='md-lg:col-span-1 col-span-2'>
+        <Block height={387} title='원정대 리스트'>
+          <BarrackList />
+        </Block>
       </div>
-      <div className='flex justify-center'>
-        <div className='주간 골드 요약'>
-          <Block width={748} height={270}>
-            <div className='flex h-full w-full flex-col gap-4 px-11 pt-4 pb-5'>
-              <h3 className='leading-none font-extrabold text-black'>주간 골드 요약</h3>
-              <SummaryPreview viewport='tablet' />
-            </div>
-          </Block>
-        </div>
+
+      <Block
+        height={387}
+        width={198}
+        title='골드 분포'
+        className='md-lg:static md-lg:visible invisible absolute'
+      >
+        <GoldDistribution type={'tablet'} />
+      </Block>
+
+      <div className='col-span-2'>
+        <Block height={301} title='주간 골드 요약'>
+          <WeeklyGoldPreview type={'tablet'} />
+        </Block>
       </div>
     </main>
   )

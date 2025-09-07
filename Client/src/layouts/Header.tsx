@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import useThemeStore from '../stores/others/ThemeStore'
 import { requestLogOut } from '../api/userApi'
 import Sidebar from '../components/ui/Sidebar'
@@ -40,6 +40,11 @@ const Header = () => {
     if (disabled) {
       alert('이 기능은 현재 개발 중입니다. 빠른 시일 내에 개발하겠습니다.')
     } else {
+      if (!isLogin && !isGuest) {
+        navigate('/login')
+        return
+      }
+
       navigate(link)
     }
   }
@@ -51,9 +56,12 @@ const Header = () => {
       <div className='flex h-full items-center px-7'>
         {/* 로고 */}
         <div className='mr-13 flex shrink-0 items-center gap-2'>
-          <Link to='/'>
-            <h1 className='w-40 text-white'>LOAPLAN</h1>
-          </Link>
+          <button
+            className='flex bg-transparent p-0 whitespace-nowrap'
+            onClick={() => handleUndevelopedClick(false, '/')}
+          >
+            <h1 className='h-[38px] w-[157px] text-white'>LOAPLAN</h1>
+          </button>
           <h4 className='flex w-13 justify-center rounded-4xl border border-white text-white'>
             Beta
           </h4>

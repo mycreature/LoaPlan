@@ -10,11 +10,12 @@ import { useNavigate } from 'react-router-dom'
 const Login = () => {
   const [loadingGuest, setLoadingGuest] = useState(false)
   const [loadingAuth, setLoadingAuth] = useState(false)
+  const navigate = useNavigate()
 
   // 비로그인시만 접근가능 (로그인, 게스트시 메인페이지 리다이렉트)
-  useRequireNoAuth()
+  const checked = useRequireNoAuth()
 
-  const navigate = useNavigate()
+  if (!checked) return null
 
   const handleLoginSubmit = async (data: AuthFormData) => {
     setLoadingAuth(true)
@@ -42,14 +43,11 @@ const Login = () => {
   }
 
   return (
-    <main className='flex h-full w-full justify-center'>
-      <Block width={390} height={310}>
-        <div className='flex h-full w-full flex-col gap-5 p-4'>
-          <h2 className='mx-auto leading-none font-extrabold text-black'>로그인</h2>
-          <div className='flex flex-col gap-2'>
-            <LoginForm onSubmit={handleLoginSubmit} isLoading={loadingAuth} />
-            <GuestLoginForm onSubmit={handleGusetLogin} isLoading={loadingGuest} />
-          </div>
+    <main className='flex h-full w-full grid-cols-1 justify-center'>
+      <Block height={310} title='로그인' auth={true}>
+        <div className='flex flex-col gap-2'>
+          <LoginForm onSubmit={handleLoginSubmit} isLoading={loadingAuth} />
+          <GuestLoginForm onSubmit={handleGusetLogin} isLoading={loadingGuest} />
         </div>
       </Block>
     </main>

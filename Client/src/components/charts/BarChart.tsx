@@ -1,25 +1,29 @@
-import { ResponsiveContainer, BarChart, CartesianGrid, XAxis, Tooltip, Legend, Bar } from 'recharts'
+import { BarChart, CartesianGrid, XAxis, Tooltip, Legend, Bar, ResponsiveContainer } from 'recharts'
 import { expeditionGoldData } from '../../types/Types'
 
 interface PieChartComponentProps {
   data: expeditionGoldData[]
   colors?: string[]
-  width?: number
-  height?: number
   dataKey?: string
   color?: string[]
+  width?: number | string
+  height?: number | string
+  aspect?: number
+  legend?: boolean
 }
 
 const BarChartComponent = ({
   data,
   dataKey = 'name',
-  width = 200,
-  height = 200,
   color = ['#8884d8', '#4BD66E'],
+  aspect = 0,
+  legend = true,
+  width = '100%',
+  height = '100%',
 }: PieChartComponentProps) => {
   return (
-    <ResponsiveContainer width='100%' height='100%'>
-      <BarChart width={width} height={height} data={data.slice(0, 6)}>
+    <ResponsiveContainer width={width} height={height} aspect={aspect}>
+      <BarChart data={data.slice(0, 6)} margin={{ right: 0, left: 0, bottom: -10, top: 0 }}>
         <CartesianGrid strokeDasharray='3 3' strokeWidth={3} />
         <XAxis dataKey={dataKey} interval={0} fontSize={12} fontFamily='SUIT' fontWeight={600} />
 
@@ -46,27 +50,29 @@ const BarChartComponent = ({
             return [value, name]
           }}
         />
-        <Legend
-          payload={[
-            { value: '레이드 골드', type: 'square', id: 'raidGold', color: color[0] },
-            { value: '기타 골드', type: 'square', id: 'otherGold', color: color[1] },
-          ]}
-          formatter={(value) => (
-            <span
-              style={{
-                color: '#000',
-                fontFamily: 'SUIT',
-                fontWeight: 500,
-                fontSize: '14px',
-                lineHeight: '14px',
-                verticalAlign: 'middle',
-              }}
-            >
-              {value}
-            </span>
-          )}
-          iconType='square'
-        />
+        {legend && (
+          <Legend
+            payload={[
+              { value: '레이드 골드', type: 'square', id: 'raidGold', color: color[0] },
+              { value: '기타 골드', type: 'square', id: 'otherGold', color: color[1] },
+            ]}
+            formatter={(value) => (
+              <span
+                style={{
+                  color: '#000',
+                  fontFamily: 'SUIT',
+                  fontWeight: 500,
+                  fontSize: '14px',
+                  lineHeight: '14px',
+                  verticalAlign: 'middle',
+                }}
+              >
+                {value}
+              </span>
+            )}
+            iconType='square'
+          />
+        )}
 
         <Bar dataKey='raidGold' stackId='a' fill={color[0]} />
         <Bar dataKey='otherGold' stackId='a' fill={color[1]} />

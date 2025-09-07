@@ -12,7 +12,9 @@ const Userinfo = () => {
   const navigate = useNavigate()
 
   // 로그인시 접근가능 (게스트, 비로그인 접근 x)
-  useRequireUser('/login')
+  const checked = useRequireUser('/login')
+
+  if (!checked) return null
 
   const handleProfileSubmit = async (data: AuthFormData) => {
     setIsLoading(true)
@@ -31,13 +33,10 @@ const Userinfo = () => {
 
   return (
     <main className='flex h-full w-full justify-center'>
-      <Block width={390} height={310}>
-        <div className='flex w-full flex-col gap-5 p-4'>
-          <h2 className='mx-auto leading-none font-extrabold text-black'>회원 수정</h2>
-          <div className='flex flex-col gap-2'>
-            <UserinfoForm onSubmit={handleProfileSubmit} isLoading={isLoading} />
-            <DeleteUserForm />
-          </div>
+      <Block width={390} height={310} title='회원 수정' auth={true}>
+        <div className='flex flex-col gap-2'>
+          <UserinfoForm onSubmit={handleProfileSubmit} isLoading={isLoading} />
+          <DeleteUserForm />
         </div>
       </Block>
     </main>

@@ -3,15 +3,13 @@ import { expeditionGoldData } from '../../types/Types'
 
 interface AreaChartComponentProps {
   data: expeditionGoldData[]
-  width?: number
-  height?: number
   color?: string
+  aspect?: number
 }
 
 const SingleBarChartComponent = ({
   data,
-  width = 200,
-  height = 200,
+  aspect = 0,
   color = '#F59E0B',
 }: AreaChartComponentProps) => {
   // 최대 6주차까지 처리
@@ -28,8 +26,8 @@ const SingleBarChartComponent = ({
   })
 
   return (
-    <ResponsiveContainer width='100%' height='100%'>
-      <BarChart width={width} height={height} data={chartData} margin={{ right: 15, left: 15 }}>
+    <ResponsiveContainer width='100%' height='100%' aspect={aspect}>
+      <BarChart data={chartData} margin={{ right: 15, left: 15 }}>
         <CartesianGrid strokeDasharray='3 3' strokeWidth={2.5} />
         <XAxis dataKey='week' fontSize={12} fontFamily='SUIT' fontWeight={600} interval={0} />
         <Tooltip

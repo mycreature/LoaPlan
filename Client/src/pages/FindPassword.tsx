@@ -12,7 +12,9 @@ const FindPassword = () => {
   const navigate = useNavigate()
 
   // 비로그인시 접근가능 (로그인, 게스트 접근 x)
-  useRequireNoAuth()
+  const checked = useRequireNoAuth()
+
+  if (!checked) return null
 
   const handlePasswordSubmit = async (data: AuthFormData) => {
     setIsLoading(true)
@@ -30,11 +32,8 @@ const FindPassword = () => {
 
   return (
     <main className='flex h-full w-full justify-center'>
-      <Block width={390} height={398}>
-        <div className='flex h-full w-full flex-col gap-5 p-4'>
-          <h2 className='mx-auto leading-none font-extrabold text-black'>비밀번호 변경</h2>
-          <FindPasswordForm onSubmit={handlePasswordSubmit} isLoading={isLoading} />
-        </div>
+      <Block width={390} height={398} title='비밀번호 변경' auth={true}>
+        <FindPasswordForm onSubmit={handlePasswordSubmit} isLoading={isLoading} />
       </Block>
     </main>
   )

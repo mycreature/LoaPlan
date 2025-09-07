@@ -3,11 +3,14 @@ import { expeditionColors } from '../../styles/colors'
 import { useExpeditionGoldData } from '../../hook/useExpeditionGoldData'
 import Button from '../ui/Button'
 import { useNavigate } from 'react-router-dom'
-import LevelRangeList from '../barracks/LevelRangeList'
 import { getGoldByLevelRange } from '../../utils/expeditionDataUtils'
-import GoldDashboard from '../GoldDashboard'
+import LevelRangeList from '../barracks/LevelRangeList'
 
-const SummaryPreview = ({ viewport = '' }) => {
+interface viewportType {
+  type?: 'tablet' | 'mobile' | null
+}
+
+const GoldDistribution = ({ type = null }: viewportType) => {
   const expeditionGoldData = useExpeditionGoldData()
   const levelRangeExpeditionGoldData = getGoldByLevelRange(expeditionGoldData) || []
   const navigate = useNavigate()
@@ -21,21 +24,29 @@ const SummaryPreview = ({ viewport = '' }) => {
     )
   }
 
-  return (
-    <div className={`flex gap-11 ${viewport === 'mobile' ? 'flex-col' : ''} items-center`}>
-      {viewport !== 'tablet' && (
-        <PieChartComponent
-          data={levelRangeExpeditionGoldData}
-          colors={expeditionColors}
-          width={193}
-          height={196}
-          outerRadius={96.5}
-        />
-      )}
+  return type == 'tablet' ? (
+    <div className='grid h-full w-full grid-cols-1 place-items-center justify-center gap-3'>
+      <PieChartComponent
+        data={levelRangeExpeditionGoldData}
+        colors={expeditionColors}
+        width={148}
+      />
       <LevelRangeList levelRange={levelRangeExpeditionGoldData} />
-      <GoldDashboard GoldData={expeditionGoldData} width={307} height={196} />
+    </div>
+  ) : type == 'mobile' ? (
+    <div className='h-full w-full'>
+      <PieChartComponent
+        data={levelRangeExpeditionGoldData}
+        colors={expeditionColors}
+        height={250}
+      />
+    </div>
+  ) : (
+    <div className='grid h-full w-full grid-cols-[1fr_148px] items-center gap-6'>
+      <PieChartComponent data={levelRangeExpeditionGoldData} colors={expeditionColors} />
+      <LevelRangeList levelRange={levelRangeExpeditionGoldData} />
     </div>
   )
 }
 
-export default SummaryPreview
+export default GoldDistribution
