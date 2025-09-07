@@ -1,6 +1,7 @@
 import useViewportType from '../hook/useViewportType'
 import { useRequireUserOrGuest } from '../hook/useAuthRedirect'
 import LoadingLayout from '../layouts/LoadingLayout'
+import DesktopLayout from '../layouts/TimeEfficiency/DesktopLayout'
 
 const TimeEfficiency = () => {
   const isViewport = useViewportType()
@@ -12,7 +13,7 @@ const TimeEfficiency = () => {
     return (
       <div className='flex h-full w-full justify-center'>
         {isViewport === 'desktop' ? (
-          <div>Desktop</div>
+          <DesktopLayout />
         ) : isViewport === 'tablet' ? (
           <div>tablet</div>
         ) : isViewport === 'mobile' ? (
