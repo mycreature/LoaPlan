@@ -4,8 +4,8 @@ import RaidSelector from '../../components/selector/RaidSelector'
 import Block from '../../components/ui/Block'
 import { useExpeditionGoldData } from '../../hook/useExpeditionGoldData'
 import { useCharacterSelectionStore } from '../../stores/selections/CharacterSelectionStore'
-import BarChartComponent from '../../components/charts/BarChart'
-import SingleBarChartComponent from '../../components/charts/SingleBarChart'
+import WeeklyGoldChart from '../../components/charts/WeeklyGoldChart'
+import FutureWeeklyGoldChart from '../../components/charts/FutureWeeklyGoldChart'
 import { DefaultSelector } from '../../components/selector/DefaultSelector'
 
 const DesktopLayout = () => {
@@ -34,10 +34,10 @@ const DesktopLayout = () => {
         </Block>
         <div className='flex gap-[10px]'>
           <Block width={342} height={358} title='골드 차트'>
-            <BarChartComponent data={expeditionGoldData} />
+            <WeeklyGoldChart data={expeditionGoldData} />
           </Block>
           <Block width={342} height={358} title='주차별 골드 예상치'>
-            <SingleBarChartComponent data={expeditionGoldData} />
+            <FutureWeeklyGoldChart data={expeditionGoldData} />
           </Block>
         </div>
       </div>

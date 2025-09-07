@@ -1,17 +1,13 @@
 import { ResponsiveContainer, CartesianGrid, XAxis, Tooltip, Legend, BarChart, Bar } from 'recharts'
 import { expeditionGoldData } from '../../types/Types'
 
-interface AreaChartComponentProps {
+interface BarChartProps {
   data: expeditionGoldData[]
   color?: string
   aspect?: number
 }
 
-const SingleBarChartComponent = ({
-  data,
-  aspect = 0,
-  color = '#F59E0B',
-}: AreaChartComponentProps) => {
+const FutureWeeklyGoldChart = ({ data, aspect = 0, color = '#F59E0B' }: BarChartProps) => {
   // 최대 6주차까지 처리
   const totalBaseGold = data
     .slice(0, 6)
@@ -84,4 +80,4 @@ const SingleBarChartComponent = ({
   )
 }
 
-export default SingleBarChartComponent
+export default FutureWeeklyGoldChart

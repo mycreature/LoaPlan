@@ -12,7 +12,7 @@ interface BarChartProps {
   legend?: boolean
 }
 
-const BarChartComponent = ({
+const WeeklyGoldChart = ({
   data,
   dataKey = 'name',
   color = ['#8884d8', '#4BD66E'],
@@ -81,4 +81,4 @@ const BarChartComponent = ({
   )
 }
 
-export default BarChartComponent
+export default WeeklyGoldChart
