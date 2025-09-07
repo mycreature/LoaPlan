@@ -5,6 +5,7 @@ export interface RaidGate {
 
 export interface RaidType {
   type: '노말' | '하드' | '싱글'
+  label: string
   level: number
   gates: RaidGate[]
   totalGold: number
@@ -21,6 +22,7 @@ export const raidGoldTable: RaidGold[] = [
     type: [
       {
         type: '노말',
+        label: '노멘',
         level: 1610,
         gates: [
           { gate: 1, gold: 1600 },
@@ -31,6 +33,7 @@ export const raidGoldTable: RaidGold[] = [
       },
       {
         type: '하드',
+        label: '하멘',
         level: 1620,
         gates: [
           { gate: 1, gold: 2000 },
@@ -48,6 +51,7 @@ export const raidGoldTable: RaidGold[] = [
     type: [
       {
         type: '노말',
+        label: '노키',
         level: 1620,
         gates: [
           { gate: 1, gold: 2300 },
@@ -57,6 +61,7 @@ export const raidGoldTable: RaidGold[] = [
       },
       {
         type: '하드',
+        label: '하키',
         level: 1640,
         gates: [
           { gate: 1, gold: 2800 },
@@ -71,6 +76,7 @@ export const raidGoldTable: RaidGold[] = [
     type: [
       {
         type: '노말',
+        label: '베히',
         level: 1640,
         gates: [
           { gate: 1, gold: 2800 },
@@ -85,6 +91,7 @@ export const raidGoldTable: RaidGold[] = [
     type: [
       {
         type: '노말',
+        label: '노기르',
         level: 1660,
         gates: [
           { gate: 1, gold: 4750 },
@@ -94,6 +101,7 @@ export const raidGoldTable: RaidGold[] = [
       },
       {
         type: '하드',
+        label: '하기르',
         level: 1680,
         gates: [
           { gate: 1, gold: 8000 },
@@ -108,6 +116,7 @@ export const raidGoldTable: RaidGold[] = [
     type: [
       {
         type: '노말',
+        label: '노브2막',
         level: 1670,
         gates: [
           { gate: 1, gold: 7250 },
@@ -117,6 +126,7 @@ export const raidGoldTable: RaidGold[] = [
       },
       {
         type: '하드',
+        label: '하브2막',
         level: 1690,
         gates: [
           { gate: 1, gold: 10000 },
@@ -131,6 +141,7 @@ export const raidGoldTable: RaidGold[] = [
     type: [
       {
         type: '노말',
+        label: '노르둠',
         level: 1680,
         gates: [
           { gate: 1, gold: 6000 },
@@ -141,6 +152,7 @@ export const raidGoldTable: RaidGold[] = [
       },
       {
         type: '하드',
+        label: '하르둠',
         level: 1700,
         gates: [
           { gate: 1, gold: 7000 },

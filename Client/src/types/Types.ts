@@ -23,6 +23,7 @@ export interface RaidInfo {
 
 export interface OtherInfo {
   name: string
+  label?: string
   type: '전선' | '카게' | '가토'
   level: number
   drops: DropInfo[]
