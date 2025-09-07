@@ -1,8 +1,8 @@
 import useViewportType from '../hook/useViewportType'
 import { useRequireUserOrGuest } from '../hook/useAuthRedirect'
-import WeeklyDesktopLayout from '../layouts/weekly/WeeklyDesktopLayout'
-import WeeklyTabletLayout from '../layouts/weekly/WeeklyTabletLayout'
-import WeeklyMobileLayout from '../layouts/weekly/WeeklyMobileLayout'
+import WeeklyDesktopLayout from '../layouts/weekly/DesktopLayout'
+import WeeklyTabletLayout from '../layouts/weekly/TabletLayout'
+import WeeklyMobileLayout from '../layouts/weekly/MobileLayout'
 import LoadingLayout from '../layouts/LoadingLayout'
 
 const WeeklyGold = () => {
