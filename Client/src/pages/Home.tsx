@@ -1,7 +1,7 @@
 import useViewportType from '../hook/useViewportType'
-import HomeMobileLayout from '../layouts/HomeMobileLayout'
-import HomeDesktopLayout from '../layouts/HomeDesktopLayout'
-import HomeTabletLayout from '../layouts/HomeTabletLayout'
+import HomeMobileLayout from '../layouts/home/HomeMobileLayout'
+import HomeDesktopLayout from '../layouts/home/HomeDesktopLayout'
+import HomeTabletLayout from '../layouts/home/HomeTabletLayout'
 import { useRequireUserOrGuest } from '../hook/useAuthRedirect'
 import LoadingLayout from '../layouts/LoadingLayout'
 

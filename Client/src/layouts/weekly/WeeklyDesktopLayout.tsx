@@ -1,12 +1,12 @@
-import BarrackList from '../components/barracks/BarrackList'
-import GoldDashboard from '../components/GoldDashboard'
-import RaidSelector from '../components/selector/RaidSelector'
-import Block from '../components/ui/Block'
-import { useExpeditionGoldData } from '../hook/useExpeditionGoldData'
-import { useCharacterSelectionStore } from '../stores/selections/CharacterSelectionStore'
-import BarChartComponent from '../components/charts/BarChart'
-import SingleBarChartComponent from '../components/charts/SingleBarChart'
-import { DefaultSelector } from '../components/selector/DefaultSelector'
+import BarrackList from '../../components/barracks/BarrackList'
+import GoldDashboard from '../../components/GoldDashboard'
+import RaidSelector from '../../components/selector/RaidSelector'
+import Block from '../../components/ui/Block'
+import { useExpeditionGoldData } from '../../hook/useExpeditionGoldData'
+import { useCharacterSelectionStore } from '../../stores/selections/CharacterSelectionStore'
+import BarChartComponent from '../../components/charts/BarChart'
+import SingleBarChartComponent from '../../components/charts/SingleBarChart'
+import { DefaultSelector } from '../../components/selector/DefaultSelector'
 
 const WeeklyDesktopLayout = () => {
   const expeditionGoldData = useExpeditionGoldData() || []
