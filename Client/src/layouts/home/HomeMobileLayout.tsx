@@ -1,9 +1,9 @@
-import Block from '../components/ui/Block'
-import MainInfo from '../components/character/MainInfo'
-import BarrackList from '../components/barracks/BarrackList'
-import MainCard from '../components/character/MainCard'
-import WeeklyGoldPreview from '../components/Summary/WeeklyGoldPreview'
-import GoldDistribution from '../components/Summary/GoldDistribution'
+import Block from '../../components/ui/Block'
+import MainInfo from '../../components/character/MainInfo'
+import BarrackList from '../../components/barracks/BarrackList'
+import MainCard from '../../components/character/MainCard'
+import WeeklyGoldPreview from '../../components/Summary/WeeklyGoldPreview'
+import GoldDistribution from '../../components/Summary/GoldDistribution'
 
 const HomeMobileLayout = () => {
   return (
