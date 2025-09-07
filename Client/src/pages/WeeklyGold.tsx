@@ -1,8 +1,8 @@
 import useViewportType from '../hook/useViewportType'
 import { useRequireUserOrGuest } from '../hook/useAuthRedirect'
-import WeeklyDesktopLayout from '../layouts/weekly/DesktopLayout'
-import WeeklyTabletLayout from '../layouts/weekly/TabletLayout'
-import WeeklyMobileLayout from '../layouts/weekly/MobileLayout'
+import DesktopLayout from '../layouts/weekly/DesktopLayout'
+import TabletLayout from '../layouts/weekly/TabletLayout'
+import MobileLayout from '../layouts/weekly/MobileLayout'
 import LoadingLayout from '../layouts/LoadingLayout'
 
 const WeeklyGold = () => {
@@ -15,11 +15,11 @@ const WeeklyGold = () => {
     return (
       <div className='flex h-full w-full justify-center'>
         {isViewport === 'desktop' ? (
-          <WeeklyDesktopLayout />
+          <DesktopLayout />
         ) : isViewport === 'tablet' ? (
-          <WeeklyTabletLayout />
+          <TabletLayout />
         ) : isViewport === 'mobile' ? (
-          <WeeklyMobileLayout />
+          <MobileLayout />
         ) : (
           <LoadingLayout />
         )}

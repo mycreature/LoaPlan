@@ -5,7 +5,7 @@ import WeeklyGoldPreview from '../../components/Summary/WeeklyGoldPreview'
 import MainCard from '../../components/character/MainCard'
 import GoldDistribution from '../../components/Summary/GoldDistribution'
 
-const HomeTabletLayout = () => {
+const TabletLayout = () => {
   return (
     <main className='grid w-full grid-cols-[252px_1fr_198px] gap-[10px]'>
       <Block width={252} height={698} title='메인 정보' className='row-span-2'>
@@ -39,4 +39,4 @@ const HomeTabletLayout = () => {
   )
 }
 
-export default HomeTabletLayout
+export default TabletLayout

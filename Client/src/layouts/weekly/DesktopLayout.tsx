@@ -8,7 +8,7 @@ import BarChartComponent from '../../components/charts/BarChart'
 import SingleBarChartComponent from '../../components/charts/SingleBarChart'
 import { DefaultSelector } from '../../components/selector/DefaultSelector'
 
-const WeeklyDesktopLayout = () => {
+const DesktopLayout = () => {
   const expeditionGoldData = useExpeditionGoldData() || []
   const SelectedCharacterInfo = useCharacterSelectionStore((state) => state.SelectedCharacterInfo)
 
@@ -45,4 +45,4 @@ const WeeklyDesktopLayout = () => {
   )
 }
 
-export default WeeklyDesktopLayout
+export default DesktopLayout

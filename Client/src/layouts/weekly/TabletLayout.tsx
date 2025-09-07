@@ -8,7 +8,7 @@ import { useExpeditionGoldData } from '../../hook/useExpeditionGoldData'
 import { useCharacterSelectionStore } from '../../stores/selections/CharacterSelectionStore'
 import { DefaultSelector } from '../../components/selector/DefaultSelector'
 
-const WeeklyTabletLayout = () => {
+const TabletLayout = () => {
   const expeditionGoldData = useExpeditionGoldData() || []
   const SelectedCharacterInfo = useCharacterSelectionStore((state) => state.SelectedCharacterInfo)
 
@@ -47,4 +47,4 @@ const WeeklyTabletLayout = () => {
   )
 }
 
-export default WeeklyTabletLayout
+export default TabletLayout
