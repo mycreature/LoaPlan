@@ -51,3 +51,9 @@ export interface expeditionGoldData {
   raidGold: number
   otherGold: number
 }
+
+export interface contentsTimeSelection {
+  raid: number
+  frontline: number
+  guardian: number
+}
