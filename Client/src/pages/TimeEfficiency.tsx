@@ -2,6 +2,8 @@ import useViewportType from '../hook/useViewportType'
 import { useRequireUserOrGuest } from '../hook/useAuthRedirect'
 import LoadingLayout from '../layouts/LoadingLayout'
 import DesktopLayout from '../layouts/TimeEfficiency/DesktopLayout'
+import TabletLayout from '../layouts/TimeEfficiency/TabletLayout'
+import MobileLayout from '../layouts/TimeEfficiency/MobileLayout'
 
 const TimeEfficiency = () => {
   const isViewport = useViewportType()
@@ -15,9 +17,9 @@ const TimeEfficiency = () => {
         {isViewport === 'desktop' ? (
           <DesktopLayout />
         ) : isViewport === 'tablet' ? (
-          <div>tablet</div>
+          <TabletLayout />
         ) : isViewport === 'mobile' ? (
-          <div>mobile</div>
+          <MobileLayout />
         ) : (
           <LoadingLayout />
         )}
