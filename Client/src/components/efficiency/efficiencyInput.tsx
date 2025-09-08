@@ -13,12 +13,19 @@ export const EfficiencyInput = ({
   width = 30,
   height = 24,
 }: EfficiencyInputProps) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value
+    // 숫자만 허용, 최대 2자리
+    if (/^\d{0,2}$/.test(val)) {
+      onChange(val)
+    }
+  }
+
   return (
     <input
       type='text'
-      pattern='[0-9]*'
       value={value}
-      onChange={(e) => onChange(e.target.value)}
+      onChange={handleChange}
       onBlur={() => onBlur(value)}
       style={{
         width: typeof width === 'number' ? `${width}px` : width,
