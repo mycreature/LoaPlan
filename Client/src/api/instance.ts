@@ -13,7 +13,7 @@ export const createLostarkInstance = (apikey: string) => {
 
   instance.interceptors.request.use(
     function (config: any) {
-      console.log('✅ Lostark API 응답')
+      // console.log('✅ Lostark API 응답')
       config.headers!.authorization = apiKey
       return config
     },
