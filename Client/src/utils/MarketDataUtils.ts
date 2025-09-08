@@ -5,7 +5,8 @@ export const calculateGoldByDrops = (
 ) => {
   let totalGold = drops.reduce((acc, drop) => {
     const item = refineItemInfos[drop.name]
-    const price = item?.RecentPrice / item?.BundleCount || 0
+    const price = item?.RecentPrice / item?.BundleCount || item?.StartPrice || 0
+
     return acc + price * drop.amount
   }, 0)
 

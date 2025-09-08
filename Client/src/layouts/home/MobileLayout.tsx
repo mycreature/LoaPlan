@@ -1,11 +1,11 @@
-import Block from '../components/ui/Block'
-import MainInfo from '../components/character/MainInfo'
-import BarrackList from '../components/barracks/BarrackList'
-import MainCard from '../components/character/MainCard'
-import WeeklyGoldPreview from '../components/Summary/WeeklyGoldPreview'
-import GoldDistribution from '../components/Summary/GoldDistribution'
+import Block from '../../components/ui/Block'
+import MainInfo from '../../components/character/MainInfo'
+import BarrackList from '../../components/barracks/BarrackList'
+import MainCard from '../../components/character/MainCard'
+import WeeklyGoldPreview from '../../components/Summary/WeeklyGoldPreview'
+import GoldDistribution from '../../components/Summary/GoldDistribution'
 
-const HomeMobileLayout = () => {
+const MobileLayout = () => {
   return (
     <main className='grid w-full grid-cols-[1fr] space-y-[10px]'>
       <Block height={374} title='메인 정보'>
@@ -27,4 +27,4 @@ const HomeMobileLayout = () => {
   )
 }
 
-export default HomeMobileLayout
+export default MobileLayout

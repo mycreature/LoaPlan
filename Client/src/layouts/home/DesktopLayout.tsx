@@ -1,11 +1,11 @@
-import Block from '../components/ui/Block'
-import MainInfo from '../components/character/MainInfo'
-import BarrackList from '../components/barracks/BarrackList'
-import WeeklyGoldPreview from '../components/Summary/WeeklyGoldPreview'
-import MainCard from '../components/character/MainCard'
-import GoldDistribution from '../components/Summary/GoldDistribution'
+import Block from '../../components/ui/Block'
+import MainInfo from '../../components/character/MainInfo'
+import BarrackList from '../../components/barracks/BarrackList'
+import WeeklyGoldPreview from '../../components/Summary/WeeklyGoldPreview'
+import MainCard from '../../components/character/MainCard'
+import GoldDistribution from '../../components/Summary/GoldDistribution'
 
-const HomeDesktopLayout = () => {
+const DesktopLayout = () => {
   return (
     <main className='flex flex-col gap-[10px]'>
       <div className='flex gap-[10px]'>
@@ -32,4 +32,4 @@ const HomeDesktopLayout = () => {
   )
 }
 
-export default HomeDesktopLayout
+export default DesktopLayout

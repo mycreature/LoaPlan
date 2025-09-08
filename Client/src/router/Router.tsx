@@ -6,6 +6,7 @@ import Userinfo from '../pages/Userinfo'
 import FindPassword from '../pages/FindPassword'
 import WeeklyGold from '../pages/WeeklyGold'
 import Layout from '../layouts/DefaultLayout'
+import TimeEfficiency from '../pages/TimeEfficiency'
 
 const Router = () => {
   return (
@@ -56,6 +57,14 @@ const Router = () => {
           element={
             <Layout>
               <WeeklyGold />
+            </Layout>
+          }
+        />
+        <Route
+          path='/time-efficiency'
+          element={
+            <Layout>
+              <TimeEfficiency />
             </Layout>
           }
         />

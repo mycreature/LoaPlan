@@ -30,15 +30,20 @@ const Login = () => {
   }
 
   const handleGusetLogin = async () => {
+    // confirm으로 사용자 확인
+    const confirmLogin = window.confirm(
+      '게스트 로그인 시 일부 기능이 제한됩니다. 접속하시겠습니까? \n새로고침시 로그아웃 됩니다.',
+    )
+    if (!confirmLogin) return // 취소 시 종료
+
     setLoadingGuest(true)
     try {
       await requestGuestUser()
+      navigate('/')
     } catch (error: any) {
       alert(error.response?.data?.message || '게스트 로그인 중 오류 발생')
     } finally {
       setLoadingGuest(false)
-      alert('게스트 로그인 성공')
-      navigate('/')
     }
   }
 

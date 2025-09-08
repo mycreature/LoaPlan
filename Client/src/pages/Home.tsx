@@ -1,7 +1,7 @@
 import useViewportType from '../hook/useViewportType'
-import HomeMobileLayout from '../layouts/HomeMobileLayout'
-import HomeDesktopLayout from '../layouts/HomeDesktopLayout'
-import HomeTabletLayout from '../layouts/HomeTabletLayout'
+import MobileLayout from '../layouts/home/MobileLayout'
+import DesktopLayout from '../layouts/home/DesktopLayout'
+import TabletLayout from '../layouts/home/TabletLayout'
 import { useRequireUserOrGuest } from '../hook/useAuthRedirect'
 import LoadingLayout from '../layouts/LoadingLayout'
 
@@ -15,11 +15,11 @@ const Home = () => {
     return (
       <div className='flex h-full w-full justify-center'>
         {isViewport === 'desktop' ? (
-          <HomeDesktopLayout />
+          <DesktopLayout />
         ) : isViewport === 'tablet' ? (
-          <HomeTabletLayout />
+          <TabletLayout />
         ) : isViewport === 'mobile' ? (
-          <HomeMobileLayout />
+          <MobileLayout />
         ) : (
           <LoadingLayout />
         )}

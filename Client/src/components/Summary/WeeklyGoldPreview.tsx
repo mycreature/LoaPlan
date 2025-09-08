@@ -3,7 +3,7 @@ import Button from '../ui/Button'
 import { useNavigate } from 'react-router-dom'
 import { getGoldByLevelRange } from '../../utils/expeditionDataUtils'
 import GoldDashboard from '../GoldDashboard'
-import BarChartComponent from '../charts/BarChart'
+import WeeklyGoldChart from '../charts/WeeklyGoldChart'
 
 interface viewportType {
   type: 'tablet' | 'mobile' | 'desktop' | null
@@ -25,19 +25,19 @@ const WeeklyGoldPreview = ({ type = null }: viewportType) => {
 
   return type === 'desktop' ? (
     <div className='flex w-full gap-5'>
-      <BarChartComponent data={expeditionGoldData} legend={false} height={196} />
+      <WeeklyGoldChart data={expeditionGoldData} legend={false} height={196} />
       <GoldDashboard GoldData={expeditionGoldData} height={196} />
     </div>
   ) : type === 'tablet' ? (
     <div className='md-lg:grid-cols-[1fr_255px] grid h-full w-full grid-cols-1 items-center gap-5'>
-      <BarChartComponent data={expeditionGoldData} legend={false} height={196} />
+      <WeeklyGoldChart data={expeditionGoldData} legend={false} height={196} />
       <div className='md-lg:block hidden'>
         <GoldDashboard GoldData={expeditionGoldData} height={196} />
       </div>
     </div>
   ) : type === 'mobile' ? (
     <div className='sm-md:grid-cols-[1fr_255px] grid w-full grid-cols-1 items-center justify-center gap-6'>
-      <BarChartComponent data={expeditionGoldData} legend={false} height={196} />
+      <WeeklyGoldChart data={expeditionGoldData} legend={false} height={196} />
       <GoldDashboard GoldData={expeditionGoldData} height={196} />
     </div>
   ) : null

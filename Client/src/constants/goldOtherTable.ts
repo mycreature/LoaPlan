@@ -51,6 +51,7 @@ export const goldOtherTable: OtherInfo[] = [
   },
   {
     name: '아게오로스',
+    label: '아게',
     type: '가토',
     level: 1640,
     drops: [
@@ -63,6 +64,7 @@ export const goldOtherTable: OtherInfo[] = [
   },
   {
     name: '스콜라키아',
+    label: '스콜',
     type: '가토',
     level: 1680,
     drops: [
@@ -75,6 +77,7 @@ export const goldOtherTable: OtherInfo[] = [
   },
   {
     name: '드렉탈라스',
+    label: '드렉',
     type: '가토',
     level: 1700,
     drops: [

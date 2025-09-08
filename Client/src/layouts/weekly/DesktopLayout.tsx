@@ -1,14 +1,14 @@
-import BarrackList from '../components/barracks/BarrackList'
-import GoldDashboard from '../components/GoldDashboard'
-import RaidSelector from '../components/selector/RaidSelector'
-import Block from '../components/ui/Block'
-import { useExpeditionGoldData } from '../hook/useExpeditionGoldData'
-import { useCharacterSelectionStore } from '../stores/selections/CharacterSelectionStore'
-import BarChartComponent from '../components/charts/BarChart'
-import SingleBarChartComponent from '../components/charts/SingleBarChart'
-import { DefaultSelector } from '../components/selector/DefaultSelector'
+import BarrackList from '../../components/barracks/BarrackList'
+import GoldDashboard from '../../components/GoldDashboard'
+import RaidSelector from '../../components/selector/RaidSelector'
+import Block from '../../components/ui/Block'
+import { useExpeditionGoldData } from '../../hook/useExpeditionGoldData'
+import { useCharacterSelectionStore } from '../../stores/selections/CharacterSelectionStore'
+import WeeklyGoldChart from '../../components/charts/WeeklyGoldChart'
+import FutureWeeklyGoldChart from '../../components/charts/FutureWeeklyGoldChart'
+import { DefaultSelector } from '../../components/selector/DefaultSelector'
 
-const WeeklyDesktopLayout = () => {
+const DesktopLayout = () => {
   const expeditionGoldData = useExpeditionGoldData() || []
   const SelectedCharacterInfo = useCharacterSelectionStore((state) => state.SelectedCharacterInfo)
 
@@ -34,10 +34,10 @@ const WeeklyDesktopLayout = () => {
         </Block>
         <div className='flex gap-[10px]'>
           <Block width={342} height={358} title='골드 차트'>
-            <BarChartComponent data={expeditionGoldData} />
+            <WeeklyGoldChart data={expeditionGoldData} />
           </Block>
           <Block width={342} height={358} title='주차별 골드 예상치'>
-            <SingleBarChartComponent data={expeditionGoldData} />
+            <FutureWeeklyGoldChart data={expeditionGoldData} />
           </Block>
         </div>
       </div>
@@ -45,4 +45,4 @@ const WeeklyDesktopLayout = () => {
   )
 }
 
-export default WeeklyDesktopLayout
+export default DesktopLayout

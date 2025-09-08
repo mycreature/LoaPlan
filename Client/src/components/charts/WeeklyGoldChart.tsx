@@ -1,7 +1,7 @@
 import { BarChart, CartesianGrid, XAxis, Tooltip, Legend, Bar, ResponsiveContainer } from 'recharts'
 import { expeditionGoldData } from '../../types/Types'
 
-interface PieChartComponentProps {
+interface BarChartProps {
   data: expeditionGoldData[]
   colors?: string[]
   dataKey?: string
@@ -12,7 +12,7 @@ interface PieChartComponentProps {
   legend?: boolean
 }
 
-const BarChartComponent = ({
+const WeeklyGoldChart = ({
   data,
   dataKey = 'name',
   color = ['#8884d8', '#4BD66E'],
@@ -20,7 +20,7 @@ const BarChartComponent = ({
   legend = true,
   width = '100%',
   height = '100%',
-}: PieChartComponentProps) => {
+}: BarChartProps) => {
   return (
     <ResponsiveContainer width={width} height={height} aspect={aspect}>
       <BarChart data={data.slice(0, 6)} margin={{ right: 0, left: 0, bottom: -10, top: 0 }}>
@@ -45,8 +45,10 @@ const BarChartComponent = ({
             marginTop: '8px',
           }}
           formatter={(value, name) => {
-            if (name === 'raidGold') return [value, '레이드 골드']
-            if (name === 'otherGold') return [value, '기타 골드']
+            if (name === 'raidGold')
+              return [`${new Intl.NumberFormat().format(Number(value))}G`, '레이드 골드']
+            if (name === 'otherGold')
+              return [`${new Intl.NumberFormat().format(Number(value))}G`, '기타 골드']
             return [value, name]
           }}
         />
@@ -81,4 +83,4 @@ const BarChartComponent = ({
   )
 }
 
-export default BarChartComponent
+export default WeeklyGoldChart

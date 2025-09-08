@@ -1,14 +1,14 @@
-import BarrackList from '../components/barracks/BarrackList'
-import SingleBarChartComponent from '../components/charts/SingleBarChart'
-import BarChartComponent from '../components/charts/BarChart'
-import GoldDashboard from '../components/GoldDashboard'
-import RaidSelector from '../components/selector/RaidSelector'
-import Block from '../components/ui/Block'
-import { useExpeditionGoldData } from '../hook/useExpeditionGoldData'
-import { useCharacterSelectionStore } from '../stores/selections/CharacterSelectionStore'
-import { DefaultSelector } from '../components/selector/DefaultSelector'
+import BarrackList from '../../components/barracks/BarrackList'
+import FutureWeeklyGoldChart from '../../components/charts/FutureWeeklyGoldChart'
+import WeeklyGoldChart from '../../components/charts/WeeklyGoldChart'
+import GoldDashboard from '../../components/GoldDashboard'
+import RaidSelector from '../../components/selector/RaidSelector'
+import Block from '../../components/ui/Block'
+import { useExpeditionGoldData } from '../../hook/useExpeditionGoldData'
+import { useCharacterSelectionStore } from '../../stores/selections/CharacterSelectionStore'
+import { DefaultSelector } from '../../components/selector/DefaultSelector'
 
-const WeeklyTabletLayout = () => {
+const TabletLayout = () => {
   const expeditionGoldData = useExpeditionGoldData() || []
   const SelectedCharacterInfo = useCharacterSelectionStore((state) => state.SelectedCharacterInfo)
 
@@ -36,15 +36,15 @@ const WeeklyTabletLayout = () => {
 
       <div className='row-span-1 flex flex-col gap-[10px]'>
         <Block height={329} title='골드 차트'>
-          <BarChartComponent data={expeditionGoldData} />
+          <WeeklyGoldChart data={expeditionGoldData} />
         </Block>
 
         <Block height={328} title='주차별 골드 예상치'>
-          <SingleBarChartComponent data={expeditionGoldData} />
+          <FutureWeeklyGoldChart data={expeditionGoldData} />
         </Block>
       </div>
     </main>
   )
 }
 
-export default WeeklyTabletLayout
+export default TabletLayout

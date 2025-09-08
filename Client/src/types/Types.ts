@@ -23,6 +23,7 @@ export interface RaidInfo {
 
 export interface OtherInfo {
   name: string
+  label?: string
   type: '전선' | '카게' | '가토'
   level: number
   drops: DropInfo[]
@@ -50,4 +51,10 @@ export interface expeditionGoldData {
   level: string
   raidGold: number
   otherGold: number
+}
+
+export interface contentsTimeSelection {
+  raid: number
+  frontline: number
+  guardian: number
 }
