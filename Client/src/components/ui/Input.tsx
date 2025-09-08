@@ -1,10 +1,11 @@
 import useThemeStore from '../../stores/others/ThemeStore'
 
 interface InputProps {
-  value?: string
+  value?: string | number
   onBlur?: (e: React.ChangeEvent<HTMLInputElement>) => void
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
   placeholder?: string
+  pattern?: string
   type?: string
   className?: string
   error?: string
@@ -22,6 +23,7 @@ const Input = ({
   className = '',
   error = '',
   disabled = false,
+  pattern = '',
   width,
   height,
 }: InputProps) => {
@@ -31,6 +33,7 @@ const Input = ({
     <input
       type={type}
       value={value}
+      pattern={pattern}
       onBlur={onBlur}
       onChange={onChange}
       placeholder={placeholder}
