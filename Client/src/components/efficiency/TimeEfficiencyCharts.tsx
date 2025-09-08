@@ -1,14 +1,16 @@
-import { Bar, BarChart, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis, Cell } from 'recharts'
+import { ResponsiveContainer, BarChart, XAxis, YAxis, Tooltip, Legend, Bar, Cell } from 'recharts'
 
-// 레이드, 전선, 가토 클리어 시간 (분 단위)
 interface TimeEfficiencyChartsProps {
   data: any
   datakey: string
-  colors?: Record<string, string> // type별 색상 맵
+  colors?: Record<string, string>
   width?: number | string
   height?: number | string
   aspect?: number
   legend?: boolean
+  fontFamily?: string
+  fontSize?: number
+  fontWeight?: number | string
 }
 
 const TimeEfficiencyCharts = ({
@@ -16,7 +18,7 @@ const TimeEfficiencyCharts = ({
   datakey = '',
   colors = {
     노말: '#4BD66E',
-    하드: '#4BD66E', // 노말/하드 동일
+    하드: '#4BD66E',
     전선: '#F59E0B',
     가토: '#8884d8',
   },
@@ -24,21 +26,29 @@ const TimeEfficiencyCharts = ({
   height = '100%',
   aspect = 1,
   legend = true,
+  fontFamily: xAxisFontFamily = 'SUIT',
+  fontSize: xAxisFontSize = 12,
+  fontWeight: xAxisFontWeight = 600,
 }: TimeEfficiencyChartsProps) => {
   return (
     <div className='flex'>
       <ResponsiveContainer width={width} height={height} aspect={aspect}>
-        <BarChart data={data} margin={{ right: 20, left: 20, bottom: 20, top: 20 }}>
+        <BarChart data={data} margin={{ right: 20, left: 0, bottom: 20, top: 20 }}>
           <XAxis
             dataKey={datakey}
             interval={0}
-            fontSize={12}
-            fontFamily='SUIT'
-            fontWeight={600}
+            fontSize={xAxisFontSize}
+            fontFamily={xAxisFontFamily}
+            fontWeight={xAxisFontWeight}
             angle={-45}
             textAnchor='end'
           />
-          <YAxis tickFormatter={(value) => new Intl.NumberFormat().format(value)} />
+          <YAxis
+            tickFormatter={(value) => new Intl.NumberFormat().format(value)}
+            fontSize={xAxisFontSize}
+            fontFamily={xAxisFontFamily}
+            fontWeight={xAxisFontWeight}
+          />
 
           <Tooltip
             itemStyle={{ color: '#000', fontSize: 14, fontFamily: 'SUIT', fontWeight: 500 }}
@@ -56,7 +66,7 @@ const TimeEfficiencyCharts = ({
               marginBottom: '4px',
               marginTop: '8px',
             }}
-            formatter={(value) => [`시간당 :  ${new Intl.NumberFormat().format(Number(value))} G`]}
+            formatter={(value) => [`시간당 : ${new Intl.NumberFormat().format(Number(value))} G`]}
           />
 
           {legend && (
@@ -73,7 +83,7 @@ const TimeEfficiencyCharts = ({
                     color: '#000',
                     fontFamily: 'SUIT',
                     fontWeight: 500,
-                    fontSize: '14px',
+                    fontSize: 14,
                     lineHeight: '14px',
                     verticalAlign: 'middle',
                   }}
