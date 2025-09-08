@@ -16,7 +16,7 @@ const Header = () => {
     { to: '/charts', label: '시세차트', disabled: true },
     { to: '/weekly-gold', label: '주간골드', disabled: false },
     { to: '/time-efficiency', label: '시간효율', disabled: false },
-    { to: '/gold-efficiency', label: '골드효율', disabled: true },
+    // { to: '/gold-efficiency', label: '골드효율', disabled: true },
   ]
 
   const navigate = useNavigate()
