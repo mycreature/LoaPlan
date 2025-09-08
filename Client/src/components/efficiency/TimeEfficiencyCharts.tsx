@@ -56,7 +56,7 @@ const TimeEfficiencyCharts = ({
               marginBottom: '4px',
               marginTop: '8px',
             }}
-            formatter={(value, name) => [new Intl.NumberFormat().format(Number(value)), name]}
+            formatter={(value) => [`시간당 :  ${new Intl.NumberFormat().format(Number(value))} G`]}
           />
 
           {legend && (
