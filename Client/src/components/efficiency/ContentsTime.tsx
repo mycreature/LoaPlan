@@ -53,7 +53,7 @@ export const ContentsTime = () => {
     },
   ]
 
-  const commonDivClass = `${darkMode ? 'border-black/20' : 'border-gray'} flex items-center justify-between rounded-lg border-3 px-3 py-2`
+  const commonDivClass = `${darkMode ? 'border-black/20' : 'border-gray'} flex shrink-0 items-center justify-between rounded-lg border-3 px-3 py-2 max-md:w-full max-md:justify-center  `
 
   return (
     <div className='flex items-start justify-start gap-3 max-md:flex-col'>
