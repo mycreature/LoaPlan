@@ -1,3 +1,4 @@
+import { ContentsTime } from '../../components/efficiency/ContentsTime'
 import TimeEfficiencyCharts from '../../components/efficiency/TimeEfficiencyCharts'
 import Block from '../../components/ui/Block'
 import { useEfficiencyData } from '../../hook/useEfficiencyData'
@@ -12,9 +13,12 @@ const DesktopLayout = () => {
 
   return (
     <main className='flex'>
-      <Block width={1004} title='컨텐츠 시간효율'>
-        <div className={`rounded-lg border-3 ${darkMode ? 'border-black/20' : 'border-gray'}`}>
-          <TimeEfficiencyCharts data={totalData} datakey='name' legend={false} aspect={2} />
+      <Block width={1004} title='시간당 골드 획득량'>
+        <div className='flex flex-col gap-3'>
+          <ContentsTime />
+          <div className={`rounded-lg border-3 ${darkMode ? 'border-black/20' : 'border-gray'}`}>
+            <TimeEfficiencyCharts data={totalData} datakey='name' legend={false} aspect={2} />
+          </div>
         </div>
       </Block>
     </main>
