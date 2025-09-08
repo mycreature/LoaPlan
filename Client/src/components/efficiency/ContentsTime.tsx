@@ -6,6 +6,7 @@ import { useContentsTimeStore } from '../../stores/selections/ContentsTimeSelect
 
 export const ContentsTime = () => {
   const {
+    contentsTime: { raid, guardian, frontline },
     isFrontline,
     isGuardian,
     setFrontlineTime,
@@ -17,9 +18,9 @@ export const ContentsTime = () => {
 
   const darkMode = useThemeStore((state) => state.darkMode)
 
-  const [localRaid, setLocalRaid] = useState<number>(30) //
-  const [localGuardian, setLocalGuardian] = useState<number>(3)
-  const [localFrontline, setLocalFrontline] = useState<number>(3)
+  const [localRaid, setLocalRaid] = useState<number>(raid) //
+  const [localGuardian, setLocalGuardian] = useState<number>(guardian)
+  const [localFrontline, setLocalFrontline] = useState<number>(frontline)
 
   // 각 UI 블록 필요한 데이터를 배열로 정의합니다.
   const contentData = [
