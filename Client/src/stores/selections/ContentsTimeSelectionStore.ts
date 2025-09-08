@@ -15,8 +15,8 @@ interface ContentsTimeStore {
 
 export const useContentsTimeStore = create<ContentsTimeStore>((set) => ({
   contentsTime: {
-    raid: 10, // 게이트당 10분
-    guardian: 5, // 기본값 전체 5분
+    raid: 30, // 레이드당 30분
+    guardian: 3, // 기본값 전체 3분
     frontline: 3, // 기본값 전체 3분
   },
   isFrontline: false, // 전선 2배 여부
