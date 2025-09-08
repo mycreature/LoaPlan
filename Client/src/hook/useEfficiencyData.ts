@@ -15,11 +15,10 @@ export const useEfficiencyData = () => {
   // raid의 이름 및 레이드 종합 골드 변환
   const raidData = raidGoldTable.flatMap((table) =>
     table.type.map((t) => {
-      const totalRaidTime = raid * t.gates.length // 각 레이드의 게이트 갯수 반영
       return {
         name: t.label,
         type: t.type,
-        Gold: (t.totalGold / totalRaidTime) * 60, // 시간당 골드 (차트의 datakey 이기에 대문자)
+        Gold: (t.totalGold / raid) * 60, // 시간당 골드 (차트의 datakey 이기에 대문자)
       }
     }),
   )
@@ -32,7 +31,7 @@ export const useEfficiencyData = () => {
       return {
         name: table.name,
         type: table.type,
-        Gold: (gold / frontline) * 60 * 7 * (isFrontline ? 2 : 1), // 시간당 골드 (차트의 datakey 이기에 대문자)
+        Gold: (gold / frontline) * 60 * (isFrontline ? 2 : 1), // 시간당 골드 (차트의 datakey 이기에 대문자)
       }
     })
 
@@ -44,7 +43,7 @@ export const useEfficiencyData = () => {
       return {
         name: table.label,
         type: table.type,
-        Gold: (gold / guardian) * 60 * 7 * (isGuardian ? 2 : 1), // 시간당 골드 (차트의 datakey 이기에 대문자)
+        Gold: (gold / guardian) * 60 * (isGuardian ? 2 : 1), // 시간당 골드 (차트의 datakey 이기에 대문자)
       }
     })
 
