@@ -44,7 +44,8 @@ const FutureWeeklyGoldChart = ({ data, aspect = 0, color = '#F59E0B' }: BarChart
             marginTop: '4px',
           }}
           formatter={(value, name) => {
-            if (name === 'totalGold') return [value, '종합 골드']
+            if (name === 'totalGold')
+              return [`${new Intl.NumberFormat().format(Number(value))}G`, '종합 골드']
             return [value, name]
           }}
         />

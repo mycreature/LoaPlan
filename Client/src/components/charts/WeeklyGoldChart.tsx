@@ -45,8 +45,10 @@ const WeeklyGoldChart = ({
             marginTop: '8px',
           }}
           formatter={(value, name) => {
-            if (name === 'raidGold') return [value, '레이드 골드']
-            if (name === 'otherGold') return [value, '기타 골드']
+            if (name === 'raidGold')
+              return [`${new Intl.NumberFormat().format(Number(value))}G`, '레이드 골드']
+            if (name === 'otherGold')
+              return [`${new Intl.NumberFormat().format(Number(value))}G`, '기타 골드']
             return [value, name]
           }}
         />
