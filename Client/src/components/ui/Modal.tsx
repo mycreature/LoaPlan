@@ -22,7 +22,7 @@ const Modal = ({ open, onClose, children, isButton = false }: ModalProps) => {
 
   return (
     <div
-      className='fixed inset-0 z-50 flex items-center justify-center bg-black/50'
+      className='fixed inset-0 z-50 flex items-start justify-center bg-black/50 pt-40'
       onClick={handleOverlayClick}
     >
       <div className='rounded-lg bg-white shadow-lg' onClick={handleModalContentClick}>
