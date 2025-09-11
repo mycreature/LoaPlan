@@ -4,6 +4,8 @@ import { requestLogOut } from '../api/userApi'
 import Sidebar from '../components/ui/Sidebar'
 import { useState } from 'react'
 import { getAuthStatus } from '../hook/useAuthRedirect'
+import Modal from '../components/ui/Modal'
+import FAQ from '../components/etc/FAQ'
 
 const Header = () => {
   // user: 로그인 된 사용자 정보
@@ -22,8 +24,12 @@ const Header = () => {
   const navigate = useNavigate()
 
   const [isOpen, setIsOpen] = useState(false)
-  const toggleSideOpen = () => setIsOpen((isOpen) => !isOpen)
+  const toggleIsOpen = () => setIsOpen((isOpen) => !isOpen)
   const closeSidebar = () => setIsOpen(false)
+
+  const [FAQstate, setFAQ] = useState(false)
+  const toogleFAQ = () => setFAQ((isOpen) => !isOpen)
+  const closeFAQ = () => setFAQ(false)
 
   const handleLogout = () => {
     try {
@@ -54,6 +60,9 @@ const Header = () => {
       className={`fixed top-0 left-0 z-50 h-[50px] w-full transition-colors ${darkMode ? 'bg-black' : 'bg-green'}`}
     >
       <div className='flex h-full items-center px-7'>
+        <Modal open={FAQstate} onClose={closeFAQ}>
+          <FAQ />
+        </Modal>
         {/* 로고 */}
         <div className='mr-13 flex shrink-0 items-center gap-2'>
           <button
@@ -68,7 +77,7 @@ const Header = () => {
         </div>
 
         {/* 해더바 메뉴들 */}
-        <nav className='hidden gap-10 lg:flex'>
+        <nav className='hidden gap-10 lg:flex lg:items-center'>
           {navLinks.map(({ to, label, disabled }) => (
             <button
               key={to}
@@ -80,6 +89,25 @@ const Header = () => {
           ))}
         </nav>
         <div className='mr-0 ml-auto flex gap-5'>
+          <button
+            onClick={toogleFAQ}
+            className='hidden items-center justify-center rounded-full border-2 border-white bg-transparent p-2 lg:flex'
+          >
+            <svg
+              className='h-5 w-5 scale-170 text-white'
+              fill='none'
+              viewBox='0 0 24 24'
+              stroke='currentColor'
+              strokeWidth={2}
+            >
+              <path
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                d='M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M12 17.25h.01'
+              />
+            </svg>
+          </button>
+
           {/* 다크모드 토글 버튼 */}
           <button
             onClick={toggleDarkMode}
@@ -122,7 +150,7 @@ const Header = () => {
           {/* 사이드바 메뉴 (햄버거 메뉴)*/}
           <button
             className='m-0 h-8 w-8 border-none bg-transparent p-0 lg:hidden'
-            onClick={toggleSideOpen}
+            onClick={toggleIsOpen}
             style={{ display: 'inline-flex' }}
           >
             <img src='/icons/hamburgerMenu.svg' alt='menu' />
@@ -148,6 +176,16 @@ const Header = () => {
                   <h3 className='pl-2 text-white'>프로필</h3>
                 </button>
               ) : null}
+              {/* FAQ 버튼 */}
+              <button
+                onClick={() => {
+                  toogleFAQ()
+                }}
+                className='flex h-full w-full items-center border-none bg-transparent p-0 whitespace-nowrap'
+              >
+                <h3 className='pl-2 text-white'>FAQ</h3>
+              </button>
+
               {/* 로그인 / 로그아웃 버튼 */}
               {isLogin == true || isGuest == true ? (
                 <button
