@@ -37,7 +37,7 @@ const Modal = ({ open, onClose, children, isButton = false }: ModalProps) => {
 
   return (
     <div
-      className='fixed inset-0 z-50 flex items-start justify-center bg-black/50 pt-40'
+      className='fixed inset-0 z-50 flex items-start justify-center bg-black/50 pt-30'
       onClick={handleOverlayClick}
     >
       <div
