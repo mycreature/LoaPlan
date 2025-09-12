@@ -33,6 +33,7 @@ export const useCharacterSelectionStore = create<SelectedCharacterState>((set) =
           CharacterLevel: res.CharacterLevel,
           image: res.CharacterImage,
           combatPower: res.CombatPower,
+          ExpeditionLevel: res.ExpeditionLevel,
         },
       })
     } catch (error) {

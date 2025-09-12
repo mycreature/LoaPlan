@@ -1,4 +1,4 @@
-import { PieChart, Pie, Cell } from 'recharts'
+import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts'
 import { expeditionColors } from '../../styles/colors'
 
 const RADIAN = Math.PI / 180
@@ -10,7 +10,14 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
   const y = cy + radius * Math.sin(-midAngle * RADIAN)
 
   return (
-    <text x={x} y={y} fill='white' textAnchor={x > cx ? 'start' : 'end'} dominantBaseline='central'>
+    <text
+      x={x}
+      y={y}
+      fill='white'
+      textAnchor={x > cx ? 'start' : 'end'}
+      dominantBaseline='central'
+      style={{ fontSize: 14 }}
+    >
       {`${((percent ?? 1) * 100).toFixed(0)}%`}
     </text>
   )
@@ -19,8 +26,8 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
 interface PieChartComponentProps {
   data: { levelRange: number; totalGold: number }[]
   colors?: string[]
-  width?: number
-  height?: number
+  width?: number | string
+  height?: number | string
   outerRadius?: number
   dataKey?: string
   labelLine?: boolean
@@ -30,30 +37,31 @@ interface PieChartComponentProps {
 const PieChartComponent = ({
   data,
   colors = expeditionColors,
-  width = 200,
-  height = 200,
-  outerRadius = 90,
+  width = '100%',
+  height = '100%',
   dataKey = 'totalGold',
   animationDuration = 600,
 }: PieChartComponentProps) => {
   return (
-    <PieChart width={width} height={height}>
-      <Pie
-        data={data}
-        cx='50%'
-        cy='50%'
-        labelLine={false}
-        label={renderCustomizedLabel}
-        outerRadius={outerRadius}
-        fill='#8884d8'
-        dataKey={dataKey}
-        animationDuration={animationDuration}
-      >
-        {data.map((_entry, index) => (
-          <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
-        ))}
-      </Pie>
-    </PieChart>
+    <ResponsiveContainer width={width} height={height}>
+      <PieChart>
+        <Pie
+          data={data}
+          cx='50%'
+          cy='50%'
+          labelLine={false}
+          label={renderCustomizedLabel}
+          outerRadius={'100%'}
+          fill='#8884d8'
+          dataKey={dataKey}
+          animationDuration={animationDuration}
+        >
+          {data.map((_entry, index) => (
+            <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
+          ))}
+        </Pie>
+      </PieChart>
+    </ResponsiveContainer>
   )
 }
 

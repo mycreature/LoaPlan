@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useCallback } from 'react'
 import { getAvailableRaidsByLevel } from '../../utils/expeditionDataUtils'
 import { raidGoldTable } from '../../constants/goldRaidTable'
 import Button from '../ui/Button'
@@ -10,20 +10,30 @@ import OtherSelector from './OtherSelector'
 
 interface RaidSelectorProps {
   SelectedCharacterInfo: any
-  slideWidth?: number
 }
 
 const RaidSelector = ({
   SelectedCharacterInfo,
-  slideWidth = 670,
 }: RaidSelectorProps & {
   SelectedCharacterInfo: any
 }) => {
   const darkMode = useThemeStore((state) => state.darkMode)
   const { toggleGate, characterSelections } = useRaidSelectionStore()
 
+  // 슬라이더의 보이는 영역이자
   const sliderRef = useRef<HTMLDivElement>(null)
+  // 부모의 크기 영역
+  const parentContainerRef = useRef<HTMLDivElement>(null)
 
+  // 한 번에 몇 개의 카드를 넘길지 계산하기 위한 상태 (버튼 클릭 시 스크롤 양)
+  const [scrollAmountPerClick, setScrollAmountPerClick] = useState(0)
+  // 슬라이더 (overflow-hidden)의 최종 너비를 지정할 상태
+  const [currentSliderWidth, setCurrentSliderWidth] = useState(0)
+
+  // 카드 하나의 외부 너비 (카드 너비 + 오른쪽 gap)
+  const cardOuterWidth = 152 + 18 // 카드 w: 152px, gap: 18px
+
+  // 최대 선택 레이드
   const maxSelections = 3
 
   const character = characterSelections.find((c) => c.characterName === SelectedCharacterInfo.name)
@@ -31,11 +41,51 @@ const RaidSelector = ({
   // Modal 상태관리
   const [open, isOpen] = useState(false)
 
+  // 슬라이더의 너비와 스크롤 양을 동적으로 계산
+  const calculateSliderAndScrollWidth = useCallback(() => {
+    if (parentContainerRef.current) {
+      const parentWidth = parentContainerRef.current.offsetWidth // 슬라이더가 배치될 부모 컨테이너의 너비
+
+      // 부모 w 크기 기준 visible 카드 갯수 (18은 마지막 카드의 gap 제외)
+      const numberOfVisibleCards = Math.floor((parentWidth + 18) / cardOuterWidth)
+
+      // 실제 슬라이더가 보여줄 w 크기 '완전히 보이는 카드 수'만큼의 너비에서 마지막 카드의 gap을 제외
+      const desiredSliderWidth =
+        numberOfVisibleCards > 0 ? numberOfVisibleCards * cardOuterWidth - 18 : 0
+
+      setCurrentSliderWidth(desiredSliderWidth)
+      setScrollAmountPerClick(numberOfVisibleCards * cardOuterWidth) // 클릭 시 넘어갈 카드 묶음의 너비
+    }
+  }, [cardOuterWidth])
+
+  // 캐릭터 변경 시 슬라이더 위치 초기화
   useEffect(() => {
     if (sliderRef.current) {
       sliderRef.current.scrollLeft = 0
     }
   }, [SelectedCharacterInfo?.name])
+
+  // 컴포넌트 마운트 및 리사이즈 시 슬라이더 너비와 스크롤 양 계산
+  useEffect(() => {
+    calculateSliderAndScrollWidth() // 컴포넌트 마운트 시 초기 계산
+
+    // ResizeObserver를 사용하여 부모 컨테이너의 크기 변경 감지
+    const resizeObserver = new ResizeObserver(() => {
+      calculateSliderAndScrollWidth()
+    })
+
+    if (parentContainerRef.current) {
+      // 부모 컨테이너를 관찰 대상으로 설정
+      resizeObserver.observe(parentContainerRef.current)
+    }
+
+    // 컴포넌트 언마운트 시 옵저버 정리
+    return () => {
+      if (parentContainerRef.current) {
+        resizeObserver.unobserve(parentContainerRef.current)
+      }
+    }
+  }, [calculateSliderAndScrollWidth])
 
   const handleToggleModal = () => {
     isOpen((prev) => !prev)
@@ -113,23 +163,23 @@ const RaidSelector = ({
   )
 
   const handlePrev = () => {
-    if (sliderRef.current) {
-      sliderRef.current.scrollBy({ left: -slideWidth, behavior: 'smooth' })
+    if (sliderRef.current && scrollAmountPerClick > 0) {
+      sliderRef.current.scrollBy({ left: -scrollAmountPerClick, behavior: 'smooth' })
     }
   }
 
   const handleNext = () => {
-    if (sliderRef.current) {
-      sliderRef.current.scrollBy({ left: slideWidth, behavior: 'smooth' })
+    if (sliderRef.current && scrollAmountPerClick > 0) {
+      sliderRef.current.scrollBy({ left: scrollAmountPerClick, behavior: 'smooth' })
     }
   }
 
   return (
-    <div className='flex w-full flex-col gap-2'>
+    <div ref={parentContainerRef} className='flex w-full flex-col gap-2'>
       <div
         ref={sliderRef}
-        className='scrollbar-hide relative flex flex-row gap-[18px] overflow-hidden scroll-smooth'
-        style={{ scrollSnapType: 'x mandatory' }}
+        className='scrollbar-hide relative mx-auto flex flex-row gap-[18px] overflow-hidden scroll-smooth'
+        style={{ width: `${currentSliderWidth}px`, scrollSnapType: 'x mandatory' }}
       >
         {Object.entries(groupedRaidGates)
           .map(([key, gates]) => {

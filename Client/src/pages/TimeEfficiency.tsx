@@ -1,11 +1,11 @@
 import useViewportType from '../hook/useViewportType'
 import { useRequireUserOrGuest } from '../hook/useAuthRedirect'
-import DesktopLayout from '../layouts/weekly/DesktopLayout'
-import TabletLayout from '../layouts/weekly/TabletLayout'
-import MobileLayout from '../layouts/weekly/MobileLayout'
 import LoadingLayout from '../layouts/LoadingLayout'
+import DesktopLayout from '../layouts/TimeEfficiency/DesktopLayout'
+import TabletLayout from '../layouts/TimeEfficiency/TabletLayout'
+import MobileLayout from '../layouts/TimeEfficiency/MobileLayout'
 
-const WeeklyGold = () => {
+const TimeEfficiency = () => {
   const isViewport = useViewportType()
 
   const checked = useRequireUserOrGuest('/login')
@@ -28,4 +28,4 @@ const WeeklyGold = () => {
   }
 }
 
-export default WeeklyGold
+export default TimeEfficiency

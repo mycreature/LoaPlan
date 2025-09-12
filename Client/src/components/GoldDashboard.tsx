@@ -5,11 +5,10 @@ import { expeditionGoldData } from '../types/Types'
 
 interface GoldDashboardProps {
   GoldData: expeditionGoldData[]
-  width?: number
   height?: number
 }
 
-const GoldDashboard = ({ width = 312, height = 200, GoldData }: GoldDashboardProps) => {
+const GoldDashboard = ({ height = 200, GoldData }: GoldDashboardProps) => {
   const darkMode = useThemeStore((state) => state.darkMode)
 
   const expeditions = useExpeditionStore((state) => state.expeditions)
@@ -22,7 +21,7 @@ const GoldDashboard = ({ width = 312, height = 200, GoldData }: GoldDashboardPro
 
   return (
     <div
-      style={{ width: `${width}px`, height: `${height}px` }}
+      style={{ width: '100%', height: `${height}px` }}
       className={`flex flex-col justify-between gap-3 rounded-xl border-2 p-3 ${darkMode ? 'border-black/30' : 'border-gray'}`}
     >
       <div className={`flex items-center justify-between`}>

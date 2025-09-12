@@ -71,8 +71,6 @@ const OtherSelector = ({ SelectedCharacterInfo }: { SelectedCharacterInfo: any }
         const isDoubleByName =
           character?.selections.find((s) => s.name === value.name)?.isDouble ?? false
 
-        console.log('isDoubleByName', isDoubleByName)
-
         const multiplierByName =
           character?.selections.find((s) => s.name === value.name)?.multiplier ?? 1
 

@@ -12,7 +12,9 @@ const Register = () => {
   const navigate = useNavigate()
 
   // 비로그인시 접근가능 (로그인, 게스트 접근 x)
-  useRequireNoAuth()
+  const checked = useRequireNoAuth()
+
+  if (!checked) return null
 
   /**
    * 회원가입 폼 제출 핸들러
@@ -38,18 +40,11 @@ const Register = () => {
   }
 
   return (
-    <div className='min-h-screen bg-gray-600 pt-[50px]'>
-      <main className='space-y-[10px] p-[10px]'>
-        <div className='flex justify-center gap-x-[10px]'>
-          <Block width={390} height={534}>
-            <div className='flex h-full w-full flex-col gap-5 p-4'>
-              <h2 className='mx-auto leading-none font-extrabold text-black'>회원가입</h2>
-              <RegisterForm onSubmit={handleRegisterSubmit} isLoading={isLoading} />
-            </div>
-          </Block>
-        </div>
-      </main>
-    </div>
+    <main className='flex h-full w-full justify-center'>
+      <Block width={390} height={534} title='회원가입' auth={true}>
+        <RegisterForm onSubmit={handleRegisterSubmit} isLoading={isLoading} />
+      </Block>
+    </main>
   )
 }
 

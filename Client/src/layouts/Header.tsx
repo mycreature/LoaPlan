@@ -1,9 +1,11 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import useThemeStore from '../stores/others/ThemeStore'
 import { requestLogOut } from '../api/userApi'
 import Sidebar from '../components/ui/Sidebar'
 import { useState } from 'react'
 import { getAuthStatus } from '../hook/useAuthRedirect'
+import Modal from '../components/ui/Modal'
+import FAQ from '../components/etc/FAQ'
 
 const Header = () => {
   // user: 로그인 된 사용자 정보
@@ -15,15 +17,19 @@ const Header = () => {
   const navLinks = [
     { to: '/charts', label: '시세차트', disabled: true },
     { to: '/weekly-gold', label: '주간골드', disabled: false },
-    { to: '/time-efficiency', label: '시간효율', disabled: true },
-    { to: '/gold-efficiency', label: '골드효율', disabled: true },
+    { to: '/time-efficiency', label: '시간효율', disabled: false },
+    // { to: '/gold-efficiency', label: '골드효율', disabled: true },
   ]
 
   const navigate = useNavigate()
 
   const [isOpen, setIsOpen] = useState(false)
-  const toggleSideOpen = () => setIsOpen((isOpen) => !isOpen)
+  const toggleIsOpen = () => setIsOpen((isOpen) => !isOpen)
   const closeSidebar = () => setIsOpen(false)
+
+  const [FAQstate, setFAQ] = useState(false)
+  const toogleFAQ = () => setFAQ((isOpen) => !isOpen)
+  const closeFAQ = () => setFAQ(false)
 
   const handleLogout = () => {
     try {
@@ -40,6 +46,11 @@ const Header = () => {
     if (disabled) {
       alert('이 기능은 현재 개발 중입니다. 빠른 시일 내에 개발하겠습니다.')
     } else {
+      if (!isLogin && !isGuest) {
+        navigate('/login')
+        return
+      }
+
       navigate(link)
     }
   }
@@ -49,16 +60,24 @@ const Header = () => {
       className={`fixed top-0 left-0 z-50 h-[50px] w-full transition-colors ${darkMode ? 'bg-black' : 'bg-green'}`}
     >
       <div className='flex h-full items-center px-7'>
+        <Modal open={FAQstate} onClose={closeFAQ}>
+          <FAQ />
+        </Modal>
         {/* 로고 */}
-        <Link to='/' className='mr-13 flex shrink-0 items-center gap-2'>
-          <h1 className='w-40 text-white'>LOAPLAN</h1>
+        <div className='mr-13 flex shrink-0 items-center gap-2'>
+          <button
+            className='flex bg-transparent p-0 whitespace-nowrap'
+            onClick={() => handleUndevelopedClick(false, '/')}
+          >
+            <h1 className='h-[38px] w-[157px] text-white'>LOAPLAN</h1>
+          </button>
           <h4 className='flex w-13 justify-center rounded-4xl border border-white text-white'>
             Beta
           </h4>
-        </Link>
+        </div>
 
         {/* 해더바 메뉴들 */}
-        <nav className='hidden gap-10 lg:flex'>
+        <nav className='hidden gap-10 lg:flex lg:items-center'>
           {navLinks.map(({ to, label, disabled }) => (
             <button
               key={to}
@@ -70,6 +89,25 @@ const Header = () => {
           ))}
         </nav>
         <div className='mr-0 ml-auto flex gap-5'>
+          <button
+            onClick={toogleFAQ}
+            className='hidden items-center justify-center rounded-full border-2 border-white bg-transparent p-2 lg:flex'
+          >
+            <svg
+              className='h-5 w-5 scale-170 text-white'
+              fill='none'
+              viewBox='0 0 24 24'
+              stroke='currentColor'
+              strokeWidth={2}
+            >
+              <path
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                d='M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M12 17.25h.01'
+              />
+            </svg>
+          </button>
+
           {/* 다크모드 토글 버튼 */}
           <button
             onClick={toggleDarkMode}
@@ -87,14 +125,16 @@ const Header = () => {
           </button>
 
           {/* 계정 링크 */}
-          <div className='hidden items-center justify-center lg:flex'>
-            <button
-              onClick={() => navigate('/userinfo')}
-              className='flex h-8 w-8 items-center border-none bg-transparent p-0'
-            >
-              <img src='/icons/avatar.svg' alt='avatar' className='h-full w-full rounded-full' />
-            </button>
-          </div>
+          {isLogin == true ? (
+            <div className='hidden items-center justify-center lg:flex'>
+              <button
+                onClick={() => navigate('/userinfo')}
+                className='flex h-8 w-8 items-center border-none bg-transparent p-0'
+              >
+                <img src='/icons/avatar.svg' alt='avatar' className='h-full w-full rounded-full' />
+              </button>
+            </div>
+          ) : null}
 
           {/* 로그아웃 버튼 */}
           <div className='hidden items-center justify-center lg:flex'>
@@ -110,7 +150,7 @@ const Header = () => {
           {/* 사이드바 메뉴 (햄버거 메뉴)*/}
           <button
             className='m-0 h-8 w-8 border-none bg-transparent p-0 lg:hidden'
-            onClick={toggleSideOpen}
+            onClick={toggleIsOpen}
             style={{ display: 'inline-flex' }}
           >
             <img src='/icons/hamburgerMenu.svg' alt='menu' />
@@ -128,12 +168,24 @@ const Header = () => {
                 </button>
               ))}
               {/* 사이드바 프로필 이동 링크*/}
+              {isLogin == true ? (
+                <button
+                  onClick={() => navigate('/Userinfo')}
+                  className='flex h-full items-center border-b border-none border-white/30 bg-transparent p-0 whitespace-nowrap'
+                >
+                  <h3 className='pl-2 text-white'>프로필</h3>
+                </button>
+              ) : null}
+              {/* FAQ 버튼 */}
               <button
-                onClick={() => navigate('/Userinfo')}
-                className='flex h-full items-center border-b border-none border-white/30 bg-transparent p-0 whitespace-nowrap'
+                onClick={() => {
+                  toogleFAQ()
+                }}
+                className='flex h-full w-full items-center border-none bg-transparent p-0 whitespace-nowrap'
               >
-                <h3 className='pl-2 text-white'>프로필</h3>
+                <h3 className='pl-2 text-white'>FAQ</h3>
               </button>
+
               {/* 로그인 / 로그아웃 버튼 */}
               {isLogin == true || isGuest == true ? (
                 <button

@@ -1,19 +1,13 @@
 import { ResponsiveContainer, CartesianGrid, XAxis, Tooltip, Legend, BarChart, Bar } from 'recharts'
 import { expeditionGoldData } from '../../types/Types'
 
-interface AreaChartComponentProps {
+interface BarChartProps {
   data: expeditionGoldData[]
-  width?: number
-  height?: number
   color?: string
+  aspect?: number
 }
 
-const SingleBarChartComponent = ({
-  data,
-  width = 200,
-  height = 200,
-  color = '#F59E0B',
-}: AreaChartComponentProps) => {
+const FutureWeeklyGoldChart = ({ data, aspect = 0, color = '#F59E0B' }: BarChartProps) => {
   // 최대 6주차까지 처리
   const totalBaseGold = data
     .slice(0, 6)
@@ -28,8 +22,8 @@ const SingleBarChartComponent = ({
   })
 
   return (
-    <ResponsiveContainer width='100%' height='100%'>
-      <BarChart width={width} height={height} data={chartData} margin={{ right: 15, left: 15 }}>
+    <ResponsiveContainer width='100%' height='100%' aspect={aspect}>
+      <BarChart data={chartData} margin={{ right: 15, left: 15 }}>
         <CartesianGrid strokeDasharray='3 3' strokeWidth={2.5} />
         <XAxis dataKey='week' fontSize={12} fontFamily='SUIT' fontWeight={600} interval={0} />
         <Tooltip
@@ -50,7 +44,8 @@ const SingleBarChartComponent = ({
             marginTop: '4px',
           }}
           formatter={(value, name) => {
-            if (name === 'totalGold') return [value, '종합 골드']
+            if (name === 'totalGold')
+              return [`${new Intl.NumberFormat().format(Number(value))}G`, '종합 골드']
             return [value, name]
           }}
         />
@@ -86,4 +81,4 @@ const SingleBarChartComponent = ({
   )
 }
 
-export default SingleBarChartComponent
+export default FutureWeeklyGoldChart
