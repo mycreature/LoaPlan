@@ -1,9 +1,14 @@
 import type { RaidSelection, OtherSelection } from '../types/Types' // 타입 정의 경로 맞게 수정
 
+// 게스트 정보
+// apikey 값이 4개인 이유: To many request 오류 대비
 export const guestAccount = {
   email: 'guest@guest.com',
   character: '이크리처',
-  apiKey: import.meta.env.VITE_GUEST_API_KEY,
+  apiKey: import.meta.env.VITE_GUEST_API_KEY, // LOAPLAN2 API-Key
+  apikey_2: import.meta.env.VITE_GUEST_API_KEY_2, // LOAPLAN3 API-Key
+  apiKey_3: import.meta.env.VITE_GUEST_API_KEY_3, // LOAPLAN4 API-Key
+  apiKey_4: import.meta.env.VITE_GUEST_API_KEY_4, // LOAPLAN5 API-Key
 }
 
 export const guestRaidSelection = {
