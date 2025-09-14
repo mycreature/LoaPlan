@@ -25,23 +25,23 @@ export const raidGoldTable: RaidGold[] = [
         label: '노멘',
         level: 1610,
         gates: [
-          { gate: 1, gold: 1600 },
-          { gate: 2, gold: 2000 },
-          { gate: 3, gold: 2800 },
+          { gate: 1, gold: 800 },
+          { gate: 2, gold: 1000 },
+          { gate: 3, gold: 1400 },
         ],
-        totalGold: 6400,
+        totalGold: 3200,
       },
       {
         type: '하드',
         label: '하멘',
         level: 1620,
         gates: [
-          { gate: 1, gold: 2000 },
-          { gate: 2, gold: 2400 },
-          { gate: 3, gold: 3600 },
-          { gate: 4, gold: 5000 },
+          { gate: 1, gold: 1000 },
+          { gate: 2, gold: 1200 },
+          { gate: 3, gold: 1800 },
+          { gate: 4, gold: 2500 },
         ],
-        totalGold: 13000,
+        totalGold: 6500,
       },
     ],
   },
@@ -54,10 +54,10 @@ export const raidGoldTable: RaidGold[] = [
         label: '노키',
         level: 1620,
         gates: [
-          { gate: 1, gold: 2300 },
-          { gate: 2, gold: 5000 },
+          { gate: 1, gold: 1150 },
+          { gate: 2, gold: 2500 },
         ],
-        totalGold: 7300,
+        totalGold: 3650,
       },
       {
         type: '하드',
@@ -160,6 +160,56 @@ export const raidGoldTable: RaidGold[] = [
           { gate: 3, gold: 20000 },
         ],
         totalGold: 38000,
+      },
+    ],
+  },
+  {
+    name: '아르모체',
+    type: [
+      {
+        type: '노말',
+        label: '노르모체',
+        level: 1700,
+        gates: [
+          { gate: 1, gold: 12500 },
+          { gate: 2, gold: 20500 },
+        ],
+        totalGold: 33000,
+      },
+      {
+        type: '하드',
+        label: '하르모체',
+        level: 1720,
+        gates: [
+          { gate: 1, gold: 15000 },
+          { gate: 2, gold: 27000 },
+        ],
+        totalGold: 42000,
+      },
+    ],
+  },
+  {
+    name: '카제로스',
+    type: [
+      {
+        type: '노말',
+        label: '카제노말',
+        level: 1710,
+        gates: [
+          { gate: 1, gold: 14000 },
+          { gate: 2, gold: 26000 },
+        ],
+        totalGold: 40000,
+      },
+      {
+        type: '하드',
+        label: '카제하드',
+        level: 1730,
+        gates: [
+          { gate: 1, gold: 17000 },
+          { gate: 2, gold: 35000 },
+        ],
+        totalGold: 52000,
       },
     ],
   },
