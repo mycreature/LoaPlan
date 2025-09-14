@@ -23,7 +23,6 @@ const Input = ({
   className = '',
   error = '',
   disabled = false,
-  pattern = '',
   width,
   height,
 }: InputProps) => {
@@ -33,7 +32,6 @@ const Input = ({
     <input
       type={type}
       value={value}
-      pattern={pattern}
       onBlur={onBlur}
       onChange={onChange}
       placeholder={placeholder}
