@@ -52,7 +52,7 @@ const Button = ({
       {textStyle ? (
         <div className={textStyle}>{text}</div>
       ) : (
-        <div className='flex shrink-0 text-lg font-extrabold'>{text}</div>
+        <div className='flex shrink-0 text-lg font-extrabold text-white'>{text}</div>
       )}
     </button>
   )
