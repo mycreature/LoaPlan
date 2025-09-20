@@ -33,16 +33,16 @@ const useLoaData = () => {
     (state) => state.loadSelectedProfileData,
   )
 
-  const { isGuest, isLogin } = getAuthStatus()
+  const { isGuest, isLogin, isLocal } = getAuthStatus()
 
   // 첫 로드 시 게스트 로그인 여부 확인
   // 게스트 로그인 정보가 있을시 localStorage 초기화
   useEffect(() => {
-    if (!isGuest && !isLogin) {
+    if (!isGuest && !isLogin && !isLocal) {
       localStorage.clear()
       sessionStorage.clear()
     }
-  }, [isGuest, isLogin])
+  }, [isGuest, isLogin, isLocal])
 
   useEffect(() => {
     if (characterName) {
@@ -50,7 +50,7 @@ const useLoaData = () => {
       loadCharInfoData(characterName)
       loadExpeditionData(characterName)
     }
-  }, [characterName, isGuest, isLogin])
+  }, [characterName, isGuest, isLogin, isLocal])
 
   useEffect(() => {
     if (isGuest) {
@@ -68,7 +68,7 @@ const useLoaData = () => {
   useEffect(() => {
     getJwtInfo()
     loadRefineItemInfo()
-  }, [isGuest, isLogin])
+  }, [isGuest, isLogin, isLocal])
 }
 
 export default useLoaData

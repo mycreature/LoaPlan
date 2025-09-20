@@ -4,21 +4,22 @@ import useAccountStore from '../stores/others/AccountStore'
 
 // 현재 계정 상태 확인
 export const getAuthStatus = () => {
-  const isGuest = useAccountStore.getState().isGuest
+  const { isGuest, isLocal } = useAccountStore.getState()
+
   const isLogin = !!localStorage.getItem('token')
 
-  return { isGuest, isLogin }
+  return { isGuest, isLogin, isLocal }
 }
 
-// 로그인 or 게스트 유저만 접근 가능 (비 로그인 x)
+// 로그인, 게스트, 로컬 유저만 접근 가능 (비 로그인 x)
 export const useRequireUserOrGuest = (redirectUrl: string = '/', message?: boolean) => {
   const navigate = useNavigate()
   const [checked, setChecked] = useState(false)
 
   useEffect(() => {
-    const { isGuest, isLogin } = getAuthStatus()
+    const { isGuest, isLogin, isLocal } = getAuthStatus()
 
-    if (!isLogin && !isGuest) {
+    if (!isLogin && !isGuest && !isLocal) {
       if (message) {
         alert('로그인 해주세요!!')
       }
@@ -30,15 +31,15 @@ export const useRequireUserOrGuest = (redirectUrl: string = '/', message?: boole
   return checked
 }
 
-// 로그인 유저만 접근 가능 (게스트, 비 로그인 x)
+// 로그인 유저만 접근 가능 (게스트, 로컬, 비 로그인 x)
 export const useRequireUser = (redirectUrl: string = '/', message?: boolean) => {
   const navigate = useNavigate()
   const [checked, setChecked] = useState(false)
 
   useEffect(() => {
-    const { isGuest, isLogin } = getAuthStatus()
+    const { isGuest, isLogin, isLocal } = getAuthStatus()
 
-    if (isGuest || !isLogin) {
+    if (isGuest || !isLogin || isLocal) {
       if (message) {
         alert('로그인 해주세요!!')
       }
@@ -50,15 +51,15 @@ export const useRequireUser = (redirectUrl: string = '/', message?: boolean) => 
   return checked
 }
 
-// 비 로그인 유저만 접근 가능 (로그인, 게스트 x)
+// 비 로그인 유저만 접근 가능 (로그인, 게스트, 로컬 x)
 export const useRequireNoAuth = (redirectUrl: string = '/', message?: boolean) => {
   const navigate = useNavigate()
   const [checked, setChecked] = useState(false)
 
   useEffect(() => {
-    const { isGuest, isLogin } = getAuthStatus()
+    const { isGuest, isLogin, isLocal } = getAuthStatus()
 
-    if (isLogin || isGuest) {
+    if (isLogin || isGuest || isLocal) {
       if (message) {
         alert('로그아웃 됩니다!!')
       }
