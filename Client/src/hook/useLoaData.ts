@@ -27,22 +27,24 @@ const useLoaData = () => {
   const guestRaidInfo = guestRaidSelection.state.characterSelections
   const gusstOtherInfo = guestOtherSelection.state.characterSelections
 
+  const loadLocalStorage = useAccountStore((state) => state.loadLocalStorage)
+
   // 사용자가 선택한 캐릭터 (계정 내 값이 아닌 UI에서 선택한 값) 정보 받아오기
   const selectedCharacter = useCharacterSelectionStore((state) => state.selectedCharacterName)
   const loadSelectedProfileData = useCharacterSelectionStore(
     (state) => state.loadSelectedProfileData,
   )
 
-  const { isGuest, isLogin } = getAuthStatus()
+  const { isGuest, isLogin, isLocal } = getAuthStatus()
 
   // 첫 로드 시 게스트 로그인 여부 확인
   // 게스트 로그인 정보가 있을시 localStorage 초기화
   useEffect(() => {
-    if (!isGuest && !isLogin) {
+    if (!isGuest && !isLogin && !isLocal) {
       localStorage.clear()
       sessionStorage.clear()
     }
-  }, [isGuest, isLogin])
+  }, [isGuest, isLogin, isLocal])
 
   useEffect(() => {
     if (characterName) {
@@ -50,7 +52,7 @@ const useLoaData = () => {
       loadCharInfoData(characterName)
       loadExpeditionData(characterName)
     }
-  }, [characterName, isGuest, isLogin])
+  }, [characterName, isGuest, isLogin, isLocal])
 
   useEffect(() => {
     if (isGuest) {
@@ -58,6 +60,12 @@ const useLoaData = () => {
       loadOtherSelectionState(gusstOtherInfo)
     }
   }, [isGuest])
+
+  useEffect(() => {
+    if (isLocal) {
+      loadLocalStorage()
+    }
+  }, [isLocal])
 
   useEffect(() => {
     if (selectedCharacter) {
@@ -68,7 +76,7 @@ const useLoaData = () => {
   useEffect(() => {
     getJwtInfo()
     loadRefineItemInfo()
-  }, [isGuest, isLogin])
+  }, [isGuest, isLogin, isLocal])
 }
 
 export default useLoaData

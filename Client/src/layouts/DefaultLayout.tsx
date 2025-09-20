@@ -15,7 +15,7 @@ const Layout = ({ children }: LayoutProps) => {
       <div className='fixed top-0 z-50 w-full'>
         <Header />
       </div>
-      <div className='mt-[50px] mb-[40px] flex flex-grow justify-center p-[10px]'>{children}</div>
+      <div className='mt-[50px] mb-8 flex flex-grow justify-center p-[10px]'>{children}</div>
       <div className='fixed bottom-0 z-50 w-full'>
         <Footer />
       </div>
