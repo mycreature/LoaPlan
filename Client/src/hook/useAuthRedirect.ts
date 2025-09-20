@@ -4,7 +4,8 @@ import useAccountStore from '../stores/others/AccountStore'
 
 // 현재 계정 상태 확인
 export const getAuthStatus = () => {
-  const { isGuest, isLocal } = useAccountStore.getState()
+  const { isGuest } = useAccountStore.getState()
+  const isLocal = localStorage.getItem('local-storage') ? true : false
 
   const isLogin = !!localStorage.getItem('token')
 
