@@ -125,7 +125,7 @@ const Header = () => {
           </button>
 
           {/* 계정 링크 */}
-          {isLogin == true ? (
+          {isLogin == true || isLocal == true ? (
             <div className='hidden items-center justify-center lg:flex'>
               <button
                 onClick={() => navigate('/userinfo')}
@@ -168,7 +168,7 @@ const Header = () => {
                 </button>
               ))}
               {/* 사이드바 프로필 이동 링크*/}
-              {isLogin == true ? (
+              {isLogin == true || isLocal == true ? (
                 <button
                   onClick={() => navigate('/Userinfo')}
                   className='flex h-full items-center border-b border-none border-white/30 bg-transparent p-0 whitespace-nowrap'
