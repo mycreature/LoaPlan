@@ -31,7 +31,7 @@ export const useRequireUserOrGuest = (redirectUrl: string = '/', message?: boole
   return checked
 }
 
-// 로그인 유저만 접근 가능 (게스트, 로컬, 비 로그인 x)
+// 로그인, 로컬 유저만 접근 가능 (게스트,  비 로그인 x)
 export const useRequireUser = (redirectUrl: string = '/', message?: boolean) => {
   const navigate = useNavigate()
   const [checked, setChecked] = useState(false)
