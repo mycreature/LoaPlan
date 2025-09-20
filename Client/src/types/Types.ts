@@ -7,6 +7,11 @@ export interface AuthFormData {
   character: string
 }
 
+export interface LocalUserFormData {
+  apiKey: string
+  character: string
+}
+
 export interface ExpeditionCharacter {
   ServerName: string
   CharacterName: string
