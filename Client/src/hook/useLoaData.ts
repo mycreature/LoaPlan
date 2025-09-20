@@ -27,6 +27,8 @@ const useLoaData = () => {
   const guestRaidInfo = guestRaidSelection.state.characterSelections
   const gusstOtherInfo = guestOtherSelection.state.characterSelections
 
+  const loadLocalStorage = useAccountStore((state) => state.loadLocalStorage)
+
   // 사용자가 선택한 캐릭터 (계정 내 값이 아닌 UI에서 선택한 값) 정보 받아오기
   const selectedCharacter = useCharacterSelectionStore((state) => state.selectedCharacterName)
   const loadSelectedProfileData = useCharacterSelectionStore(
@@ -58,6 +60,12 @@ const useLoaData = () => {
       loadOtherSelectionState(gusstOtherInfo)
     }
   }, [isGuest])
+
+  useEffect(() => {
+    if (isLocal) {
+      loadLocalStorage()
+    }
+  }, [isLocal])
 
   useEffect(() => {
     if (selectedCharacter) {
