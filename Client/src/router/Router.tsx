@@ -8,6 +8,7 @@ import WeeklyGold from '../pages/WeeklyGold'
 import Layout from '../layouts/DefaultLayout'
 import TimeEfficiency from '../pages/TimeEfficiency'
 import PrivacyPolicy from '../pages/PrivacyPolicy'
+import Local from '../pages/Local'
 
 const Router = () => {
   return (
@@ -74,6 +75,14 @@ const Router = () => {
           element={
             <Layout>
               <PrivacyPolicy />
+            </Layout>
+          }
+        />
+        <Route
+          path='/local'
+          element={
+            <Layout>
+              <Local />
             </Layout>
           }
         />
