@@ -32,6 +32,9 @@ const Header = () => {
   const closeFAQ = () => setFAQ(false)
 
   const handleLogout = () => {
+    const confirmLogout = window.confirm('로그아웃 하시겠습니까?')
+    if (!confirmLogout) return
+
     try {
       requestLogOut()
     } catch (error) {
