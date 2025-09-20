@@ -7,6 +7,7 @@ import FindPassword from '../pages/FindPassword'
 import WeeklyGold from '../pages/WeeklyGold'
 import Layout from '../layouts/DefaultLayout'
 import TimeEfficiency from '../pages/TimeEfficiency'
+import PrivacyPolicy from '../pages/PrivacyPolicy'
 
 const Router = () => {
   return (
@@ -65,6 +66,14 @@ const Router = () => {
           element={
             <Layout>
               <TimeEfficiency />
+            </Layout>
+          }
+        />
+        <Route
+          path='/privacy-policy'
+          element={
+            <Layout>
+              <PrivacyPolicy />
             </Layout>
           }
         />
