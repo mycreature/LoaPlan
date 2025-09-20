@@ -12,7 +12,7 @@ const Header = () => {
   // darkMode: 다크모드 활성화 여부
   // toggleDarkMode: 다크모드를 온오프 함수
   const { darkMode, toggleDarkMode } = useThemeStore()
-  const { isGuest, isLogin } = getAuthStatus()
+  const { isGuest, isLogin, isLocal } = getAuthStatus()
 
   const navLinks = [
     { to: '/charts', label: '시세차트', disabled: true },
@@ -46,7 +46,7 @@ const Header = () => {
     if (disabled) {
       alert('이 기능은 현재 개발 중입니다. 빠른 시일 내에 개발하겠습니다.')
     } else {
-      if (!isLogin && !isGuest) {
+      if (!isLogin && !isGuest && !isLocal) {
         navigate('/login')
         return
       }
@@ -187,7 +187,7 @@ const Header = () => {
               </button>
 
               {/* 로그인 / 로그아웃 버튼 */}
-              {isLogin == true || isGuest == true ? (
+              {isLogin == true || isGuest == true || isLocal == true ? (
                 <button
                   className='flex h-full w-full items-center border-none bg-transparent p-0 whitespace-nowrap'
                   onClick={handleLogout}
