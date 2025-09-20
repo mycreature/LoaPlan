@@ -5,7 +5,7 @@ import useAccountStore from '../stores/others/AccountStore'
 // 현재 계정 상태 확인
 export const getAuthStatus = () => {
   const { isGuest } = useAccountStore.getState()
-  const isLocal = localStorage.getItem('local-storage') ? true : false
+  const isLocal = !!localStorage.getItem('local-storage')
 
   const isLogin = !!localStorage.getItem('token')
 
@@ -40,7 +40,7 @@ export const useRequireUser = (redirectUrl: string = '/', message?: boolean) => 
   useEffect(() => {
     const { isGuest, isLogin, isLocal } = getAuthStatus()
 
-    if (isGuest || !isLogin || isLocal) {
+    if (isGuest || (!isLogin && !isLocal)) {
       if (message) {
         alert('로그인 해주세요!!')
       }
