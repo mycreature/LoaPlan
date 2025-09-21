@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import { AuthFormData } from '../types/Types'
+import { AuthFormData, LocalUserFormData } from '../types/Types'
 import { guestAccount, guestOtherSelection, guestRaidSelection } from '../constants/guestStorage'
 import useAccountStore from '../stores/others/AccountStore'
 
@@ -58,6 +58,16 @@ export const requestGuestUser = async () => {
       JSON.stringify({ state: guestRaidSelection.state }),
     )
     sessionStorage.setItem('guest-token', 'guest-token')
+  } catch (error) {
+    console.error('❌ 게스트 로그인 실패:', error)
+    throw error
+  }
+}
+
+export const requestLocalLogin = async (data: LocalUserFormData) => {
+  try {
+    storageClear()
+    localStorage.setItem('local-storage', JSON.stringify(data))
   } catch (error) {
     console.error('❌ 게스트 로그인 실패:', error)
     throw error
@@ -192,6 +202,7 @@ export const storageClear = async () => {
     localStorage.removeItem('other-selection-storage')
     localStorage.removeItem('raid-selection-storage')
     localStorage.removeItem('token')
+    localStorage.removeItem('local-storage')
     sessionStorage.removeItem('guest-token')
   } catch (error) {
     console.error('❌ 스토리지 초기화 실패:', error)

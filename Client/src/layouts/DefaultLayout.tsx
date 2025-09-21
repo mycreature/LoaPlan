@@ -1,6 +1,7 @@
 import { ReactNode } from 'react'
 import Header from './Header'
 import useLoaData from '../hook/useLoaData'
+import Footer from './Footer'
 
 interface LayoutProps {
   children: ReactNode
@@ -14,7 +15,10 @@ const Layout = ({ children }: LayoutProps) => {
       <div className='fixed top-0 z-50 w-full'>
         <Header />
       </div>
-      <div className='mt-[50px] flex flex-grow justify-center p-[10px]'>{children}</div>
+      <div className='mt-[50px] mb-8 flex flex-grow justify-center p-[10px]'>{children}</div>
+      <div className='fixed bottom-0 z-50 w-full'>
+        <Footer />
+      </div>
     </div>
   )
 }

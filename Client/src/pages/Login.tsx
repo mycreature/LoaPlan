@@ -6,6 +6,7 @@ import LoginForm from '../components/form/LoginForm'
 import { useRequireNoAuth } from '../hook/useAuthRedirect'
 import GuestLoginForm from '../components/form/GusetLoginForm'
 import { useNavigate } from 'react-router-dom'
+import Button from '../components/ui/Button'
 
 const Login = () => {
   const [loadingGuest, setLoadingGuest] = useState(false)
@@ -47,12 +48,24 @@ const Login = () => {
     }
   }
 
+  const handleLocalLogin = () => {
+    navigate('/local')
+  }
+
   return (
     <main className='flex h-full w-full grid-cols-1 justify-center'>
-      <Block height={310} title='로그인' auth={true}>
+      <Block height={358} title='로그인' auth={true}>
         <div className='flex flex-col gap-2'>
           <LoginForm onSubmit={handleLoginSubmit} isLoading={loadingAuth} />
           <GuestLoginForm onSubmit={handleGusetLogin} isLoading={loadingGuest} />
+          <Button
+            text='로컬 로그인'
+            onClick={handleLocalLogin}
+            width={358}
+            height={40}
+            darkColor='bg-black'
+            lightColor='bg-[#8884d8] '
+          />
         </div>
       </Block>
     </main>
